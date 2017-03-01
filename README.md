@@ -4,11 +4,13 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
+- [Setup](#setup)
 - [Available Scripts](#available-scripts)
-  - [npm start](#npm-start)
-  - [npm test](#npm-test)
-  - [npm run build](#npm-run-build)
-  - [npm run eject](#npm-run-eject)
+  - [yarn start](#yarn-start)
+  - [yarn test](#yarn-test)
+  - [yarn build](#yarn-build)
+  - [yarn flow](#yarn-flow)
+  - [yarn lint](#yarn-lint)
 - [Running Tests](#running-tests)
   - [Filename Conventions](#filename-conventions)
   - [Command Line Interface](#command-line-interface)
@@ -16,44 +18,66 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Writing Tests](#writing-tests)
   - [Snapshot Testing](#snapshot-testing)
 
+## Setup
+
+### Instalation
+
+Use `yarn install` to install packages from the `package.json`.
+
+### Flow typed
+
+Use `yarn global flow-typed` to install flow-typed.
+Afterwards use `flow-typed install` to grab definitions for packages defined in `package.json`.
+You might need to restart the flow server by running `yarn flow stop` and then `yarn flow` for changes to take effect.
+
+You can read more about flowtype on [flow-typed github page](https://github.com/flowtype/flow-typed).
+
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.
 
-### `yarn test:coverage`
+#### `yarn test:coverage`
 
 Shows a unit test coverage report.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
+The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about [deployment](#deployment) for more information.
 
 ### `yarn flow`
 
-Launches the flow server which checks for static types.<br>
+Launches the flow server which checks for static types.
 For more information visit [Flow documentation](https://flowtype.org/docs/getting-started.html).
 
-### `yarn lint, yarn lint:js, yarn lint:css`
+### `yarn lint`
 
-Lints Javascript and CSS in the `src/`
+Lints Javascript and CSS in the `src/` directory and its subdirectories.
+
+#### `yarn lint:js`
+
+Lints `.js` files in `src/` directory and its subdirectories.
+
+#### `yarn lint:css`
+
+Lints `.css` files in `src/` directory and its subdirectories.
 
 ## Running Tests
 
