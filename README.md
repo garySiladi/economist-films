@@ -28,6 +28,7 @@ Use `yarn install` to install packages from the `package.json`.
 
 Use `yarn global flow-typed` to install flow-typed.
 Afterwards use `flow-typed install` to grab definitions for packages defined in `package.json`.
+
 You might need to restart the flow server by running `yarn flow stop` and then `yarn flow` for changes to take effect.
 
 You can read more about flowtype on [flow-typed github page](https://github.com/flowtype/flow-typed).
