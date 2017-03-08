@@ -1,0 +1,15 @@
+exports[`test About renders correctly 1`] = `
+<div>
+  <span>
+    This is the about page
+  </span>
+  <button
+    type="button">
+    <a
+      onClick={[Function]}
+      style={Object {}}>
+      Back
+    </a>
+  </button>
+</div>
+`;
