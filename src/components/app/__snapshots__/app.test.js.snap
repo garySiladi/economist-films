@@ -1,6 +1,23 @@
 exports[`test App renders correctly 1`] = `
 <div
   className="app">
-  App
+  <div>
+    <ul>
+      <li>
+        <a
+          onClick={[Function]}
+          style={Object {}}>
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          onClick={[Function]}
+          style={Object {}}>
+          about
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 `;
