@@ -61,6 +61,7 @@
     "react-router": "^3.0.2"
   },
   "scripts": {
+    "postinstall": "flow-typed install",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
