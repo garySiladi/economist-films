@@ -1,0 +1,34 @@
+The platforms that we want to focus on:
+
+  - Amazon Fire TV + Fire tablets
+    - Amazon Fire tablets use FireOS which is essentially Android under the hood,
+      but they don't pack Google Play Store or Google Play Services.
+      They have their own Amazon App Store which supports adding hosted apps, which are URLs wrapped to an app.
+      We can test websites with the help of:
+      https://www.amazon.com/Amazon-Digital-Services-Inc-Tester/dp/B00DZ3I1W8 on Android devices
+      Just FYI: these devices have their own web-browser: Amazon Silk.
+      Sources:
+      https://developer.amazon.com/public/solutions/platforms/webapps/docs/getting-started-with-web-apps-for-fire-tv
+
+  - Windows 10 ecosystem (Win Phone, Win Tablet, Xbox One, etc.)
+    - Microsoft Windows OS supports UWP (Universal Windows Platform) which
+      packages your existing website for publishing to the Store.
+      https://developer.microsoft.com/en-us/windows/bridges/hosted-web-apps
+      This includes all Windows-based devices, including PCs, tablets, phones, HoloLens, Surface Hub, Xbox and Raspberry Pi.
+
+  - Opera TV
+    - Opera TV can be tested using their emulator: http://www.operasoftware.com/products/tv/tv-developer-tools
+      Technical documentation about app requirements for Opera TV: http://acp.otvs.tv/doc/
+      They support standard HTML5, CSS3, JS.
+
+  - LG WebOS
+    - LG WebOS is not very popular, so the knowledge surrounding it is fairly limited.
+      It supports wrapped web apps. The devs can emulate it in VirtualBox.
+      http://webostv.developer.lge.com/sdk/emulator/introduction-emulator/
+
+  - Samsung Tizen OS
+    - Samsung Tizen OS - they have a clean guide how to run their emulator,
+      they provide a number of dev tools to help with app building for their OS.
+      Requirements: http://developer.samsung.com/tv/develop/specification/general-features/
+      Guide: http://developer.samsung.com/tv/develop/getting-started/using-sdk/tv-emulator/
+      For some reason I couldn't manage yet to run the emulator in UNIX env.
