@@ -1,9 +1,9 @@
 // JSON documentation for economists-films
 // json is avaliable on url: https://economist.twivel.net/api/v1/root/json
 
-// json object consist of 2 main parts - shelf array containing multiple objects 
+// json object consist of 2 main parts - shelves array containing multiple objects 
 //                                     - config object containing basic app information
-// each shelve object represents one section(row) on the website, e.g. daily watch, featured, all Series...    
+// each shelf object represents one section(row) on the website, e.g. daily watch, featured, all Series...    
 {
 shelves: [  
 {}, 
