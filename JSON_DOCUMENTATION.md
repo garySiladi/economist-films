@@ -1,7 +1,7 @@
 // JSON documentation for economists-films
 // json is avaliable on url: https://economist.twivel.net/api/v1/root/json
 
-// json object consist of 2 main parts - shelves array containing multiple objects 
+// json object consist of 2 main parts - shelf array containing multiple objects 
 //                                     - config object containing basic app information
 // each shelve object represents one section(row) on the website, e.g. daily watch, featured, all Series...    
 {
@@ -31,7 +31,7 @@ mobile_background_image: [null]
 }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // json view after unpacking shelves:
 // this json contain 2 main parts 1. - object with initial info of the shelf, 2. - items array  
 {
@@ -52,7 +52,7 @@ CreatedDate: [string] - date, when the shelf was created on twivel
 items: []
 },
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // state after unpacking item array
 // items = objects of videos within the seria 
 // there are all the json data regarding video inside the item object
@@ -159,5 +159,5 @@ updated_at: [string] - date, when the sponsor image logo was updated for the las
 ]
 },
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
