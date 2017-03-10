@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import Navigation from '../navigation/navigation';
 
 // App needs to be a class in order to allow hot-reloading
@@ -8,6 +9,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   render() {
     return (
       <div className="app">
+        <Button bsStyle="success" bsSize="large">bootstrap is working</Button>
         <Navigation />
       </div>
     );
