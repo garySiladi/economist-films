@@ -1,13 +1,10 @@
 // @flow
 import React from 'react';
-import Home from './home';
+import Home from '../home/home';
 import DataStructure from '../../structures/shelves';
 
 
 class HomeContainer extends React.Component {
-  state: {
-     data: DataStructure
-  };
 
   constructor() {
     super();
@@ -15,6 +12,10 @@ class HomeContainer extends React.Component {
       data: {},
     };
   }
+
+  state: {
+     data: DataStructure
+  };
 
   componentWillMount() {
     fetch('https://economist.twivel.io/api/v1/root/json', {
@@ -28,7 +29,6 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <div>
-        //I recieved  array of shelves
         {this.state.data.shelves ? <p>{this.state.data.shelves[0].title}</p> : <p>Loading...</p>}
         <Home />
       </div>

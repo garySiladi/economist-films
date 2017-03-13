@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import App from './components/app/app';
 import About from './components/about/about';
-import HomeContainer from './components/home/homeContainer';
+import HomeContainer from './components/homeContainer/homeContainer';
 import './index.css';
 
 ReactDOM.render((

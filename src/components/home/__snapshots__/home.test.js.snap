@@ -3,6 +3,9 @@ exports[`test Home renders correctly 1`] = `
   <span>
     This is the home page
   </span>
+  <span>
+    Home page
+  </span>
   <button
     type="button">
     <a
