@@ -1,4 +1,4 @@
-![Codeship Crap](https://codeship.com/projects/622ea3a0-e6d5-0134-2ae0-5e565a429ea0/status?branch=master)
+![Codeship Crap](https://codeship.com/projects/622ea3a0-e6d5-0134-2ae0-5e565a429ea0/status?branch=master) - fix this
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
