@@ -1,6 +1,12 @@
 exports[`test App renders correctly 1`] = `
 <div
   className="app">
+  <button
+    className="btn btn-lg btn-success"
+    disabled={false}
+    type="button">
+    bootstrap is working
+  </button>
   <div>
     <ul>
       <li>
