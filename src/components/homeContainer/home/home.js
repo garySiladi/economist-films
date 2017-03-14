@@ -3,10 +3,10 @@ import React from 'react';
 import { Link } from 'react-router';
 import DataStructure from '../../../structures/shelves';
 
-const Home = (props: DataStructure) => (
-  <div>
-    <span>{props.data.shelves[0].title}</span>
-    <span>Home page</span>
+const Home = ({ shelves }: DataStructure) => (
+  <div className="home">
+    <span>{shelves ? shelves[0].title : 'Loading...'}</span>
+    <p>Home page</p>
     <button type="button">
       <Link to="/">
         Back

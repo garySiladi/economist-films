@@ -1,9 +1,9 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Home from './homeContainer';
+import HomeContainer from './homeContainer';
 
-test('homeContainer renders correctly', () => {
-  const tree : string = renderer.create(<homeContainer />).toJSON();
+test('HomeContainer renders correctly', () => {
+  const tree : string = renderer.create(<HomeContainer />).toJSON();
   expect(tree).toMatchSnapshot();
 });

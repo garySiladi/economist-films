@@ -24,8 +24,8 @@ class HomeContainer extends React.Component {
   }
   render() {
     return (
-      <div>
-        {this.state.data.shelves ? <Home data={this.state.data} /> : <p>Loading...</p>}
+      <div className="home-container">
+        {this.state.data.shelves ? <Home shelves={this.state.data.shelves} /> : null}
       </div>
     );
   }

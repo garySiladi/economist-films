@@ -1,7 +1,7 @@
 exports[`test Home renders correctly 1`] = `
 <div>
   <span>
-    This is the home page
+    Loading...
   </span>
   <span>
     Home page

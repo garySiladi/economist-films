@@ -1,1 +1,1 @@
-exports[`test homeContainer renders correctly 1`] = `<homeContainer />`;
+exports[`test HomeContainer renders correctly 1`] = `<div />`;
