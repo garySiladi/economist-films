@@ -17,12 +17,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Version Control Integration](#version-control-integration)
   - [Writing Tests](#writing-tests)
   - [Snapshot Testing](#snapshot-testing)
-- [React routing](#install)
   -[React routing](#setup)
   -[React routing](#example)
   -[React routing](#explanation)
--[Fetch api](#setup)
- -[Fetch api](#example)
+  -[Fetch api](#example)
 
 
 ## Setup
@@ -143,9 +141,6 @@ You can also use [`jest.fn()` and `expect(fn).toBeCalled()`](http://facebook.git
 
 Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. [Read more about snapshot testing.](http://facebook.github.io/jest/blog/2016/07/27/jest-14.html)
 
-##Install
-
-Use "yarn add react-router" to install and add dependency to package.json.
 
 ### Setup
 
@@ -158,6 +153,7 @@ Open index.js and
 
 ### Example  
 // index.js
+``` js
 import { Router, Route, browserHistory } from 'react-router';
 import App from "path to component"
 import About from "path to component"
@@ -169,8 +165,9 @@ render((
  <Route path="/about" component={About}/>
     </Router>
 ), document.getElementById('app'))
-
+```
 // components/App.js
+```js
 import React from 'react'
 import { Link } from 'react-router'
 
@@ -183,22 +180,18 @@ export default React.createClass({
     )
   }
 })
-
+```
 ### Explanation
 
 As you could see in example above, firstly in index.js you need to import react router and then components which you would like to to show. You need to wrap those components into Router and then you need to define url path and component which should be displayed. Navigate to component where you would like to have same navigation. Use "Link" for define url path. Link is equivalent to <a></a> element. [Read more about routing](https://github.com/reactjs/react-router-tutorial)
 
 
-## Setup
-
-Use "yarn add whatwg-fetch"
-
 ### Example
-
+```js
 fetch(url).then(function(response) {
   // handle HTTP response
 }, function(error) {
   // handle network error
 })
-
+```
 For a more comprehensive API reference that this polyfill supports. [Read more about routing](https://github.github.io/fetch/)
