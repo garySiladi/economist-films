@@ -12,6 +12,7 @@ const Home = ({ shelves }: DataStructure) => (
         Back
       </Link>
     </button>
+
   </div>
 );
 

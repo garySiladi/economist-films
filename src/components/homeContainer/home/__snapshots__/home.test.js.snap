@@ -1,11 +1,12 @@
 exports[`test Home renders correctly 1`] = `
-<div>
+<div
+  className="home">
   <span>
     Loading...
   </span>
-  <span>
+  <p>
     Home page
-  </span>
+  </p>
   <button
     type="button">
     <a

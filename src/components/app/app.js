@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import Navigation from '../navigation/navigation';
 
 
@@ -10,6 +11,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     return (
       <div className="app">
         <p>This is app page</p>
+        <Button bsStyle="success" bsSize="large">bootstrap is working</Button>
         <Navigation />
       </div>
     );

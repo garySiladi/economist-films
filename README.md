@@ -1,3 +1,6 @@
+![Codeship Crap](https://codeship.com/projects/3f1303d0-ea2d-0134-cc32-3e900762d5ee/status?branch=master)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
