@@ -156,7 +156,7 @@ Open index.js and
 
 ### Example  
 // index.js
-``` js
+```js
 import { Router, Route, browserHistory } from 'react-router';
 import App from "path to component"
 import About from "path to component"
