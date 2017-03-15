@@ -14,6 +14,7 @@ class HomeContainer extends React.Component {
      data: DataStructure
   };
   componentWillMount() {
+    /* istanbul ignore next */
     fetch('https://economist.twivel.io/api/v1/root/json', {
       method: 'GET',
     })
