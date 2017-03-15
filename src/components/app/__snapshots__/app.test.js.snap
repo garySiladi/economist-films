@@ -1,6 +1,9 @@
 exports[`test App renders correctly 1`] = `
 <div
   className="app">
+  <p>
+    This is app page
+  </p>
   <button
     className="btn btn-lg btn-success"
     disabled={false}
