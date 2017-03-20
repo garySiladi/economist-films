@@ -11,5 +11,26 @@ exports[`test About renders correctly 1`] = `
       Back
     </a>
   </button>
+  <video
+    className="video-js"
+    controls={true}
+    data-setup="{}"
+    id="my-player"
+    poster="//vjs.zencdn.net/v/oceans.png"
+    preload="auto">
+    <source
+      src="//vjs.zencdn.net/v/oceans.mp4"
+      type="video/mp4" />
+    <p
+      className="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a
+        href="http://videojs.com/html5-video-support/"
+        rel="noopener noreferrer"
+        target="_blank">
+        supports HTML5 video
+      </a>
+    </p>
+  </video>
 </div>
 `;
