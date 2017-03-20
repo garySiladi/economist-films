@@ -12,7 +12,7 @@ https://www.lgwebos.com/topic/2036-notifications/
 ### Amazon Fire TV + Fire tablets
 The Amazon API for web apps doesn't contain notifications specific to the platform.
 Amazon API: https://developer.amazon.com/public/solutions/platforms/webapps/javadocs/api-reference.html
-### Windows 10 ecosystem (Win Phone, Win Tablet, Xbox One, etc.)
+### Windows 10 ecosystem (Win Phone, Win Tablet, Xbox One, etc. )
 Your web application can have full access to the Universal Windows Platform (UWP), activating native features on Windows devices, benefiting from Windows security, calling Windows Runtime APIs directly from script hosted on a server.
 https://docs.microsoft.com/en-us/windows/uwp/porting/hwa-access-features
 https://gist.github.com/Gr8Gatsby/3d471150e5b317eb1813#file-windows-ui-notifications-js
