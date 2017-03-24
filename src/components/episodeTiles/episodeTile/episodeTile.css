@@ -1,0 +1,13 @@
+.episode-tile {
+  display: inline-block;
+  width: 26%;
+  height: calc(100vh - 15vh - 40vh - 8vh - 8vh);
+  margin-right: 2.5vh;
+  border: 2px solid black;
+}
+
+.episode-tile:last-child {
+  margin-right: 0;
+  border-right: 0;
+  width: calc(100% - 78% - 7.5vh);
+}

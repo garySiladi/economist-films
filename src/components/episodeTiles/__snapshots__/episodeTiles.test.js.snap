@@ -1,0 +1,17 @@
+exports[`test EpisodeTiles renders correctly 1`] = `
+<div
+  className="episode-tiles">
+  <h1
+    className="episode-tiles-title">
+    Recommended
+  </h1>
+  <div
+    className="episode-tile" />
+  <div
+    className="episode-tile" />
+  <div
+    className="episode-tile" />
+  <div
+    className="episode-tile" />
+</div>
+`;

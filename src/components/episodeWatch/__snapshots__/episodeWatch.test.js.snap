@@ -1,0 +1,11 @@
+exports[`test EpisodeWatch renders correctly 1`] = `
+<div
+  className="episode-watch">
+  <div
+    className="episode-video" />
+  <div
+    className="watchnow-button">
+    Watch now
+  </div>
+</div>
+`;

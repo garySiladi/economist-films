@@ -1,0 +1,4 @@
+exports[`test EpisodeTile renders correctly 1`] = `
+<div
+  className="episode-tile" />
+`;

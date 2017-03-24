@@ -1,0 +1,29 @@
+.episode-description {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 30% - 5vh);
+  height: 40vh;
+  margin-left: 5vh;
+  border: 2px solid black;
+  padding: 3vh;
+
+  & .episode-description-date {
+    margin: 0;
+    margin-bottom: 1vh;
+    font-size: 3vh;
+    font-weight: bold;
+  }
+
+  & .episode-description-title {
+    margin: 0;
+    margin-bottom: 2vh;
+    font-size: 5vh;
+    font-weight: bold;
+  }
+
+  & .episode-description-text {
+    margin: 0;
+    font-size: 2.5vh;
+    letter-spacing: 0.05vw;
+  }
+}
