@@ -1,9 +1,0 @@
-.episode-detail {
-  height: 100vh;
-  padding: 10vh 5vh 5vh;
-
-  & .episode-top-row {
-    width: 100%;
-    margin-bottom: 8vh;
-  }
-}

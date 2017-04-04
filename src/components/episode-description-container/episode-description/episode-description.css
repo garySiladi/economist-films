@@ -1,0 +1,33 @@
+:root {
+  --font-medium: 200%;
+  --font-large: 300%;
+}
+
+.episode-description {
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  width: 69%;
+  margin-left: 3%;
+  border: 2px solid black;
+  padding: 2%;
+
+  &__date {
+    margin: 0;
+    margin-bottom: 1%;
+    font-size: var(--font-medium);
+    font-weight: bold;
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 1.5%;
+    font-size: var(--font-large);
+    font-weight: bold;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: var(--font-medium);
+  }
+}

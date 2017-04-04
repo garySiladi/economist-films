@@ -1,0 +1,20 @@
+:root {
+  --top-padding: 6%;
+  --side-padding: 3%;
+}
+
+.episode-detail {
+  height: 100%;
+  padding: var(--top-padding) var(--side-padding) var(--side-padding);
+
+  &__details {
+    height: 47%;
+    width: 100%;
+  }
+
+  &__cards {
+    height: 53%;
+    width: 100%;
+  }
+}
+
