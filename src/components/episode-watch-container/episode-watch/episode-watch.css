@@ -16,9 +16,9 @@
   width: 28%;
 
   &__video {
-    height: 63%;
+    height: 67%;
     border: var(--border-thickness-video) var(--border-style) var(--border-color-video);
-    margin-bottom: 12%;
+    margin-bottom: 8%;
   }
 
   &__watchnow-button {

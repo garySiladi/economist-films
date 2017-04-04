@@ -2,6 +2,7 @@
 import React from 'react';
 import Home from './home/home';
 import DataStructure from '../../structures/shelves';
+import { getRoot } from '../../api/fetch';
 
 class HomeContainer extends React.Component {
   constructor() {
@@ -14,11 +15,7 @@ class HomeContainer extends React.Component {
      data: DataStructure
   };
   componentWillMount() {
-    /* istanbul ignore next */
-    fetch('https://economist.twivel.io/api/v1/root/json', {
-      method: 'GET',
-    })
-    .then(response => response.json())
+    getRoot()
     .then((data) => {
       this.setState({ data });
     });

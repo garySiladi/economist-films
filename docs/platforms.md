@@ -27,7 +27,7 @@ This includes all Windows-based devices, including PCs, tablets, phones, HoloLen
 |1024 x 640|
 |1366 x 768|
 |1920 x 1080|
-### Opera TV
+### Opera TV (Chromium based)
 Opera TV can be tested using their emulator: http://www.operasoftware.com/products/tv/tv-developer-tools
 Technical documentation about app requirements for Opera TV: http://acp.otvs.tv/doc/
 They support standard HTML5, CSS3, JS.
@@ -36,6 +36,8 @@ They support standard HTML5, CSS3, JS.
 | -----  |
 |1280 x 720 (720p)|
 |1920 x 1080 (1080p)|
+### Opera TV (Presto based)
+This is an older version of the Opera TV system. It has its own emulator on their site. This version doesn't support newer CSS technologies. For example it doesn't support `display: flex`, so we must take that into consideration while we develop.
 ### LG WebOS
 LG WebOS is not very popular, so the knowledge surrounding it is fairly limited. It supports wrapped web apps. The devs can emulate it in VirtualBox.
 http://webostv.developer.lge.com/sdk/emulator/introduction-emulator/

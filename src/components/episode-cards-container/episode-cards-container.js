@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { EpisodeCardsContainerStructure } from '../../structures/episode';
+import { getSeriesByID } from '../../api/fetch';
 import EpisodeCard from './episode-card/episode-card';
 import './episode-cards-container.css';
 
@@ -16,33 +17,30 @@ class EpisodeCardsContainer extends React.Component {
     recommended: EpisodeCardsContainerStructure,
   }
   componentDidMount() {
-    const REST_API = 'https://economist.twivel.io/api/v1/root/json';
-    fetch(REST_API)
-      .then(response => response.json())
-      .then((data) => {
-        const shelvesArr : Array<Object> = data.shelves.map(shelve => shelve);
-        const serieSample : Array<Object> = shelvesArr[4].items;
-        const recommendedArr : Array<string> =
-          serieSample.map(episode => episode.thumbnail.landscape.url);
-        const keys : Array<number> = serieSample.map(episode => episode.id);
-        const keysObjs : Array<Object> = keys.map(currId => ({ id: currId }));
-        const recommendedObjs : Array<Object> = recommendedArr.map(currImg =>
-          ({ landscape: currImg }));
-        const recommended = [];
-        for (let i = 0; i < recommendedObjs.length; i+=1) {
-          recommended.push(Object.assign({}, keysObjs[i], recommendedObjs[i]));
-        }
-        this.setState({
-          recommended,
-        });
+    const serieId = 1;
+    getSeriesByID(serieId)
+    .then((serie) => {
+      const episodes : Array<Object> = [...serie.published_episodes].slice(0, 4);
+      const keysNums : Array<number> = episodes.map(currEpisode => currEpisode.id);
+      const keysObjs : Array<Object> = keysNums.map(currId => ({ key: currId }));
+      const urlArr : Array<string> =
+        episodes.map(currEpisode => currEpisode.thumbnail.landscape.url);
+      const urlObjs : Array<Object> = urlArr.map(currUrl => ({ url: currUrl }));
+      const recommended : Array<Object> = [];
+      for (let i = 0; i < keysObjs.length; i+=1) {
+        recommended.push(Object.assign({}, keysObjs[i], urlObjs[i]));
+      }
+      this.setState({
+        recommended,
       });
+    });
   }
   renderRecommended() {
     const { recommended } = this.state;
     return (
       <div className="episode-cards__wrapper">
         {recommended.map(episode =>
-          <EpisodeCard key={episode.id} url={episode.landscape} />,
+          <EpisodeCard key={episode.key} url={episode.url} />,
         )
         }
       </div>

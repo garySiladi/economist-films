@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import EpisodeDescription from './episode-description/episode-description';
+import { getEpisodeByID } from '../../api/fetch';
 import { EpisodeDescriptionStructure } from '../../structures/episode';
 
 class EpisodeDescriptionContainer extends React.Component {
@@ -14,29 +15,19 @@ class EpisodeDescriptionContainer extends React.Component {
   }
   state: EpisodeDescriptionStructure;
   componentDidMount() {
-    this.loadData();
-  }
-  loadData() {
-    const REST_API : string = 'https://economist.twivel.io/api/v1/root/json';
-    fetch(REST_API)
-      .then(response => response.json())
-      .then((data) => {
-        const firstItemObj : Object = data.shelves.map(
-          shelve => shelve.items.map(item => item),
-        )
-        .reduce((prev, curr) => [...prev, ...curr], [])
-        .filter((curr, index) => index === 1)
-        .pop();
-        console.log(firstItemObj.title);
-        const title : string = firstItemObj.title;
-        const date : string = firstItemObj.created_at.split(' ')[0];
-        const description : string = firstItemObj.description;
-        this.setState({
-          title,
-          date,
-          description,
-        });
+    const episodeId : number = 7;
+    getEpisodeByID(episodeId)
+    .then((episode) => {
+      const title : string = episode.title;
+      const date : string = episode.updated_at.split(' ')[0];
+      const description : string = episode.description;
+
+      this.setState({
+        title,
+        date,
+        description,
       });
+    });
   }
   render() {
     const { title, date, description } = this.state;
