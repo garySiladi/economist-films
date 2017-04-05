@@ -1,18 +1,19 @@
 :root {
-  --font-large: 300%;
+  --font-large: 3rem;
 }
 
 .episode-cards {
   height: 100%;
 
   &__wrapper {
-    height: 62%;
+    height: 58%;
   }
 
   &__title {
-    padding-top: 5%;
-    height: 38%;
     margin: 0;
+    padding-top: 7%;
+    font-weight: bold;
+    height: 42%;
     font-size: var(--font-large);
   }
 }

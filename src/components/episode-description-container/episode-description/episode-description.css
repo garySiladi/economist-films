@@ -1,13 +1,13 @@
 :root {
-  --font-medium: 200%;
-  --font-large: 300%;
+  --font-medium: 2rem;
+  --font-large: 3rem;
 }
 
 .episode-description {
   height: 100%;
   display: inline-block;
   vertical-align: top;
-  width: 69%;
+  width: 67%;
   margin-left: 3%;
   border: 2px solid black;
   padding: 2%;

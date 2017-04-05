@@ -5,8 +5,7 @@ import './episode-watch.css';
 
 const EpisodeWatch = ({ url }: EpisodeWatchStrucutre) => {
   const videoImg = {
-    background: `#000 url("${url}") no-repeat center center`,
-    backgroundSize: 'cover',
+    background: `#000 url("${url}") center/cover no-repeat`,
   };
   return (
     <div className="episode-watch">

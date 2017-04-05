@@ -1,31 +1,31 @@
 :root {
-  --font-large: 300%;
+  --font-large: 3rem;
   --button-background-color: #e3120b;
   --button-font-color: #fff;
   --border-thickness-video: 2px;
   --border-thickness-button: 2px;
   --border-color-video: #000;
   --border-color-button: #000;
-  --vertical-borders-total: 8px;
   --border-style: solid;
 }
 
 .episode-watch {
+  position: relative;
   display: inline-block;
   height: 100%;
-  width: 28%;
+  width: 30%;
 
   &__video {
     height: 67%;
     border: var(--border-thickness-video) var(--border-style) var(--border-color-video);
-    margin-bottom: 8%;
   }
 
   &__watchnow-button {
     width: 100%;
+    position: absolute;
+    top: 75%;
     color: var(--button-font-color);
     background-color: var(--button-background-color);
-    margin-top: -var(--vertical-borders-total);
     border: var(--border-thickness-button) var(--border-style) var(--border-color-button);
     height: 25%;
     font-size: var(--font-large);

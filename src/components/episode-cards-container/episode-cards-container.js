@@ -17,7 +17,7 @@ class EpisodeCardsContainer extends React.Component {
     recommended: EpisodeCardsContainerStructure,
   }
   componentDidMount() {
-    const serieId = 1;
+    const serieId = 3;
     getSeriesByID(serieId)
     .then((serie) => {
       const episodes : Array<Object> = [...serie.published_episodes].slice(0, 4);
