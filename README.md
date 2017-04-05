@@ -1,4 +1,5 @@
 ![Codeship Crap](https://codeship.com/projects/3f1303d0-ea2d-0134-cc32-3e900762d5ee/status?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/varholak-peter/economist-films/badge.svg?branch=master)](https://coveralls.io/github/varholak-peter/economist-films?branch=master)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
@@ -154,7 +155,7 @@ Open index.js and
   4.set url path and component which should be displayed
   5.use Link for set url path for navigation between components defined in step 4.
 
-### Example  
+### Example
 // index.js
 ```js
 import { Router, Route, browserHistory } from 'react-router';
