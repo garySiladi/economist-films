@@ -1,6 +1,7 @@
 # Economist Films TV platforms
 ### Amazon Fire TV + Fire tablets
 Amazon Fire tablets use FireOS which is essentially Android under the hood, but they don't pack Google Play Store or Google Play Services. They have their own Amazon App Store which supports adding hosted apps, which are URLs wrapped to an app.
+It supports local storage [read more](https://developer.amazon.com/public/solutions/platforms/webapps/docs/runtime-feature-support.html)
 We can test websites with the help of:
 * https://www.amazon.com/Amazon-Digital-Services-Inc-Tester/dp/B00DZ3I1W8 on Android devices
 
@@ -17,6 +18,7 @@ Just FYI: these devices have their own web-browser: Amazon Silk.
 Microsoft Windows OS supports UWP (Universal Windows Platform) which packages your existing website for publishing to the Store.
 https://developer.microsoft.com/en-us/windows/bridges/hosted-web-apps
 This includes all Windows-based devices, including PCs, tablets, phones, HoloLens, Surface Hub, Xbox and Raspberry Pi.
+It supports local storage [read more](https://docs.microsoft.com/en-us/windows/uwp/app-settings/store-and-retrieve-app-data)
 
 |Resolutions|
 | ---- |
