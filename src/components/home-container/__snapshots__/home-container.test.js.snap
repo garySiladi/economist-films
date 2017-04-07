@@ -1,0 +1,4 @@
+exports[`test HomeContainer renders correctly 1`] = `
+<div
+  className="home-container" />
+`;

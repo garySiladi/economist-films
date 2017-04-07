@@ -1,0 +1,33 @@
+exports[`test EpisodeWatch renders correctly 1`] = `
+<div
+  className="episode-watch">
+  <div
+    className="episode-watch__video"
+    style={
+      Object {
+        "background": "#000 url(\"undefined\") center/cover no-repeat",
+      }
+    } />
+  <button
+    className="episode-watch__watchnow-button">
+    Watch now
+  </button>
+</div>
+`;
+
+exports[`test EpisodeWatch renders with data 1`] = `
+<div
+  className="episode-watch">
+  <div
+    className="episode-watch__video"
+    style={
+      Object {
+        "background": "#000 url(\"economist\") center/cover no-repeat",
+      }
+    } />
+  <button
+    className="episode-watch__watchnow-button">
+    Watch now
+  </button>
+</div>
+`;
