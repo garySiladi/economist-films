@@ -27,7 +27,8 @@ class EpisodeDescriptionContainer extends React.Component {
         date,
         description,
       });
-    });
+    })
+    .catch(err => console.log(err));
   }
   render() {
     const { title, date, description } = this.state;

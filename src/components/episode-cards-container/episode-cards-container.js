@@ -33,14 +33,15 @@ class EpisodeCardsContainer extends React.Component {
       this.setState({
         recommended,
       });
-    });
+    })
+    .catch(err => console.log(err));
   }
   renderRecommended() {
     const { recommended } = this.state;
     return (
       <div className="episode-cards__wrapper">
-        {recommended.map(episode =>
-          <EpisodeCard key={episode.key} url={episode.url} />,
+        {recommended.map((episode, i) =>
+          <EpisodeCard key={String(i)} url={episode.url} />,
         )
         }
       </div>

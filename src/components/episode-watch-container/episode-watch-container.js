@@ -23,7 +23,8 @@ class EpisodeWatchContainer extends React.Component {
       this.setState({
         url,
       });
-    });
+    })
+    .catch(err => console.log(err));
   }
   render() {
     const { url } = this.state;
