@@ -1,0 +1,51 @@
+.slider {
+  &-item {
+    font-size: 0.5em;
+    display: inline-block;
+    min-width: 300px;
+    background-color: var(--economist-white, white);
+    margin-right: 10px;
+  }
+
+  &-item:hover .slider-image,
+  &-item:hover .slider-item-container {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  &-image {
+    min-height: 165px;
+  }
+
+  &-title {
+    display: block;
+    color: var(--economist-white, white);
+    margin-bottom: 0.5em;
+  }
+
+  &-items {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  &-item-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: var(--economist-red, red);
+    color: var(--economist-white, white);
+  }
+
+  &-item-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-item-subtitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.75em;
+  }
+}
