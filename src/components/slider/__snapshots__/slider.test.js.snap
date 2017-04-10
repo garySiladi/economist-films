@@ -1,0 +1,48 @@
+exports[`test Slider renders correctly 1`] = `
+<div
+  className="slider">
+  <div
+    className="slider-title">
+    Slider Title
+  </div>
+  <div
+    className="slider-items">
+    <a
+      className="slider-item"
+      onClick={[Function]}
+      style={Object {}}>
+      <img
+        alt="Episode 1 Title"
+        className="slider-image"
+        src="" />
+      <div
+        className="slider-item-container">
+        <div
+          className="slider-item-title">
+          Episode 1 Title
+        </div>
+        <div
+          className="slider-item-subtitle" />
+      </div>
+    </a>
+    <a
+      className="slider-item"
+      onClick={[Function]}
+      style={Object {}}>
+      <img
+        alt="Episode 2 Title"
+        className="slider-image"
+        src="" />
+      <div
+        className="slider-item-container">
+        <div
+          className="slider-item-title">
+          Episode 2 Title
+        </div>
+        <div
+          className="slider-item-subtitle" />
+      </div>
+    </a>
+  </div>
+</div>
+`;

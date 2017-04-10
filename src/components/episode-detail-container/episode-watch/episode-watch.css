@@ -36,7 +36,7 @@
 
   &__watchnow-button:hover {
     text-decoration: none;
-    color: var(--button-font-color-hover);
-    font-weight: bold;
+    color: #363636;
+    transition: color 0.3s;
   }
 }

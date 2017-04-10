@@ -8,8 +8,9 @@
   display: inline-block;
   vertical-align: top;
   width: 67%;
+  color: var(--economist-white, white);
   margin-left: 3%;
-  border: 2px solid black;
+  border: 2px solid var(--economist-white, white);
   padding: 2%;
 
   &__date {
