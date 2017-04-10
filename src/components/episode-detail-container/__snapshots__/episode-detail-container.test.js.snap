@@ -1,0 +1,40 @@
+exports[`test EpisodeDetailContainer renders correctly 1`] = `
+<div
+  className="episode-detail">
+  <div
+    className="episode-detail__details">
+    <div
+      className="episode-watch">
+      <div
+        className="episode-watch__video"
+        style={
+          Object {
+            "background": "#000 url(\"undefined\") center/cover no-repeat",
+          }
+        } />
+      <button
+        className="episode-watch__watchnow-button">
+        Watch now
+      </button>
+    </div>
+    <div
+      className="episode-description">
+      <h3
+        className="episode-description__date" />
+      <h1
+        className="episode-description__title" />
+      <p
+        className="episode-description__text" />
+    </div>
+  </div>
+  <div
+    className="episode-detail__recommended">
+    <h1
+      className="episode-detail__recommended-title">
+      Recommended
+    </h1>
+    <div
+      className="episode-detail__recommended-card-wrapper" />
+  </div>
+</div>
+`;

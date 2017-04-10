@@ -5,7 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import App from './components/app/app';
 import About from './components/about/about';
 import HomeContainer from './components/home-container/home-container';
-import EpisodeDetail from './components/episode-detail/episode-detail';
+import EpisodeDetailContainer from './components/episode-detail-container/episode-detail-container';
 import './index.css';
 
 ReactDOM.render((
@@ -13,6 +13,6 @@ ReactDOM.render((
     <Route path="/" component={App} />
     <Route path="/home" component={HomeContainer} />
     <Route path="/about" component={About} />
-    <Route path="/episode" component={EpisodeDetail} />
+    <Route path="/episode" component={EpisodeDetailContainer} />
   </Router>
 ), document.getElementById('root'));
