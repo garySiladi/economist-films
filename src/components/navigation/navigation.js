@@ -15,6 +15,11 @@ const Navigation = () => (
           about
         </Link>
       </li>
+      <li>
+        <Link to="/episode">
+          Episode Detail
+        </Link>
+      </li>
     </ul>
   </div>
 );

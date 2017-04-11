@@ -15,6 +15,13 @@ exports[`test Nav renders correctly 1`] = `
         about
       </a>
     </li>
+    <li>
+      <a
+        onClick={[Function]}
+        style={Object {}}>
+        Episode Detail
+      </a>
+    </li>
   </ul>
 </div>
 `;
