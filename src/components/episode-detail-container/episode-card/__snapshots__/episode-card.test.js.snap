@@ -1,0 +1,21 @@
+exports[`test EpisodeCard renders correctly 1`] = `
+<div
+  className="episode-card"
+  style={
+    Object {
+      "background": "#000 url(undefined) no-repeat center center ",
+      "backgroundSize": "cover",
+    }
+  } />
+`;
+
+exports[`test EpisodeCard renders with data 1`] = `
+<div
+  className="episode-card"
+  style={
+    Object {
+      "background": "#000 url(http::ptth) no-repeat center center ",
+      "backgroundSize": "cover",
+    }
+  } />
+`;

@@ -1,0 +1,15 @@
+exports[`test VideoPlayer renders correctly 1`] = `
+<div
+  className="video-player">
+  <p
+    className="video-player__id">
+    id: 
+    5
+  </p>
+  <a
+    onClick={[Function]}
+    style={Object {}}>
+    <== Back
+  </a>
+</div>
+`;

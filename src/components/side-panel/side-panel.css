@@ -9,7 +9,6 @@
   width: var(--side-panel-width);
   height: 100vh;
   background-color: var(--economist-color);
-  border-right: 1px solid lightgray;
   transition: width 0.2s ease-out;
 
   &__option-list {
