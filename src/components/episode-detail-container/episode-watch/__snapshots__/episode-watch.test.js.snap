@@ -1,36 +1,44 @@
-exports[`test EpisodeWatch renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EpisodeWatch renders correctly 1`] = `
 <div
-  className="episode-watch">
+  className="episode-watch"
+>
   <div
     className="episode-watch__video"
     style={
       Object {
-        "background": "#000 url(\"undefined\") center/cover no-repeat",
+        "background": "#000 url(\\"undefined\\") center/cover no-repeat",
       }
-    } />
+    }
+  />
   <a
     className="episode-watch__watchnow-button"
     onClick={[Function]}
-    style={Object {}}>
+    style={Object {}}
+  >
     Watch now
   </a>
 </div>
 `;
 
-exports[`test EpisodeWatch renders with data 1`] = `
+exports[`EpisodeWatch renders with data 1`] = `
 <div
-  className="episode-watch">
+  className="episode-watch"
+>
   <div
     className="episode-watch__video"
     style={
       Object {
-        "background": "#000 url(\"economist\") center/cover no-repeat",
+        "background": "#000 url(\\"economist\\") center/cover no-repeat",
       }
-    } />
+    }
+  />
   <a
     className="episode-watch__watchnow-button"
     onClick={[Function]}
-    style={Object {}}>
+    style={Object {}}
+  >
     Watch now
   </a>
 </div>

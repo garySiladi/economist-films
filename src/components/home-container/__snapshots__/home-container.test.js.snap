@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`HomeContainer:  renders correctly with All series 1`] = `null`;
 
 exports[`HomeContainer:  renders correctly without All series 1`] = `null`;

@@ -75,6 +75,10 @@ const mockData2 = {
   ],
 };
 
+jest.mock('../slider/slider', () => {
+  return jest.fn(() => <div>Slider</div>);
+});
+
 describe('HomeContainer: ', () => {
   // $FlowFixMe
   API.getRoot = jest.fn()

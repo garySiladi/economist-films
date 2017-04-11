@@ -1,10 +1,14 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import SidePanel from './side-panel';
 
 const dummyUser = {id: 1, name: 'xxx', imgUrl: 'yyy'};
+
+jest.mock('./parts/side-panel-card', () => {
+  return jest.fn(() => <div>Side Panel Card</div>);
+});
 
 test('SidePanel renders correctly', () => {
   const component = renderer.create(<SidePanel user={dummyUser} />);
@@ -13,8 +17,11 @@ test('SidePanel renders correctly', () => {
 });
 
 test('SidePanel expands after click', () => {
-  const sidePanel = mount(<SidePanel user={dummyUser} />);
+  const sidePanel = shallow(<SidePanel user={dummyUser} />);
   expect(sidePanel.hasClass('side-panel--expanded')).toEqual(false);
-  sidePanel.find('.side-panel-card').first().simulate('click');
+  // $FlowFixMe
+  sidePanel.instance().handleClick({
+    preventDefault: jest.fn()
+  });
   expect(sidePanel.hasClass('side-panel--expanded')).toEqual(true);
 });

@@ -1,47 +1,61 @@
-exports[`test EpisodeDetailContainer renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EpisodeDetailContainer renders correctly 1`] = `
 <div
-  className="episode-detail">
+  className="episode-detail"
+>
   <div
-    className="episode-detail__details">
+    className="episode-detail__details"
+  >
     <div
-      className="episode-watch">
+      className="episode-watch"
+    >
       <div
         className="episode-watch__video"
         style={
           Object {
-            "background": "#000 url(\"undefined\") center/cover no-repeat",
+            "background": "#000 url(\\"undefined\\") center/cover no-repeat",
           }
-        } />
+        }
+      />
       <a
         className="episode-watch__watchnow-button"
         onClick={[Function]}
-        style={Object {}}>
+        style={Object {}}
+      >
         Watch now
       </a>
     </div>
     <div
-      className="episode-description">
+      className="episode-description"
+    >
       <h3
-        className="episode-description__date" />
+        className="episode-description__date"
+      />
       <h1
-        className="episode-description__title" />
+        className="episode-description__title"
+      />
       <p
-        className="episode-description__text" />
+        className="episode-description__text"
+      />
     </div>
   </div>
   <div
-    className="episode-detail__recommended">
+    className="episode-detail__recommended"
+  >
     <h1
-      className="episode-detail__recommended-title">
+      className="episode-detail__recommended-title"
+    >
       Recommended
     </h1>
     <div
-      className="episode-detail__recommended-card-wrapper" />
+      className="episode-detail__recommended-card-wrapper"
+    />
   </div>
 </div>
 `;
 
-exports[`test EpisodeDetailContainer renders correctly 2`] = `
+exports[`EpisodeDetailContainer renders correctly 2`] = `
 <div
   className="episode-card"
   style={
@@ -49,5 +63,6 @@ exports[`test EpisodeDetailContainer renders correctly 2`] = `
       "background": "#000 url(xxx) no-repeat center center ",
       "backgroundSize": "cover",
     }
-  } />
+  }
+/>
 `;
