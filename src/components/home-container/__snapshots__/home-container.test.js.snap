@@ -1,1 +1,3 @@
-exports[`HomeContainer:  renders correctly 1`] = `null`;
+exports[`HomeContainer:  renders correctly with All series 1`] = `null`;
+
+exports[`HomeContainer:  renders correctly without All series 1`] = `null`;
