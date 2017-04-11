@@ -53,6 +53,7 @@ class HomeContainer extends React.Component {
       </div>
     )
     : null;
+    console.log(shelves.length, this.state);
     return homePageContent;
   }
 }
