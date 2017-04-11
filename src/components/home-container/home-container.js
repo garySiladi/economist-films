@@ -2,7 +2,6 @@
 import React from 'react';
 import RootStructure from '../../structures/root';
 import { getRoot } from '../../api/fetch';
-import NotificationBar from '../notification-bar/notificaton-bar';
 import Slider from '../slider/slider';
 import './home-container.css';
 
@@ -17,7 +16,7 @@ class HomeContainer extends React.Component {
     };
   }
   state: {
-     series: RootStructure
+     series: RootStructure,
   };
   componentWillMount() {
     getRoot()
@@ -35,7 +34,6 @@ class HomeContainer extends React.Component {
     const homePageContent = shelves.length > 0 ?
     (
       <div className="home-container">
-        <NotificationBar />
         <Slider
           data={shelves[1].items}
           className="home-slider"

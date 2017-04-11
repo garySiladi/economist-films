@@ -1,0 +1,56 @@
+:root {
+  --side-panel-width: 100px;
+  --side-panel-width-expanded: 350px;
+  --economist-color: #e3120b;
+}
+
+.side-panel {
+  flex: 0 1 auto;
+  width: var(--side-panel-width);
+  height: 100vh;
+  background-color: var(--economist-color);
+  transition: width 0.2s ease-out;
+
+  &__option-list {
+    margin: 100px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__option {
+    width: 100%;
+    padding: 15px 20px;
+    transition: background-color 0s;
+
+    &:first-child {
+      margin-bottom: 100px;
+    }
+  }
+
+  & .side-panel-card__icon circle {
+    fill: white;
+  }
+
+  &--expanded {
+    width: var(--side-panel-width-expanded);
+    transition: width 0.4s;
+
+    & .side-panel__option {
+      transition: background-color 0.2s ease-in 0.2s;
+
+      &--active {
+        background-color: white;
+      }
+    }
+
+    & .side-panel-card__title {
+      opacity: 1;
+      transition: opacity 0.2s ease-in 0.2s;
+    }
+
+    & .side-panel-card--active .side-panel-card__icon circle {
+      fill: var(--economist-color);
+      transition: fill 0.2s ease-in 0.2s;
+    }
+  }
+}
