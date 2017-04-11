@@ -1,46 +1,208 @@
 exports[`test HomeContainer renders correctly 1`] = `
 <div
-  className="side-panel ">
+  className="side-panel">
   <ul
     className="side-panel__option-list">
     <li
       className="side-panel__option">
-      <button
-        className="temp-icon activator"
-        onClick={[Function]}>
-        yyy1
-      </button>
-      <span
-        className="side-panel__option-title">
-        xxx
-      </span>
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--yyy"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          xxx
+        </span>
+      </a>
     </li>
     <li
       className="side-panel__option side-panel__option--active">
-      <button
-        className="temp-icon" />
-      <span
-        className="side-panel__option-title">
-        Search
-      </span>
+      <a
+        className="side-panel-card side-panel-card--active"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--search-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Search
+        </span>
+      </a>
     </li>
     <li
       className="side-panel__option">
-      <button
-        className="temp-icon" />
-      <span
-        className="side-panel__option-title">
-        Home
-      </span>
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--home-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Home
+        </span>
+      </a>
     </li>
     <li
       className="side-panel__option">
-      <button
-        className="temp-icon" />
-      <span
-        className="side-panel__option-title">
-        Favorites
-      </span>
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--favorites-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Favorites
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`test SidePanel renders correctly 1`] = `
+<div
+  className="side-panel">
+  <ul
+    className="side-panel__option-list">
+    <li
+      className="side-panel__option">
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--yyy"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          xxx
+        </span>
+      </a>
+    </li>
+    <li
+      className="side-panel__option side-panel__option--active">
+      <a
+        className="side-panel-card side-panel-card--active"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--search-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Search
+        </span>
+      </a>
+    </li>
+    <li
+      className="side-panel__option">
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--home-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Home
+        </span>
+      </a>
+    </li>
+    <li
+      className="side-panel__option">
+      <a
+        className="side-panel-card"
+        onClick={[Function]}
+        style={Object {}}>
+        <svg
+          className="side-panel-card__icon side-panel-card__icon--favorites-icon"
+          height="60"
+          width="60">
+          <circle
+            cx="30"
+            cy="30"
+            fill="white"
+            r="29"
+            stroke="silver"
+            strokeWidth="2" />
+        </svg>
+        <span
+          className="side-panel-card__title">
+          Favorites
+        </span>
+      </a>
     </li>
   </ul>
 </div>

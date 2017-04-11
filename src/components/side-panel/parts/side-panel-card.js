@@ -9,7 +9,7 @@ export type SidePanelCardType = {
   icon: string,
   title: string,
   isActive?: boolean,
-  onClick?: Function, // TODO: will be removed
+  onClick?: Function, // eslint-disable-line
 };
 
 const SidePanelCard = ({ href, icon, title, isActive, onClick }: SidePanelCardType) => (
@@ -37,7 +37,6 @@ const SidePanelCard = ({ href, icon, title, isActive, onClick }: SidePanelCardTy
 
 SidePanelCard.defaultProps = {
   isActive: false,
-  onClick: () => {}, // TODO: will be removed
 };
 
 export default SidePanelCard;

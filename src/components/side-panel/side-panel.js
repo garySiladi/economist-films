@@ -4,6 +4,18 @@ import classnames from 'classnames';
 import SidePanelCard from './parts/side-panel-card';
 import './side-panel.css';
 
+export type SidePanelPropsType = {
+  user: {
+    id: number,
+    name: string,
+    imgUrl: string,
+  }
+}
+
+export type SidePanelStateType = {
+  isExpanded: boolean,
+}
+
 const sidePanelOptions = [
   {
     href: '/search',
@@ -45,19 +57,12 @@ class SidePanel extends React.Component {
     };
     (this: any).handleClick = this.handleClick.bind(this);
   }
-  state: {
-    isExpanded: boolean,
-  };
-  props: {
-    user: {
-      id: number,
-      name: string,
-      imgUrl: string,
-    }
-  };
 
-  handleClick(e: Event) {
-    e.preventDefault();
+  state: SidePanelStateType;
+  props: SidePanelPropsType;
+
+  handleClick(event: Event) {
+    event.preventDefault();
     this.setState({
       isExpanded: !this.state.isExpanded,
     });
