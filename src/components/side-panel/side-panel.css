@@ -1,0 +1,72 @@
+:root {
+  --side-panel-width: 100px;
+  --side-panel-width-expanded: 350px;
+  --icon-size: 60px;
+  --economist-color: #e3120b;
+}
+
+.side-panel {
+  flex: 0 1 auto;
+  width: var(--side-panel-width);
+  height: 100vh;
+  background-color: var(--economist-color);
+  border-right: 1px solid lightgray;
+  transition: width 0.4s;
+
+  &__option-list {
+    margin: 100px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__option {
+    display: flex;
+    width: 100%;
+    padding: 15px 20px;
+
+    &:first-child {
+      margin-bottom: 100px;
+    }
+    &-title {
+      display: table-cell;
+      opacity: 0;
+      width: 230px;
+      height: var(--icon-size);
+      padding-left: 20px;
+      color: white;
+      font-size: 36px;
+      line-height: var(--icon-size);
+      vertical-align: middle;
+      white-space: nowrap;
+      transition: opacity 0.2s ease-in 0.2s;
+    }
+  }
+  &--expanded {
+    width: var(--side-panel-width-expanded);
+
+    & .side-panel__option {
+      transition: background-color 0.2s ease-in 0.2s;
+
+      &-title {
+        opacity: 1;
+      }
+      &--active {
+        background-color: white;
+
+        & .temp-icon {
+          background-color: var(--economist-color);
+        }
+        & .side-panel__option-title {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.temp-icon {
+  flex: 0 0 auto;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-color: white;
+  border-radius: 100%;
+}

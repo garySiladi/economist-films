@@ -1,0 +1,47 @@
+exports[`test HomeContainer renders correctly 1`] = `
+<div
+  className="side-panel ">
+  <ul
+    className="side-panel__option-list">
+    <li
+      className="side-panel__option">
+      <button
+        className="temp-icon activator"
+        onClick={[Function]}>
+        yyy1
+      </button>
+      <span
+        className="side-panel__option-title">
+        xxx
+      </span>
+    </li>
+    <li
+      className="side-panel__option side-panel__option--active">
+      <button
+        className="temp-icon" />
+      <span
+        className="side-panel__option-title">
+        Search
+      </span>
+    </li>
+    <li
+      className="side-panel__option">
+      <button
+        className="temp-icon" />
+      <span
+        className="side-panel__option-title">
+        Home
+      </span>
+    </li>
+    <li
+      className="side-panel__option">
+      <button
+        className="temp-icon" />
+      <span
+        className="side-panel__option-title">
+        Favorites
+      </span>
+    </li>
+  </ul>
+</div>
+`;

@@ -1,32 +1,79 @@
 exports[`test App renders correctly 1`] = `
 <div
   className="app">
-  <p>
-    This is app page
-  </p>
-  <button
-    className="btn btn-lg btn-success"
-    disabled={false}
-    type="button">
-    bootstrap is working
-  </button>
-  <div>
-    <ul>
-      <li>
-        <a
-          onClick={[Function]}
-          style={Object {}}>
-          Home
-        </a>
+  <div
+    className="side-panel ">
+    <ul
+      className="side-panel__option-list">
+      <li
+        className="side-panel__option">
+        <button
+          className="temp-icon activator"
+          onClick={[Function]}>
+          x1
+        </button>
+        <span
+          className="side-panel__option-title">
+          Profile Name
+        </span>
       </li>
-      <li>
-        <a
-          onClick={[Function]}
-          style={Object {}}>
-          about
-        </a>
+      <li
+        className="side-panel__option side-panel__option--active">
+        <button
+          className="temp-icon" />
+        <span
+          className="side-panel__option-title">
+          Search
+        </span>
+      </li>
+      <li
+        className="side-panel__option">
+        <button
+          className="temp-icon" />
+        <span
+          className="side-panel__option-title">
+          Home
+        </span>
+      </li>
+      <li
+        className="side-panel__option">
+        <button
+          className="temp-icon" />
+        <span
+          className="side-panel__option-title">
+          Favorites
+        </span>
       </li>
     </ul>
+  </div>
+  <div>
+    <p>
+      This is app page
+    </p>
+    <button
+      className="btn btn-lg btn-success"
+      disabled={false}
+      type="button">
+      bootstrap is working
+    </button>
+    <div>
+      <ul>
+        <li>
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            about
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 `;
