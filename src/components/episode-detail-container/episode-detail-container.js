@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {
-  EpisodeWatchStructure,
+  EpisodeDescriptionStructure,
   EpisodeCardsContainerStructure,
 } from '../../structures/episode';
 import { getSeriesByID, getEpisodeByID } from '../../api/fetch';
@@ -20,11 +20,12 @@ class EpisodeDetailContainer extends React.Component {
     };
   }
   state: {
-    episode: EpisodeWatchStructure,
+    episode: EpisodeDescriptionStructure,
     serie: EpisodeCardsContainerStructure,
   }
+
   componentDidMount() {
-    const episodeId : number = 7;
+    const episodeId : number = this.props.params.id;
     getEpisodeByID(episodeId)
     .then((episode) => {
       this.setState({
@@ -41,15 +42,20 @@ class EpisodeDetailContainer extends React.Component {
     })
     .catch(err => err);
   }
+  props: {
+    params: {
+      id: number,
+    }
+  }
   render() {
     const { episode, serie } = this.state;
-    const { title, description, subtitle } = episode;
+    const { title, description, subtitle, id } = episode;
     const thumbnail = episode.thumbnail || {};
     const recommendedEpisodes = serie.published_episodes || [];
     return (
       <div className="episode-detail">
         <div className="episode-detail__details">
-          <EpisodeWatch url={thumbnail.url} />
+          <EpisodeWatch url={thumbnail.url} id={id} />
           <EpisodeDescription title={title} date={subtitle} description={description} />
         </div>
         <div className="episode-detail__recommended">

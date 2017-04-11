@@ -2,6 +2,7 @@
   --font-large: 4rem;
   --button-background-color: #e3120b;
   --button-font-color: #fff;
+  --button-font-color-hover: #3e51b5;
   --border-thickness-video: 2px;
   --border-thickness-button: 2px;
   --border-color-video: #000;
@@ -24,10 +25,18 @@
     width: 100%;
     position: absolute;
     top: 75%;
+    text-align: center;
+    line-height: 225%;
     color: var(--button-font-color);
     background-color: var(--button-background-color);
     border: var(--border-thickness-button) var(--border-style) var(--border-color-button);
     height: 25%;
     font-size: var(--font-large);
+  }
+
+  &__watchnow-button:hover {
+    text-decoration: none;
+    color: var(--button-font-color-hover);
+    font-weight: bold;
   }
 }

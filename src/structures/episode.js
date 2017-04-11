@@ -1,3 +1,7 @@
+export type VideoPlayerStructure = {
+  location: Object,
+}
+
 export type EpisodeCardStructure = {
   url: string,
 }
@@ -8,10 +12,12 @@ export type EpisodeCardsContainerStructure = {
 
 export type EpisodeDescriptionStructure = {
   title: string,
-  date: string,
   description: string,
+  subtitle: string,
+  id: number,
 }
 
 export type EpisodeWatchStructure = {
   url: string,
+  id: number,
 }

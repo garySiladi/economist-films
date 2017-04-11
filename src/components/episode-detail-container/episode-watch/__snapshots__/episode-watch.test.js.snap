@@ -8,10 +8,12 @@ exports[`test EpisodeWatch renders correctly 1`] = `
         "background": "#000 url(\"undefined\") center/cover no-repeat",
       }
     } />
-  <button
-    className="episode-watch__watchnow-button">
+  <a
+    className="episode-watch__watchnow-button"
+    onClick={[Function]}
+    style={Object {}}>
     Watch now
-  </button>
+  </a>
 </div>
 `;
 
@@ -25,9 +27,11 @@ exports[`test EpisodeWatch renders with data 1`] = `
         "background": "#000 url(\"economist\") center/cover no-repeat",
       }
     } />
-  <button
-    className="episode-watch__watchnow-button">
+  <a
+    className="episode-watch__watchnow-button"
+    onClick={[Function]}
+    style={Object {}}>
     Watch now
-  </button>
+  </a>
 </div>
 `;

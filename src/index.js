@@ -6,6 +6,7 @@ import App from './components/app/app';
 import About from './components/about/about';
 import HomeContainer from './components/home-container/home-container';
 import EpisodeDetailContainer from './components/episode-detail-container/episode-detail-container';
+import VideoPlayer from './components/video-player/video-player';
 import './index.css';
 
 ReactDOM.render((
@@ -13,6 +14,7 @@ ReactDOM.render((
     <Route path="/" component={App} />
     <Route path="/home" component={HomeContainer} />
     <Route path="/about" component={About} />
-    <Route path="/episode" component={EpisodeDetailContainer} />
+    <Route path="/episode/:id" component={EpisodeDetailContainer} />
+    <Route path="/watch" component={VideoPlayer} />
   </Router>
 ), document.getElementById('root'));
