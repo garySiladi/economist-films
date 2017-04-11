@@ -1,7 +1,6 @@
 :root {
   --side-panel-width: 100px;
   --side-panel-width-expanded: 350px;
-  --icon-size: 60px;
   --economist-color: #e3120b;
 }
 
@@ -11,62 +10,48 @@
   height: 100vh;
   background-color: var(--economist-color);
   border-right: 1px solid lightgray;
-  transition: width 0.4s;
+  transition: width 0.2s ease-out;
 
   &__option-list {
     margin: 100px 0 0;
     padding: 0;
     list-style: none;
   }
+
   &__option {
-    display: flex;
     width: 100%;
     padding: 15px 20px;
+    transition: background-color 0s;
 
     &:first-child {
       margin-bottom: 100px;
     }
-    &-title {
-      display: table-cell;
-      opacity: 0;
-      width: 230px;
-      height: var(--icon-size);
-      padding-left: 20px;
-      color: white;
-      font-size: 36px;
-      line-height: var(--icon-size);
-      vertical-align: middle;
-      white-space: nowrap;
-      transition: opacity 0.2s ease-in 0.2s;
-    }
   }
+
+  & .side-panel-card__icon circle {
+    fill: white;
+  }
+
   &--expanded {
     width: var(--side-panel-width-expanded);
+    transition: width 0.4s;
 
     & .side-panel__option {
       transition: background-color 0.2s ease-in 0.2s;
 
-      &-title {
-        opacity: 1;
-      }
       &--active {
         background-color: white;
-
-        & .temp-icon {
-          background-color: var(--economist-color);
-        }
-        & .side-panel__option-title {
-          color: black;
-        }
       }
     }
-  }
-}
 
-.temp-icon {
-  flex: 0 0 auto;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-color: white;
-  border-radius: 100%;
+    & .side-panel-card__title {
+      opacity: 1;
+      transition: opacity 0.2s ease-in 0.2s;
+    }
+
+    & .side-panel-card--active .side-panel-card__icon circle {
+      fill: var(--economist-color);
+      transition: fill 0.2s ease-in 0.2s;
+    }
+  }
 }
