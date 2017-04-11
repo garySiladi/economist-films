@@ -1,0 +1,16 @@
+.home {
+  &-container {
+    margin: 0 5px 0 100px;
+  }
+
+  & > div {
+    margin: auto;
+    width: 100%;
+  }
+
+  &-slider {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 2em;
+    padding: 20px;
+  }
+}
