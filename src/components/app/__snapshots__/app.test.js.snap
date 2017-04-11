@@ -2,6 +2,9 @@ exports[`test App renders correctly 1`] = `
 <div
   className="app">
   <div>
+    Side Panel
+  </div>
+  <div>
     Home Container
   </div>
 </div>
