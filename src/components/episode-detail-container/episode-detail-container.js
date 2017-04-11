@@ -11,6 +11,13 @@ import EpisodeCard from './episode-card/episode-card';
 import './episode-detail-container.css';
 
 class EpisodeDetailContainer extends React.Component {
+  static throwError(err) {
+    return err;
+  }
+  static createEpisodeCard(episode, i) {
+    return <EpisodeCard key={String(i)} url={episode.thumbnail.url} />;
+  }
+
   constructor() {
     super();
 
@@ -23,30 +30,26 @@ class EpisodeDetailContainer extends React.Component {
     episode: EpisodeDescriptionStructure,
     serie: EpisodeCardsContainerStructure,
   }
-
   componentDidMount() {
     const episodeId : number = this.props.params.id;
     getEpisodeByID(episodeId)
-    .then((episode) => {
-      this.setState({
-        episode,
-      });
-    })
-    .catch(err => err);
+    .then(this.changeState.bind(this, 'episode'))
+    .catch(EpisodeDetailContainer.throwError);
     const serieId : number = 3;
     getSeriesByID(serieId)
-    .then((serie) => {
-      this.setState({
-        serie,
-      });
-    })
-    .catch(err => err);
+    .then(this.changeState.bind(this, 'serie'))
+    .catch(EpisodeDetailContainer.throwError);
   }
   props: {
     params: {
       id: number,
     }
   }
+
+  changeState(key: string, data: EpisodeDescriptionStructure | EpisodeCardsContainerStructure) {
+    this.setState({ [key]: data });
+  }
+
   render() {
     const { episode, serie } = this.state;
     const { title, description, subtitle, id } = episode;
@@ -61,10 +64,7 @@ class EpisodeDetailContainer extends React.Component {
         <div className="episode-detail__recommended">
           <h1 className="episode-detail__recommended-title">Recommended</h1>
           <div className="episode-detail__recommended-card-wrapper">
-            {recommendedEpisodes.slice(0, 4).map((element, i) =>
-              <EpisodeCard key={String(i)} url={element.thumbnail.url} />,
-            )
-            }
+            {recommendedEpisodes.slice(0, 4).map(EpisodeDetailContainer.createEpisodeCard)}
           </div>
         </div>
       </div>

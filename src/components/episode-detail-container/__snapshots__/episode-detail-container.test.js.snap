@@ -40,3 +40,14 @@ exports[`test EpisodeDetailContainer renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`test EpisodeDetailContainer renders correctly 2`] = `
+<div
+  className="episode-card"
+  style={
+    Object {
+      "background": "#000 url(xxx) no-repeat center center ",
+      "backgroundSize": "cover",
+    }
+  } />
+`;
