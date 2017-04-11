@@ -22,8 +22,7 @@ class HomeContainer extends React.Component {
   componentWillMount() {
     getRoot()
     .then((data) => {
-      this.setState({
-        series: data });
+      this.setState({ series: data });
     });
   }
   render() {

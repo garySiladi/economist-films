@@ -11,6 +11,15 @@ const dummyData = [
   {
     title: 'Episode 2 Title',
     type: 'Episode 2',
+    thumbnail: {
+      thumb: {
+        url: 'xxx',
+      },
+    },
+  },
+  {
+    title: 'Some title',
+    type: 'Series',
   },
 ];
 
