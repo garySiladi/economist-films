@@ -1,15 +1,20 @@
-exports[`test VideoPlayer renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer renders correctly 1`] = `
 <div
-  className="video-player">
+  className="video-player"
+>
   <p
-    className="video-player__id">
+    className="video-player__id"
+  >
     id: 
     5
   </p>
   <a
     onClick={[Function]}
-    style={Object {}}>
-    <== Back
+    style={Object {}}
+  >
+    &lt;== Back
   </a>
 </div>
 `;

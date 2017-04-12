@@ -1,64 +1,84 @@
-exports[`test Slider renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider renders correctly 1`] = `
 <div
-  className="slider">
+  className="slider"
+>
   <div
-    className="slider-title">
+    className="slider-title"
+  >
     Slider Title
   </div>
   <div
-    className="slider-items">
+    className="slider-items"
+  >
     <a
       className="slider-item"
       onClick={[Function]}
-      style={Object {}}>
+      style={Object {}}
+    >
       <img
         alt="Episode 1 Title"
         className="slider-image"
-        src="" />
+        src=""
+      />
       <div
-        className="slider-item-container">
+        className="slider-item-container"
+      >
         <div
-          className="slider-item-title">
+          className="slider-item-title"
+        >
           Episode 1 Title
         </div>
         <div
-          className="slider-item-subtitle" />
+          className="slider-item-subtitle"
+        />
       </div>
     </a>
     <a
       className="slider-item"
       onClick={[Function]}
-      style={Object {}}>
+      style={Object {}}
+    >
       <img
         alt="Episode 2 Title"
         className="slider-image"
-        src="xxx" />
+        src="xxx"
+      />
       <div
-        className="slider-item-container">
+        className="slider-item-container"
+      >
         <div
-          className="slider-item-title">
+          className="slider-item-title"
+        >
           Episode 2 Title
         </div>
         <div
-          className="slider-item-subtitle" />
+          className="slider-item-subtitle"
+        />
       </div>
     </a>
     <a
       className="slider-item"
       onClick={[Function]}
-      style={Object {}}>
+      style={Object {}}
+    >
       <img
         alt="Some title"
         className="slider-image"
-        src="" />
+        src=""
+      />
       <div
-        className="slider-item-container">
+        className="slider-item-container"
+      >
         <div
-          className="slider-item-title">
+          className="slider-item-title"
+        >
           Some title
         </div>
         <div
-          className="slider-item-subtitle">
+          className="slider-item-subtitle"
+        >
           undefined episodes
         </div>
       </div>

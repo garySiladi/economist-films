@@ -1,4 +1,6 @@
-exports[`test EpisodeCard renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EpisodeCard renders correctly 1`] = `
 <div
   className="episode-card"
   style={
@@ -6,10 +8,11 @@ exports[`test EpisodeCard renders correctly 1`] = `
       "background": "#000 url(undefined) no-repeat center center ",
       "backgroundSize": "cover",
     }
-  } />
+  }
+/>
 `;
 
-exports[`test EpisodeCard renders with data 1`] = `
+exports[`EpisodeCard renders with data 1`] = `
 <div
   className="episode-card"
   style={
@@ -17,5 +20,6 @@ exports[`test EpisodeCard renders with data 1`] = `
       "background": "#000 url(http::ptth) no-repeat center center ",
       "backgroundSize": "cover",
     }
-  } />
+  }
+/>
 `;

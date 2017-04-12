@@ -8,7 +8,7 @@ import * as API from '../../api/fetch';
 const mockData1 = {
   shelves: [
     {
-      title: 'All series',
+      title: 'Not All series',
       items: [
         {
           id: 1,
@@ -43,7 +43,7 @@ const mockData1 = {
 const mockData2 = {
   shelves: [
     {
-      title: 'Not All series',
+      title: 'All series',
       items: [
         {
           id: 1,
@@ -75,6 +75,10 @@ const mockData2 = {
   ],
 };
 
+jest.mock('../slider/slider', () => {
+  return jest.fn(() => <div>Slider</div>);
+});
+
 describe('HomeContainer: ', () => {
   // $FlowFixMe
   API.getRoot = jest.fn()
@@ -83,18 +87,18 @@ describe('HomeContainer: ', () => {
       resolve(mockData1);
     })
   )
-  .mockReturnValueOnce(
+  .mockReturnValue(
     new Promise((resolve) => {
       resolve(mockData2);
     })
   )
 
-  test('renders correctly with All series', () => {
+  test('renders correctly without All series', () => {
     const tree : string = renderer.create(<HomeContainer />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  test('renders correctly without All series', () => {
+  test('renders correctly with All series', () => {
     const tree : string = renderer.create(<HomeContainer />).toJSON();
     expect(tree).toMatchSnapshot();
   });

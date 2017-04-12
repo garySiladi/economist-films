@@ -1,28 +1,38 @@
-exports[`test EpisodeDescription renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EpisodeDescription renders correctly 1`] = `
 <div
-  className="episode-description">
+  className="episode-description"
+>
   <h3
-    className="episode-description__date" />
+    className="episode-description__date"
+  />
   <h1
-    className="episode-description__title" />
+    className="episode-description__title"
+  />
   <p
-    className="episode-description__text" />
+    className="episode-description__text"
+  />
 </div>
 `;
 
-exports[`test EpisodeDescription renders with data 1`] = `
+exports[`EpisodeDescription renders with data 1`] = `
 <div
-  className="episode-description">
+  className="episode-description"
+>
   <h3
-    className="episode-description__date">
+    className="episode-description__date"
+  >
     2011-11-11
   </h3>
   <h1
-    className="episode-description__title">
+    className="episode-description__title"
+  >
     some title
   </h1>
   <p
-    className="episode-description__text">
+    className="episode-description__text"
+  >
     something happened
   </p>
 </div>

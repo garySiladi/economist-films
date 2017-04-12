@@ -1,107 +1,14 @@
-exports[`test App renders correctly 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders correctly 1`] = `
 <div
-  className="app">
-  <div
-    className="side-panel">
-    <ul
-      className="side-panel__option-list">
-      <li
-        className="side-panel__option">
-        <a
-          className="side-panel-card"
-          onClick={[Function]}
-          style={Object {}}>
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--x"
-            height="60"
-            width="60">
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2" />
-          </svg>
-          <span
-            className="side-panel-card__title">
-            Profile Name
-          </span>
-        </a>
-      </li>
-      <li
-        className="side-panel__option side-panel__option--active">
-        <a
-          className="side-panel-card side-panel-card--active"
-          onClick={[Function]}
-          style={Object {}}>
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--search-icon"
-            height="60"
-            width="60">
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2" />
-          </svg>
-          <span
-            className="side-panel-card__title">
-            Search
-          </span>
-        </a>
-      </li>
-      <li
-        className="side-panel__option">
-        <a
-          className="side-panel-card"
-          onClick={[Function]}
-          style={Object {}}>
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--home-icon"
-            height="60"
-            width="60">
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2" />
-          </svg>
-          <span
-            className="side-panel-card__title">
-            Home
-          </span>
-        </a>
-      </li>
-      <li
-        className="side-panel__option">
-        <a
-          className="side-panel-card"
-          onClick={[Function]}
-          style={Object {}}>
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--favorites-icon"
-            height="60"
-            width="60">
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2" />
-          </svg>
-          <span
-            className="side-panel-card__title">
-            Favorites
-          </span>
-        </a>
-      </li>
-    </ul>
+  className="app"
+>
+  <div>
+    Side Panel
+  </div>
+  <div>
+    Home Container
   </div>
 </div>
 `;
