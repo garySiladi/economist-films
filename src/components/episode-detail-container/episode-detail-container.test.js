@@ -15,7 +15,7 @@ test('EpisodeDetailContainer renders correctly', () => {
     },
   };
   const tree: string = renderer.create(
-    EpisodeDetailContainer.createEpisodeCard(episode, 1)
+    EpisodeDetailContainer.createEpisodeCard(episode, 1),
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
