@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
 import HomeContainer from './home-container';
 import * as API from '../../api/fetch';
 
@@ -19,7 +18,7 @@ const mockData1 = {
           id: 2,
           title: 'aaa',
           type: 'bbb',
-        }
+        },
       ],
     },
     {
@@ -34,9 +33,9 @@ const mockData1 = {
           id: 4,
           title: 'aaa',
           type: 'bbb',
-        }
+        },
       ],
-    }
+    },
   ],
 };
 
@@ -54,7 +53,7 @@ const mockData2 = {
           id: 2,
           title: 'aaa',
           type: 'bbb',
-        }
+        },
       ],
     },
     {
@@ -69,15 +68,15 @@ const mockData2 = {
           id: 4,
           title: 'aaa',
           type: 'bbb',
-        }
+        },
       ],
-    }
+    },
   ],
 };
 
-jest.mock('../slider/slider', () => {
-  return jest.fn(() => <div>Slider</div>);
-});
+jest.mock('../slider/slider', () =>
+  jest.fn(() => <div>Slider</div>),
+);
 
 describe('HomeContainer: ', () => {
   // $FlowFixMe
@@ -85,13 +84,13 @@ describe('HomeContainer: ', () => {
   .mockReturnValueOnce(
     new Promise((resolve) => {
       resolve(mockData1);
-    })
+    }),
   )
   .mockReturnValue(
     new Promise((resolve) => {
       resolve(mockData2);
-    })
-  )
+    }),
+  );
 
   test('renders correctly without All series', () => {
     const tree : string = renderer.create(<HomeContainer />).toJSON();
