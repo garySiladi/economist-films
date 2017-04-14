@@ -6,9 +6,6 @@ import Slider from '../slider/slider';
 import './home-container.css';
 
 class HomeContainer extends React.Component {
-  static findSeriesByTitle(title: string, shelves: Array<Object>) {
-    return shelves.find(item => item.title === title);
-  }
   constructor() {
     super();
     this.state = {
@@ -26,32 +23,21 @@ class HomeContainer extends React.Component {
   }
   render() {
     const { shelves = [] } = this.state.series;
-    const allSeries = HomeContainer.findSeriesByTitle('All series', shelves);
-    const sliderProps = allSeries ? {
-      sliderTitle: allSeries.title,
-    } : null;
-    const homePageContent = shelves.length > 0 ?
-    (
+    const homePageContent = shelves.map(data =>
+      (
+        <Slider
+          data={data.items}
+          className="home-slider"
+          sliderTitle={data.title}
+          key={data.title}
+        />
+      ),
+    );
+    return (
       <div className="home-container">
-        <Slider
-          data={shelves[1].items}
-          className="home-slider"
-          sliderTitle={shelves[1].title}
-        />
-        <Slider
-          data={shelves[0].items}
-          className="home-slider"
-          sliderTitle={shelves[0].title}
-        />
-        <Slider
-          data={allSeries ? allSeries.items : []}
-          className="home-slider"
-          {...sliderProps}
-        />
+        {homePageContent.splice(0, homePageContent.length - 2)}
       </div>
-    )
-    : null;
-    return homePageContent;
+    );
   }
 }
 export default HomeContainer;
