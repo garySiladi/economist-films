@@ -1,14 +1,15 @@
+@import '../../colors.css';
+
 :root {
   --side-panel-width: 100px;
   --side-panel-width-expanded: 350px;
-  --economist-color: #e3120b;
 }
 
 .side-panel {
   flex: 0 1 auto;
   width: var(--side-panel-width);
   height: 100vh;
-  background-color: var(--economist-color);
+  background-color: var(--economist-red, red);
   transition: width 0.2s ease-out;
 
   &__option-list {
@@ -28,7 +29,7 @@
   }
 
   & .side-panel-card__icon circle {
-    fill: white;
+    fill: var(--economist-white, white);
   }
 
   &--expanded {
@@ -39,7 +40,7 @@
       transition: background-color 0.2s ease-in 0.2s;
 
       &--active {
-        background-color: white;
+        background-color: var(--economist-white, white);
       }
     }
 
@@ -49,7 +50,7 @@
     }
 
     & .side-panel-card--active .side-panel-card__icon circle {
-      fill: var(--economist-color);
+      fill: var(--economist-red, red);
       transition: fill 0.2s ease-in 0.2s;
     }
   }

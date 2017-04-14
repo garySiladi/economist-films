@@ -1,13 +1,4 @@
-
-@import './components/slider/slider.css';
-@import './components/episode-detail-container/episode-description/episode-description.css';
 @import url('https://fonts.googleapis.com/css?family=Oxygen');
-
-:root {
-  --economist-red: #e3120b;
-  --economist-grey: #121212;
-  --economist-white: #f2f2f2;
-}
 
 html,
 #root {

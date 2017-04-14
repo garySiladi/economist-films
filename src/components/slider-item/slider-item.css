@@ -1,0 +1,40 @@
+@import '../../colors.css';
+
+.slider-item {
+  font-size: 0.5em;
+  display: inline-block;
+  min-width: 300px;
+  background-color: var(--economist-white, white);
+  margin-right: 10px;
+
+  &:hover .slider-image,
+  &:hover .slider-item-container {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  &-image {
+    min-height: 165px;
+  }
+
+  &-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: var(--economist-red, red);
+    color: var(--economist-white, white);
+  }
+
+  &-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-subtitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.75em;
+  }
+}
