@@ -1,0 +1,47 @@
+@import '../../../../colors.css';
+
+:root {
+  --slider-item-width: 300px;
+  --slider-item-margin-right: 10px;
+  --slider-item-image-height: 165px;
+  --container-padding: 10px;
+}
+
+.slider-item {
+  font-size: 0.5em;
+  display: inline-block;
+  min-width: var(--slider-item-width);
+  background-color: var(--economist-white, white);
+  margin-right: var(--slider-item-margin-right);
+
+  &:hover .slider-item--image,
+  &:hover .slider-item--container {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+
+  &--image {
+    min-height: var(--slider-item-image-height);
+  }
+
+  &--container {
+    max-width: var(--slider-item-width);
+    padding: var(--container-padding);
+    background-color: var(--economist-red, red);
+    color: var(--economist-white, white);
+  }
+
+  &--title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &--subtitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 0.75em;
+  }
+}

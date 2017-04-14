@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import SliderItem from '../slider-item/slider-item';
+import SliderItem from './parts/slider-item/slider-item';
 import SliderStructure from '../../structures/root';
 import './slider.css';
 
@@ -17,7 +17,7 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
         <div className="slider-title">{this.props.sliderTitle}</div>
         <div className="slider-items">
           {this.props.data.map(item =>
-            <SliderItem item={item} key={item.title} />,
+            <SliderItem {...item} key={item.title} />,
           )}
         </div>
       </div>

@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SliderItem renders correctly 1`] = `
+<a
+  className="slider-item"
+  onClick={[Function]}
+  style={Object {}}
+>
+  <img
+    alt="Episode 6 Title"
+    className="slider-item--image"
+    src="url"
+  />
+  <div
+    className="slider-item--container"
+  >
+    <div
+      className="slider-item--title"
+    >
+      Episode 6 Title
+    </div>
+    <div
+      className="slider-item--subtitle"
+    >
+      subtitle
+    </div>
+  </div>
+</a>
+`;
+
+exports[`SliderItem renders correctly 2`] = `
+<a
+  className="slider-item"
+  onClick={[Function]}
+  style={Object {}}
+>
+  <img
+    alt="Series 1 Title"
+    className="slider-item--image"
+    src="url"
+  />
+  <div
+    className="slider-item--container"
+  >
+    <div
+      className="slider-item--title"
+    >
+      Series 1 Title
+    </div>
+    <div
+      className="slider-item--subtitle"
+    >
+      10 episodes
+    </div>
+  </div>
+</a>
+`;
+
+exports[`SliderItem renders correctly 3`] = `
+<a
+  className="slider-item"
+  onClick={[Function]}
+  style={Object {}}
+>
+  <img
+    alt="Episode 19 Title"
+    className="slider-item--image"
+    src=""
+  />
+  <div
+    className="slider-item--container"
+  >
+    <div
+      className="slider-item--title"
+    >
+      Episode 19 Title
+    </div>
+    <div
+      className="slider-item--subtitle"
+    >
+      subtitle
+    </div>
+  </div>
+</a>
+`;
