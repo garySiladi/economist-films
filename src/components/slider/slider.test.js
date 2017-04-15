@@ -23,6 +23,10 @@ const dummyData = [
   },
 ];
 
+jest.mock('./parts/slider-item', () =>
+  jest.fn(() => <div>SliderItem</div>),
+);
+
 test('Slider renders correctly', () => {
   const tree : string = renderer.create(<Slider data={dummyData} />).toJSON();
   expect(tree).toMatchSnapshot();
