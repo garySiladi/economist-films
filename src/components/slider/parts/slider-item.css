@@ -1,4 +1,4 @@
-@import '../../../../colors.css';
+@import '../../../colors.css';
 
 :root {
   --slider-item-width: 300px;
@@ -14,31 +14,31 @@
   background-color: var(--economist-white, white);
   margin-right: var(--slider-item-margin-right);
 
-  &:hover .slider-item--image,
-  &:hover .slider-item--container {
+  &:hover .slider-item__image,
+  &:hover .slider-item__container {
     opacity: 0.7;
     cursor: pointer;
     transition: opacity 0.3s;
   }
 
-  &--image {
+  &__image {
     min-height: var(--slider-item-image-height);
   }
 
-  &--container {
+  &__container {
     max-width: var(--slider-item-width);
     padding: var(--container-padding);
     background-color: var(--economist-red, red);
     color: var(--economist-white, white);
   }
 
-  &--title {
+  &__title {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  &--subtitle {
+  &__subtitle {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

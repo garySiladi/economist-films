@@ -8,19 +8,19 @@ exports[`SliderItem renders correctly 1`] = `
 >
   <img
     alt="Episode 6 Title"
-    className="slider-item--image"
+    className="slider-item__image"
     src="url"
   />
   <div
-    className="slider-item--container"
+    className="slider-item__container"
   >
     <div
-      className="slider-item--title"
+      className="slider-item__title"
     >
       Episode 6 Title
     </div>
     <div
-      className="slider-item--subtitle"
+      className="slider-item__subtitle"
     >
       subtitle
     </div>
@@ -36,19 +36,19 @@ exports[`SliderItem renders correctly 2`] = `
 >
   <img
     alt="Series 1 Title"
-    className="slider-item--image"
+    className="slider-item__image"
     src="url"
   />
   <div
-    className="slider-item--container"
+    className="slider-item__container"
   >
     <div
-      className="slider-item--title"
+      className="slider-item__title"
     >
       Series 1 Title
     </div>
     <div
-      className="slider-item--subtitle"
+      className="slider-item__subtitle"
     >
       10 episodes
     </div>
@@ -64,19 +64,19 @@ exports[`SliderItem renders correctly 3`] = `
 >
   <img
     alt="Episode 19 Title"
-    className="slider-item--image"
+    className="slider-item__image"
     src=""
   />
   <div
-    className="slider-item--container"
+    className="slider-item__container"
   >
     <div
-      className="slider-item--title"
+      className="slider-item__title"
     >
       Episode 19 Title
     </div>
     <div
-      className="slider-item--subtitle"
+      className="slider-item__subtitle"
     >
       subtitle
     </div>

@@ -23,7 +23,7 @@ const dummyData = [
   },
 ];
 
-jest.mock('./parts/slider-item/slider-item', () =>
+jest.mock('./parts/slider-item', () =>
   jest.fn(() => <div>SliderItem</div>),
 );
 

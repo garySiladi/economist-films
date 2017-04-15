@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import SliderItem from './parts/slider-item/slider-item';
+import SliderItem from './parts/slider-item';
 import SliderStructure from '../../structures/root';
 import './slider.css';
 

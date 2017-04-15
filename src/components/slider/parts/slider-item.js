@@ -21,17 +21,22 @@ function setTeaserImage(thumbnail) {
 }
 
 const SliderItem = ({
-  title, subtitle, id, thumbnail, type, episode_count: episodeCount }: SliderItemType) =>
-(
+  title,
+  subtitle,
+  id,
+  thumbnail,
+  type,
+  episode_count: episodeCount,
+}: SliderItemType) => (
   <Link className="slider-item" to={`/episode/${id}`}>
     <img
       src={setTeaserImage(thumbnail)}
       alt={title}
-      className="slider-item--image"
+      className="slider-item__image"
     />
-    <div className="slider-item--container">
-      <div className="slider-item--title">{title}</div>
-      <div className="slider-item--subtitle">
+    <div className="slider-item__container">
+      <div className="slider-item__title">{title}</div>
+      <div className="slider-item__subtitle">
         {isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
       </div>
     </div>
