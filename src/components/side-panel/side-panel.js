@@ -9,11 +9,8 @@ export type SidePanelPropsType = {
     id: number,
     name: string,
     imgUrl: string,
-  }
-}
-
-export type SidePanelStateType = {
-  isExpanded: boolean,
+  },
+  isSelected: boolean,
 }
 
 const sidePanelOptions = [
@@ -50,23 +47,7 @@ class SidePanel extends React.Component {
     );
   }
 
-  constructor() {
-    super();
-    this.state = {
-      isExpanded: false,
-    };
-    (this: any).handleClick = this.handleClick.bind(this);
-  }
-
-  state: SidePanelStateType;
   props: SidePanelPropsType;
-
-  handleClick(event: Event) {
-    event.preventDefault();
-    this.setState({
-      isExpanded: !this.state.isExpanded,
-    });
-  }
 
   render() {
     const {
@@ -78,13 +59,12 @@ class SidePanel extends React.Component {
       href: `/user/${userId}`,
       icon: userImg,
       title: userName,
-      onClick: this.handleClick, // TODO: will be removed
     };
     return (
       <div
         className={classnames({
           'side-panel': true,
-          'side-panel--expanded': this.state.isExpanded,
+          'side-panel--expanded': this.props.isSelected,
         })}
       >
         <ul className="side-panel__option-list">
