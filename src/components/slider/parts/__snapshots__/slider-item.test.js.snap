@@ -30,7 +30,7 @@ exports[`SliderItem renders correctly 1`] = `
 
 exports[`SliderItem renders correctly 2`] = `
 <a
-  className="slider-item"
+  className="slider-item slider-item--left-offset"
   onClick={[Function]}
   style={Object {}}
 >
@@ -58,7 +58,7 @@ exports[`SliderItem renders correctly 2`] = `
 
 exports[`SliderItem renders correctly 3`] = `
 <a
-  className="slider-item"
+  className="slider-item slider-item--selected"
   onClick={[Function]}
   style={Object {}}
 >

@@ -2,12 +2,62 @@
 
 exports[`Slider renders correctly 1`] = `
 <div
-  className="slider"
+  className="home-slider home-slider--selected"
 >
   <div
     className="slider-title"
   >
-    Slider Title
+    Slider title
+  </div>
+  <div
+    className="slider-items"
+  >
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider renders correctly 2`] = `
+<div
+  className="home-slider home-slider--top-offset home-slider--top-hidden"
+>
+  <div
+    className="slider-title"
+  >
+    Slider title
+  </div>
+  <div
+    className="slider-items"
+  >
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider renders correctly 3`] = `
+<div
+  className="home-slider"
+>
+  <div
+    className="slider-title"
+  >
+    Slider title
   </div>
   <div
     className="slider-items"

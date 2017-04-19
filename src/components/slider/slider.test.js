@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Slider from './slider';
 
-const dummyData = [
+const dummySliderItems = [
   {
     title: 'Episode 1 Title',
     type: 'Episode 1',
@@ -23,11 +23,45 @@ const dummyData = [
   },
 ];
 
+const additionalProps = {
+  className: 'home-slider',
+  sliderTitle: 'Slider title',
+};
+
+const sliderDummyProps = [
+  {
+    ...additionalProps,
+    data: dummySliderItems,
+    isSelected: true,
+    isBeforeSelected: false,
+    isHidden: false,
+    selectedEpisode: 4,
+  },
+  {
+    ...additionalProps,
+    data: dummySliderItems,
+    isSelected: false,
+    isBeforeSelected: true,
+    isHidden: true,
+    selectedEpisode: 10,
+  },
+  {
+    ...additionalProps,
+    data: dummySliderItems,
+    isSelected: false,
+    isBeforeSelected: false,
+    isHidden: false,
+    selectedEpisode: 9,
+  },
+];
+
 jest.mock('./parts/slider-item', () =>
   jest.fn(() => <div>SliderItem</div>),
 );
 
 test('Slider renders correctly', () => {
-  const tree : string = renderer.create(<Slider data={dummyData} />).toJSON();
-  expect(tree).toMatchSnapshot();
+  sliderDummyProps.forEach((props) => {
+    const tree : string = renderer.create(<Slider {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
