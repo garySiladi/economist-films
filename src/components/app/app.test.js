@@ -1,8 +1,6 @@
 // @flow
 import React from 'react';
-import renderer from 'react-test-renderer';
-// import { mount } from 'enzyme';
-// import * as API from '../../api/fetch';
+import { mount, shallow } from 'enzyme';
 import App from './app';
 
 const mockData = [
@@ -51,6 +49,12 @@ const mockData = [
       },
     ],
   },
+  {
+    title: 'Featured',
+  },
+  {
+    title: 'More in Economist',
+  },
 ];
 
 jest.mock('../side-panel/side-panel', () =>
@@ -61,33 +65,51 @@ jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
 
-// const mockFetch = {
-//   shelves: mockData,
-// };
+function connectEvent(event, type, wrapper) {
+  const changedEvent: Object = event;
+  changedEvent.key = type;
+  const app: Object = wrapper.instance();
+  app.handleKeyPress(event);
+}
 
-// API.getRoot = jest.fn()
-// .mockReturnValue(
-//   new Promise((resolve) => {
-//     resolve(mockFetch);
-//   }),
-// );
-
-test('App renders correctly', () => {
-  const tree : string = renderer.create(<App />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('App: ', () => {
+  test('homepage navigation works', () => {
+    const app = mount(<App />);
+    expect(app.state().isSelectedHomeContainer).toEqual(true);
+    app.setState({ series: mockData });
+    const event = new Event('keyDown');
+    connectEvent(event, 'ArrowRight', app);
+    expect(app.state().selectedEpisode).toEqual(1);
+    connectEvent(event, 'ArrowDown', app);
+    expect(app.state().selectedSeries).toEqual(1);
+    connectEvent(event, 'ArrowDown', app);
+    expect(app.state().selectedSeries).toEqual(2);
+    connectEvent(event, 'ArrowDown', app);
+    expect(app.state().selectedSeries).toEqual(2);
+    connectEvent(event, 'ArrowDown', app);
+    expect(app.state().selectedSeries).toEqual(2);
+    connectEvent(event, 'ArrowUp', app);
+    connectEvent(event, 'ArrowUp', app);
+    expect(app.state().selectedSeries).toEqual(0);
+    connectEvent(event, 'ArrowUp', app);
+    expect(app.state().selectedSeries).toEqual(0);
+    connectEvent(event, 'Backspace', app);
+    expect(app.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'ArrowLeft', app);
+    expect(app.state().isSelectedSidePanel).toEqual(true);
+    connectEvent(event, 'Backspace', app);
+    connectEvent(event, 'Enter', app);
+    connectEvent(event, 'ArrowRight', app);
+    expect(app.state().isSelectedSidePanel).toEqual(false);
+    connectEvent(event, 'ArrowRight', app);
+    expect(app.state().selectedEpisode).toEqual(1);
+    connectEvent(event, 'ArrowLeft', app);
+    expect(app.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'Shift', app);
+    connectEvent(event, 'Enter', app);
+  });
+  test('mounts/unmounts', () => {
+    const wrapper = shallow(<App />);
+    wrapper.unmount();
+  });
 });
-
-// test('App renders asd', () => {
-//   const app = mount(<App />);
-//   app.instance().handleKeyPress({ key: 'ArrowLeft', preventDefault: () => {} });
-//   expect(app.state.isSelectedSidePanel).toEqual(true);
-  // const element = shallow(<App />);
-  // element.instance().state.isSelectedSidePanel = true;
-  // console.log(element.text());
-  // element.setState({ name: 'bar' });
-  // element.instance().resetSelectedEpisode();
-  // element.simulate('keyDown', { key: 'ArrowLeft' });
-  // expect(element.text()).toEqual('');
-  // const event = new KeyboardEvent('keydown', { keyCode: 37 });
-  // document.dispatchEvent(event);
-// });
