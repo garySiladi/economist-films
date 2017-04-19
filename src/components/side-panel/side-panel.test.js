@@ -11,17 +11,17 @@ jest.mock('./parts/side-panel-card', () =>
 );
 
 test('SidePanel renders correctly', () => {
-  const component = renderer.create(<SidePanel user={dummyUser} />);
+  const component = renderer.create(<SidePanel user={dummyUser} isSelected={false} />);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-test('SidePanel expands after click', () => {
-  const sidePanel = shallow(<SidePanel user={dummyUser} />);
+test('SidePanel expands if the prop isSelected is false', () => {
+  const sidePanel = shallow(<SidePanel user={dummyUser} isSelected={false} />);
   expect(sidePanel.hasClass('side-panel--expanded')).toEqual(false);
-  // $FlowFixMe
-  sidePanel.instance().handleClick({
-    preventDefault: jest.fn(),
-  });
+});
+
+test('SidePanel does not expand if the prop isSelected is true', () => {
+  const sidePanel = shallow(<SidePanel user={dummyUser} isSelected />);
   expect(sidePanel.hasClass('side-panel--expanded')).toEqual(true);
 });

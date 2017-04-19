@@ -2,6 +2,7 @@
 
 :root {
   --slider-item-width: 300px;
+  --slider-left-offset: -310px;
   --slider-item-margin-right: 10px;
   --slider-item-image-height: 165px;
   --container-padding: 10px;
@@ -13,12 +14,19 @@
   min-width: var(--slider-item-width);
   background-color: var(--economist-white, white);
   margin-right: var(--slider-item-margin-right);
+  transition: margin-left 0.5s;
 
+  &--selected .slider-item__image,
+  &--selected .slider-item__container,
   &:hover .slider-item__image,
   &:hover .slider-item__container {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: pointer;
     transition: opacity 0.3s;
+  }
+
+  &--left-offset {
+    margin-left: var(--slider-left-offset);
   }
 
   &__image {

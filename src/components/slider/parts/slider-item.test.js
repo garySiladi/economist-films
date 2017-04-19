@@ -14,6 +14,10 @@ const dummyData = [
         url: 'url',
       },
     },
+    className: 'slider-item',
+    isSelected: false,
+    isBeforeSelected: false,
+    isSelectedSeries: false,
   },
   {
     title: 'Series 1 Title',
@@ -25,6 +29,10 @@ const dummyData = [
         url: 'url',
       },
     },
+    className: 'slider-item',
+    isSelected: false,
+    isBeforeSelected: true,
+    isSelectedSeries: true,
   },
   {
     title: 'Episode 19 Title',
@@ -32,13 +40,16 @@ const dummyData = [
     id: 19,
     subtitle: 'subtitle',
     thumbnail: {},
+    className: 'slider-item',
+    isSelected: true,
+    isBeforeSelected: false,
+    isSelectedSeries: true,
   },
 ];
 
 test('SliderItem renders correctly', () => {
-  let tree : string = '';
   dummyData.forEach((data) => {
-    tree = renderer.create(<SliderItem {...data} />).toJSON();
+    const tree: string = renderer.create(<SliderItem {...data} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
