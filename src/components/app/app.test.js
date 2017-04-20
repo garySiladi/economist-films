@@ -78,33 +78,46 @@ describe('App: ', () => {
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     const event = new Event('keyDown');
+    // we have the first episode of the first series selected [0,0]
+    // we select the second episode of the first series [0,1]
     connectEvent(event, 'ArrowRight', app);
     expect(app.state().selectedEpisode).toEqual(1);
+    // we start navigating down 2 positions
     connectEvent(event, 'ArrowDown', app);
     expect(app.state().selectedSeries).toEqual(1);
     connectEvent(event, 'ArrowDown', app);
     expect(app.state().selectedSeries).toEqual(2);
+    // we push the ArrowDown button, but there is no place at the bottom to navigate
     connectEvent(event, 'ArrowDown', app);
     expect(app.state().selectedSeries).toEqual(2);
-    connectEvent(event, 'ArrowDown', app);
-    expect(app.state().selectedSeries).toEqual(2);
+    // we navigate up 2 positions to [1,0]
     connectEvent(event, 'ArrowUp', app);
     connectEvent(event, 'ArrowUp', app);
     expect(app.state().selectedSeries).toEqual(0);
+    // we try the upper bounds
     connectEvent(event, 'ArrowUp', app);
     expect(app.state().selectedSeries).toEqual(0);
+    connectEvent(event, 'ArrowRight', app);
+    expect(app.state().selectedEpisode).toEqual(1);
+    // the Backspace button resets the selected episode
     connectEvent(event, 'Backspace', app);
     expect(app.state().selectedEpisode).toEqual(0);
+    // if we navigate left from the first episode, we end up on the sidebar
     connectEvent(event, 'ArrowLeft', app);
     expect(app.state().isSelectedSidePanel).toEqual(true);
+    // the backspace here does nothing
     connectEvent(event, 'Backspace', app);
+    // for now it 'selects' the focused element
     connectEvent(event, 'Enter', app);
+    // we navigate back to the homecontainer
     connectEvent(event, 'ArrowRight', app);
     expect(app.state().isSelectedSidePanel).toEqual(false);
+    expect(app.state().isSelectedHomeContainer).toEqual(true);
     connectEvent(event, 'ArrowRight', app);
     expect(app.state().selectedEpisode).toEqual(1);
     connectEvent(event, 'ArrowLeft', app);
     expect(app.state().selectedEpisode).toEqual(0);
+    // no functionaility, just need to cover all branches, default switch
     connectEvent(event, 'Shift', app);
     connectEvent(event, 'Enter', app);
   });
