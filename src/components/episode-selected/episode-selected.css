@@ -1,0 +1,56 @@
+:root {
+  --economist-white: #f2f2f2;
+  --economist-red: #e3120b;
+}
+
+.episode-selected {
+  border: 2px solid var(--economist-white);
+  display: flex;
+  margin: 20px;
+  padding: 20px;
+
+  &__screen {
+    flex: 1;
+    margin-right: 30px;
+  }
+
+  &__desc-btns {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    flex: 1;
+
+    &__description {
+      flex: 1;
+    }
+
+    &__wrapper {
+      flex: 1;
+      display: flex;
+      align-self: flex-end;
+    }
+
+    &__watch-now-btn,
+    &__learn-more-btn {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 2em;
+      font-weight: 600;
+      border-radius: 4px;
+      background-color: var(--economist-white);
+      color: black;
+      flex-basis: 50%;
+    }
+
+    &__watch-now-btn:hover,
+    &__learn-more-btn:hover {
+      cursor: pointer;
+      color: var(--economist-red);
+    }
+
+    &__watch-now-btn {
+      margin-right: 20px;
+    }
+  }
+}
+

@@ -10,9 +10,9 @@ test('EpisodeDescription renders correctly', () => {
 
 test('EpisodeDescription renders with data', () => {
   const tree : string = renderer.create(<EpisodeDescription
-    title="some title"
-    date="2011-11-11"
-    description="something happened"
+    title="title xyz"
+    subtitle="subtitle xyz"
+    description="description xyz"
   />).toJSON();
   expect(tree).toMatchSnapshot();
 });

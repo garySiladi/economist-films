@@ -1,0 +1,37 @@
+:root {
+  --economist-white: #f2f2f2;
+  --text-line-height: 1.5em;
+  --line-count: 5;
+}
+
+.episode-description {
+  color: var(--economist-white);
+
+  & > * {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__subtitle {
+    font-size: 1.75em;
+    margin-bottom: 15px;
+  }
+
+  &__title {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    display: -webkit-box;
+    font-size: 1.25em;
+    overflow: hidden;
+    max-height: calc(var(--text-line-height) * var(--line-count));
+    line-height: var(--text-line-height);
+    text-overflow: ellipsis;
+    -webkit-line-clamp: var(--line-count);
+    -webkit-box-orient: vertical;
+  }
+}
+

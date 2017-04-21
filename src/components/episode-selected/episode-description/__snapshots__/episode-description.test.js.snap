@@ -5,9 +5,9 @@ exports[`EpisodeDescription renders correctly 1`] = `
   className="episode-description"
 >
   <h3
-    className="episode-description__date"
+    className="episode-description__subtitle"
   />
-  <h1
+  <h2
     className="episode-description__title"
   />
   <p
@@ -21,19 +21,20 @@ exports[`EpisodeDescription renders with data 1`] = `
   className="episode-description"
 >
   <h3
-    className="episode-description__date"
+    className="episode-description__subtitle"
   >
-    2011-11-11
+    subtitle xyz
   </h3>
-  <h1
+  <h2
     className="episode-description__title"
   >
-    some title
-  </h1>
+    title xyz
+  </h2>
   <p
     className="episode-description__text"
   >
-    something happened
+    description xyz
+    description xyz
   </p>
 </div>
 `;
