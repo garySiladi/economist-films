@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import EpisodeSelected from './episode-selected';
 
-jest.mock('./episode-description/episode-description', () =>
+jest.mock('./parts/episode-description', () =>
   jest.fn(() => <div>EpisodeDescription</div>),
 );
 

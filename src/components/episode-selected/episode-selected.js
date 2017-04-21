@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { Link } from 'react-router';
-import EpisodeDescription from './episode-description/episode-description';
+import EpisodeDescription from './parts/episode-description';
 import './episode-selected.css';
 
 type EpisodeSelectedType = {
