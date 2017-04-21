@@ -38,20 +38,10 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     });
   }
   componentDidMount() {
-    if (document.body) {
-      document.body.addEventListener('keydown', this.handleKeyPress);
-    }
-    getRoot()
-    .then((data) => {
-      this.setState({
-        series: data.shelves,
-      });
-    });
+    document.addEventListener('keydown', this.handleKeyPress);
   }
   componentWillUnmount() {
-    if (document.body) {
-      document.body.removeEventListener('keydown', this.handleKeyPress);
-    }
+    document.removeEventListener('keydown', this.handleKeyPress);
   }
   handleKeyPress(event: Object) { // TODO: maybe export this functionality to another file
     event.preventDefault();
