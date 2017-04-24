@@ -7,7 +7,7 @@ const EpisodeDescription = ({ subtitle, title, description }: EpisodeDescription
   <div className="episode-description">
     <h3 className="episode-description__subtitle">{subtitle}</h3>
     <h2 className="episode-description__title">{title}</h2>
-    <p className="episode-description__text">{description}{description}</p>
+    <p className="episode-description__text">{description}</p>
   </div>
 );
 

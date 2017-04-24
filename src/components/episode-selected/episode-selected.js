@@ -13,22 +13,19 @@ type EpisodeSelectedType = {
 };
 
 const episodeSelected = ({ id, url, subtitle, title, description }: EpisodeSelectedType) => {
-  // const videoImg = {
-  //   background: `#000 url("${url}") center/cover no-repeat`,
-  // };
   const watchString : string = `/watch?id=${id}`;
   const learnString : string = `/learn?id=${id}`;
   return (
     <div className="episode-selected">
-      <img className="episode-selected__screen" src={url} alt="ooga" />
-      <div className="episode-selected__desc-btns">
+      <img className="episode-selected__image" src={url} alt={title} />
+      <div className="episode-selected__info-container">
         <EpisodeDescription
           title={title} description={description} subtitle={subtitle}
-          className="episode-selected__desc-btns__description"
+          className="episode-description-wrapper"
         />
-        <div className="episode-selected__desc-btns__wrapper">
-          <Link className="episode-selected__desc-btns__watch-now-btn" to={watchString}>Watch Now</Link>
-          <Link className="episode-selected__desc-btns__learn-more-btn" to={learnString}>Learn More</Link>
+        <div className="episode-buttons">
+          <Link className="episode-buttons__watch" to={watchString}>Watch Now</Link>
+          <Link className="episode-buttons__learn" to={learnString}>Learn More</Link>
         </div>
       </div>
     </div>
