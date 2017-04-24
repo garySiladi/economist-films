@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EpisodeSelected renders with data 1`] = `
+<div
+  className="episode-selected"
+>
+  <img
+    alt="title xyz"
+    className="episode-selected__image"
+    src="url xyz"
+  />
+  <div
+    className="episode-selected__info-container"
+  >
+    <div>
+      EpisodeDescription
+    </div>
+    <div
+      className="episode-buttons"
+    >
+      <a
+        className="episode-buttons__watch"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        Watch Now
+      </a>
+      <a
+        className="episode-buttons__learn"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        Learn More
+      </a>
+    </div>
+  </div>
+</div>
+`;

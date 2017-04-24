@@ -16,8 +16,3 @@ export type EpisodeDescriptionStructure = {
   subtitle: string,
   id: number,
 }
-
-export type EpisodeWatchStructure = {
-  url: string,
-  id: number,
-}
