@@ -34,7 +34,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
     );
     return (
       <div className="home-container">
-        {homePageContent.splice(0, homePageContent.length - 2)}
+        {homePageContent}
       </div>
     );
   }

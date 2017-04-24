@@ -9,5 +9,11 @@ exports[`HomeContainer:  renders correctly without data 1`] = `
   <div>
     Slider
   </div>
+  <div>
+    Slider
+  </div>
+  <div>
+    Slider
+  </div>
 </div>
 `;

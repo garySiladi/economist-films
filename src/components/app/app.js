@@ -2,13 +2,25 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import SidePanel from '../side-panel/side-panel';
-import { getRoot } from '../../api/fetch';
+import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
 
 // App needs to be a class in order to allow hot-reloading
 // that's why we disable react/prefer-stateless-function
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static createRecommendedSlider(dataRecommended) {
+    return {
+      title: 'Recommended',
+      items: dataRecommended.recommended_videos,
+      type: 'series',
+    };
+  }
+  static massageSeries(series: Object) {
+    series.pop();
+    series.pop();
+    return series;
+  }
   constructor() {
     super();
     this.state = {
@@ -29,16 +41,22 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     selectedEpisode: number,
     goToEpisode: boolean,
   }
-  componentWillMount() {
-    getRoot()
-    .then((data) => {
-      this.setState({
-        series: data.shelves,
-      });
-    });
-  }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    getRoot()
+    .then((dataSeries) => {
+      this.setState({
+        series: this.state.series.concat(
+          App.massageSeries(dataSeries.shelves || []),
+        ),
+      });
+    });
+    getRecommendedEpisodes(1)
+    .then((dataRecommended) => {
+      this.setState({
+        series: [App.createRecommendedSlider(dataRecommended)].concat(this.state.series),
+      });
+    });
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
@@ -92,7 +110,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
         break;
       case 'ArrowDown':
         this.resetSelectedEpisode();
-        if (isSelectedHomeContainer && selectedSeries !== series.length - 3) {
+        if (isSelectedHomeContainer && selectedSeries !== series.length - 1) {
           this.setState({
             selectedSeries: selectedSeries + 1,
           });
