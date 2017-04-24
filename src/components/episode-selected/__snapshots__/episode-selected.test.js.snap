@@ -5,28 +5,28 @@ exports[`EpisodeSelected renders with data 1`] = `
   className="episode-selected"
 >
   <img
-    alt="ooga"
-    className="episode-selected__screen"
+    alt="title xyz"
+    className="episode-selected__image"
     src="url xyz"
   />
   <div
-    className="episode-selected__desc-btns"
+    className="episode-selected__info-container"
   >
     <div>
       EpisodeDescription
     </div>
     <div
-      className="episode-selected__desc-btns__wrapper"
+      className="episode-buttons"
     >
       <a
-        className="episode-selected__desc-btns__watch-now-btn"
+        className="episode-buttons__watch"
         onClick={[Function]}
         style={Object {}}
       >
         Watch Now
       </a>
       <a
-        className="episode-selected__desc-btns__learn-more-btn"
+        className="episode-buttons__learn"
         onClick={[Function]}
         style={Object {}}
       >

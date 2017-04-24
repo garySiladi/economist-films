@@ -34,7 +34,6 @@ exports[`EpisodeDescription renders with data 1`] = `
     className="episode-description__text"
   >
     description xyz
-    description xyz
   </p>
 </div>
 `;

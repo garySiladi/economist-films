@@ -5,7 +5,8 @@
   --font-size-medium: 1.75em;
   --font-size-small: 1.25;
   --line-count: 5;
-  --margin-size: 20px;
+  --margin-size-larger: 20px;
+  --margin-size-medium: 15px;
   --weight-size: 600;
 }
 
@@ -19,13 +20,13 @@
 
   &__subtitle {
     font-size: var(--font-size-medium);
-    margin-bottom: 15px;
+    margin-bottom: var(--margin-size-medium);
   }
 
   &__title {
     font-size: var(--font-size-large);
     font-weight: var(--weight-size);
-    margin-bottom: var(--margin-size);
+    margin-bottom: var(--margin-size-larger);
   }
 
   &__text {
