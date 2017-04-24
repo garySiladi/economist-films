@@ -1,4 +1,4 @@
-import { getRoot, getSeriesByID, getEpisodeByID } from './fetch';
+import { getRoot, getSeriesByID, getEpisodeByID, getRecommendedEpisodes } from './fetch';
 
 describe('Checking fetch function: ', () => {
   beforeEach(() => {
@@ -31,6 +31,12 @@ describe('Checking fetch function: ', () => {
 
   test('getEpisodeByID()', async () => {
     const response = await getEpisodeByID(5);
+    expect(response.id).toBe(55);
+    expect(response.title).toBe('Dummy Title');
+  });
+
+  test('getRecommendedEpisodes()', async () => {
+    const response = await getRecommendedEpisodes(4);
     expect(response.id).toBe(55);
     expect(response.title).toBe('Dummy Title');
   });

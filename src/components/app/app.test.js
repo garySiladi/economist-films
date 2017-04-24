@@ -49,12 +49,6 @@ const mockData = [
       },
     ],
   },
-  {
-    title: 'Featured',
-  },
-  {
-    title: 'More in Economist',
-  },
 ];
 
 jest.mock('../side-panel/side-panel', () =>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import SidePanel from '../side-panel/side-panel';
-import { getRoot } from '../../api/fetch';
+import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
 
@@ -20,6 +20,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       goToEpisode: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+    (this: any).combineSeries = this.combineSeries.bind(this);
   }
   state: {
     isSelectedSidePanel: boolean,
@@ -29,16 +30,15 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     selectedEpisode: number,
     goToEpisode: boolean,
   }
-  componentWillMount() {
-    getRoot()
-    .then((data) => {
-      this.setState({
-        series: data.shelves,
-      });
-    });
-  }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    getRoot()
+    .then((dataSeries) => {
+      getRecommendedEpisodes(1)
+      .then((dataRecommended) => {
+        this.combineSeries(dataSeries, dataRecommended);
+      });
+    });
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
@@ -92,7 +92,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
         break;
       case 'ArrowDown':
         this.resetSelectedEpisode();
-        if (isSelectedHomeContainer && selectedSeries !== series.length - 3) {
+        if (isSelectedHomeContainer && selectedSeries !== series.length - 1) {
           this.setState({
             selectedSeries: selectedSeries + 1,
           });
@@ -115,6 +115,20 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   resetSelectedEpisode() {
     this.setState({
       selectedEpisode: 0,
+    });
+  }
+  combineSeries(dataSeries: Object, dataRecommended: Object) {
+    const shelves = dataSeries.shelves || [];
+    const recommendedSlider = {
+      title: 'Recommended',
+      items: dataRecommended.recommended_videos,
+      type: 'series',
+    };
+    shelves.splice(0, 0, recommendedSlider);
+    shelves.pop();
+    shelves.pop();
+    this.setState({
+      series: shelves,
     });
   }
   render() {
