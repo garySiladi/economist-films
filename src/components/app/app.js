@@ -9,6 +9,18 @@ import './app.css';
 // App needs to be a class in order to allow hot-reloading
 // that's why we disable react/prefer-stateless-function
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static createRecommendedSlider(dataRecommended) {
+    return {
+      title: 'Recommended',
+      items: dataRecommended.recommended_videos,
+      type: 'series',
+    };
+  }
+  static massageSeries(series: Object) {
+    series.pop();
+    series.pop();
+    return series;
+  }
   constructor() {
     super();
     this.state = {
@@ -20,7 +32,6 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       goToEpisode: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
-    (this: any).combineSeries = this.combineSeries.bind(this);
   }
   state: {
     isSelectedSidePanel: boolean,
@@ -34,9 +45,16 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     document.addEventListener('keydown', this.handleKeyPress);
     getRoot()
     .then((dataSeries) => {
-      getRecommendedEpisodes(1)
-      .then((dataRecommended) => {
-        this.combineSeries(dataSeries, dataRecommended);
+      this.setState({
+        series: this.state.series.concat(
+          App.massageSeries(dataSeries.shelves || []),
+        ),
+      });
+    });
+    getRecommendedEpisodes(1)
+    .then((dataRecommended) => {
+      this.setState({
+        series: [App.createRecommendedSlider(dataRecommended)].concat(this.state.series),
       });
     });
   }
@@ -115,20 +133,6 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   resetSelectedEpisode() {
     this.setState({
       selectedEpisode: 0,
-    });
-  }
-  combineSeries(dataSeries: Object, dataRecommended: Object) {
-    const shelves = dataSeries.shelves || [];
-    const recommendedSlider = {
-      title: 'Recommended',
-      items: dataRecommended.recommended_videos,
-      type: 'series',
-    };
-    shelves.splice(0, 0, recommendedSlider);
-    shelves.pop();
-    shelves.pop();
-    this.setState({
-      series: shelves,
     });
   }
   render() {
