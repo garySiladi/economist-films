@@ -1,83 +1,66 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SliderItem renders correctly 1`] = `
+exports[`test SliderItem renders correctly 1`] = `
 <a
   className="slider-item"
   onClick={[Function]}
-  style={Object {}}
->
+  style={Object {}}>
   <img
     alt="Episode 6 Title"
     className="slider-item__image"
-    src="url"
-  />
+    src="url" />
   <div
-    className="slider-item__container"
-  >
+    className="slider-item__container">
     <div
-      className="slider-item__title"
-    >
+      className="slider-item__title">
       Episode 6 Title
     </div>
     <div
-      className="slider-item__subtitle"
-    >
+      className="slider-item__subtitle">
       subtitle
     </div>
   </div>
 </a>
 `;
 
-exports[`SliderItem renders correctly 2`] = `
+exports[`test SliderItem renders correctly 2`] = `
 <a
   className="slider-item slider-item--left-offset"
   onClick={[Function]}
-  style={Object {}}
->
+  style={Object {}}>
   <img
     alt="Series 1 Title"
     className="slider-item__image"
-    src="url"
-  />
+    src="url" />
   <div
-    className="slider-item__container"
-  >
+    className="slider-item__container">
     <div
-      className="slider-item__title"
-    >
+      className="slider-item__title">
       Series 1 Title
     </div>
     <div
-      className="slider-item__subtitle"
-    >
+      className="slider-item__subtitle">
       10 episodes
     </div>
   </div>
 </a>
 `;
 
-exports[`SliderItem renders correctly 3`] = `
+exports[`test SliderItem renders correctly 3`] = `
 <a
   className="slider-item slider-item--selected"
   onClick={[Function]}
-  style={Object {}}
->
+  style={Object {}}>
   <img
     alt="Episode 19 Title"
     className="slider-item__image"
-    src=""
-  />
+    src="" />
   <div
-    className="slider-item__container"
-  >
+    className="slider-item__container">
     <div
-      className="slider-item__title"
-    >
+      className="slider-item__title">
       Episode 19 Title
     </div>
     <div
-      className="slider-item__subtitle"
-    >
+      className="slider-item__subtitle">
       subtitle
     </div>
   </div>

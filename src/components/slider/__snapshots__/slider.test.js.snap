@@ -1,17 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Slider renders correctly 1`] = `
+exports[`test Slider renders correctly 1`] = `
 <div
-  className="home-slider home-slider--selected"
->
+  className="home-slider home-slider--selected">
   <div
-    className="slider-title"
-  >
+    className="slider-title">
     Slider title
   </div>
   <div
-    className="slider-items"
-  >
+    className="slider-items">
     <div>
       SliderItem
     </div>
@@ -25,18 +20,15 @@ exports[`Slider renders correctly 1`] = `
 </div>
 `;
 
-exports[`Slider renders correctly 2`] = `
+exports[`test Slider renders correctly 2`] = `
 <div
-  className="home-slider home-slider--top-offset home-slider--top-hidden"
->
+  className="home-slider home-slider--top-offset home-slider--top-hidden">
   <div
-    className="slider-title"
-  >
+    className="slider-title">
     Slider title
   </div>
   <div
-    className="slider-items"
-  >
+    className="slider-items">
     <div>
       SliderItem
     </div>
@@ -50,18 +42,15 @@ exports[`Slider renders correctly 2`] = `
 </div>
 `;
 
-exports[`Slider renders correctly 3`] = `
+exports[`test Slider renders correctly 3`] = `
 <div
-  className="home-slider"
->
+  className="home-slider">
   <div
-    className="slider-title"
-  >
+    className="slider-title">
     Slider title
   </div>
   <div
-    className="slider-items"
-  >
+    className="slider-items">
     <div>
       SliderItem
     </div>

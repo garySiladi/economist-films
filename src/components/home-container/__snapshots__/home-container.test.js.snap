@@ -1,11 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
 exports[`HomeContainer:  renders correctly with data 1`] = `null`;
 
 exports[`HomeContainer:  renders correctly without data 1`] = `
 <div
-  className="home-container"
->
+  className="home-container">
   <div>
     Slider
   </div>
