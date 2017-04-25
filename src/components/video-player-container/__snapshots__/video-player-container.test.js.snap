@@ -1,0 +1,4 @@
+exports[`VideoPlayerContainer renders correctly 1`] = `
+<div
+  className="video-player-container" />
+`;
