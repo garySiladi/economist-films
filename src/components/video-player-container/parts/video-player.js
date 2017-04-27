@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-// $FlowFixMe 
+// $FlowFixMe
 import 'video.js/dist/video-js.css';
 import { Link } from 'react-router';
 import videojs from 'video.js';
