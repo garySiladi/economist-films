@@ -35,10 +35,16 @@ class VideoPlayerContainer extends React.Component {
 
   props: VideoPlayerContainerPropsType;
 
+
   render() {
     return (
       <div className="video-player-container">
-        {this.state.videoUrl ? <VideoPlayer videoUrl="//vjs.zencdn.net/v/oceans.mp4" /> : null}
+        {this.state.videoUrl ?
+          <VideoPlayer
+            videoUrl={this.state.videoUrl}
+          />
+          : null
+        }
       </div>
     );
   }

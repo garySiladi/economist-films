@@ -61,7 +61,8 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
-    "video.js": "^5.19.2"
+    "video.js": "^5.19.2",
+    "videojs-contrib-hls": "^5.5.0"
   },
   "scripts": {
     "postinstall": "flow-typed install",

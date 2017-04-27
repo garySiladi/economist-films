@@ -1,5 +1,13 @@
-.video-js {
+
+.video-player-wrapper{
+  width: 80%;
+  height:80%;
+  display: block;
   margin: 0 auto;
+}
+
+.video-js {
   width: 100%;
+  height: 100%;
   margin-top: 30px;
 }

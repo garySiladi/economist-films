@@ -1,0 +1,39 @@
+exports[`VideoPlayer renders correctly 1`] = `
+<div
+  className="navigation-container">
+  <div
+    className="progress-bar-container">
+    <div
+      className="progress-bar"
+      style={
+        Object {
+          "width": "undefined%",
+        }
+      } />
+  </div>
+  <div
+    className="navigation-controls">
+    <button
+      className="play-back"
+      onClick={undefined}>
+      <img
+        alt="right"
+        src="RW.svg" />
+    </button>
+    <button
+      className="pause"
+      onClick={undefined}>
+      <img
+        alt="Play/Pause"
+        src="Play.svg" />
+    </button>
+    <button
+      className="play-forward"
+      onClick={undefined}>
+      <img
+        alt="left"
+        src="FF.svg" />
+    </button>
+  </div>
+</div>
+`;

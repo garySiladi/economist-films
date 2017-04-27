@@ -1,16 +1,22 @@
 // @flow
 import React from 'react';
+// $FlowFixMe 
+import 'video.js/dist/video-js.css';
+import { Link } from 'react-router';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
-// $FlowFixMe
-require('../../../../node_modules/video.js/dist/video-js.css');
+
+
+window.videojs = videojs;
+require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerType = {
   videoUrl: string,
 };
 export type Props = {
   videoUrl: string,
+  setLocalStorage: Function,
 };
 
 const videoJsOptions = (videoUrl: string) => ({
@@ -18,7 +24,7 @@ const videoJsOptions = (videoUrl: string) => ({
   controls: false,
   sources: [{
     src: videoUrl,
-    type: 'video/mp4',
+    type: 'application/x-mpegURL',
   }],
 });
 
@@ -100,14 +106,18 @@ class VideoPlayer extends React.Component {
   props: VideoPlayerType;
   render() {
     return (
-      <div>
+      <div className="video-player-wrapper">
+        <button>
+          <Link to="/">Back</Link>
+        </button>
         <div data-vjs-player>
           <video
+
             ref={(node) => { (this: any).videoNode = node; }}
             onEnded={this.handleEnd}
             onLoadedMetadata={this.handleOnLoad}
             onTimeUpdate={this.handleTimeUpdate}
-            className="video-js"
+            className="video-js vjs-big-play-centered"
           />
         </div>
         <VideoPlayerControls
