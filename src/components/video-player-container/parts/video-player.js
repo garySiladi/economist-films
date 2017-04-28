@@ -112,7 +112,6 @@ class VideoPlayer extends React.Component {
         </button>
         <div data-vjs-player>
           <video
-
             ref={(node) => { (this: any).videoNode = node; }}
             onEnded={this.handleEnd}
             onLoadedMetadata={this.handleOnLoad}

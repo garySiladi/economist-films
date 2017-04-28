@@ -32,16 +32,17 @@ const VideoPlayerControls = ({
         <div className="progress-bar" style={progressBar} />
       </div>
       <div className="navigation-controls">
-        <button className="play-back" onClick={fastRewind}>
+        <button className="navigation-controls__play-back" onClick={fastRewind}>
           <img src={Right} alt="right" />
         </button>
         <button
-          className={isPlaying ? 'play' : 'pause'}
+          className={isPlaying ?
+            'navigation-controls__pause' : 'navigation-controls__play'}
           onClick={isPlaying ? pause : play}
         >
           <img src={isPlaying ? Pause : Play} alt="Play/Pause" />
         </button>
-        <button className="play-forward" onClick={fastForward}>
+        <button className="navigation-controls__play-forward" onClick={fastForward}>
           <img src={Left} alt="left" />
         </button>
       </div>

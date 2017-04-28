@@ -1,28 +1,28 @@
-.play {
+.navigation-controls__play {
   display: inline-block;
   margin: 0 20px;
-  background: #121212;
+  background: #000;
   border: none;
 }
 
-.pause {
+.navigation-controls__pause {
   display: inline-block;
   margin: 0 20px;
-  background: #121212;
+  background: #000;
   border: none;
 }
 
-.play-forward {
+.navigation-controls__play-forward {
   display: inline-block;
   margin: 0 20px;
-  background: #121212;
+  background: #000;
   border: none;
 }
 
-.play-back {
+.navigation-controls__play-back {
   display: inline-block;
   margin: 0 20px;
-  background: #121212;
+  background: #000;
   border: none;
 }
 
