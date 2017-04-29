@@ -6,7 +6,7 @@ import Left from '../../../../public/assets/FF.svg';
 import Play from '../../../../public/assets/Play.svg';
 import Pause from '../../../../public/assets/Pause.svg';
 
-export type VideoPlayerControlsType = {
+export type VideoPlayerControlsProps = {
   play: Function,
   pause: Function,
   fastForward: Function,
@@ -21,7 +21,7 @@ const VideoPlayerControls = ({
   isPlaying,
   fastRewind,
   progress,
-  }: VideoPlayerControlsType) => {
+  }: VideoPlayerControlsProps) => {
   const progressBar = {
     width: `${progress}%`,
   };

@@ -7,17 +7,17 @@ import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
 
-
 window.videojs = videojs;
+// eslint-disable-next-line
 require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
-export type VideoPlayerType = {
+export type VideoPlayerProps = {
   videoUrl: string,
 };
-export type Props = {
-  videoUrl: string,
-  setLocalStorage: Function,
-};
+export type VideoPlayerStateType = {
+  isPlaying: boolean,
+  timeProgress: number,
+}
 
 const videoJsOptions = (videoUrl: string) => ({
   autoplay: true,
@@ -29,7 +29,7 @@ const videoJsOptions = (videoUrl: string) => ({
 });
 
 class VideoPlayer extends React.Component {
-  constructor(props: Props) {
+  constructor(props: VideoPlayerProps) {
     super(props);
     (this: any).moveTime = 10;
     (this: any).videoNode = null;
@@ -48,10 +48,7 @@ class VideoPlayer extends React.Component {
     (this: any).handleOnLoad = this.handleOnLoad.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
-  state: {
-     isPlaying: boolean,
-     timeProgress: number,
-  };
+  state: VideoPlayerStateType;
 
   componentDidMount() {
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
@@ -103,7 +100,6 @@ class VideoPlayer extends React.Component {
     });
   }
 
-  props: VideoPlayerType;
   render() {
     return (
       <div className="video-player-wrapper">

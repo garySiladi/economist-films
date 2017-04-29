@@ -1,29 +1,36 @@
+:root {
+  --video-controls-icon-margin: 0 20px;
+  --video-controls-icon-background: #000;
+  --video-controls-icon-display: inline-block;
+  --video-controls-icon-border: none;
+}
+
 .navigation-controls__play {
-  display: inline-block;
-  margin: 0 20px;
-  background: #000;
-  border: none;
+  display: var(--video-controls-icon-display);
+  margin: var(--video-controls-icon-margin);
+  background: var(--video-controls-icon-background);
+  border: var(--video-controls-icon-border);
 }
 
 .navigation-controls__pause {
-  display: inline-block;
-  margin: 0 20px;
-  background: #000;
-  border: none;
+  display: var(--video-controls-icon-display);
+  margin: var(--video-controls-icon-margin);
+  background: var(--video-controls-icon-background);
+  border: var(--video-controls-icon-border);
 }
 
 .navigation-controls__play-forward {
-  display: inline-block;
-  margin: 0 20px;
-  background: #000;
-  border: none;
+  display: var(--video-controls-icon-display);
+  margin: var(--video-controls-icon-margin);
+  background: var(--video-controls-icon-background);
+  border: var(--video-controls-icon-border);
 }
 
 .navigation-controls__play-back {
-  display: inline-block;
-  margin: 0 20px;
-  background: #000;
-  border: none;
+  display: var(--video-controls-icon-display);
+  margin: var(--video-controls-icon-margin);
+  background: var(--video-controls-icon-background);
+  border: var(--video-controls-icon-border);
 }
 
 .progress-bar-container {
