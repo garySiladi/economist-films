@@ -20,7 +20,6 @@ export type VideoPlayerStateType = {
 }
 
 const videoJsOptions = (videoUrl: string) => ({
-  autoplay: true,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -36,7 +35,7 @@ class VideoPlayer extends React.Component {
     (this: any).player = null;
     (this: any).fullLenghtOfVideo = 0;
     this.state = {
-      isPlaying: true,
+      isVideoPlaying: true,
       timeProgress: 0,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
@@ -60,12 +59,12 @@ class VideoPlayer extends React.Component {
   }
 
   handlePlay() {
-    this.setState({ isPlaying: true });
+    this.setState({ isVideoPlaying: true });
     (this: any).player.play();
   }
 
   handlePause() {
-    this.setState({ isPlaying: false });
+    this.setState({ isVideoPlaying: false });
     (this: any).player.pause();
   }
 
@@ -80,14 +79,16 @@ class VideoPlayer extends React.Component {
     }
   }
 
-  handleEnd() {
+  handleEndReached() {
     this.setState({
-      isPlaying: false,
+      isVideoPlaying: false,
     });
     (this: any).player.currentTime(0);
+    (this: any).player.pause();
   }
 
   handleOnLoad() {
+    (this: any).player.play();
     (this: any).fullLenghtOfVideo = (this: any).player.duration();
   }
 
@@ -108,7 +109,7 @@ class VideoPlayer extends React.Component {
         <div data-vjs-player>
           <video
             ref={(node) => { (this: any).videoNode = node; }}
-            onEnded={this.handleEnd}
+            onEnded={this.handleEndReached}
             onLoadedMetadata={this.handleOnLoad}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
@@ -117,7 +118,7 @@ class VideoPlayer extends React.Component {
         <VideoPlayerControls
           playVideo={this.handlePlay}
           pauseVideo={this.handlePause}
-          isVideoPlaying={this.state.isPlaying}
+          isVideoPlaying={this.state.isVideoPlaying}
           fastForward={this.handleFastForward}
           fastRewind={this.handleRewind}
           progress={this.state.timeProgress}
