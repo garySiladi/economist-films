@@ -15,7 +15,7 @@ export type VideoPlayerPropsType = {
   videoUrl: string,
 };
 export type VideoPlayerStateType = {
-  isPlaying: boolean,
+  isVideoPlaying: boolean,
   timeProgress: number,
 }
 
@@ -42,7 +42,7 @@ class VideoPlayer extends React.Component {
     (this: any).handlePlay = this.handlePlay.bind(this);
     (this: any).handlePause = this.handlePause.bind(this);
     (this: any).handleRewind = this.handleRewind.bind(this);
-    (this: any).handleEnd = this.handleEnd.bind(this);
+    (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleOnLoad = this.handleOnLoad.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
