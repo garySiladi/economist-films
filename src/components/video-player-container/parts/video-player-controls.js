@@ -7,43 +7,42 @@ import Play from '../../../../public/assets/Play.svg';
 import Pause from '../../../../public/assets/Pause.svg';
 
 export type VideoPlayerControlsProps = {
-  play: Function,
-  pause: Function,
+  playVideo: Function,
+  pauseVideo: Function,
   fastForward: Function,
-  isPlaying: boolean,
+  isVideoPlaying: boolean,
   fastRewind: Function,
   progress: number,
 }
 const VideoPlayerControls = ({
-  play,
-  pause,
+  playVideo,
+  pauseVideo,
   fastForward,
-  isPlaying,
+  isVideoPlaying,
   fastRewind,
   progress,
   }: VideoPlayerControlsProps) => {
-  const progressBar = {
+  const progressBarStyle = {
     width: `${progress}%`,
   };
 
   return (
-    <div className="navigation-container">
-      <div className="progress-bar-container">
-        <div className="progress-bar" style={progressBar} />
+    <div className="player-interface">
+      <div className="player-interface__progress-bar-container" >
+        <div className="player-interface__progress-bar" style={progressBarStyle} />
       </div>
-      <div className="navigation-controls">
-        <button className="navigation-controls__play-back" onClick={fastRewind}>
-          <img src={Right} alt="right" />
+      <div className="player-interface__navigation-wrapper">
+        <button className="player-interface__navigation-control" onClick={fastRewind}>
+          <img src={Right} alt="right" className="player-interface-navigation-icons" />
+        </button>
+        <button onClick={isVideoPlaying ? pauseVideo : playVideo} className="player-interface__navigation-control" >
+          <img src={isVideoPlaying ? Pause : Play} alt="Play/Pause" className="player-interface-navigation-icons" />
         </button>
         <button
-          className={isPlaying ?
-            'navigation-controls__pause' : 'navigation-controls__play'}
-          onClick={isPlaying ? pause : play}
+          className="player-interface__navigation-control"
+          onClick={fastForward}
         >
-          <img src={isPlaying ? Pause : Play} alt="Play/Pause" />
-        </button>
-        <button className="navigation-controls__play-forward" onClick={fastForward}>
-          <img src={Left} alt="left" />
+          <img src={Left} alt="left" className="player-interface-navigation-icons" />
         </button>
       </div>
     </div>

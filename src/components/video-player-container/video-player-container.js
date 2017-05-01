@@ -33,9 +33,6 @@ class VideoPlayerContainer extends React.Component {
     });
   }
 
-  props: VideoPlayerContainerPropsType;
-
-
   render() {
     return (
       <div className="video-player-container">

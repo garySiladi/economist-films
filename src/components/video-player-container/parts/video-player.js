@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
+import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
-import { Link } from 'react-router';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
@@ -11,7 +11,7 @@ window.videojs = videojs;
 // eslint-disable-next-line
 require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
-export type VideoPlayerProps = {
+export type VideoPlayerPropsType = {
   videoUrl: string,
 };
 export type VideoPlayerStateType = {
@@ -29,13 +29,12 @@ const videoJsOptions = (videoUrl: string) => ({
 });
 
 class VideoPlayer extends React.Component {
-  constructor(props: VideoPlayerProps) {
+  constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
     (this: any).videoNode = null;
     (this: any).player = null;
     (this: any).fullLenghtOfVideo = 0;
-    (this: any).total = null;
     this.state = {
       isPlaying: true,
       timeProgress: 0,
@@ -76,7 +75,7 @@ class VideoPlayer extends React.Component {
   }
 
   handleFastForward() {
-    if ((this: any).player.remainingTime()>10) {
+    if ((this: any).player.remainingTime() > 10) {
       (this: any).player.currentTime((this: any).player.currentTime() + (this: any).moveTime);
     }
   }
@@ -102,9 +101,9 @@ class VideoPlayer extends React.Component {
 
   render() {
     return (
-      <div className="video-player-wrapper">
-        <button>
-          <Link to="/">Back</Link>
+      <div className="video-player">
+        <button onClick={browserHistory.goBack}>
+          Back
         </button>
         <div data-vjs-player>
           <video
@@ -116,9 +115,9 @@ class VideoPlayer extends React.Component {
           />
         </div>
         <VideoPlayerControls
-          play={this.handlePlay}
-          pause={this.handlePause}
-          isPlaying={this.state.isPlaying}
+          playVideo={this.handlePlay}
+          pauseVideo={this.handlePause}
+          isVideoPlaying={this.state.isPlaying}
           fastForward={this.handleFastForward}
           fastRewind={this.handleRewind}
           progress={this.state.timeProgress}
