@@ -28,6 +28,10 @@ const videoJsOptions = (videoUrl: string) => ({
 });
 
 class VideoPlayer extends React.Component {
+  static getProgress(player) {
+    return (100 / player.duration()) * player.currentTime();
+  }
+
   constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
@@ -93,8 +97,7 @@ class VideoPlayer extends React.Component {
   }
 
   handleTimeUpdate() {
-    const progress :number =
-      ((100 / (this: any).player.duration()) * (this: any).player.currentTime());
+    const progress = VideoPlayer.getProgress((this: any).player);
     this.setState({
       timeProgress: Math.round(progress),
     });

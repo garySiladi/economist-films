@@ -2,6 +2,7 @@
 
 :root {
   --video-controls-icon-margin: 20px;
+  --progress-bar-height: 10px;
 }
 
 .player-interface__navigation-control {
@@ -18,7 +19,7 @@
 .player-interface__progress-bar-container {
   display: inline-block;
   width: 100%;
-  height: 10px;
+  height: var(--progress-bar-height);
   border: solid var(--economist-white) 1px;
   border-radius: 5px;
 }
