@@ -59,12 +59,17 @@ jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
 
-function connectEvent(event, type, wrapper) {
+function connectEvent(event, type, wrapper, handleFunction) {
   const changedEvent: Object = event;
   changedEvent.key = type;
   const app: Object = wrapper.instance();
-  app.handleKeyPress(event);
+  if (handleFunction === 'handleKeyPress') {
+    app.handleKeyPress(event);
+  } else if (handleFunction === 'handleReturnFromEpisode') {
+    app.handleReturnFromEpisode(event);
+  }
 }
+
 
 describe('App: ', () => {
   test('homepage navigation works', () => {
@@ -74,46 +79,48 @@ describe('App: ', () => {
     const event = new Event('keyDown');
     // we have the first episode of the first series selected [0,0]
     // we select the second episode of the first series [0,1]
-    connectEvent(event, 'ArrowRight', app);
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
     // we start navigating down 2 positions
-    connectEvent(event, 'ArrowDown', app);
+    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(1);
-    connectEvent(event, 'ArrowDown', app);
+    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
     // we push the ArrowDown button, but there is no place at the bottom to navigate
-    connectEvent(event, 'ArrowDown', app);
+    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
     // we navigate up 2 positions to [1,0]
-    connectEvent(event, 'ArrowUp', app);
-    connectEvent(event, 'ArrowUp', app);
+    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
+    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(0);
     // we try the upper bounds
-    connectEvent(event, 'ArrowUp', app);
+    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(0);
-    connectEvent(event, 'ArrowRight', app);
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
     // the Backspace button resets the selected episode
-    connectEvent(event, 'Backspace', app);
+    connectEvent(event, 'Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
     // if we navigate left from the first episode, we end up on the sidebar
-    connectEvent(event, 'ArrowLeft', app);
+    connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
     expect(app.state().isSelectedSidePanel).toEqual(true);
     // the backspace here does nothing
-    connectEvent(event, 'Backspace', app);
+    connectEvent(event, 'Backspace', app, 'handleKeyPress');
     // for now it 'selects' the focused element
-    connectEvent(event, 'Enter', app);
+    connectEvent(event, 'Enter', app, 'handleKeyPress');
     // we navigate back to the homecontainer
-    connectEvent(event, 'ArrowRight', app);
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     expect(app.state().isSelectedSidePanel).toEqual(false);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
-    connectEvent(event, 'ArrowRight', app);
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
-    connectEvent(event, 'ArrowLeft', app);
+    connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
     // no functionaility, just need to cover all branches, default switch
-    connectEvent(event, 'Shift', app);
-    connectEvent(event, 'Enter', app);
+    connectEvent(event, 'Shift', app, 'handleKeyPress');
+    connectEvent(event, 'Enter', app, 'handleKeyPress');
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent(event, 'ArrowRight', app, 'handleReturnFromEpisode');
   });
   test('mounts/unmounts', () => {
     const wrapper = shallow(<App />);

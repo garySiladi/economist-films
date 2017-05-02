@@ -31,6 +31,9 @@ const mockData = [
         id: 54,
         title: 'aza',
         type: 'sds',
+        thumbnail: {
+          url: 'sampleUrl',
+        },
       },
     ],
   },
@@ -55,25 +58,46 @@ jest.mock('../slider/slider', () =>
   jest.fn(() => <div>Slider</div>),
 );
 
+jest.mock('../episode-selected/episode-selected', () =>
+  jest.fn(() => <div>EpisodeSelected</div>),
+);
+
 describe('HomeContainer: ', () => {
-  test('renders correctly with data', () => {
+  test('renders correctly without data', () => {
     const tree : string = renderer.create(
       <HomeContainer
         series={[]}
         isSelected={false}
         selectedSeries={0}
         selectedEpisode={0}
+        goToEpisode={false}
+        closePopupFunction={() => {}}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
-  test('renders correctly without data', () => {
+  test('renders correctly with data and goToEpisode prop enabled', () => {
     const tree : string = renderer.create(
       <HomeContainer
         series={mockData}
         isSelected
-        selectedSeries={5}
+        selectedSeries={1}
         selectedEpisode={1}
+        goToEpisode
+        closePopupFunction={() => {}}
+      />,
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  test('renders correctly with data but without goToEpisode enabled', () => {
+    const tree : string = renderer.create(
+      <HomeContainer
+        series={mockData}
+        isSelected
+        selectedSeries={1}
+        selectedEpisode={1}
+        goToEpisode={false}
+        closePopupFunction={() => {}}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();

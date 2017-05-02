@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { browserHistory } from 'react-router';
 import SidePanel from '../side-panel/side-panel';
 import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
@@ -32,6 +31,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       goToEpisode: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+    (this: any).handleReturnFromEpisode = this.handleReturnFromEpisode.bind(this);
   }
   state: {
     isSelectedSidePanel: boolean,
@@ -61,6 +61,12 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
+  handleReturnFromEpisode(event: Object) {
+    event.preventDefault();
+    this.setState({
+      goToEpisode: false,
+    });
+  }
   handleKeyPress(event: Object) { // TODO: maybe export this functionality to another file
     event.preventDefault();
     const {
@@ -69,7 +75,9 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       selectedSeries,
       series,
       selectedEpisode,
+      goToEpisode,
     } = this.state;
+    if (goToEpisode) return;
     switch (event.key) {
       case 'ArrowLeft':
         if (isSelectedHomeContainer && selectedEpisode === 0) {
@@ -118,8 +126,9 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
         break;
       case 'Enter':
         if (isSelectedHomeContainer) {
-          const id = series[selectedSeries].items[selectedEpisode].id;
-          browserHistory.push(`/episode/${id}`);
+          this.setState({
+            goToEpisode: true,
+          });
         }
         break;
       case 'Backspace':
@@ -142,6 +151,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       series,
       selectedSeries,
       selectedEpisode,
+      goToEpisode,
     } = this.state;
     return (
       <div className="app">
@@ -154,6 +164,8 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
           isSelected={isSelectedHomeContainer}
           selectedSeries={selectedSeries}
           selectedEpisode={selectedEpisode}
+          goToEpisode={goToEpisode}
+          closePopupFunction={this.handleReturnFromEpisode}
         />
       </div>
     );

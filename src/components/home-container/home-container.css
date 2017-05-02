@@ -1,6 +1,6 @@
 
 :root {
-  --slider--top-offset: -350px;
+  --slider--top-offset: -285px;
 }
 
 .home {
@@ -8,7 +8,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
     height: 100vh;
-    padding: 50px 20px 20px;
+    padding-top: 20px;
   }
 
   & > div {
@@ -21,6 +21,7 @@
     font-size: 2em;
     margin-top: 0;
     padding: 20px;
+    padding-bottom: 0;
     transition: margin-top 0.1s;
   }
 
