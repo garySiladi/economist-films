@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import classnames from 'classnames';
 import { browserHistory, Link } from 'react-router';
+import classnames from 'classnames';
 import EpisodeDescription from './parts/episode-description';
 import './episode-selected.css';
 
@@ -31,7 +31,7 @@ class episodeSelected extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
-  handleKeyPress(event: Object) {
+  handleKeyPress(event: KeyboardEvent) {
     event.preventDefault();
     const {
       selectedItem,
@@ -78,8 +78,8 @@ class episodeSelected extends React.Component {
     const {
       selectedItem,
     } = this.state;
-    const watchString : string = `/watch?id=${id}`;
-    const learnString : string = `/learn?id=${id}`;
+    const watchString = `/watch?id=${id}`;
+    const learnString = `/learn?id=${id}`;
     const imageClassName = classnames(
       'episode-selected__image',
       { 'episode-selected__image--selected': selectedItem === 0 },
