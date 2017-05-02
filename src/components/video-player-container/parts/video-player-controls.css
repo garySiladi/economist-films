@@ -18,30 +18,32 @@
 
 .player-interface__progress-bar-container {
   display: inline-block;
+  background: gray;
   width: 100%;
   height: var(--progress-bar-height);
-  border: solid var(--economist-white) 1px;
-  border-radius: 5px;
 }
 
 .player-interface__progress-bar {
-  background: var(--economist-white);
+  background: var(--economist-red);
   height: 100%;
-  border-radius: 5px;
 }
 
 .player-interface__navigation-wrapper {
-  width: 500px;
   display: block;
-  margin: 0 auto;
+  margin: 15px 0;
   margin-top: 30px;
 }
 
 .player-interface {
-  width: 100%;
+  background: var(--economist-blackOpacity);
+  width: 50%;
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  margin-left: -25%;
   text-align: center;
 }
 
 .player-interface-navigation-icons {
-  width: 80%;
+  width: 50%;
 }

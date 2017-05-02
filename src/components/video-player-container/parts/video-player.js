@@ -6,6 +6,7 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
+import Left from '../../../../public/assets/RW.svg';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -106,10 +107,10 @@ class VideoPlayer extends React.Component {
   render() {
     return (
       <div className="video-player">
-        <button onClick={browserHistory.goBack}>
-          Back
-        </button>
         <div data-vjs-player>
+          <button className="video-player-back-button" onClick={browserHistory.goBack}>
+            <img src={Left} alt="Back" className="video-player-back-icons" />
+          </button>
           <video
             ref={(node) => { (this: any).videoNode = node; }}
             onEnded={this.handleEndReached}
@@ -117,15 +118,15 @@ class VideoPlayer extends React.Component {
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
           />
+          <VideoPlayerControls
+            playVideo={this.handlePlay}
+            pauseVideo={this.handlePause}
+            isVideoPlaying={this.state.isVideoPlaying}
+            fastForward={this.handleFastForward}
+            fastRewind={this.handleRewind}
+            progress={this.state.timeProgress}
+          />
         </div>
-        <VideoPlayerControls
-          playVideo={this.handlePlay}
-          pauseVideo={this.handlePause}
-          isVideoPlaying={this.state.isVideoPlaying}
-          fastForward={this.handleFastForward}
-          fastRewind={this.handleRewind}
-          progress={this.state.timeProgress}
-        />
       </div>);
   }
 }
