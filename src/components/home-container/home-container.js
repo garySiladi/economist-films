@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Slider from '../slider/slider';
+import EpisodeSelected from '../episode-selected/episode-selected';
 import './home-container.css';
 
 class HomeContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -9,6 +10,8 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
     isSelected: boolean,
     selectedSeries: number,
     selectedEpisode: number,
+    goToEpisode: boolean,
+    closePopupFunction: ?Function,
   };
   render() {
     const {
@@ -16,8 +19,22 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
       isSelected,
       selectedSeries,
       selectedEpisode,
+      goToEpisode,
+      closePopupFunction,
     } = this.props;
     if (!series[0]) return null;
+    const selectedEpisodeData = series[selectedSeries].items[selectedEpisode];
+    const episodeDetailsContainer = goToEpisode ? (
+      <EpisodeSelected
+        id={selectedEpisodeData.id}
+        key={selectedEpisodeData.id}
+        url={selectedEpisodeData.thumbnail.url}
+        title={selectedEpisodeData.title}
+        subtitle={selectedEpisodeData.subtitle}
+        description={selectedEpisodeData.description}
+        closePopupFunction={closePopupFunction}
+      />
+    ) : null;
     const homePageContent = series.map((data, index) =>
       (
         <Slider
@@ -32,6 +49,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
         />
       ),
     );
+    if (goToEpisode) homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
     return (
       <div className="home-container">
         {homePageContent}

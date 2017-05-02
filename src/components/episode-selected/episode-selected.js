@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router';
+import classnames from 'classnames';
+import { browserHistory, Link } from 'react-router';
 import EpisodeDescription from './parts/episode-description';
 import './episode-selected.css';
 
@@ -9,27 +10,114 @@ type EpisodeSelectedType = {
   url: string,
   title: string,
   subtitle: string,
-  description: string
+  description: string,
+  closePopupFunction: ?Function,
 };
 
-const episodeSelected = ({ id, url, subtitle, title, description }: EpisodeSelectedType) => {
-  const watchString : string = `/watch?id=${id}`;
-  const learnString : string = `/learn?id=${id}`;
-  return (
-    <div className="episode-selected">
-      <img className="episode-selected__image" src={url} alt={title} />
-      <div className="episode-selected__info-container">
-        <EpisodeDescription
-          title={title} description={description} subtitle={subtitle}
-          className="episode-description-wrapper"
-        />
-        <div className="episode-buttons">
-          <Link className="episode-buttons__watch" to={watchString}>Watch Now</Link>
-          <Link className="episode-buttons__learn" to={learnString}>Learn More</Link>
+class episodeSelected extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedItem: 0,
+    };
+    (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+  }
+  state: {
+    selectedItem: number,
+  }
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+  handleKeyPress(event: Object) {
+    event.preventDefault();
+    const {
+      selectedItem,
+    } = this.state;
+    const {
+      closePopupFunction,
+    } = this.props;
+    switch (event.key) {
+      case 'ArrowUp':
+        if (closePopupFunction) closePopupFunction(event);
+        break;
+      case 'ArrowLeft':
+        if (selectedItem > 0) {
+          this.setState({
+            selectedItem: selectedItem - 1,
+          });
+        }
+        break;
+      case 'ArrowRight':
+        if (selectedItem < 2) {
+          this.setState({
+            selectedItem: selectedItem + 1,
+          });
+        }
+        break;
+      case 'Backspace':
+        if (closePopupFunction) closePopupFunction(event);
+        break;
+      case 'Enter':
+        browserHistory.push(`/watch/${this.props.id}`);
+        break;
+      default:
+    }
+  }
+  props: EpisodeSelectedType;
+  render() {
+    const {
+      id,
+      url,
+      subtitle,
+      title,
+      description,
+    } = this.props;
+    const {
+      selectedItem,
+    } = this.state;
+    const watchString : string = `/watch?id=${id}`;
+    const learnString : string = `/learn?id=${id}`;
+    const imageClassName = classnames(
+      'episode-selected__image',
+      { 'episode-selected__image--selected': selectedItem === 0 },
+    );
+    return (
+      <div className="episode-selected">
+        <div className="episode-selected__image-wrapper">
+          <img className={imageClassName} src={url} alt={title} />
+        </div>
+        <div className="episode-selected__info-container">
+          <EpisodeDescription
+            title={title} description={description} subtitle={subtitle}
+            className="episode-description-wrapper"
+          />
+          <div className="episode-buttons">
+            <Link
+              className={classnames(
+                'episode-buttons__watch',
+                { 'episode-buttons__watch--selected': selectedItem === 1 },
+              )}
+              to={watchString}
+            >
+              Watch Now
+            </Link>
+            <Link
+              className={classnames(
+                'episode-buttons__learn',
+                { 'episode-buttons__learn--selected': selectedItem === 2 },
+              )}
+              to={learnString}
+            >
+              Learn More
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default episodeSelected;

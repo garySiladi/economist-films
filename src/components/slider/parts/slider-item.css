@@ -1,10 +1,10 @@
 @import '../../../colors.css';
 
 :root {
-  --slider-item-width: 300px;
-  --slider-left-offset: -310px;
+  --slider-item-width: 250px;
+  --slider-left-offset: -260px;
   --slider-item-margin-right: 10px;
-  --slider-item-image-height: 165px;
+  --slider-item-image-height: 137px;
   --container-padding: 10px;
 }
 
@@ -31,6 +31,8 @@
 
   &__image {
     min-height: var(--slider-item-image-height);
+    height: auto;
+    max-width: var(--slider-item-width);
   }
 
   &__container {

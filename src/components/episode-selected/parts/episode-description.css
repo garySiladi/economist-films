@@ -1,12 +1,10 @@
+@import '../../../colors.css';
+
 :root {
-  --economist-white: #f2f2f2;
   --text-line-height: 1.5em;
-  --font-size-large: 2.5em;
-  --font-size-medium: 1.75em;
-  --font-size-small: 1.25;
+  --title-max-height: 1.2em;
   --line-count: 5;
-  --margin-size-larger: 20px;
-  --margin-size-medium: 15px;
+  --margin-size-small: 10px;
   --weight-size: 600;
 }
 
@@ -19,21 +17,19 @@
   }
 
   &__subtitle {
-    font-size: var(--font-size-medium);
-    margin-bottom: var(--margin-size-medium);
+    margin-bottom: var(--margin-size-small);
   }
 
   &__title {
-    font-size: var(--font-size-large);
     font-weight: var(--weight-size);
-    margin-bottom: var(--margin-size-larger);
+    margin-bottom: var(--margin-size-small);
+    max-height: var(--title-max-height);
+    overflow: hidden;
   }
 
   &__text {
-    display: -webkit-box;
-    font-size: var(--font-size-small);
     overflow: hidden;
-    max-height: calc(var(--text-line-height) * var(--line-count));
+    height: calc(var(--text-line-height) * var(--line-count));
     line-height: var(--text-line-height);
     text-overflow: ellipsis;
     -webkit-line-clamp: var(--line-count);
