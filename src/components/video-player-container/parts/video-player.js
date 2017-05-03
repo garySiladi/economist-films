@@ -6,7 +6,7 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
-import Left from '../../../../public/assets/RW.svg';
+import Back from '../../../../public/assets/RW.svg';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -109,7 +109,7 @@ class VideoPlayer extends React.Component {
       <div className="video-player">
         <div data-vjs-player>
           <button className="video-player-back-button" onClick={browserHistory.goBack}>
-            <img src={Left} alt="Back" className="video-player-back-icons" />
+            <img src={Back} alt="Back" className="video-player-back-icons" />
           </button>
           <video
             ref={(node) => { (this: any).videoNode = node; }}

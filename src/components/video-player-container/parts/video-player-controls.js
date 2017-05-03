@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import './video-player-controls.css';
-import Left from '../../../../public/assets/RW.svg';
-import Right from '../../../../public/assets/FF.svg';
+import Rewind from '../../../../public/assets/RW.svg';
+import Forward from '../../../../public/assets/FF.svg';
 import Play from '../../../../public/assets/Play.svg';
 import Pause from '../../../../public/assets/Pause.svg';
 
@@ -33,7 +33,7 @@ const VideoPlayerControls = ({
       </div>
       <div className="player-interface__navigation-wrapper">
         <button className="player-interface__navigation-control" onClick={fastRewind}>
-          <img src={Left} alt="right" className="player-interface-navigation-icons" />
+          <img src={Rewind} alt="right" className="player-interface-navigation-icons" />
         </button>
         <button onClick={isVideoPlaying ? pauseVideo : playVideo} className="player-interface__navigation-control" >
           <img src={isVideoPlaying ? Pause : Play} alt="Play/Pause" className="player-interface-navigation-icons" />
@@ -42,7 +42,7 @@ const VideoPlayerControls = ({
           className="player-interface__navigation-control"
           onClick={fastForward}
         >
-          <img src={Right} alt="left" className="player-interface-navigation-icons" />
+          <img src={Forward} alt="left" className="player-interface-navigation-icons" />
         </button>
       </div>
     </div>
