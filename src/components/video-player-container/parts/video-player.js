@@ -38,7 +38,6 @@ class VideoPlayer extends React.Component {
     (this: any).moveTime = 10;
     (this: any).videoNode = null;
     (this: any).player = null;
-    (this: any).fullLenghtOfVideo = 0;
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
@@ -64,12 +63,16 @@ class VideoPlayer extends React.Component {
   }
 
   handlePlay() {
-    this.setState({ isVideoPlaying: true });
+    this.setState({
+      isVideoPlaying: true,
+    });
     (this: any).player.play();
   }
 
   handlePause() {
-    this.setState({ isVideoPlaying: false });
+    this.setState({
+      isVideoPlaying: false,
+    }, () => { console.log('real pause: ', this.state.isVideoPlaying); });
     (this: any).player.pause();
   }
 
@@ -85,16 +88,15 @@ class VideoPlayer extends React.Component {
   }
 
   handleEndReached() {
+    (this: any).player.currentTime(0);
+    (this: any).player.pause();
     this.setState({
       isVideoPlaying: false,
     });
-    (this: any).player.currentTime(0);
-    (this: any).player.pause();
   }
 
   handleOnLoad() {
     (this: any).player.play();
-    (this: any).fullLenghtOfVideo = (this: any).player.duration();
   }
 
   handleTimeUpdate() {

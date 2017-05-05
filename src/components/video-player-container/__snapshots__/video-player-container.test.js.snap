@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VideoPlayerContainer renders correctly 1`] = `
+exports[`renders correctly when videoUrl state is null 1`] = `
 <div
   className="video-player-container"
 />
