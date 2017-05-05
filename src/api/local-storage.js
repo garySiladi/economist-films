@@ -5,27 +5,27 @@ export type VideoProgressType = {
   progressTime: number,
 };
 
-export const HISTORY_LIST: string = 'history';
+export const HISTORY_LIST = 'history';
 
 export function saveVideoProgress(id: number, progress: number) {
   if (typeof (localStorage) !== 'undefined') {
     const currentHistory: ?string = localStorage.getItem(HISTORY_LIST);
     const videoProgressObject: VideoProgressType = { episodeId: id, progressTime: progress };
+    let historyObj = videoProgressObject;
     if (currentHistory) {
       // $FlowFixMe
       const indexOfVideo = currentHistory.findIndex(element => element.episodeId === id);
       if (indexOfVideo === -1) {
         // $FlowFixMe
         currentHistory.push(videoProgressObject);
-        localStorage.setItem(HISTORY_LIST, JSON.stringify(currentHistory));
+        historyObj = currentHistory;
       } else {
+        historyObj = currentHistory;
         // $FlowFixMe
-        currentHistory.splice(indexOfVideo, 1, videoProgressObject);
-        localStorage.setItem(HISTORY_LIST, JSON.stringify(currentHistory));
+        historyObj[indexOfVideo] = videoProgressObject;
       }
-    } else {
-      localStorage.setItem(HISTORY_LIST, JSON.stringify(videoProgressObject));
     }
+    localStorage.setItem(HISTORY_LIST, JSON.stringify(historyObj));
   }
 }
 
