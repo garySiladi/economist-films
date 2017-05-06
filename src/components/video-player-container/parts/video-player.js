@@ -22,7 +22,7 @@ export type VideoPlayerStateType = {
 
 const videoJsOptions = (videoUrl: string) => ({
   preload: 'auto',
-  autoplay: false,
+  autoplay: true,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -54,9 +54,7 @@ class VideoPlayer extends React.Component {
   state: VideoPlayerStateType;
 
   componentDidMount() {
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) },
-    () => { (this: any).player.play(); },
-  );
+    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
   }
 
   componentWillUnmount() {
@@ -89,8 +87,6 @@ class VideoPlayer extends React.Component {
     this.setState({
       isVideoPlaying: false,
     });
-    (this: any).player.pause();
-    (this: any).player.currentTime(0);
   }
   handleTimeUpdate() {
     const progress = VideoPlayer.getProgress((this: any).player);

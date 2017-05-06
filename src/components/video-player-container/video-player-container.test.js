@@ -11,6 +11,6 @@ test('renders correctly when videoUrl state is null', () => {
 
 test('renders correctly when videoUrl state is not  null', () => {
   const app = mount(<VideoPlayerContainer params={{ id: 50 }} />);
-  app.setState({ videoUrl: 'https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8' });
-  expect(app.state().videoUrl).toEqual('https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8');
+  app.setState({ videoUrl: "https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" });
+  expect(app.state().videoUrl).toEqual("https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8");
 });
