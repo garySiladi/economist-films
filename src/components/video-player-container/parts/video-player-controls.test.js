@@ -7,12 +7,12 @@ test('VideoPlayerControls renders correctly when isVideoPlaying is true', () => 
   const tree : string =
   renderer.create(
     <VideoPlayerControls
-      playVideo = {() => {}}
-      pauseVideo = {() => {}}
-      fastForward = {() => {}}
-      fastRewind = {() => {}}
+      playVideo={() => {}}
+      pauseVideo={() => {}}
+      fastForward={() => {}}
+      fastRewind={() => {}}
       isVideoPlaying
-      progress = {0}
+      progress={0}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -21,12 +21,12 @@ test('VideoPlayerControls renders correctly when isVideoPlaying is false', () =>
   const tree : string =
   renderer.create(
     <VideoPlayerControls
-      playVideo = {() => {}}
-      pauseVideo = {() => {}}
-      fastForward = {() => {}}
-      fastRewind = {() => {}}
-      isVideoPlaying = {false}
-      progress = {0}
+      playVideo={() => {}}
+      pauseVideo={() => {}}
+      fastForward={() => {}}
+      fastRewind={() => {}}
+      isVideoPlaying= {false}
+      progress={0}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -7,14 +7,12 @@ test('renders correctly', () => {
   const videoPlayer = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
   videoPlayer.unmount();
 });
-
 test('does not break on unmount', () => {
-    const videoPlayer = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
-    const vP: Object = videoPlayer.instance();
-    vP.player = null;
-    videoPlayer.unmount();
-  });
-
+  const videoPlayer = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  const vP: Object = videoPlayer.instance();
+  vP.player = null;
+  videoPlayer.unmount();
+});
 test('Test functions', () => {
   const videoPlayer = shallow(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
   expect(videoPlayer.state().isVideoPlaying).toEqual(true);
