@@ -21,6 +21,8 @@ export type VideoPlayerStateType = {
 }
 
 const videoJsOptions = (videoUrl: string) => ({
+  preload: 'auto',
+  autoplay: false,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -47,13 +49,14 @@ class VideoPlayer extends React.Component {
     (this: any).handlePause = this.handlePause.bind(this);
     (this: any).handleRewind = this.handleRewind.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
-    (this: any).handleOnLoad = this.handleOnLoad.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
   state: VideoPlayerStateType;
 
   componentDidMount() {
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
+    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) },
+    () => { (this: any).player.play(); },
+  );
   }
 
   componentWillUnmount() {
@@ -68,37 +71,27 @@ class VideoPlayer extends React.Component {
     });
     (this: any).player.play();
   }
-
   handlePause() {
     this.setState({
       isVideoPlaying: false,
-    }, () => { console.log('real pause: ', this.state.isVideoPlaying); });
+    });
     (this: any).player.pause();
   }
-
-
   handleRewind() {
     (this: any).player.currentTime((this: any).player.currentTime() - (this: any).moveTime);
   }
-
   handleFastForward() {
     if ((this: any).player.remainingTime() > 10) {
       (this: any).player.currentTime((this: any).player.currentTime() + (this: any).moveTime);
     }
   }
-
   handleEndReached() {
-    (this: any).player.currentTime(0);
-    (this: any).player.pause();
     this.setState({
       isVideoPlaying: false,
     });
+    (this: any).player.pause();
+    (this: any).player.currentTime(0);
   }
-
-  handleOnLoad() {
-    (this: any).player.play();
-  }
-
   handleTimeUpdate() {
     const progress = VideoPlayer.getProgress((this: any).player);
     this.setState({
@@ -116,7 +109,6 @@ class VideoPlayer extends React.Component {
           <video
             ref={(node) => { (this: any).videoNode = node; }}
             onEnded={this.handleEndReached}
-            onLoadedMetadata={this.handleOnLoad}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
           />
