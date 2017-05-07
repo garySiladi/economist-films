@@ -25,7 +25,7 @@ test('VideoPlayerControls renders correctly when isVideoPlaying is false', () =>
       pauseVideo={() => {}}
       fastForward={() => {}}
       fastRewind={() => {}}
-      isVideoPlaying= {false}
+      isVideoPlaying={false}
       progress={0}
     />).toJSON();
   expect(tree).toMatchSnapshot();
