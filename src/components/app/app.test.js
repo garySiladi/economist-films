@@ -10,12 +10,12 @@ const mockData = [
       {
         id: 1,
         title: 'xxx',
-        type: 'yyy',
+        type: 'Episode',
       },
       {
         id: 2,
         title: 'aaa',
-        type: 'bbb',
+        type: 'Episode',
       },
     ],
   },
@@ -25,12 +25,12 @@ const mockData = [
       {
         id: 32,
         title: 'asd',
-        type: 'ttt',
+        type: 'Episode',
       },
       {
         id: 54,
         title: 'aza',
-        type: 'sds',
+        type: 'Episode',
       },
     ],
   },
@@ -40,12 +40,12 @@ const mockData = [
       {
         id: 3,
         title: 'xxx',
-        type: 'yyy',
+        type: 'Episode',
       },
       {
         id: 4,
         title: 'aaa',
-        type: 'bbb',
+        type: 'Episode',
       },
     ],
   },
@@ -73,7 +73,7 @@ function connectEvent(event, type, wrapper, handleFunction) {
 
 describe('App: ', () => {
   test('homepage navigation works', () => {
-    const app = mount(<App />);
+    const app = mount(<App params={{}} />);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     const event = new Event('keyDown');
@@ -122,8 +122,32 @@ describe('App: ', () => {
     connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     connectEvent(event, 'ArrowRight', app, 'handleReturnFromEpisode');
   });
+  test('function setEpisodeByParam() works', () => {
+    const urlParams = {
+      selectedEpisodeId: 32,
+    };
+    let output: ?Object = App.setEpisodeByParam(urlParams, mockData);
+    expect(output).not.toBeNull();
+    if (output) {
+      expect(output.selectedSeries).toEqual(1);
+      expect(output.selectedEpisode).toEqual(0);
+      expect(output.goToEpisode).toEqual(true);
+    }
+    // test the searching function with non-existant episode ID
+    output = App.setEpisodeByParam({ selectedEpisodeId: 100 }, mockData);
+    expect(output).not.toBeNull();
+    if (output) {
+      expect(output.selectedSeries).toEqual(0);
+      expect(output.selectedEpisode).toEqual(0);
+      expect(output.goToEpisode).toEqual(false);
+    }
+    output = App.setEpisodeByParam(null, mockData);
+    expect(output).toEqual(null);
+    output = App.setEpisodeByParam({}, mockData);
+    expect(output).toEqual(null);
+  });
   test('mounts/unmounts', () => {
-    const wrapper = shallow(<App />);
+    const wrapper = shallow(<App params={{}} />);
     wrapper.unmount();
   });
 });

@@ -5,9 +5,11 @@ import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
 
-// App needs to be a class in order to allow hot-reloading
-// that's why we disable react/prefer-stateless-function
-class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+type AppProps = {
+  params: Object,
+}
+
+class App extends React.Component {
   static createRecommendedSlider(dataRecommended) {
     return {
       title: 'Recommended',
@@ -19,6 +21,26 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
     series.pop();
     series.pop();
     return series;
+  }
+  static setEpisodeByParam(params: ?Object, series: Array<Object>) {
+    if (params && params.selectedEpisodeId) {
+      const id = params.selectedEpisodeId;
+      const foundEpisodes = [];
+      series.forEach((shelf, shelfIndex) => {
+        shelf.items.forEach((episode, episodeIndex) => {
+          if (episode.id === Number(id) && episode.type === 'Episode') {
+            foundEpisodes.push([shelfIndex, episodeIndex]);
+          }
+        });
+      });
+      const firstResult = foundEpisodes[0];
+      return {
+        selectedSeries: firstResult ? firstResult[0] : 0,
+        selectedEpisode: firstResult ? firstResult[1] : 0,
+        goToEpisode: firstResult instanceof Array,
+      };
+    }
+    return null;
   }
   constructor() {
     super();
@@ -43,24 +65,33 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    const {
+      params,
+    } = this.props;
     getRoot()
     .then((dataSeries) => {
+      const modifiedSeries = this.state.series.concat(
+        App.massageSeries(dataSeries.shelves || []),
+      );
       this.setState({
-        series: this.state.series.concat(
-          App.massageSeries(dataSeries.shelves || []),
-        ),
+        series: modifiedSeries,
+        ...App.setEpisodeByParam(params, modifiedSeries),
       });
     });
     getRecommendedEpisodes(1)
     .then((dataRecommended) => {
+      const modifiedSeries =
+        [App.createRecommendedSlider(dataRecommended)].concat(this.state.series);
       this.setState({
-        series: [App.createRecommendedSlider(dataRecommended)].concat(this.state.series),
+        series: modifiedSeries,
+        ...App.setEpisodeByParam(params, modifiedSeries),
       });
     });
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
+  props: AppProps
   handleReturnFromEpisode(event: Object) {
     event.preventDefault();
     this.setState({
