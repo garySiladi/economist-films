@@ -41,4 +41,4 @@ test('Test functions', () => {
   expect(vP.player.currentTime()).toEqual(20);
   vP.handleTimeUpdate();
   expect(videoPlayer.state().timeProgress).toEqual(40);
- });
+});
