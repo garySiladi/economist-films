@@ -14,15 +14,19 @@ require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerPropsType = {
   videoUrl: string,
+  showUI: boolean,
+  isMuted: boolean,
+  posterImage: ?string,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
   timeProgress: number,
 }
 
-const videoJsOptions = (videoUrl: string) => ({
+const videoJsOptions = (videoUrl: string, isMuted) => ({
   preload: 'auto',
   autoplay: true,
+  muted: isMuted,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -52,17 +56,20 @@ class VideoPlayer extends React.Component {
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
   state: VideoPlayerStateType;
-
   componentDidMount() {
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
+    const {
+      videoUrl,
+      isMuted,
+    } = this.props;
+    (this: any).player =
+      videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
   }
-
   componentWillUnmount() {
     if ((this: any).player) {
       (this: any).player.dispose();
     }
   }
-
+  props: VideoPlayerPropsType;
   handlePlay() {
     this.setState({
       isVideoPlaying: true,
@@ -96,26 +103,37 @@ class VideoPlayer extends React.Component {
   }
 
   render() {
+    const {
+      showUI,
+      posterImage,
+    } = this.props;
+    const videoPlayerControls = showUI ? (
+      <VideoPlayerControls
+        playVideo={this.handlePlay}
+        pauseVideo={this.handlePause}
+        isVideoPlaying={this.state.isVideoPlaying}
+        fastForward={this.handleFastForward}
+        fastRewind={this.handleRewind}
+        progress={this.state.timeProgress}
+      />
+    ) : null;
+    const backButton = showUI ? (
+      <button className="video-player-back-button" onClick={browserHistory.goBack}>
+        <img src={Back} alt="Back" className="video-player-back-icons" />
+      </button>
+    ) : null;
     return (
       <div className="video-player">
         <div data-vjs-player>
-          <button className="video-player-back-button" onClick={browserHistory.goBack}>
-            <img src={Back} alt="Back" className="video-player-back-icons" />
-          </button>
+          {backButton}
           <video
             ref={(node) => { (this: any).videoNode = node; }}
             onEnded={this.handleEndReached}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
+            poster={posterImage}
           />
-          <VideoPlayerControls
-            playVideo={this.handlePlay}
-            pauseVideo={this.handlePause}
-            isVideoPlaying={this.state.isVideoPlaying}
-            fastForward={this.handleFastForward}
-            fastRewind={this.handleRewind}
-            progress={this.state.timeProgress}
-          />
+          {videoPlayerControls}
         </div>
       </div>);
   }

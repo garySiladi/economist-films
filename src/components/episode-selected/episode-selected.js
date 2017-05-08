@@ -3,6 +3,8 @@ import React from 'react';
 import { browserHistory, Link } from 'react-router';
 import classnames from 'classnames';
 import EpisodeDescription from './parts/episode-description';
+import VideoPlayer from '../video-player-container/parts/video-player';
+import PlayLogo from '../../../public/assets/play-logo.svg';
 import './episode-selected.css';
 
 type EpisodeSelectedType = {
@@ -12,6 +14,7 @@ type EpisodeSelectedType = {
   subtitle: string,
   description: string,
   closePopupFunction: ?Function,
+  videoUrl: string,
 };
 
 class episodeSelected extends React.Component {
@@ -74,6 +77,7 @@ class episodeSelected extends React.Component {
       subtitle,
       title,
       description,
+      videoUrl,
     } = this.props;
     const {
       selectedItem,
@@ -86,8 +90,14 @@ class episodeSelected extends React.Component {
     );
     return (
       <div className="episode-selected">
-        <div className="episode-selected__image-wrapper">
-          <img className={imageClassName} src={url} alt={title} />
+        <div className="episode-selected__teaser-wrapper">
+          <VideoPlayer
+            videoUrl={videoUrl}
+            showUI={false}
+            posterImage={url}
+            isMuted
+          />
+          <img className={imageClassName} src={PlayLogo} alt={title} />
         </div>
         <div className="episode-selected__info-container">
           <EpisodeDescription

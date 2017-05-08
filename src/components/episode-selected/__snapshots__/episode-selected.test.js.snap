@@ -5,12 +5,15 @@ exports[`HomeContainer:  renders with data 1`] = `
   className="episode-selected"
 >
   <div
-    className="episode-selected__image-wrapper"
+    className="episode-selected__teaser-wrapper"
   >
+    <div>
+      VideoPlayer
+    </div>
     <img
       alt="title xyz"
       className="episode-selected__image episode-selected__image--selected"
-      src="url xyz"
+      src="play-logo.svg"
     />
   </div>
   <div

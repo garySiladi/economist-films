@@ -33,6 +33,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
         subtitle={selectedEpisodeData.subtitle}
         description={selectedEpisodeData.description}
         closePopupFunction={closePopupFunction}
+        videoUrl={selectedEpisodeData.video_url}
       />
     ) : null;
     const homePageContent = series.map((data, index) =>
