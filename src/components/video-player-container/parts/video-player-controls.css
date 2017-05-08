@@ -12,10 +12,6 @@
   border: none;
 }
 
-.player-interface__navigation-control:focus {
-  outline: 0;
-}
-
 .player-interface__progress-bar-container {
   display: inline-block;
   background: gray;
@@ -45,5 +41,9 @@
 }
 
 .player-interface-navigation-icons {
-  width: 50%;
+  width: 45%;
+}
+
+.selected {
+  border: #23527c solid 1px !important;
 }
