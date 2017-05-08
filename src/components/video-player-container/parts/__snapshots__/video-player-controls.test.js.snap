@@ -2,7 +2,7 @@
 
 exports[`VideoPlayerControls renders correctly when isVideoPlaying is false 1`] = `
 <div
-  className="player-interface"
+  className="player-interface  "
 >
   <div
     className="player-interface__progress-bar-container"
@@ -55,7 +55,7 @@ exports[`VideoPlayerControls renders correctly when isVideoPlaying is false 1`] 
 
 exports[`VideoPlayerControls renders correctly when isVideoPlaying is true 1`] = `
 <div
-  className="player-interface"
+  className="player-interface  "
 >
   <div
     className="player-interface__progress-bar-container"
