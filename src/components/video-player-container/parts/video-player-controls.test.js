@@ -73,7 +73,7 @@ test('videoPlayerControls navigation works', () => {
     />);
   const event = new Event('keyDown');
   expect(app.props().isControlSelected).toEqual(true);
-    expect(app.props().isVideoPlaying).toEqual(false);
+  expect(app.props().isVideoPlaying).toEqual(false);
   connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
   connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
   connectEvent(event, 'Enter', app, 'handleKeyPress');
