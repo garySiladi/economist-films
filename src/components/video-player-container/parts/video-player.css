@@ -29,6 +29,6 @@
   width: 50%;
 }
 
-.selected {
-  border: var(--economist-blue) solid 1px !important;
+.video-js .selected {
+  border: var(--economist-blue) solid 1px;
 }
