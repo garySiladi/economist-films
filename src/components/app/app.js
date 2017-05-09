@@ -5,8 +5,16 @@ import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
 
+type AppParamsProps = {
+  selectedEpisodeId?: string, // eslint-disable-line
+}
+
 type AppProps = {
-  params: Object,
+  params: AppParamsProps,
+}
+
+type SeriesType = {
+  items: Array<Object>
 }
 
 class App extends React.Component {
@@ -22,25 +30,23 @@ class App extends React.Component {
     series.pop();
     return series;
   }
-  static setEpisodeByParam(params: ?Object, series: Array<Object>) {
-    if (params && params.selectedEpisodeId) {
-      const id = params.selectedEpisodeId;
-      const foundEpisodes = [];
-      series.forEach((shelf, shelfIndex) => {
+  static setEpisodeByParam(id: ?string, series: Array<SeriesType>) {
+    const foundEpisodes = [];
+    series.forEach((shelf, shelfIndex) => {
+      if (shelf.items) {
         shelf.items.forEach((episode, episodeIndex) => {
           if (episode.id === Number(id) && episode.type === 'Episode') {
             foundEpisodes.push([shelfIndex, episodeIndex]);
           }
         });
-      });
-      const firstResult = foundEpisodes[0];
-      return {
-        selectedSeries: firstResult ? firstResult[0] : 0,
-        selectedEpisode: firstResult ? firstResult[1] : 0,
-        goToEpisode: firstResult instanceof Array,
-      };
-    }
-    return null;
+      }
+    });
+    const firstResult = foundEpisodes[0];
+    return {
+      selectedSeries: firstResult ? firstResult[0] : 0,
+      selectedEpisode: firstResult ? firstResult[1] : 0,
+      goToEpisode: firstResult instanceof Array,
+    };
   }
   constructor() {
     super();
@@ -75,7 +81,7 @@ class App extends React.Component {
       );
       this.setState({
         series: modifiedSeries,
-        ...App.setEpisodeByParam(params, modifiedSeries),
+        ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
     });
     getRecommendedEpisodes(1)
@@ -84,7 +90,7 @@ class App extends React.Component {
         [App.createRecommendedSlider(dataRecommended)].concat(this.state.series);
       this.setState({
         series: modifiedSeries,
-        ...App.setEpisodeByParam(params, modifiedSeries),
+        ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
     });
   }

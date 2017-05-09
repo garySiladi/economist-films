@@ -124,9 +124,9 @@ describe('App: ', () => {
   });
   test('function setEpisodeByParam() works', () => {
     const urlParams = {
-      selectedEpisodeId: 32,
+      selectedEpisodeId: '32',
     };
-    let output: ?Object = App.setEpisodeByParam(urlParams, mockData);
+    let output: ?Object = App.setEpisodeByParam(urlParams.selectedEpisodeId, mockData);
     expect(output).not.toBeNull();
     if (output) {
       expect(output.selectedSeries).toEqual(1);
@@ -134,17 +134,13 @@ describe('App: ', () => {
       expect(output.goToEpisode).toEqual(true);
     }
     // test the searching function with non-existant episode ID
-    output = App.setEpisodeByParam({ selectedEpisodeId: 100 }, mockData);
+    output = App.setEpisodeByParam('100', mockData);
     expect(output).not.toBeNull();
     if (output) {
       expect(output.selectedSeries).toEqual(0);
       expect(output.selectedEpisode).toEqual(0);
       expect(output.goToEpisode).toEqual(false);
     }
-    output = App.setEpisodeByParam(null, mockData);
-    expect(output).toEqual(null);
-    output = App.setEpisodeByParam({}, mockData);
-    expect(output).toEqual(null);
   });
   test('mounts/unmounts', () => {
     const wrapper = shallow(<App params={{}} />);
