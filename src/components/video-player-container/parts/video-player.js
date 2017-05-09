@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
@@ -18,6 +19,7 @@ export type VideoPlayerPropsType = {
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
   timeProgress: number,
+  isControlSelected: boolean,
 }
 
 const videoJsOptions = (videoUrl: string) => ({
@@ -43,6 +45,7 @@ class VideoPlayer extends React.Component {
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
+      isControlSelected: true,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
     (this: any).handlePlay = this.handlePlay.bind(this);
@@ -50,19 +53,44 @@ class VideoPlayer extends React.Component {
     (this: any).handleRewind = this.handleRewind.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
+    (this: any).handleNavigationState = this.handleNavigationState.bind(this);
   }
   state: VideoPlayerStateType;
 
   componentDidMount() {
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
+    document.addEventListener('keydown', this.handleNavigationState);
   }
 
   componentWillUnmount() {
     if ((this: any).player) {
       (this: any).player.dispose();
     }
+    document.removeEventListener('keydown', this.handleNavigationState);
   }
-
+  handleNavigationState(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowUp':
+        (this: any).setState({
+          isControlSelected: false,
+        });
+        break;
+      case 'ArrowDown':
+        (this: any).setState({
+          isControlSelected: true,
+        });
+        break;
+      case 'Enter':
+        if (!(this: any).state.isControlSelected) {
+          browserHistory.goBack();
+        }
+        break;
+      case 'Backspace':
+        browserHistory.goBack();
+        break;
+      default:
+    }
+  }
   handlePlay() {
     this.setState({
       isVideoPlaying: true,
@@ -96,10 +124,17 @@ class VideoPlayer extends React.Component {
   }
 
   render() {
+    const videoBackButtonClassName = classnames({
+      'video-player-back-button': true,
+      selected: !this.state.isControlSelected,
+    });
     return (
       <div className="video-player">
         <div data-vjs-player>
-          <button className="video-player-back-button" onClick={browserHistory.goBack}>
+          <button
+            onClick={browserHistory.goBack}
+            className={videoBackButtonClassName}
+          >
             <img src={Back} alt="Back" className="video-player-back-icons" />
           </button>
           <video
@@ -112,6 +147,7 @@ class VideoPlayer extends React.Component {
             playVideo={this.handlePlay}
             pauseVideo={this.handlePause}
             isVideoPlaying={this.state.isVideoPlaying}
+            isControlSelected={this.state.isControlSelected}
             fastForward={this.handleFastForward}
             fastRewind={this.handleRewind}
             progress={this.state.timeProgress}
