@@ -42,3 +42,29 @@ test('Test functions', () => {
   vP.handleTimeUpdate();
   expect(videoPlayer.state().timeProgress).toEqual(40);
 });
+function connectEvent(event, type, wrapper, handleFunction) {
+  const changedEvent: Object = event;
+  changedEvent.key = type;
+  const app: Object = wrapper.instance();
+  if (handleFunction === 'handleNavigationState') {
+    app.handleNavigationState(event);
+  }
+}
+test('videoPlayer navigation works', () => {
+  const app = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  expect(app.state().isControlSelected).toEqual(true);
+  const event = new Event('keyDown');
+  connectEvent(event, 'ArrowUp', app, 'handleNavigationState');
+  expect(app.state().isControlSelected).toEqual(false);
+  connectEvent(event, 'ArrowDown', app, 'handleNavigationState');
+  expect(app.state().isControlSelected).toEqual(true);
+  connectEvent(event, 'Enter', app, 'handleNavigationState');
+  expect(app.state().isControlSelected).toEqual(true);
+  connectEvent(event, 'Space', app, 'handleNavigationState');
+  connectEvent(event, 'ArrowUp', app, 'handleNavigationState');
+  connectEvent(event, 'Enter', app, 'handleNavigationState');
+  jest.fn(() => {}),
+  connectEvent(event, 'Backspace', app, 'handleNavigationState');
+  jest.fn(() => {}),
+  expect(app.state().isControlSelected).toEqual(false);
+});

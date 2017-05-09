@@ -83,14 +83,10 @@ class VideoPlayer extends React.Component {
       case 'Enter':
         if (!(this: any).state.isControlSelected) {
           browserHistory.goBack();
-          (this: any).setState({
-            isControlSelected: true,
-          });
         }
         break;
       case 'Backspace':
         browserHistory.goBack();
-        (this: any).setState({ isControlSelected: true });
         break;
       default:
     }
