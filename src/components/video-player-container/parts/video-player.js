@@ -41,7 +41,6 @@ class VideoPlayer extends React.Component {
     super(props);
     (this: any).moveTime = 10;
     (this: any).videoNode = null;
-    (this: any).videoNode = null;
     (this: any).player = null;
     this.state = {
       isVideoPlaying: true,

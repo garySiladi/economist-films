@@ -44,5 +44,5 @@
 }
 
 .selected {
-  border: var(--economist-blue) solid 1px !important;
+  border: var(--economist-blue) solid 1px;
 }

@@ -38,7 +38,7 @@ class VideoPlayerControls extends React.Component {
           this.props.fastForward();
           break;
         case 'Enter':
-          if (this.props.isVideoPlaying === true) {
+          if (this.props.isVideoPlaying) {
             this.props.pauseVideo();
           } else {
             this.props.playVideo();

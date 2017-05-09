@@ -25,10 +25,6 @@
   left: 5%;
 }
 
-.video-player-back-button:focus {
-  outline: 0;
-}
-
 .video-player-back-icons {
   width: 50%;
 }
