@@ -9,11 +9,6 @@
   display: inline-block;
   margin: 0 var(--video-controls-icon-margin);
   background: var(--economist-grey);
-  border: none;
-}
-
-.player-interface__navigation-control:focus {
-  outline: 0;
 }
 
 .player-interface__progress-bar-container {
@@ -45,5 +40,9 @@
 }
 
 .player-interface-navigation-icons {
-  width: 50%;
+  width: 45%;
+}
+
+.selected {
+  border: var(--economist-blue) solid 1px;
 }
