@@ -9,7 +9,6 @@
   display: inline-block;
   margin: 0 var(--video-controls-icon-margin);
   background: var(--economist-grey);
-  border: none;
 }
 
 .player-interface__progress-bar-container {
@@ -45,5 +44,5 @@
 }
 
 .selected {
-  border: #23527c solid 1px !important;
+  border: var(--economist-blue) solid 1px !important;
 }

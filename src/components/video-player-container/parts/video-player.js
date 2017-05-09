@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
@@ -18,6 +19,7 @@ export type VideoPlayerPropsType = {
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
   timeProgress: number,
+  isControlSelected: boolean,
 }
 
 const videoJsOptions = (videoUrl: string) => ({
@@ -37,13 +39,11 @@ class VideoPlayer extends React.Component {
 
   constructor(props: VideoPlayerPropsType) {
     super(props);
-    (this: any).bigMoveTime = 10;
-    (this: any).smallMoveTime = 2;
+    (this: any).moveTime = 10;
     (this: any).videoNode = null;
     (this: any).videoNode = null;
     (this: any).player = null;
     this.state = {
-      moveTime: 10,
       isVideoPlaying: true,
       timeProgress: 0,
       isControlSelected: true,
@@ -96,11 +96,6 @@ class VideoPlayer extends React.Component {
       default:
     }
   }
-  handleMoveTime() {
-    this.setState({
-
-    });
-  }
   handlePlay() {
     this.setState({
       isVideoPlaying: true,
@@ -114,17 +109,11 @@ class VideoPlayer extends React.Component {
     (this: any).player.pause();
   }
   handleRewind() {
-    if ((this: any).player.currentTime() > 10) {
-      (this: any).player.currentTime((this: any).player.currentTime() - (this: any).bigMoveTime);
-    } else {
-      (this: any).player.currentTime((this: any).player.currentTime() - (this: any).smallMoveTime);
-    }
+    (this: any).player.currentTime((this: any).player.currentTime() - (this: any).moveTime);
   }
   handleFastForward() {
     if ((this: any).player.remainingTime() > 10) {
-      (this: any).player.currentTime((this: any).player.currentTime() + (this: any).bigMoveTime);
-    } else {
-      (this: any).player.currentTime((this: any).player.currentTime() + (this: any).smallMoveTime);
+      (this: any).player.currentTime((this: any).player.currentTime() + (this: any).moveTime);
     }
   }
   handleEndReached() {
@@ -140,12 +129,16 @@ class VideoPlayer extends React.Component {
   }
 
   render() {
+    const videoBackButtonClassName = classnames({
+      'video-player-back-button': true,
+      selected: !this.state.isControlSelected,
+    });
     return (
       <div className="video-player">
         <div data-vjs-player>
           <button
             onClick={browserHistory.goBack}
-            className={`video-player-back-button ${this.state.isControlSelected ? ' ' : 'selected'}`}
+            className={videoBackButtonClassName}
           >
             <img src={Back} alt="Back" className="video-player-back-icons" />
           </button>

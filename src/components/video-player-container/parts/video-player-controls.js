@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import './video-player-controls.css';
 import Rewind from '../../../../public/assets/RW.svg';
 import Forward from '../../../../public/assets/FF.svg';
@@ -36,7 +37,7 @@ class VideoPlayerControls extends React.Component {
         case 'ArrowRight':
           this.props.fastForward();
           break;
-        case ' ':
+        case 'Enter':
           if (this.props.isVideoPlaying === true) {
             this.props.pauseVideo();
           } else {
@@ -52,8 +53,12 @@ class VideoPlayerControls extends React.Component {
     const progressBarStyle = {
       width: `${this.props.progress}%`,
     };
+    const videoControlsClassName= classnames({
+      'player-interface': true,
+      selected: this.props.isControlSelected,
+    });
     return (
-      <div className={`player-interface ${this.props.isControlSelected ? 'selected' : ' '}`}>
+      <div className={videoControlsClassName}>
         <div className="player-interface__progress-bar-container" >
           <div className="player-interface__progress-bar" style={progressBarStyle} />
         </div>
