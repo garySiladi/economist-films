@@ -8,6 +8,10 @@ jest.mock('./parts/episode-description', () =>
   jest.fn(() => <div>EpisodeDescription</div>),
 );
 
+jest.mock('../video-player-container/parts/video-player', () =>
+  jest.fn(() => <div>VideoPlayer</div>),
+);
+
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
   changedEvent.key = type;
@@ -24,6 +28,7 @@ describe('HomeContainer: ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      videoUrl=""
     />).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -35,6 +40,7 @@ describe('HomeContainer: ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      videoUrl=""
     />);
     const event = new Event('keyDown');
     expect(episodeSelected.state().selectedItem).toEqual(0);
@@ -61,6 +67,7 @@ describe('HomeContainer: ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={null}
+      videoUrl=""
     />);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
@@ -73,6 +80,7 @@ describe('HomeContainer: ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      videoUrl=""
     />);
     wrapper.unmount();
   });

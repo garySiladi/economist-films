@@ -5,12 +5,15 @@ exports[`HomeContainer:  renders with data 1`] = `
   className="episode-selected"
 >
   <div
-    className="episode-selected__image-wrapper"
+    className="episode-selected__teaser-wrapper"
   >
+    <div>
+      VideoPlayer
+    </div>
     <img
       alt="title xyz"
       className="episode-selected__image episode-selected__image--selected"
-      src="url xyz"
+      src="play-logo.svg"
     />
   </div>
   <div
@@ -22,13 +25,6 @@ exports[`HomeContainer:  renders with data 1`] = `
     <div
       className="episode-buttons"
     >
-      <a
-        className="episode-buttons__watch"
-        onClick={[Function]}
-        style={Object {}}
-      >
-        Watch Now
-      </a>
       <a
         className="episode-buttons__learn"
         onClick={[Function]}

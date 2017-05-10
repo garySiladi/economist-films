@@ -4,17 +4,35 @@ import { mount, shallow } from 'enzyme';
 import VideoPlayer from './video-player';
 
 test('renders correctly', () => {
-  const videoPlayer = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  const videoPlayer = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      showUI
+      posterImage={null}
+      isMuted={false}
+    />);
   videoPlayer.unmount();
 });
 test('does not break on unmount', () => {
-  const videoPlayer = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  const videoPlayer = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      showUI={false}
+      posterImage={null}
+      isMuted={false}
+    />);
   const vP: Object = videoPlayer.instance();
   vP.player = null;
   videoPlayer.unmount();
 });
 test('Test functions', () => {
-  const videoPlayer = shallow(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  const videoPlayer = shallow(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      showUI
+      posterImage={null}
+      isMuted={false}
+    />);
   expect(videoPlayer.state().isVideoPlaying).toEqual(true);
   const vP: Object = videoPlayer.instance();
   vP.player = {
@@ -49,7 +67,13 @@ function connectEvent(event, type, wrapper) {
   app.handleNavigationState(event);
 }
 test('videoPlayer navigation works', () => {
-  const app = mount(<VideoPlayer videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8" />);
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      showUI
+      posterImage={null}
+      isMuted={false}
+    />);
   expect(app.state().isControlSelected).toEqual(true);
   const event = new Event('keyDown');
   connectEvent(event, 'ArrowUp', app);

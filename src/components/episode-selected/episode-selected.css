@@ -8,6 +8,9 @@
   --button-font-size: 1.5em;
   --button-line-height: 2em;
   --button-margin-width: 2%;
+  --video-teaser-height: 350px;
+  --video-teaser-blur: 5px;
+  --video-button-width: 100px;
 }
 
 .episode-selected {
@@ -17,21 +20,31 @@
   position: relative;
 
   &__image {
-    width: 100%;
+    width: var(--video-button-width);
+    position: absolute;
+    top: calc(var(--video-teaser-height) / 2 - var(--video-button-width) / 2);
+    left: calc(50% - var(--video-button-width) / 2);
     cursor: pointer;
     transition: opacity 0.3s;
+    opacity: 0.5;
   }
 
   &__image--selected {
-    opacity: 0.7;
+    opacity: 1;
   }
 
-  &__image-wrapper {
+  &__teaser-wrapper {
     width: 50%;
+    height: var(--video-teaser-height);
+    position: relative;
     margin: var(--offset-size);
-    background-color: var(--economist-white);
+    background-color: var(--economist-grey);
     display: inline-block;
     vertical-align: top;
+
+    & .video-player {
+      filter: blur(var(--video-teaser-blur));
+    }
   }
 
   &__info-container {
