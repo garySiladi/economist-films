@@ -22,7 +22,7 @@ API.getRoot = jest.fn()
 
 describe('App: ', () => {
   test('renders correctly', () => {
-    const tree : string = renderer.create(<App />).toJSON();
+    const tree : string = renderer.create(<App params={{}} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
