@@ -82,7 +82,6 @@ class episodeSelected extends React.Component {
     const {
       selectedItem,
     } = this.state;
-    const watchString = `/watch?id=${id}`;
     const learnString = `/learn?id=${id}`;
     const imageClassName = classnames(
       'episode-selected__image',
@@ -105,15 +104,6 @@ class episodeSelected extends React.Component {
             className="episode-description-wrapper"
           />
           <div className="episode-buttons">
-            <Link
-              className={classnames(
-                'episode-buttons__watch',
-                { 'episode-buttons__watch--selected': selectedItem === 1 },
-              )}
-              to={watchString}
-            >
-              Watch Now
-            </Link>
             <Link
               className={classnames(
                 'episode-buttons__learn',

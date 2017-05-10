@@ -26,13 +26,6 @@ exports[`HomeContainer:  renders with data 1`] = `
       className="episode-buttons"
     >
       <a
-        className="episode-buttons__watch"
-        onClick={[Function]}
-        style={Object {}}
-      >
-        Watch Now
-      </a>
-      <a
         className="episode-buttons__learn"
         onClick={[Function]}
         style={Object {}}
