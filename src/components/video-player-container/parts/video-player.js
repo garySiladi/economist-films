@@ -16,7 +16,7 @@ require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerPropsType = {
   videoUrl: string,
-  currentEpisodeId: number,
+  videoID: number,
   showUI: boolean,
   isMuted: boolean,
   posterImage: ?string,
@@ -41,13 +41,6 @@ const videoJsOptions = (videoUrl: string, isMuted: boolean) => ({
 class VideoPlayer extends React.Component {
   static getProgress(player) {
     return (100 / player.duration()) * player.currentTime();
-  }
-  static getDelayedProgressTime(progress, lag) {
-    let progressResult = 0;
-    if (progress) {
-      progressResult = (progress < lag) ? 0 : (progress - lag);
-    }
-    return progressResult;
   }
 
   constructor(props: VideoPlayerPropsType) {
@@ -79,11 +72,10 @@ class VideoPlayer extends React.Component {
     document.addEventListener('keydown', this.handleNavigationState);
   }
   componentWillUnmount() {
-    const { currentEpisodeId: id } = this.props;
-    const timeProgress: number = Math.round((this: any).player.currentTime());
-    saveVideoProgress(id, timeProgress);
-
     if ((this: any).player) {
+      const { videoID: id } = this.props;
+      const timeProgress: number = Math.round((this: any).player.currentTime());
+      saveVideoProgress(id, timeProgress);
       (this: any).player.dispose();
     }
     document.removeEventListener('keydown', this.handleNavigationState);
@@ -133,12 +125,10 @@ class VideoPlayer extends React.Component {
     }
   }
   handleVideoLoad() {
-    const { currentEpisodeId: id } = this.props;
-    const lagTime: number = 5;
+    const { videoID: id } = this.props;
+    const lagTime = 5;
     const lastTimeProgress: number = getProgressTimeById(id);
-    const delayedProgressTime: number =
-    VideoPlayer.getDelayedProgressTime(lastTimeProgress, lagTime);
-    (this: any).player.currentTime(delayedProgressTime);
+    (this: any).player.currentTime(lastTimeProgress - lagTime);
   }
   handleEndReached() {
     this.setState({

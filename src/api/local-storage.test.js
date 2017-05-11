@@ -18,10 +18,10 @@ describe('localStorage with data', () => {
       getItem: jest.fn(key => localStorageData[key] || 0),
       setItem: jest.fn(),
     };
+    global.JSON.parse = jest.fn(() => localStorageData.history);
   });
   test('getItem', () => {
     let progress = getProgressTimeById(1);
-    console.log(progress);
     expect(window.localStorage.getItem.mock.calls.length).toEqual(1);
     expect(window.localStorage.getItem.mock.calls[0]).toEqual(['history']);
     expect(progress).toBe(55);
@@ -34,7 +34,7 @@ describe('localStorage with data', () => {
     expect(window.localStorage.setItem.mock.calls[0]).toEqual(['history', JSON.stringify(localStorageData.history)]);
     saveVideoProgress(1, 70);
     expect(window.localStorage.setItem.mock.calls.length).toEqual(2);
-    expect(window.localStorage.setItem.mock.calls[1]).toEqual(['history', JSON.stringify(localStorageData.history)]);
+    expect(window.localStorage.setItem.mock.calls[1]).toEqual(['history', JSON.stringify([{ episodeId: 1, progressTime: 70 }, { episodeId: 5, progressTime: 60 }])]);
   });
 });
 
@@ -46,6 +46,7 @@ describe('localStorage without history', () => {
     };
   });
   test('saveVideoProgress', () => {
+    global.JSON.parse = jest.fn(null);
     saveVideoProgress(1, 60);
     expect(window.localStorage.setItem.mock.calls.length).toEqual(1);
     expect(window.localStorage.setItem.mock.calls[0]).toEqual(['history', JSON.stringify([{ episodeId: 1, progressTime: 60 }])]);
