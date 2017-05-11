@@ -7,6 +7,7 @@ import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
 import Back from '../../../../public/assets/RW.svg';
+import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -14,6 +15,7 @@ require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerPropsType = {
   videoUrl: string,
+  currentEpisodeId: number,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
@@ -34,6 +36,13 @@ class VideoPlayer extends React.Component {
   static getProgress(player) {
     return (100 / player.duration()) * player.currentTime();
   }
+  static getDelayedProgressTime(progress, lag) {
+    let progressResult = 0;
+    if (progress) {
+      progressResult = (progress < lag) ? 0 : (progress - lag);
+    }
+    return progressResult;
+  }
 
   constructor(props: VideoPlayerPropsType) {
     super(props);
@@ -48,6 +57,7 @@ class VideoPlayer extends React.Component {
     (this: any).handlePlay = this.handlePlay.bind(this);
     (this: any).handlePause = this.handlePause.bind(this);
     (this: any).handleRewind = this.handleRewind.bind(this);
+    (this: any).handleVideoLoad = this.handleVideoLoad.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
@@ -58,6 +68,10 @@ class VideoPlayer extends React.Component {
   }
 
   componentWillUnmount() {
+    const { currentEpisodeId: id } = this.props;
+    const timeProgress: number = Math.round((this: any).player.currentTime());
+    saveVideoProgress(id, timeProgress);
+
     if ((this: any).player) {
       (this: any).player.dispose();
     }
@@ -83,6 +97,14 @@ class VideoPlayer extends React.Component {
       (this: any).player.currentTime((this: any).player.currentTime() + (this: any).moveTime);
     }
   }
+  handleVideoLoad() {
+    const { currentEpisodeId: id } = this.props;
+    const lagTime: number = 5;
+    const lastTimeProgress: number = getProgressTimeById(id);
+    const delayedProgressTime: number =
+    VideoPlayer.getDelayedProgressTime(lastTimeProgress, lagTime);
+    (this: any).player.currentTime(delayedProgressTime);
+  }
   handleEndReached() {
     this.setState({
       isVideoPlaying: false,
@@ -104,6 +126,7 @@ class VideoPlayer extends React.Component {
           </button>
           <video
             ref={(node) => { (this: any).videoNode = node; }}
+            onLoadedData={this.handleVideoLoad}
             onEnded={this.handleEndReached}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
