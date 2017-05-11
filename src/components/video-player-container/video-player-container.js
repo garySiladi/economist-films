@@ -40,6 +40,9 @@ class VideoPlayerContainer extends React.Component {
           <VideoPlayer
             videoUrl={this.state.videoUrl}
             currentEpisodeId={this.props.params.id}
+            showUI
+            posterImage={null}
+            isMuted={false}
           />
           : null
         }

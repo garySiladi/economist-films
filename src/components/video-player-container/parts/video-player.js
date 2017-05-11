@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
@@ -16,15 +17,20 @@ require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 export type VideoPlayerPropsType = {
   videoUrl: string,
   currentEpisodeId: number,
+  showUI: boolean,
+  isMuted: boolean,
+  posterImage: ?string,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
   timeProgress: number,
+  isControlSelected: boolean,
 }
 
-const videoJsOptions = (videoUrl: string) => ({
+const videoJsOptions = (videoUrl: string, isMuted: boolean) => ({
   preload: 'auto',
   autoplay: true,
+  muted: isMuted,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -52,6 +58,7 @@ class VideoPlayer extends React.Component {
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
+      isControlSelected: true,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
     (this: any).handlePlay = this.handlePlay.bind(this);
@@ -60,13 +67,17 @@ class VideoPlayer extends React.Component {
     (this: any).handleVideoLoad = this.handleVideoLoad.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
+    (this: any).handleNavigationState = this.handleNavigationState.bind(this);
   }
   state: VideoPlayerStateType;
-
   componentDidMount() {
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(this.props.videoUrl) });
+    const {
+      videoUrl,
+      isMuted,
+    } = this.props;
+    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
+    document.addEventListener('keydown', this.handleNavigationState);
   }
-
   componentWillUnmount() {
     const { currentEpisodeId: id } = this.props;
     const timeProgress: number = Math.round((this: any).player.currentTime());
@@ -75,8 +86,32 @@ class VideoPlayer extends React.Component {
     if ((this: any).player) {
       (this: any).player.dispose();
     }
+    document.removeEventListener('keydown', this.handleNavigationState);
   }
-
+  handleNavigationState(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowUp':
+        (this: any).setState({
+          isControlSelected: false,
+        });
+        break;
+      case 'ArrowDown':
+        (this: any).setState({
+          isControlSelected: true,
+        });
+        break;
+      case 'Enter':
+        if (!(this: any).state.isControlSelected) {
+          browserHistory.goBack();
+        }
+        break;
+      case 'Backspace':
+        browserHistory.goBack();
+        break;
+      default:
+    }
+  }
+  props: VideoPlayerPropsType;
   handlePlay() {
     this.setState({
       isVideoPlaying: true,
@@ -118,27 +153,43 @@ class VideoPlayer extends React.Component {
   }
 
   render() {
+    const {
+      showUI,
+      posterImage,
+    } = this.props;
+    const videoBackButtonClassName = classnames({
+      'video-player-back-button': true,
+      selected: !this.state.isControlSelected,
+    });
+    const videoPlayerControls = showUI ? (
+      <VideoPlayerControls
+        playVideo={this.handlePlay}
+        pauseVideo={this.handlePause}
+        isVideoPlaying={this.state.isVideoPlaying}
+        isControlSelected={this.state.isControlSelected}
+        fastForward={this.handleFastForward}
+        fastRewind={this.handleRewind}
+        progress={this.state.timeProgress}
+      />
+    ) : null;
+    const backButton = showUI ? (
+      <button className={videoBackButtonClassName} onClick={browserHistory.goBack}>
+        <img src={Back} alt="Back" className="video-player-back-icons" />
+      </button>
+    ) : null;
     return (
       <div className="video-player">
         <div data-vjs-player>
-          <button className="video-player-back-button" onClick={browserHistory.goBack}>
-            <img src={Back} alt="Back" className="video-player-back-icons" />
-          </button>
+          {backButton}
           <video
             ref={(node) => { (this: any).videoNode = node; }}
             onLoadedData={this.handleVideoLoad}
             onEnded={this.handleEndReached}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
+            poster={posterImage}
           />
-          <VideoPlayerControls
-            playVideo={this.handlePlay}
-            pauseVideo={this.handlePause}
-            isVideoPlaying={this.state.isVideoPlaying}
-            fastForward={this.handleFastForward}
-            fastRewind={this.handleRewind}
-            progress={this.state.timeProgress}
-          />
+          {videoPlayerControls}
         </div>
       </div>);
   }

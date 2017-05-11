@@ -74,13 +74,20 @@
     "lint": "yarn lint:js && yarn lint:css",
     "lint:js": "eslint src/**/*.js",
     "lint:css": "stylelint src/**/*.css",
-    "precommit": "yarn lint && yarn flow",
-    "prepush": "yarn test:coverage"
+    "precommit": "yarn lint && yarn flow"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],
