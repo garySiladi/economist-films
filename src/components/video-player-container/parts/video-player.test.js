@@ -48,7 +48,14 @@ test('Test functions', () => {
   expect(videoPlayer.state().isVideoPlaying).toEqual(true);
   vP.handlePause();
   expect(videoPlayer.state().isVideoPlaying).toEqual(false);
+  vP.handlePlayPause();
+  expect(videoPlayer.state().isVideoPlaying).toEqual(true);
+  vP.handlePlayPause();
+  expect(videoPlayer.state().isVideoPlaying).toEqual(false);
   vP.handleFastForward();
+  expect(videoPlayer.state().isNavigationSelected).toEqual(true);
+  vP.moveLeft();
+  expect(videoPlayer.state().selectedPosition).toEqual(0);
   expect(vP.player.currentTime()).toEqual(20);
   vP.handleFastForward();
   expect(vP.player.currentTime()).toEqual(20);
@@ -59,6 +66,7 @@ test('Test functions', () => {
   expect(vP.player.currentTime()).toEqual(20);
   vP.handleTimeUpdate();
   expect(videoPlayer.state().timeProgress).toEqual(40);
+  vP.moveLeft();
 });
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
@@ -74,6 +82,7 @@ test('videoPlayer navigation works', () => {
       posterImage={null}
       isMuted={false}
     />);
+  const vP: Object = app.instance();
   expect(app.state().isNavigationSelected).toEqual(true);
   const event = new Event('keyDown');
   connectEvent(event, 'ArrowUp', app);
@@ -91,13 +100,28 @@ test('videoPlayer navigation works', () => {
   expect(app.state().selectedPosition).toEqual(0);
   connectEvent(event, 'ArrowRight', app);
   expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 'ArrowUp', app);
+  expect(app.state().isBackButtonSelected).toEqual(true);
+  expect(app.state().isNavigationSelected).toEqual(false);
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
-  connectEvent(event, 'Space', app);
+  connectEvent(event, 'ArrowDown', app);
+  expect(app.state().isNavigationSelected).toEqual(true);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(2);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(0);
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
   connectEvent(event, 'Backspace', app);
   jest.fn(() => {});
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
+  connectEvent(event, 'Space', app);
 });

@@ -107,14 +107,14 @@ class VideoPlayer extends React.Component {
             isBackButtonSelected: false,
           });
           browserHistory.goBack();
-        } else if (this.state.isNavigationSelected) {
-          if (this.state.selectedPosition === 0) {
+        } else {
+          if ((this: any).state.selectedPosition === 0) {
             this.handleRewind();
           }
-          if (this.state.selectedPosition === 1) {
+          if ((this: any).state.selectedPosition === 1) {
             this.handlePlayPause();
           }
-          if (this.state.selectedPosition === 2) {
+          if ((this: any).state.selectedPosition === 2) {
             this.handleFastForward();
           }
         }
@@ -132,17 +132,12 @@ class VideoPlayer extends React.Component {
         this.setState({
           selectedPosition: this.state.selectedPosition -1,
         });
-        console.log('move left', this.state.selectedPosition);
       }
     }
   }
   moveRight() {
     if (this.state.isNavigationSelected) {
-      if (this.state.selectedPosition === null) {
-        this.setState({
-          selectedPosition: 0,
-        });
-      } else if (this.state.selectedPosition < 2 && this.state.selectedPosition !== null) {
+      if (this.state.selectedPosition < 2) {
         this.setState({
           selectedPosition: this.state.selectedPosition +1,
         });
