@@ -82,7 +82,6 @@ test('videoPlayer navigation works', () => {
       posterImage={null}
       isMuted={false}
     />);
-  const vP: Object = app.instance();
   expect(app.state().isNavigationSelected).toEqual(true);
   const event = new Event('keyDown');
   connectEvent(event, 'ArrowUp', app);
