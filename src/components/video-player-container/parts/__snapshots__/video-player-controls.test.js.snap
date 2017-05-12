@@ -23,14 +23,14 @@ exports[`Video is not playing  1`] = `
       className="player-interface__navigation-control selected"
     >
       <img
-        alt="right"
+        alt="left"
         className="player-interface-navigation-icons"
         id="1"
         src="RW.svg"
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
         alt="Play/Pause"
@@ -40,10 +40,10 @@ exports[`Video is not playing  1`] = `
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
-        alt="left"
+        alt="right"
         className="player-interface-navigation-icons"
         id="3"
         src="FF.svg"
@@ -53,7 +53,7 @@ exports[`Video is not playing  1`] = `
 </div>
 `;
 
-exports[`Video is playing + selected posstition is 0 1`] = `
+exports[`Video is playing + selected postition is 0 1`] = `
 <div
   className="player-interface"
 >
@@ -76,14 +76,14 @@ exports[`Video is playing + selected posstition is 0 1`] = `
       className="player-interface__navigation-control selected"
     >
       <img
-        alt="right"
+        alt="left"
         className="player-interface-navigation-icons"
         id="1"
         src="RW.svg"
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
         alt="Play/Pause"
@@ -93,10 +93,10 @@ exports[`Video is playing + selected posstition is 0 1`] = `
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
-        alt="left"
+        alt="right"
         className="player-interface-navigation-icons"
         id="3"
         src="FF.svg"
@@ -106,7 +106,7 @@ exports[`Video is playing + selected posstition is 0 1`] = `
 </div>
 `;
 
-exports[`Video is playing + selected posstition is 1 1`] = `
+exports[`Video is playing + selected postition is 1 1`] = `
 <div
   className="player-interface"
 >
@@ -126,10 +126,10 @@ exports[`Video is playing + selected posstition is 1 1`] = `
     className="player-interface__navigation-wrapper"
   >
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
-        alt="right"
+        alt="left"
         className="player-interface-navigation-icons"
         id="1"
         src="RW.svg"
@@ -146,10 +146,10 @@ exports[`Video is playing + selected posstition is 1 1`] = `
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
-        alt="left"
+        alt="right"
         className="player-interface-navigation-icons"
         id="3"
         src="FF.svg"
@@ -159,7 +159,7 @@ exports[`Video is playing + selected posstition is 1 1`] = `
 </div>
 `;
 
-exports[`Video is playing + selected posstition is 2 1`] = `
+exports[`Video is playing + selected postition is 2 1`] = `
 <div
   className="player-interface"
 >
@@ -179,17 +179,17 @@ exports[`Video is playing + selected posstition is 2 1`] = `
     className="player-interface__navigation-wrapper"
   >
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
-        alt="right"
+        alt="left"
         className="player-interface-navigation-icons"
         id="1"
         src="RW.svg"
       />
     </button>
     <button
-      className="player-interface__navigation-control  "
+      className="player-interface__navigation-control"
     >
       <img
         alt="Play/Pause"
@@ -202,7 +202,7 @@ exports[`Video is playing + selected posstition is 2 1`] = `
       className="player-interface__navigation-control selected"
     >
       <img
-        alt="left"
+        alt="right"
         className="player-interface-navigation-icons"
         id="3"
         src="FF.svg"

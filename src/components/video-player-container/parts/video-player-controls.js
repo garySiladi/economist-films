@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-// import classnames from 'classnames';
 import './video-player-controls.css';
 import Rewind from '../../../../public/assets/RW.svg';
 import Forward from '../../../../public/assets/FF.svg';
@@ -19,7 +18,9 @@ class VideoPlayerControls extends React.Component { // eslint-disable-line react
     const progressBarStyle = {
       width: `${this.props.progress}%`,
     };
-    const selectedPosition = this.props.selectedPosition;
+    const {
+      selectedPosition,
+    } = this.props;
 
     return (
       <div className="player-interface">
@@ -28,17 +29,17 @@ class VideoPlayerControls extends React.Component { // eslint-disable-line react
         </div>
         <div className="player-interface__navigation-wrapper">
           <button
-            className={`player-interface__navigation-control ${selectedPosition === 0 ? 'selected' : ' '}`}
+            className={`player-interface__navigation-control${selectedPosition === 0 ? ' selected' : ''}`}
           >
             <img
               src={Rewind}
-              alt="right"
+              alt="left"
               className="player-interface-navigation-icons"
               id="1"
             />
           </button>
           <button
-            className={`player-interface__navigation-control ${selectedPosition === 1 ? 'selected' : ' '}`}
+            className={`player-interface__navigation-control${selectedPosition === 1 ? ' selected' : ''}`}
           >
             <img
               src={this.props.isVideoPlaying ? Pause : Play}
@@ -48,11 +49,11 @@ class VideoPlayerControls extends React.Component { // eslint-disable-line react
             />
           </button>
           <button
-            className={`player-interface__navigation-control ${selectedPosition === 2 ? 'selected' : ' '}`}
+            className={`player-interface__navigation-control${selectedPosition === 2 ? ' selected' : ''}`}
           >
             <img
               src={Forward}
-              alt="left"
+              alt="right"
               className="player-interface-navigation-icons"
               id="3"
             />

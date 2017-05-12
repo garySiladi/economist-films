@@ -102,28 +102,29 @@ class VideoPlayer extends React.Component {
         this.moveRight();
         break;
       case 'Enter':
-        if ((this: any).state.isBackButtonSelected) {
+        if (this.state.isBackButtonSelected) {
           (this: any).setState({
             isBackButtonSelected: false,
           });
           browserHistory.goBack();
         } else {
-          if ((this: any).state.selectedPosition === 0) {
+          if (this.state.selectedPosition === 0) {
             this.handleRewind();
           }
           if ((this: any).state.selectedPosition === 1) {
             this.handlePlayPause();
           }
-          if ((this: any).state.selectedPosition === 2) {
+          if (this.state.selectedPosition === 2) {
             this.handleFastForward();
           }
         }
         break;
       case 'Backspace':
-        browserHistory.goBack();
+        if (this.props.showUI) {
+          browserHistory.goBack();
+        }
         break;
       default:
-
     }
   }
   moveLeft() {
@@ -205,7 +206,7 @@ class VideoPlayer extends React.Component {
       />
     ) : null;
     const backButton = showUI ? (
-      <button className={videoBackButtonClassName} onClick={browserHistory.goBack}>
+      <button className={videoBackButtonClassName} >
         <img src={Back} alt="Back" className="video-player-back-icons" />
       </button>
     ) : null;

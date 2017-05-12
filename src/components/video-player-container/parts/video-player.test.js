@@ -123,7 +123,10 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
   connectEvent(event, 'Backspace', app);
+  app.setProps({ showUI: false });
   jest.fn(() => {});
+  connectEvent(event, 'Backspace', app);
+  expect(app.props().showUI).toEqual(false);
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
   connectEvent(event, 'Space', app);
