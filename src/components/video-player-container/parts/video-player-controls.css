@@ -43,6 +43,10 @@
   width: 45%;
 }
 
+.hide {
+  display: none;
+}
+
 .selected {
   border: var(--economist-blue) solid 1px;
 }
