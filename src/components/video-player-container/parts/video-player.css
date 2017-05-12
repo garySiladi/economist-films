@@ -26,9 +26,9 @@
 }
 
 .video-player-back-icons {
-  width: 50%;
+  width: 120%;
 }
 
-.video-js .selected {
+/*.video-js .selected {
   border: var(--economist-blue) solid 1px;
-}
+}*/

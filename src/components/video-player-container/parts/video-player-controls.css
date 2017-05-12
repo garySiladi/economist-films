@@ -1,48 +1,66 @@
 @import '../../../colors.css';
 
 :root {
-  --video-controls-icon-margin: 20px;
-  --progress-bar-height: 10px;
-}
-
-.player-interface__navigation-control {
-  display: inline-block;
-  margin: 0 var(--video-controls-icon-margin);
-  background: var(--economist-grey);
-}
-
-.player-interface__progress-bar-container {
-  display: inline-block;
-  background: gray;
-  width: 100%;
-  height: var(--progress-bar-height);
-}
-
-.player-interface__progress-bar {
-  background: var(--economist-red);
-  height: 100%;
-}
-
-.player-interface__navigation-wrapper {
-  display: block;
-  margin: 15px 0;
-  margin-top: 30px;
+  --video-controls-icon-margin: 15px;
+  --progress-bar-height: 12px;
+  --progress-times-size: 4em;
+  --progress-times-padding: 20px;
 }
 
 .player-interface {
-  background: var(--economist-blackOpacity);
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  width: 94%;
   position: absolute;
-  bottom: 1%;
-  left: 50%;
-  margin-left: -25%;
+  left: 3%;
+  right: 3%;
+  bottom: 2%;
   text-align: center;
+
+  &__progress-bar-container {
+    display: inline-block;
+    background: gray;
+    width: 100%;
+    height: var(--progress-bar-height);
+  }
+
+  &__progress-times {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--progress-times-padding);
+  }
+
+  &__current-progress-time {
+    font-size: var(--progress-times-size);
+  }
+
+  &__terminated-progress-time {
+    font-size: var(--progress-times-size);
+  }
+
+  &__navigation-wrapper {
+    display: block;
+    margin: 15px 0;
+    margin-top: 30px;
+  }
+
+  &__progress-bar {
+    background: var(--economist-red);
+    height: 100%;
+  }
+
+  &__navigation-control {
+    /*display: inline-block;*/
+    margin: 0 var(--video-controls-icon-margin);
+    background: var(--economist-grey);
+  }
+
+  &__navigation-icons {
+    width: 80%;
+  }
 }
 
-.player-interface-navigation-icons {
-  width: 45%;
-}
-
-.selected {
+/*.selected {
   border: var(--economist-blue) solid 1px;
-}
+}*/

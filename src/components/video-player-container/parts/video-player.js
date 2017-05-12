@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
-import Back from '../../../../public/assets/RW.svg';
+import Back from '../../../../public/assets/Square-Arrow.svg';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
 window.videojs = videojs;
@@ -42,7 +42,13 @@ class VideoPlayer extends React.Component {
   static getProgress(player) {
     return (100 / player.duration()) * player.currentTime();
   }
-
+  static renderTime(time) {
+    let minutes: number = Math.floor(time / 60);
+    let seconds: number = time - (minutes * 60);
+    minutes = (minutes < 10) ? `0${minutes}` : `${minutes}`;
+    seconds = (seconds < 10) ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${seconds}`;
+  }
   constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
@@ -61,6 +67,8 @@ class VideoPlayer extends React.Component {
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
     (this: any).handleNavigationState = this.handleNavigationState.bind(this);
+    (this: any).showFormattedCurrentTime = this.showFormattedCurrentTime.bind(this);
+    (this: any).showEndOfVideo = this.showEndOfVideo.bind(this);
   }
   state: VideoPlayerStateType;
   componentDidMount() {
@@ -141,6 +149,20 @@ class VideoPlayer extends React.Component {
       timeProgress: Math.round(progress),
     });
   }
+  showFormattedCurrentTime() {
+    if ((this: any).player) {
+      const time: number = Math.round((this: any).player.currentTime());
+      return VideoPlayer.renderTime(time);
+    }
+    return 0;
+  }
+  showEndOfVideo() {
+    if ((this: any).player) {
+      const time: number = Math.round((this: any).player.duration());
+      return VideoPlayer.renderTime(time);
+    }
+    return 0;
+  }
 
   render() {
     const {
@@ -160,6 +182,8 @@ class VideoPlayer extends React.Component {
         fastForward={this.handleFastForward}
         fastRewind={this.handleRewind}
         progress={this.state.timeProgress}
+        currentTime={this.showFormattedCurrentTime()}
+        endOfVideo={this.showEndOfVideo()}
       />
     ) : null;
     const backButton = showUI ? (

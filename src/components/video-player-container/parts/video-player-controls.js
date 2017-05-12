@@ -15,6 +15,8 @@ export type VideoPlayerControlsProps = {
   isControlSelected: boolean,
   fastRewind: Function,
   progress: number,
+  currentTime: string,
+  endOfVideo: string,
 }
 
 class VideoPlayerControls extends React.Component {
@@ -53,18 +55,22 @@ class VideoPlayerControls extends React.Component {
     const progressBarStyle = {
       width: `${this.props.progress}%`,
     };
-    const videoControlsClassName= classnames({
+    const videoControlsClassName = classnames({
       'player-interface': true,
       selected: this.props.isControlSelected,
     });
     return (
       <div className={videoControlsClassName}>
+        <div className="player-interface__progress-times">
+          <div className="player-interface__current-progress-time">{this.props.currentTime}</div>
+          <div className="player-interface__terminated-progress-time">{this.props.endOfVideo}</div>
+        </div>
         <div className="player-interface__progress-bar-container" >
           <div className="player-interface__progress-bar" style={progressBarStyle} />
         </div>
         <div className="player-interface__navigation-wrapper">
           <button className="player-interface__navigation-control" onClick={this.props.fastRewind}>
-            <img src={Rewind} alt="right" className="player-interface-navigation-icons" />
+            <img src={Rewind} alt="right" className="player-interface__navigation-icons" />
           </button>
           <button
             onClick={this.props.isVideoPlaying ? this.props.pauseVideo : this.props.playVideo}
@@ -76,7 +82,7 @@ class VideoPlayerControls extends React.Component {
             className="player-interface__navigation-control"
             onClick={this.props.fastForward}
           >
-            <img src={Forward} alt="left" className="player-interface-navigation-icons" />
+            <img src={Forward} alt="left" className="player-interface__navigation-icons" />
           </button>
         </div>
       </div>
