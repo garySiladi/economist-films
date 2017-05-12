@@ -2,6 +2,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import VideoPlayer from './video-player';
+import * as storage from '../../../api/local-storage';
 
 test('renders correctly', () => {
   const videoPlayer = mount(
@@ -10,6 +11,7 @@ test('renders correctly', () => {
       showUI
       posterImage={null}
       isMuted={false}
+      videoID={5}
     />);
   videoPlayer.unmount();
 });
@@ -20,18 +22,22 @@ test('does not break on unmount', () => {
       showUI={false}
       posterImage={null}
       isMuted={false}
+      videoID={5}
     />);
   const vP: Object = videoPlayer.instance();
   vP.player = null;
   videoPlayer.unmount();
 });
 test('Test functions', () => {
+  // $FlowFixMe
+  storage.getProgressTimeById = jest.fn(() => 10);
   const videoPlayer = shallow(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
       showUI
       posterImage={null}
       isMuted={false}
+      videoID={5}
     />);
   expect(videoPlayer.state().isVideoPlaying).toEqual(true);
   const vP: Object = videoPlayer.instance();
@@ -54,6 +60,7 @@ test('Test functions', () => {
   expect(vP.player.currentTime()).toEqual(20);
   vP.handleRewind();
   expect(vP.player.currentTime()).toEqual(20);
+  vP.handleVideoLoad();
   vP.handleEndReached();
   expect(videoPlayer.state().isVideoPlaying).toEqual(false);
   expect(vP.player.currentTime()).toEqual(20);
@@ -73,6 +80,7 @@ test('videoPlayer navigation works', () => {
       showUI
       posterImage={null}
       isMuted={false}
+      videoID={5}
     />);
   expect(app.state().isControlSelected).toEqual(true);
   const event = new Event('keyDown');

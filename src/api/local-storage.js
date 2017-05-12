@@ -10,31 +10,26 @@ export const HISTORY_LIST = 'history';
 export function saveVideoProgress(id: number, progress: number) {
   if (typeof (localStorage) !== 'undefined') {
     const currentHistory: ?string = localStorage.getItem(HISTORY_LIST);
-    const videoProgressObject: VideoProgressType = { episodeId: id, progressTime: progress };
-    let historyObj = videoProgressObject;
-    if (currentHistory) {
-      // $FlowFixMe
-      const indexOfVideo = currentHistory.findIndex(element => element.episodeId === id);
-      if (indexOfVideo === -1) {
-        // $FlowFixMe
-        currentHistory.push(videoProgressObject);
-        historyObj = currentHistory;
-      } else {
-        historyObj = currentHistory;
-        // $FlowFixMe
-        historyObj[indexOfVideo] = videoProgressObject;
-      }
+    const parsedCurrentHistory = JSON.parse(currentHistory || 'null') || [];
+    const indexOfVideo = parsedCurrentHistory.findIndex(element => element.episodeId === id);
+    if (indexOfVideo === -1) {
+      parsedCurrentHistory.push({
+        episodeId: id,
+        progressTime: progress,
+      });
+    } else {
+      parsedCurrentHistory[indexOfVideo].progressTime = progress;
     }
-    localStorage.setItem(HISTORY_LIST, JSON.stringify(historyObj));
+    localStorage.setItem(HISTORY_LIST, JSON.stringify(parsedCurrentHistory));
   }
 }
 
 export function getProgressTimeById(id: number) {
   const data: ?string = localStorage.getItem(HISTORY_LIST);
-  if (data) {
-    // $FlowFixMe
-    const requiredEpisode = data.find(episode => episode.episodeId === id);
-    return requiredEpisode ? requiredEpisode.progressTime : null;
+  const parsedData = JSON.parse(data || 'null');
+  if (parsedData) {
+    const requiredEpisode = parsedData.find(episode => episode.episodeId === id);
+    return requiredEpisode ? requiredEpisode.progressTime : 0;
   }
-  return null;
+  return 0;
 }

@@ -8,6 +8,7 @@ import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
 import Back from '../../../../public/assets/RW.svg';
+import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -15,6 +16,7 @@ require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerPropsType = {
   videoUrl: string,
+  videoID: number,
   showUI: boolean,
   isMuted: boolean,
   posterImage: ?string,
@@ -55,6 +57,7 @@ class VideoPlayer extends React.Component {
     (this: any).handlePlay = this.handlePlay.bind(this);
     (this: any).handlePause = this.handlePause.bind(this);
     (this: any).handleRewind = this.handleRewind.bind(this);
+    (this: any).handleVideoLoad = this.handleVideoLoad.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
     (this: any).handleNavigationState = this.handleNavigationState.bind(this);
@@ -70,6 +73,9 @@ class VideoPlayer extends React.Component {
   }
   componentWillUnmount() {
     if ((this: any).player) {
+      const { videoID: id } = this.props;
+      const timeProgress: number = Math.round((this: any).player.currentTime());
+      saveVideoProgress(id, timeProgress);
       (this: any).player.dispose();
     }
     document.removeEventListener('keydown', this.handleNavigationState);
@@ -118,6 +124,12 @@ class VideoPlayer extends React.Component {
       (this: any).player.currentTime((this: any).player.currentTime() + (this: any).moveTime);
     }
   }
+  handleVideoLoad() {
+    const { videoID: id } = this.props;
+    const lagTime = 5;
+    const lastTimeProgress: number = getProgressTimeById(id);
+    (this: any).player.currentTime(lastTimeProgress - lagTime);
+  }
   handleEndReached() {
     this.setState({
       isVideoPlaying: false,
@@ -161,6 +173,7 @@ class VideoPlayer extends React.Component {
           {backButton}
           <video
             ref={(node) => { (this: any).videoNode = node; }}
+            onLoadedData={this.handleVideoLoad}
             onEnded={this.handleEndReached}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"

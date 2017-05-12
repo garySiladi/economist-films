@@ -95,6 +95,7 @@ class episodeSelected extends React.Component {
             showUI={false}
             posterImage={url}
             isMuted
+            videoID={id}
           />
           <img className={imageClassName} src={PlayLogo} alt={title} />
         </div>
