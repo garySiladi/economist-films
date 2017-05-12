@@ -87,10 +87,14 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'ArrowUp', app);
   expect(app.state().isNavigationSelected).toEqual(false);
   expect(app.state().isBackButtonSelected).toEqual(true);
+  connectEvent(event, 'ArrowRight', app);
+  connectEvent(event, 'ArrowLeft', app);
   connectEvent(event, 'ArrowDown', app);
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
   expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 'ArrowRight', app);
   expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 'ArrowLeft', app);
