@@ -67,8 +67,7 @@ class VideoPlayer extends React.Component {
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
     (this: any).handleNavigationState = this.handleNavigationState.bind(this);
-    (this: any).showFormattedCurrentTime = this.showFormattedCurrentTime.bind(this);
-    (this: any).showEndOfVideo = this.showEndOfVideo.bind(this);
+    (this: any).showFormattedTime = this.showFormattedTime.bind(this);
   }
   state: VideoPlayerStateType;
   componentDidMount() {
@@ -149,16 +148,15 @@ class VideoPlayer extends React.Component {
       timeProgress: Math.round(progress),
     });
   }
-  showFormattedCurrentTime() {
+  showFormattedTime(timeFunction: string) {
     if ((this: any).player) {
-      const time = Math.round((this: any).player.currentTime());
-      return VideoPlayer.renderTime(time);
-    }
-    return '00:00';
-  }
-  showEndOfVideo() {
-    if ((this: any).player) {
-      const time = Math.round((this: any).player.duration());
+      let time: number = 0;
+      if (timeFunction === 'currentTime') {
+        time = Math.round((this: any).player.currentTime());
+      }
+      if (timeFunction === 'duration') {
+        time = Math.round((this: any).player.duration());
+      }
       return VideoPlayer.renderTime(time);
     }
     return '00:00';
@@ -181,8 +179,8 @@ class VideoPlayer extends React.Component {
         fastForward={this.handleFastForward}
         fastRewind={this.handleRewind}
         progress={this.state.timeProgress}
-        currentTime={this.showFormattedCurrentTime()}
-        endOfVideo={this.showEndOfVideo()}
+        currentTime={this.showFormattedTime('currentTime')}
+        endOfVideo={this.showFormattedTime('duration')}
       />
     ) : null;
     const backButton = showUI ? (
