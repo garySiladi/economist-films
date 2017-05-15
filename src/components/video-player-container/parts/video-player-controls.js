@@ -17,7 +17,7 @@ export type VideoPlayerControlsProps = {
   progress: number,
   currentTime: string,
   endOfVideo: string,
-}
+};
 
 class VideoPlayerControls extends React.Component {
   constructor(props: VideoPlayerControlsProps) {
@@ -61,9 +61,9 @@ class VideoPlayerControls extends React.Component {
     });
     return (
       <div className={videoControlsClassName}>
-        <div className="player-interface__progress-times">
-          <div className="player-interface__current-progress-time">{this.props.currentTime}</div>
-          <div className="player-interface__terminated-progress-time">{this.props.endOfVideo}</div>
+        <div className="player-interface__progress-time">
+          <div className="player-interface__progress-time--current">{this.props.currentTime}</div>
+          <div className="player-interface__progress-time--final">{this.props.endOfVideo}</div>
         </div>
         <div className="player-interface__progress-bar-container" >
           <div className="player-interface__progress-bar" style={progressBarStyle} />

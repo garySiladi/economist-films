@@ -43,10 +43,10 @@ class VideoPlayer extends React.Component {
     return (100 / player.duration()) * player.currentTime();
   }
   static renderTime(time) {
-    let minutes: number = Math.floor(time / 60);
-    let seconds: number = time - (minutes * 60);
-    minutes = (minutes < 10) ? `0${minutes}` : `${minutes}`;
-    seconds = (seconds < 10) ? `0${seconds}` : `${seconds}`;
+    let minutes = Math.floor(time / 60);
+    let seconds = time - (minutes * 60);
+    minutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    seconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     return `${minutes}:${seconds}`;
   }
   constructor(props: VideoPlayerPropsType) {
@@ -151,19 +151,18 @@ class VideoPlayer extends React.Component {
   }
   showFormattedCurrentTime() {
     if ((this: any).player) {
-      const time: number = Math.round((this: any).player.currentTime());
+      const time = Math.round((this: any).player.currentTime());
       return VideoPlayer.renderTime(time);
     }
-    return 0;
+    return '00:00';
   }
   showEndOfVideo() {
     if ((this: any).player) {
-      const time: number = Math.round((this: any).player.duration());
+      const time = Math.round((this: any).player.duration());
       return VideoPlayer.renderTime(time);
     }
     return 0;
   }
-
   render() {
     const {
       showUI,

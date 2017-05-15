@@ -2,47 +2,46 @@
 
 :root {
   --video-controls-icon-margin: 15px;
-  --progress-bar-height: 12px;
+  --progress-bar-height: 15px;
   --progress-times-size: 4em;
   --progress-times-padding: 20px;
+  --progress-bar-sides-padding: 100px;
+  --progress-bar-bottom-padding: 40px;
 }
 
 .player-interface {
   display: flex;
   flex-direction: column;
   background: transparent;
-  width: 94%;
+  width: 100%;
   position: absolute;
-  left: 3%;
-  right: 3%;
-  bottom: 2%;
+  bottom: 0;
+  padding: 0 var(--progress-bar-sides-padding) var(--progress-bar-bottom-padding);
   text-align: center;
 
   &__progress-bar-container {
-    display: inline-block;
-    background: gray;
+    background: var(--economist-grey);
     width: 100%;
     height: var(--progress-bar-height);
   }
 
-  &__progress-times {
+  &__progress-time {
     display: flex;
     justify-content: space-between;
     padding: var(--progress-times-padding);
   }
 
-  &__current-progress-time {
+  &__progress-time--current {
     font-size: var(--progress-times-size);
   }
 
-  &__terminated-progress-time {
+  &__progress-time--final {
     font-size: var(--progress-times-size);
   }
 
   &__navigation-wrapper {
     display: block;
-    margin: 15px 0;
-    margin-top: 30px;
+    margin: 30px 0 15px;
   }
 
   &__progress-bar {
@@ -51,7 +50,6 @@
   }
 
   &__navigation-control {
-    /*display: inline-block;*/
     margin: 0 var(--video-controls-icon-margin);
     background: var(--economist-grey);
   }
@@ -60,7 +58,3 @@
     width: 80%;
   }
 }
-
-/*.selected {
-  border: var(--economist-blue) solid 1px;
-}*/
