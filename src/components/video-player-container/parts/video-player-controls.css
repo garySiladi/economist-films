@@ -7,6 +7,9 @@
   --progress-times-padding: 20px;
   --progress-bar-sides-padding: 100px;
   --progress-bar-bottom-padding: 40px;
+  --navigation-margin-top: 30px;
+  --navigation-margin-bottom: 15px;
+  --navigation-margin-sides: 0;
 }
 
 .player-interface {
@@ -41,7 +44,10 @@
 
   &__navigation-wrapper {
     display: block;
-    margin: 30px 0 15px;
+    margin:
+      var(--navigation-margin-top)
+      var(--navigation-margin-sides)
+      var(--navigation-margin-bottom);
   }
 
   &__progress-bar {

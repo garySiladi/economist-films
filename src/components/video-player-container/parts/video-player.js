@@ -161,7 +161,7 @@ class VideoPlayer extends React.Component {
       const time = Math.round((this: any).player.duration());
       return VideoPlayer.renderTime(time);
     }
-    return 0;
+    return '00:00';
   }
   render() {
     const {
