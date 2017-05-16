@@ -24,7 +24,9 @@ export type VideoPlayerPropsType = {
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
   timeProgress: number,
-  isControlSelected: boolean,
+  isNavigationSelected: boolean,
+  isBackButtonSelected: boolean,
+  selectedPosition: number,
 }
 
 const videoJsOptions = (videoUrl: string, isMuted: boolean) => ({
@@ -51,7 +53,9 @@ class VideoPlayer extends React.Component {
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
-      isControlSelected: true,
+      selectedPosition: 1,
+      isBackButtonSelected: false,
+      isNavigationSelected: true,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
     (this: any).handlePlay = this.handlePlay.bind(this);
@@ -60,7 +64,8 @@ class VideoPlayer extends React.Component {
     (this: any).handleVideoLoad = this.handleVideoLoad.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
-    (this: any).handleNavigationState = this.handleNavigationState.bind(this);
+    (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+    (this: any).handlePlayPause = this.handlePlayPause.bind(this);
   }
   state: VideoPlayerStateType;
   componentDidMount() {
@@ -69,7 +74,7 @@ class VideoPlayer extends React.Component {
       isMuted,
     } = this.props;
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
-    document.addEventListener('keydown', this.handleNavigationState);
+    document.addEventListener('keydown', this.handleKeyPress);
   }
   componentWillUnmount() {
     if ((this: any).player) {
@@ -78,32 +83,81 @@ class VideoPlayer extends React.Component {
       saveVideoProgress(id, timeProgress);
       (this: any).player.dispose();
     }
-    document.removeEventListener('keydown', this.handleNavigationState);
+    document.removeEventListener('keydown', this.handleKeyPress);
   }
-  handleNavigationState(event: KeyboardEvent) {
+  handleKeyPress(event: KeyboardEvent) {
     switch (event.key) {
       case 'ArrowUp':
         (this: any).setState({
-          isControlSelected: false,
+          isBackButtonSelected: true,
+          isNavigationSelected: false,
+          selectedPosition: null,
         });
         break;
       case 'ArrowDown':
         (this: any).setState({
-          isControlSelected: true,
+          isNavigationSelected: true,
+          isBackButtonSelected: false,
+          selectedPosition: 1,
         });
         break;
+      case 'ArrowLeft':
+        this.moveLeft();
+        break;
+      case 'ArrowRight':
+        this.moveRight();
+        break;
       case 'Enter':
-        if (!(this: any).state.isControlSelected) {
+        if (this.state.isBackButtonSelected) {
+          (this: any).setState({
+            isBackButtonSelected: false,
+          });
           browserHistory.goBack();
+        } else {
+          if (this.state.selectedPosition === 0) {
+            this.handleRewind();
+          }
+          if ((this: any).state.selectedPosition === 1) {
+            this.handlePlayPause();
+          }
+          if (this.state.selectedPosition === 2) {
+            this.handleFastForward();
+          }
         }
         break;
       case 'Backspace':
-        browserHistory.goBack();
+        if (this.props.showUI) {
+          browserHistory.goBack();
+        }
         break;
       default:
     }
   }
-  props: VideoPlayerPropsType;
+  moveLeft() {
+    if (this.state.isNavigationSelected) {
+      if (this.state.selectedPosition > 0) {
+        this.setState({
+          selectedPosition: this.state.selectedPosition -1,
+        });
+      }
+    }
+  }
+  moveRight() {
+    if (this.state.isNavigationSelected) {
+      if (this.state.selectedPosition < 2) {
+        this.setState({
+          selectedPosition: this.state.selectedPosition +1,
+        });
+      }
+    }
+  }
+  handlePlayPause() {
+    if (this.state.isVideoPlaying) {
+      this.handlePause();
+    } else {
+      this.handlePlay();
+    }
+  }
   handlePlay() {
     this.setState({
       isVideoPlaying: true,
@@ -149,21 +203,17 @@ class VideoPlayer extends React.Component {
     } = this.props;
     const videoBackButtonClassName = classnames({
       'video-player-back-button': true,
-      selected: !this.state.isControlSelected,
+      selected: this.state.isBackButtonSelected,
     });
     const videoPlayerControls = showUI ? (
       <VideoPlayerControls
-        playVideo={this.handlePlay}
-        pauseVideo={this.handlePause}
         isVideoPlaying={this.state.isVideoPlaying}
-        isControlSelected={this.state.isControlSelected}
-        fastForward={this.handleFastForward}
-        fastRewind={this.handleRewind}
         progress={this.state.timeProgress}
+        selectedPosition={this.state.selectedPosition}
       />
     ) : null;
     const backButton = showUI ? (
-      <button className={videoBackButtonClassName} onClick={browserHistory.goBack}>
+      <button className={videoBackButtonClassName} >
         <img src={Back} alt="Back" className="video-player-back-icons" />
       </button>
     ) : null;
