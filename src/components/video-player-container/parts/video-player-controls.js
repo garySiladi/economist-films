@@ -21,17 +21,9 @@ const VideoPlayerControls = ({
   const progressBarStyle = {
     width: `${progress}%`,
   };
-  const fastRewindButtonClassnames = classnames({
+  const createNavigationControlClassname = position => classnames({
     'player-interface__navigation-control': true,
-    selected: selectedPosition === 0,
-  });
-  const playPauseButtonClassnames = classnames({
-    'player-interface__navigation-control': true,
-    selected: selectedPosition === 1,
-  });
-  const fastForwardButtonClassnames = classnames({
-    'player-interface__navigation-control': true,
-    selected: selectedPosition === 2,
+    selected: selectedPosition === position,
   });
   return (
     <div className="player-interface">
@@ -40,7 +32,7 @@ const VideoPlayerControls = ({
       </div>
       <div className="player-interface__navigation-wrapper">
         <button
-          className={fastRewindButtonClassnames}
+          className={createNavigationControlClassname(0)}
         >
           <img
             src={Rewind}
@@ -50,7 +42,7 @@ const VideoPlayerControls = ({
           />
         </button>
         <button
-          className={playPauseButtonClassnames}
+          className={createNavigationControlClassname(1)}
         >
           <img
             src={isVideoPlaying ? Pause : Play}
@@ -60,7 +52,7 @@ const VideoPlayerControls = ({
           />
         </button>
         <button
-          className={fastForwardButtonClassnames}
+          className={createNavigationControlClassname(2)}
         >
           <img
             src={Forward}
