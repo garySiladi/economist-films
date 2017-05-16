@@ -105,7 +105,6 @@ class App extends React.Component {
     });
   }
   handleKeyPress(event: Object) { // TODO: maybe export this functionality to another file
-    event.preventDefault();
     const {
       isSelectedSidePanel,
       isSelectedHomeContainer,
@@ -117,6 +116,7 @@ class App extends React.Component {
     if (goToEpisode) return;
     switch (event.key) {
       case 'ArrowLeft':
+        event.preventDefault();
         if (isSelectedHomeContainer && selectedEpisode === 0) {
           this.setState({
             isSelectedHomeContainer: false,
@@ -130,6 +130,7 @@ class App extends React.Component {
         }
         break;
       case 'ArrowRight':
+        event.preventDefault();
         if (isSelectedSidePanel) {
           this.setState({
             isSelectedHomeContainer: true,
@@ -146,6 +147,7 @@ class App extends React.Component {
         }
         break;
       case 'ArrowUp':
+        event.preventDefault();
         this.resetSelectedEpisode();
         if (isSelectedHomeContainer && selectedSeries !== 0) {
           this.setState({
@@ -154,6 +156,7 @@ class App extends React.Component {
         }
         break;
       case 'ArrowDown':
+        event.preventDefault();
         this.resetSelectedEpisode();
         if (isSelectedHomeContainer && selectedSeries !== series.length - 1) {
           this.setState({
@@ -162,6 +165,7 @@ class App extends React.Component {
         }
         break;
       case 'Enter':
+        event.preventDefault();
         if (isSelectedHomeContainer) {
           this.setState({
             goToEpisode: true,
@@ -169,6 +173,7 @@ class App extends React.Component {
         }
         break;
       case 'Backspace':
+        event.preventDefault();
         if (isSelectedHomeContainer) {
           this.resetSelectedEpisode();
         }

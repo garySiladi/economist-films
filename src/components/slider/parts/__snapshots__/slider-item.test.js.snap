@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SliderItem renders correctly 1`] = `
-<a
+<div
   className="slider-item"
-  onClick={[Function]}
-  style={Object {}}
 >
   <img
     alt="Episode 6 Title"
@@ -25,14 +23,12 @@ exports[`SliderItem renders correctly 1`] = `
       subtitle
     </div>
   </div>
-</a>
+</div>
 `;
 
 exports[`SliderItem renders correctly 2`] = `
-<a
-  className="slider-item slider-item--left-offset"
-  onClick={[Function]}
-  style={Object {}}
+<div
+  className="slider-item"
 >
   <img
     alt="Series 1 Title"
@@ -53,14 +49,12 @@ exports[`SliderItem renders correctly 2`] = `
       10 episodes
     </div>
   </div>
-</a>
+</div>
 `;
 
 exports[`SliderItem renders correctly 3`] = `
-<a
+<div
   className="slider-item slider-item--selected"
-  onClick={[Function]}
-  style={Object {}}
 >
   <img
     alt="Episode 19 Title"
@@ -81,5 +75,5 @@ exports[`SliderItem renders correctly 3`] = `
       subtitle
     </div>
   </div>
-</a>
+</div>
 `;

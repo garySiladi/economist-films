@@ -17,27 +17,27 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
       isSelected,
       className,
       sliderTitle,
-      isBeforeSelected,
-      isHidden,
       selectedEpisode,
     } = this.props;
     const sliderClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
-      { [`${className}--top-offset`]: isBeforeSelected || isHidden },
-      { [`${className}--top-hidden`]: isHidden },
     );
+    const horizontalOffset = -310;
+    const calcOffset = isSelected ? selectedEpisode * horizontalOffset : 0;
     return (
-      <div className={sliderClassName}>
+      <div className={sliderClassName} >
         <div className="slider-title">{sliderTitle}</div>
-        <div className="slider-items">
+        <div
+          className="slider-items"
+          style={{ transform: `translate(${calcOffset}px, 0px)` }}
+        >
           {this.props.data.map((item, index) =>
             <SliderItem
               {...item}
               key={item.title}
               className="slider-item"
               isSelectedSeries={isSelected}
-              isBeforeSelected={index < selectedEpisode}
               isSelected={isSelected && index === selectedEpisode}
             />,
           )}

@@ -6,9 +6,10 @@
 }
 
 .side-panel {
-  flex: 0 1 auto;
+  position: fixed;
+  z-index: 1;
   width: var(--side-panel-width);
-  height: 100vh;
+  height: 100%;
   background-color: var(--economist-red, red);
   transition: width 0.2s ease-out;
 

@@ -44,15 +44,17 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
           sliderTitle={data.title}
           key={data.title}
           isSelected={isSelected && index === selectedSeries}
-          isBeforeSelected={index === selectedSeries - 1}
-          isHidden={index < selectedSeries - 1}
           selectedEpisode={selectedEpisode}
         />
       ),
     );
     if (goToEpisode) homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
+    const verticalOffset = -320;
     return (
-      <div className="home-container">
+      <div
+        className="home-container"
+        style={{ transform: `translate(0px, ${selectedSeries * verticalOffset}px)` }}
+      >
         {homePageContent}
       </div>
     );

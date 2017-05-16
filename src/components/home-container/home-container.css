@@ -1,14 +1,17 @@
 
 :root {
-  --slider--top-offset: -285px;
+  --home-container--margin-left: 100px;
+  --home-container--padding: 20px;
+  --slider-height: 320px;
+  --home-container--transition-duration: 0.3s;
+  --home-container--font-size: 2em;
 }
 
 .home {
   &-container {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    height: 100vh;
-    padding-top: 20px;
+    margin-left: var(--home-container--margin-left);
+    padding: var(--home-container--padding) 0;
+    transition-duration: var(--home-container--transition-duration);
   }
 
   & > div {
@@ -18,18 +21,10 @@
 
   &-slider {
     font-family: 'Oxygen', sans-serif;
-    font-size: 2em;
+    font-size: var(--home-container--font-size);
     margin-top: 0;
-    padding: 20px;
+    padding: var(--home-container--padding);
+    height: var(--slider-height);
     padding-bottom: 0;
-    transition: margin-top 0.1s;
-  }
-
-  &-slider--top-offset {
-    margin-top: var(--slider--top-offset);
-  }
-
-  &-slider--top-hidden {
-    opacity: 0;
   }
 }

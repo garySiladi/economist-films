@@ -1,5 +1,9 @@
 @import '../../colors.css';
 
+:root {
+  --slider-items--transition-duration: 0.3s;
+}
+
 .slider {
   &-title {
     display: block;
@@ -10,6 +14,6 @@
 
   &-items {
     display: flex;
-    overflow-x: auto;
+    transition-duration: var(--slider-items--transition-duration);
   }
 }

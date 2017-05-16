@@ -3,6 +3,11 @@
 exports[`HomeContainer:  renders correctly with data and goToEpisode prop enabled 1`] = `
 <div
   className="home-container"
+  style={
+    Object {
+      "transform": "translate(0px, -320px)",
+    }
+  }
 >
   <div>
     Slider
@@ -22,6 +27,11 @@ exports[`HomeContainer:  renders correctly with data and goToEpisode prop enable
 exports[`HomeContainer:  renders correctly with data but without goToEpisode enabled 1`] = `
 <div
   className="home-container"
+  style={
+    Object {
+      "transform": "translate(0px, -320px)",
+    }
+  }
 >
   <div>
     Slider

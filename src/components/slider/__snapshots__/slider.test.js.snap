@@ -11,6 +11,11 @@ exports[`Slider renders correctly 1`] = `
   </div>
   <div
     className="slider-items"
+    style={
+      Object {
+        "transform": "translate(-1240px, 0px)",
+      }
+    }
   >
     <div>
       SliderItem
@@ -27,7 +32,7 @@ exports[`Slider renders correctly 1`] = `
 
 exports[`Slider renders correctly 2`] = `
 <div
-  className="home-slider home-slider--top-offset home-slider--top-hidden"
+  className="home-slider"
 >
   <div
     className="slider-title"
@@ -36,6 +41,11 @@ exports[`Slider renders correctly 2`] = `
   </div>
   <div
     className="slider-items"
+    style={
+      Object {
+        "transform": "translate(0px, 0px)",
+      }
+    }
   >
     <div>
       SliderItem
@@ -61,6 +71,11 @@ exports[`Slider renders correctly 3`] = `
   </div>
   <div
     className="slider-items"
+    style={
+      Object {
+        "transform": "translate(0px, 0px)",
+      }
+    }
   >
     <div>
       SliderItem
