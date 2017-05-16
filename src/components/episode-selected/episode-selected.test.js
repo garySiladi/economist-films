@@ -14,7 +14,7 @@ jest.mock('../video-player-container/parts/video-player', () =>
 
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
-  changedEvent.key = type;
+  changedEvent.code = type;
   const episodeSelected: Object = wrapper.instance();
   episodeSelected.handleKeyPress(event);
 }

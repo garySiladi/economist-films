@@ -114,7 +114,7 @@ class App extends React.Component {
       goToEpisode,
     } = this.state;
     if (goToEpisode) return;
-    switch (event.key) {
+    switch (event.code) {
       case 'ArrowLeft':
         event.preventDefault();
         if (isSelectedHomeContainer && selectedEpisode === 0) {
