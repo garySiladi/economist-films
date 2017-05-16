@@ -5,6 +5,20 @@ exports[`Video is not playing  1`] = `
   className="player-interface"
 >
   <div
+    className="player-interface__progress-time"
+  >
+    <div
+      className="player-interface__progress-time--current"
+    >
+      10:10
+    </div>
+    <div
+      className="player-interface__progress-time--final"
+    >
+      20:20
+    </div>
+  </div>
+  <div
     className="player-interface__progress-bar-container"
   >
     <div
@@ -57,6 +71,20 @@ exports[`Video is playing + selected postition is 0 1`] = `
 <div
   className="player-interface"
 >
+  <div
+    className="player-interface__progress-time"
+  >
+    <div
+      className="player-interface__progress-time--current"
+    >
+      10:10
+    </div>
+    <div
+      className="player-interface__progress-time--final"
+    >
+      20:20
+    </div>
+  </div>
   <div
     className="player-interface__progress-bar-container"
   >
@@ -111,6 +139,20 @@ exports[`Video is playing + selected postition is 1 1`] = `
   className="player-interface"
 >
   <div
+    className="player-interface__progress-time"
+  >
+    <div
+      className="player-interface__progress-time--current"
+    >
+      10:10
+    </div>
+    <div
+      className="player-interface__progress-time--final"
+    >
+      20:20
+    </div>
+  </div>
+  <div
     className="player-interface__progress-bar-container"
   >
     <div
@@ -163,6 +205,20 @@ exports[`Video is playing + selected postition is 2 1`] = `
 <div
   className="player-interface"
 >
+  <div
+    className="player-interface__progress-time"
+  >
+    <div
+      className="player-interface__progress-time--current"
+    >
+      10:10
+    </div>
+    <div
+      className="player-interface__progress-time--final"
+    >
+      20:20
+    </div>
+  </div>
   <div
     className="player-interface__progress-bar-container"
   >
