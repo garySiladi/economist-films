@@ -9,7 +9,7 @@
   --progress-bar-bottom-padding: 40px;
   --navigation-margin-top: 30px;
   --navigation-margin-bottom: 15px;
-  --navigation-margin-sides: 0;
+  --navigation-icons-size: 130px;
 }
 
 .player-interface {
@@ -44,10 +44,7 @@
 
   &__navigation-wrapper {
     display: block;
-    margin:
-      var(--navigation-margin-top)
-      var(--navigation-margin-sides)
-      var(--navigation-margin-bottom);
+    margin: var(--navigation-margin-top) 0 var(--navigation-margin-bottom);
   }
 
   &__progress-bar {
@@ -58,9 +55,18 @@
   &__navigation-control {
     margin: 0 var(--video-controls-icon-margin);
     background: var(--economist-grey);
+    &.selected {
+      background: var(--economist-red);
+      width: var(--navigation-icons-size);
+      height: var(--navigation-icons-size);
+      border-radius: 100%;
+    }
   }
+}
 
-  &__navigation-icons {
-    width: 80%;
-  }
+.video-player-back-button.selected {
+  background: var(--economist-red);
+  width: var(--navigation-icons-size);
+  height: var(--navigation-icons-size);
+  border-radius: 100%;
 }
