@@ -55,6 +55,7 @@
   &__navigation-control {
     margin: 0 var(--video-controls-icon-margin);
     background: var(--economist-grey);
+
     &.selected {
       background: var(--economist-red);
       width: var(--navigation-icons-size);

@@ -9,6 +9,8 @@ test('Video is playing + selected postition is 0', () => {
       isVideoPlaying
       selectedPosition={0}
       progress={0}
+      currentTime={'10:10'}
+      endOfVideo={'20:20'}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -19,6 +21,8 @@ test('Video is playing + selected postition is 1', () => {
       isVideoPlaying
       selectedPosition={1}
       progress={0}
+      currentTime={'10:10'}
+      endOfVideo={'20:20'}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -29,6 +33,8 @@ test('Video is playing + selected postition is 2', () => {
       isVideoPlaying
       selectedPosition={2}
       progress={0}
+      currentTime={'10:10'}
+      endOfVideo={'20:20'}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -39,6 +45,8 @@ test('Video is not playing ', () => {
       isVideoPlaying={false}
       selectedPosition={0}
       progress={0}
+      currentTime={'10:10'}
+      endOfVideo={'20:20'}
     />).toJSON();
   expect(tree).toMatchSnapshot();
 });
