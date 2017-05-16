@@ -10,13 +10,17 @@ import Pause from '../../../../public/assets/Pause.svg';
 export type VideoPlayerControlsProps = {
   isVideoPlaying: boolean,
   progress: number,
+  currentTime: string,
+  endOfVideo: string,
   selectedPosition: number,
-}
+};
 
 const VideoPlayerControls = ({
   isVideoPlaying,
   progress,
   selectedPosition,
+  currentTime,
+  endOfVideo,
 }: VideoPlayerControlsProps) => {
   const progressBarStyle = {
     width: `${progress}%`,
@@ -27,6 +31,10 @@ const VideoPlayerControls = ({
   });
   return (
     <div className="player-interface">
+      <div className="player-interface__progress-time">
+        <div className="player-interface__progress-time--current">{currentTime}</div>
+        <div className="player-interface__progress-time--final">{endOfVideo}</div>
+      </div>
       <div className="player-interface__progress-bar-container" >
         <div className="player-interface__progress-bar" style={progressBarStyle} />
       </div>

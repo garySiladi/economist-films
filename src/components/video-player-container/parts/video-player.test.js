@@ -81,6 +81,9 @@ function connectEvent(event, type, wrapper) {
   const app: Object = wrapper.instance();
   app.handleKeyPress(event);
 }
+test('renderTime renders time correctly if minutes and seconds > 10', () => {
+  expect(VideoPlayer.renderTime(999)).toEqual('16:39');
+});
 test('videoPlayer navigation works', () => {
   const app = mount(
     <VideoPlayer

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="43px" viewBox="0 0 26 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Square Arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.800000012">
+        <g id="Video-Screen-Copy" transform="translate(-42.000000, -49.000000)" fill="#FFFFFF">
+            <g id="Square-Arrow" transform="translate(70.355339, 70.355339) rotate(-45.000000) translate(-70.355339, -70.355339) translate(50.355339, 50.355339)">
+                <path d="M30,6 L30,0 L0,0 L0,30 L6,30 L6,6 L30,6 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

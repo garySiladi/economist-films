@@ -24,11 +24,3 @@
   top: 5%;
   left: 5%;
 }
-
-.video-player-back-icons {
-  width: 50%;
-}
-
-.video-js .selected {
-  border: var(--economist-blue) solid 1px;
-}

@@ -1,48 +1,73 @@
 @import '../../../colors.css';
 
 :root {
-  --video-controls-icon-margin: 20px;
-  --progress-bar-height: 10px;
-}
-
-.player-interface__navigation-control {
-  display: inline-block;
-  margin: 0 var(--video-controls-icon-margin);
-  background: var(--economist-grey);
-}
-
-.player-interface__progress-bar-container {
-  display: inline-block;
-  background: gray;
-  width: 100%;
-  height: var(--progress-bar-height);
-}
-
-.player-interface__progress-bar {
-  background: var(--economist-red);
-  height: 100%;
-}
-
-.player-interface__navigation-wrapper {
-  display: block;
-  margin: 15px 0;
-  margin-top: 30px;
+  --video-controls-icon-margin: 15px;
+  --progress-bar-height: 15px;
+  --progress-times-size: 4em;
+  --progress-times-padding: 20px;
+  --progress-bar-sides-padding: 100px;
+  --progress-bar-bottom-padding: 40px;
+  --navigation-margin-top: 30px;
+  --navigation-margin-bottom: 15px;
+  --navigation-icons-size: 130px;
 }
 
 .player-interface {
-  background: var(--economist-blackOpacity);
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  width: 100%;
   position: absolute;
-  bottom: 1%;
-  left: 50%;
-  margin-left: -25%;
+  bottom: 0;
+  padding: 0 var(--progress-bar-sides-padding) var(--progress-bar-bottom-padding);
   text-align: center;
+
+  &__progress-bar-container {
+    background: var(--economist-grey);
+    width: 100%;
+    height: var(--progress-bar-height);
+  }
+
+  &__progress-time {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--progress-times-padding);
+  }
+
+  &__progress-time--current {
+    font-size: var(--progress-times-size);
+  }
+
+  &__progress-time--final {
+    font-size: var(--progress-times-size);
+  }
+
+  &__navigation-wrapper {
+    display: block;
+    margin: var(--navigation-margin-top) 0 var(--navigation-margin-bottom);
+  }
+
+  &__progress-bar {
+    background: var(--economist-red);
+    height: 100%;
+  }
+
+  &__navigation-control {
+    margin: 0 var(--video-controls-icon-margin);
+    background: var(--economist-grey);
+
+    &.selected {
+      background: var(--economist-red);
+      width: var(--navigation-icons-size);
+      height: var(--navigation-icons-size);
+      border-radius: 100%;
+    }
+  }
 }
 
-.player-interface__navigation-icons {
-  width: 45%;
-}
-
-.selected {
-  border: var(--economist-blue) solid 1px;
+.video-player-back-button.selected {
+  background: var(--economist-red);
+  width: var(--navigation-icons-size);
+  height: var(--navigation-icons-size);
+  border-radius: 100%;
 }

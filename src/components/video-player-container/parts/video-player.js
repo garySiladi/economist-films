@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerControls from './video-player-controls';
 import './video-player.css';
-import Back from '../../../../public/assets/RW.svg';
+import Back from '../../../../public/assets/Square-Arrow.svg';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
 window.videojs = videojs;
@@ -44,7 +44,13 @@ class VideoPlayer extends React.Component {
   static getProgress(player) {
     return (100 / player.duration()) * player.currentTime();
   }
-
+  static renderTime(time) {
+    let minutes = Math.floor(time / 60);
+    let seconds = time - (minutes * 60);
+    minutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    seconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${seconds}`;
+  }
   constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
@@ -64,6 +70,7 @@ class VideoPlayer extends React.Component {
     (this: any).handleVideoLoad = this.handleVideoLoad.bind(this);
     (this: any).handleEndReached = this.handleEndReached.bind(this);
     (this: any).handleTimeUpdate = this.handleTimeUpdate.bind(this);
+    (this: any).showFormattedTime = this.showFormattedTime.bind(this);
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
     (this: any).handlePlayPause = this.handlePlayPause.bind(this);
   }
@@ -195,7 +202,14 @@ class VideoPlayer extends React.Component {
       timeProgress: Math.round(progress),
     });
   }
-
+  showFormattedTime(getTime: Function) {
+    let time = '00:00';
+    if ((this: any).player) {
+      const roundedTime = Math.round(getTime((this: any).player));
+      time = VideoPlayer.renderTime(roundedTime);
+    }
+    return time;
+  }
   render() {
     const {
       showUI,
@@ -209,6 +223,8 @@ class VideoPlayer extends React.Component {
       <VideoPlayerControls
         isVideoPlaying={this.state.isVideoPlaying}
         progress={this.state.timeProgress}
+        currentTime={this.showFormattedTime(player => player.currentTime())}
+        endOfVideo={this.showFormattedTime(player => player.duration())}
         selectedPosition={this.state.selectedPosition}
       />
     ) : null;
