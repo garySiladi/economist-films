@@ -148,18 +148,13 @@ class VideoPlayer extends React.Component {
       timeProgress: Math.round(progress),
     });
   }
-  showFormattedTime(timeFunction: string) {
+  showFormattedTime(getTime: Function) {
+    let time = '00:00';
     if ((this: any).player) {
-      let time: number = 0;
-      if (timeFunction === 'currentTime') {
-        time = Math.round((this: any).player.currentTime());
-      }
-      if (timeFunction === 'duration') {
-        time = Math.round((this: any).player.duration());
-      }
-      return VideoPlayer.renderTime(time);
+      const roundedTime = Math.round(getTime((this: any).player));
+      time = VideoPlayer.renderTime(roundedTime);
     }
-    return '00:00';
+    return time;
   }
   render() {
     const {
@@ -179,8 +174,8 @@ class VideoPlayer extends React.Component {
         fastForward={this.handleFastForward}
         fastRewind={this.handleRewind}
         progress={this.state.timeProgress}
-        currentTime={this.showFormattedTime('currentTime')}
-        endOfVideo={this.showFormattedTime('duration')}
+        currentTime={this.showFormattedTime(player => player.currentTime())}
+        endOfVideo={this.showFormattedTime(player => player.duration())}
       />
     ) : null;
     const backButton = showUI ? (
