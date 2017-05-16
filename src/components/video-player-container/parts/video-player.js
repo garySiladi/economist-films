@@ -195,14 +195,9 @@ class VideoPlayer extends React.Component {
     });
     const videoPlayerControls = showUI ? (
       <VideoPlayerControls
-        playVideo={this.handlePlay}
-        pauseVideo={this.handlePause}
         isVideoPlaying={this.state.isVideoPlaying}
-        fastForward={this.handleFastForward}
-        fastRewind={this.handleRewind}
         progress={this.state.timeProgress}
         selectedPosition={this.state.selectedPosition}
-        isNavigationSelected={this.state.isNavigationSelected}
       />
     ) : null;
     const backButton = showUI ? (
