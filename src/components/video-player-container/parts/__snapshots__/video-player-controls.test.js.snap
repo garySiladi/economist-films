@@ -24,7 +24,7 @@ exports[`Video is not playing  1`] = `
     >
       <img
         alt="left"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="1"
         src="RW.svg"
       />
@@ -34,7 +34,7 @@ exports[`Video is not playing  1`] = `
     >
       <img
         alt="Play/Pause"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="2"
         src="Play.svg"
       />
@@ -44,7 +44,7 @@ exports[`Video is not playing  1`] = `
     >
       <img
         alt="right"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="3"
         src="FF.svg"
       />
@@ -77,7 +77,7 @@ exports[`Video is playing + selected postition is 0 1`] = `
     >
       <img
         alt="left"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="1"
         src="RW.svg"
       />
@@ -87,7 +87,7 @@ exports[`Video is playing + selected postition is 0 1`] = `
     >
       <img
         alt="Play/Pause"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="2"
         src="Pause.svg"
       />
@@ -97,7 +97,7 @@ exports[`Video is playing + selected postition is 0 1`] = `
     >
       <img
         alt="right"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="3"
         src="FF.svg"
       />
@@ -130,7 +130,7 @@ exports[`Video is playing + selected postition is 1 1`] = `
     >
       <img
         alt="left"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="1"
         src="RW.svg"
       />
@@ -140,7 +140,7 @@ exports[`Video is playing + selected postition is 1 1`] = `
     >
       <img
         alt="Play/Pause"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="2"
         src="Pause.svg"
       />
@@ -150,7 +150,7 @@ exports[`Video is playing + selected postition is 1 1`] = `
     >
       <img
         alt="right"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="3"
         src="FF.svg"
       />
@@ -183,7 +183,7 @@ exports[`Video is playing + selected postition is 2 1`] = `
     >
       <img
         alt="left"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="1"
         src="RW.svg"
       />
@@ -193,7 +193,7 @@ exports[`Video is playing + selected postition is 2 1`] = `
     >
       <img
         alt="Play/Pause"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="2"
         src="Pause.svg"
       />
@@ -203,7 +203,7 @@ exports[`Video is playing + selected postition is 2 1`] = `
     >
       <img
         alt="right"
-        className="player-interface-navigation-icons"
+        className="player-interface__navigation-icons"
         id="3"
         src="FF.svg"
       />

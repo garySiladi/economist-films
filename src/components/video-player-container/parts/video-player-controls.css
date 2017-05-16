@@ -39,12 +39,8 @@
   text-align: center;
 }
 
-.player-interface-navigation-icons {
+.player-interface__navigation-icons {
   width: 45%;
-}
-
-.hide {
-  display: none;
 }
 
 .selected {

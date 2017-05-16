@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import './video-player-controls.css';
 import Rewind from '../../../../public/assets/RW.svg';
 import Forward from '../../../../public/assets/FF.svg';
@@ -21,6 +22,18 @@ class VideoPlayerControls extends React.Component { // eslint-disable-line react
     const {
       selectedPosition,
     } = this.props;
+    const fastRewindButtonClassnames = classnames({
+      'player-interface__navigation-control': true,
+      selected: selectedPosition === 0,
+    });
+    const playPauseButtonClassnames = classnames({
+      'player-interface__navigation-control': true,
+      selected: selectedPosition === 1,
+    });
+    const fastForwardButtonClassnames = classnames({
+      'player-interface__navigation-control': true,
+      selected: selectedPosition === 2,
+    });
 
     return (
       <div className="player-interface">
@@ -29,32 +42,32 @@ class VideoPlayerControls extends React.Component { // eslint-disable-line react
         </div>
         <div className="player-interface__navigation-wrapper">
           <button
-            className={`player-interface__navigation-control${selectedPosition === 0 ? ' selected' : ''}`}
+            className={fastRewindButtonClassnames}
           >
             <img
               src={Rewind}
               alt="left"
-              className="player-interface-navigation-icons"
+              className="player-interface__navigation-icons"
               id="1"
             />
           </button>
           <button
-            className={`player-interface__navigation-control${selectedPosition === 1 ? ' selected' : ''}`}
+            className={playPauseButtonClassnames}
           >
             <img
               src={this.props.isVideoPlaying ? Pause : Play}
               alt="Play/Pause"
-              className="player-interface-navigation-icons"
+              className="player-interface__navigation-icons"
               id="2"
             />
           </button>
           <button
-            className={`player-interface__navigation-control${selectedPosition === 2 ? ' selected' : ''}`}
+            className={fastForwardButtonClassnames}
           >
             <img
               src={Forward}
               alt="right"
-              className="player-interface-navigation-icons"
+              className="player-interface__navigation-icons"
               id="3"
             />
           </button>
