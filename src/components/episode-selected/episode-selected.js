@@ -42,7 +42,7 @@ class episodeSelected extends React.Component {
     const {
       closePopupFunction,
     } = this.props;
-    switch (event.key) {
+    switch (event.code) {
       case 'ArrowUp':
         if (closePopupFunction) closePopupFunction(event);
         break;

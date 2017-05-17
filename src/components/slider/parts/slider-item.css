@@ -1,10 +1,9 @@
 @import '../../../colors.css';
 
 :root {
-  --slider-item-width: 250px;
-  --slider-left-offset: -260px;
+  --slider-item-width: 300px;
   --slider-item-margin-right: 10px;
-  --slider-item-image-height: 137px;
+  --slider-item-image-height: 165px;
   --container-padding: 10px;
 }
 
@@ -23,10 +22,6 @@
     opacity: 0.5;
     cursor: pointer;
     transition: opacity 0.3s;
-  }
-
-  &--left-offset {
-    margin-left: var(--slider-left-offset);
   }
 
   &__image {

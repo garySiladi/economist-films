@@ -61,7 +61,7 @@ jest.mock('../home-container/home-container', () =>
 
 function connectEvent(event, type, wrapper, handleFunction) {
   const changedEvent: Object = event;
-  changedEvent.key = type;
+  changedEvent.code = type;
   const app: Object = wrapper.instance();
   if (handleFunction === 'handleKeyPress') {
     app.handleKeyPress(event);

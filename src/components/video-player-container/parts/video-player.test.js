@@ -77,7 +77,7 @@ test('Test functions', () => {
 });
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
-  changedEvent.key = type;
+  changedEvent.code = type;
   const app: Object = wrapper.instance();
   app.handleKeyPress(event);
 }

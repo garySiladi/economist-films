@@ -93,7 +93,7 @@ class VideoPlayer extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
   handleKeyPress(event: KeyboardEvent) {
-    switch (event.key) {
+    switch (event.code) {
       case 'ArrowUp':
         (this: any).setState({
           isBackButtonSelected: true,

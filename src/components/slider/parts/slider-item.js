@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import SliderItemType from '../../../structures/sliderItem';
 import './slider-item.css';
 
@@ -21,24 +20,19 @@ class SliderItem extends React.Component { // eslint-disable-line react/prefer-s
     const {
       title,
       subtitle,
-      id,
       thumbnail,
       type,
       episode_count: episodeCount,
       className,
       isSelected,
-      isBeforeSelected,
-      isSelectedSeries,
     } = this.props;
     const sliderItemClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
-      { [`${className}--left-offset`]: isSelectedSeries && isBeforeSelected },
     );
     return (
-      <Link
+      <div
         className={sliderItemClassName}
-        to={`/episode/${id}`}
       >
         <img
           src={SliderItem.setTeaserImage(thumbnail)}
@@ -51,7 +45,7 @@ class SliderItem extends React.Component { // eslint-disable-line react/prefer-s
             {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
 }
