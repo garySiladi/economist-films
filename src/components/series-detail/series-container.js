@@ -16,7 +16,6 @@ class SeriesContainer extends React.Component {
     this.state = {
       episodes: [],
     };
-    (this: any).hadnleSetSeriesID = (this: any).hadnleSetSeriesID.bind(this);
   }
   state: SeriesContainerState
   componentWillMount() {
