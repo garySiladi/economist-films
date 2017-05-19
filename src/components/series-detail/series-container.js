@@ -8,6 +8,7 @@ export type SeriesContainerProps = {
 }
 export type SeriesContainerState = {
   episodes: Array<Object>,
+  series: Object,
 }
 
 class SeriesContainer extends React.Component {
@@ -15,18 +16,32 @@ class SeriesContainer extends React.Component {
     super(props);
     this.state = {
       episodes: [],
+      series: {},
     };
   }
   state: SeriesContainerState
   componentWillMount() {
     getSeriesByID(this.props.params.id)
     .then((series) => {
-      console.log(series);
+      this.setState({
+        episodes: series.published_episodes,
+        series,
+      });
+      // console.log(this.state.episodes);
     });
   }
   render() {
+    const episodes = this.state.episodes.map(data =>
+      (
+        <div
+          key={data.title}
+        >
+          {data.title}
+        </div>
+      ),
+    );
     return (
-      <div className="series-container"> hello all </div>
+      <div className="series-container"> {episodes} </div>
     );
   }
 }

@@ -15,6 +15,7 @@ type EpisodeSelectedType = {
   description: string,
   closePopupFunction: ?Function,
   videoUrl: string,
+  seriesId: number,
 };
 
 class episodeSelected extends React.Component {
@@ -64,7 +65,12 @@ class episodeSelected extends React.Component {
         if (closePopupFunction) closePopupFunction(event);
         break;
       case 'Enter':
-        browserHistory.push(`/watch/${this.props.id}`);
+        if (selectedItem === 1) {
+          browserHistory.push(`/watch/${this.props.id}`);
+        }
+        if (selectedItem === 2) {
+          browserHistory.push(`/series/${this.props.seriesId}?expandedEpisode=${this.props.id}`);
+        }
         break;
       default:
     }
@@ -78,11 +84,12 @@ class episodeSelected extends React.Component {
       title,
       description,
       videoUrl,
+      seriesId,
     } = this.props;
     const {
       selectedItem,
     } = this.state;
-    const learnString = `/learn?id=${id}`;
+    const learnString = `/series/${seriesId}?expandedEpisode=${id}`;
     const imageClassName = classnames(
       'episode-selected__image',
       { 'episode-selected__image--selected': selectedItem === 0 },

@@ -168,8 +168,9 @@ class App extends React.Component {
       case 'Enter':
         event.preventDefault();
         if (isSelectedHomeContainer) {
-          if (selectedEpisode === 0) {
-            browserHistory.push(`/series/${this.state.selectedSeries}`);
+          if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
+            const selectedSeries1 = series[selectedSeries].series_id;
+            browserHistory.push(`/series/${selectedSeries1}`);
           } else {
             this.setState({
               goToEpisode: true,

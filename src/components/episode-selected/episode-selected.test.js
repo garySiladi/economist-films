@@ -29,6 +29,7 @@ describe('HomeContainer: ', () => {
       description="description xyz"
       closePopupFunction={() => {}}
       videoUrl=""
+      seriesId={7}
     />).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -41,15 +42,18 @@ describe('HomeContainer: ', () => {
       description="description xyz"
       closePopupFunction={() => {}}
       videoUrl=""
+      seriesId={7}
     />);
     const event = new Event('keyDown');
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowRight', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'ArrowRight', episodeSelected);
+    connectEvent(event, 'Enter', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(2);
     connectEvent(event, 'ArrowRight', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(2);
+    connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'Enter', episodeSelected);
@@ -68,6 +72,7 @@ describe('HomeContainer: ', () => {
       description="description xyz"
       closePopupFunction={null}
       videoUrl=""
+      seriesId={7}
     />);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
@@ -81,6 +86,7 @@ describe('HomeContainer: ', () => {
       description="description xyz"
       closePopupFunction={() => {}}
       videoUrl=""
+      seriesId={7}
     />);
     wrapper.unmount();
   });
