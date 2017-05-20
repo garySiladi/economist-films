@@ -7,7 +7,7 @@ import Forward from '../../../../public/assets/FF.svg';
 import Play from '../../../../public/assets/Play.svg';
 import Pause from '../../../../public/assets/Pause.svg';
 
-export type VideoPlayerControlsProps = {
+export type VideoPlayerInterfaceProps = {
   isVideoPlaying: boolean,
   progress: number,
   currentTime: string,
@@ -15,13 +15,13 @@ export type VideoPlayerControlsProps = {
   selectedPosition: number,
 };
 
-const VideoPlayerControls = ({
+const VideoPlayerInterface = ({
   isVideoPlaying,
   progress,
   selectedPosition,
   currentTime,
   endOfVideo,
-}: VideoPlayerControlsProps) => {
+}: VideoPlayerInterfaceProps) => {
   const progressBarStyle = {
     width: `${progress}%`,
   };
@@ -73,4 +73,4 @@ const VideoPlayerControls = ({
     </div>
   );
 };
-export default VideoPlayerControls;
+export default VideoPlayerInterface;

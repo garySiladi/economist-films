@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
-import VideoPlayerControls from './video-player-controls';
+import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
 import Back from '../../../../public/assets/Square-Arrow.svg';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
@@ -51,11 +51,16 @@ class VideoPlayer extends React.Component {
     seconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     return `${minutes}:${seconds}`;
   }
+  static saveVideoTime(player, id) {
+    const timeProgress = Math.round(player.currentTime());
+    saveVideoProgress(id, timeProgress);
+  }
   constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
     (this: any).videoNode = null;
     (this: any).player = null;
+    (this: any).videoSaver = null;
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
@@ -77,19 +82,18 @@ class VideoPlayer extends React.Component {
   state: VideoPlayerStateType;
   componentDidMount() {
     const {
+      videoID,
       videoUrl,
       isMuted,
     } = this.props;
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
+    (this: any).videoSaver = setInterval(() => {
+      VideoPlayer.saveVideoTime((this: any).player, videoID);
+    }, 1000);
     document.addEventListener('keydown', this.handleKeyPress);
   }
   componentWillUnmount() {
-    if ((this: any).player) {
-      const { videoID: id } = this.props;
-      const timeProgress: number = Math.round((this: any).player.currentTime());
-      saveVideoProgress(id, timeProgress);
-      (this: any).player.dispose();
-    }
+    clearInterval((this: any).videoSaver);
     document.removeEventListener('keydown', this.handleKeyPress);
   }
   handleKeyPress(event: KeyboardEvent) {
@@ -219,8 +223,8 @@ class VideoPlayer extends React.Component {
       'video-player-back-button': true,
       selected: this.state.isBackButtonSelected,
     });
-    const videoPlayerControls = showUI ? (
-      <VideoPlayerControls
+    const videoPlayerInterface = showUI ? (
+      <VideoPlayerInterface
         isVideoPlaying={this.state.isVideoPlaying}
         progress={this.state.timeProgress}
         currentTime={this.showFormattedTime(player => player.currentTime())}
@@ -245,7 +249,7 @@ class VideoPlayer extends React.Component {
             className="video-js vjs-big-play-centered"
             poster={posterImage}
           />
-          {videoPlayerControls}
+          {videoPlayerInterface}
         </div>
       </div>);
   }
