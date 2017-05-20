@@ -4,7 +4,22 @@ exports[`renders correctly 1`] = `
 <div
   className="series-container"
 >
-   
-   
+  <div
+    className="home-slider"
+  >
+    <div
+      className="slider-title"
+    >
+      Slider Title
+    </div>
+    <div
+      className="slider-items"
+      style={
+        Object {
+          "transform": "translate(0px, 0px)",
+        }
+      }
+    />
+  </div>
 </div>
 `;
