@@ -30,6 +30,7 @@ function connectEvent(event, type, wrapper) {
   app.handleKeyPress(event);
 }
 
+
 test('Series detail navigation works', () => {
   const app = mount(
     <SeriesContainer
@@ -37,6 +38,7 @@ test('Series detail navigation works', () => {
     />);
   const event = new Event('keyDown');
   expect(app.state().isSliderSelected).toEqual(true);
+  expect(app.state().isSideBarSelected).toEqual(false);
   expect(app.state().selectedEpisode).toEqual(0);
   app.setState({ episodes: dummySliderItems });
   connectEvent(event, 'ArrowUp', app);
@@ -48,6 +50,11 @@ test('Series detail navigation works', () => {
   connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedEpisode).toEqual(0);
   connectEvent(event, 'ArrowLeft', app);
-  expect(app.state().selectedEpisode).toEqual(0);
+  expect(app.state().isSliderSelected).toEqual(false);
+  expect(app.state().isSideBarSelected).toEqual(true);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().isSliderSelected).toEqual(true);
+  expect(app.state().isSideBarSelected).toEqual(false);
   connectEvent(event, 'Space', app);
+  app.unmount();
 });
