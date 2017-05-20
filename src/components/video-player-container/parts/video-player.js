@@ -1,13 +1,11 @@
 // @flow
 import React from 'react';
-import classnames from 'classnames';
 import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
-import Back from '../../../../public/assets/Square-Arrow.svg';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
 window.videojs = videojs;
@@ -15,6 +13,7 @@ window.videojs = videojs;
 require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
 
 export type VideoPlayerPropsType = {
+  episodeTitle: string,
   videoUrl: string,
   videoID: number,
   showUI: boolean,
@@ -27,6 +26,7 @@ export type VideoPlayerStateType = {
   isNavigationSelected: boolean,
   isBackButtonSelected: boolean,
   selectedPosition: number,
+  showInterface: boolean,
 }
 
 const videoJsOptions = (videoUrl: string, isMuted: boolean) => ({
@@ -61,12 +61,14 @@ class VideoPlayer extends React.Component {
     (this: any).videoNode = null;
     (this: any).player = null;
     (this: any).videoSaver = null;
+    (this: any).videoShower = null;
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
       selectedPosition: 1,
       isBackButtonSelected: false,
       isNavigationSelected: true,
+      showInterface: false,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
     (this: any).handlePlay = this.handlePlay.bind(this);
@@ -142,6 +144,13 @@ class VideoPlayer extends React.Component {
         }
         break;
       default:
+    }
+    this.setState({ showInterface: true });
+    clearTimeout((this: any).videoShower);
+    if (this.state.isVideoPlaying) {
+      (this: any).videoShower = setTimeout(() => {
+        this.setState({ showInterface: false, selectedPosition: 1 });
+      }, 1500);
     }
   }
   moveLeft() {
@@ -219,28 +228,21 @@ class VideoPlayer extends React.Component {
       showUI,
       posterImage,
     } = this.props;
-    const videoBackButtonClassName = classnames({
-      'video-player-back-button': true,
-      selected: this.state.isBackButtonSelected,
-    });
     const videoPlayerInterface = showUI ? (
       <VideoPlayerInterface
+        episodeTitle={this.props.episodeTitle}
         isVideoPlaying={this.state.isVideoPlaying}
         progress={this.state.timeProgress}
         currentTime={this.showFormattedTime(player => player.currentTime())}
         endOfVideo={this.showFormattedTime(player => player.duration())}
+        isBackButtonSelected={this.state.isBackButtonSelected}
         selectedPosition={this.state.selectedPosition}
+        isVisible={this.state.showInterface}
       />
-    ) : null;
-    const backButton = showUI ? (
-      <button className={videoBackButtonClassName} >
-        <img src={Back} alt="Back" className="video-player-back-icons" />
-      </button>
     ) : null;
     return (
       <div className="video-player">
         <div data-vjs-player>
-          {backButton}
           <video
             ref={(node) => { (this: any).videoNode = node; }}
             onLoadedData={this.handleVideoLoad}
@@ -251,7 +253,8 @@ class VideoPlayer extends React.Component {
           />
           {videoPlayerInterface}
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
