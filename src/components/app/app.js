@@ -169,8 +169,8 @@ class App extends React.Component {
         event.preventDefault();
         if (isSelectedHomeContainer) {
           if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
-            const selectedSeries1 = series[selectedSeries].series_id;
-            browserHistory.push(`/series/${selectedSeries1}`);
+            const seriesId = series[selectedSeries].series_id;
+            browserHistory.push(`/series/${seriesId}`);
           } else {
             this.setState({
               goToEpisode: true,
@@ -214,6 +214,7 @@ class App extends React.Component {
           selectedEpisode={selectedEpisode}
           goToEpisode={goToEpisode}
           closePopupFunction={this.handleReturnFromEpisode}
+          isSelectedHomeContainer={isSelectedHomeContainer}
         />
       </div>
     );

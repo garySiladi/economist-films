@@ -72,6 +72,7 @@ describe('HomeContainer: ', () => {
         selectedEpisode={0}
         goToEpisode={false}
         closePopupFunction={() => {}}
+        isSelectedHomeContainer={false}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
@@ -85,6 +86,7 @@ describe('HomeContainer: ', () => {
         selectedEpisode={1}
         goToEpisode
         closePopupFunction={() => {}}
+        isSelectedHomeContainer
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
@@ -98,6 +100,7 @@ describe('HomeContainer: ', () => {
         selectedEpisode={1}
         goToEpisode={false}
         closePopupFunction={() => {}}
+        isSelectedHomeContainer
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();

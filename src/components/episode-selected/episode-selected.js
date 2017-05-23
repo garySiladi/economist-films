@@ -13,16 +13,17 @@ type EpisodeSelectedType = {
   title: string,
   subtitle: string,
   description: string,
-  closePopupFunction: ?Function,
+  closePopupFunction: Function,
   videoUrl: string,
   seriesId: number,
+  isSelectedHomeContainer: boolean,
 };
 
 class episodeSelected extends React.Component {
   constructor() {
     super();
     this.state = {
-      selectedItem: 0,
+      selectedItem: 1,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
   }
@@ -42,27 +43,32 @@ class episodeSelected extends React.Component {
     } = this.state;
     const {
       closePopupFunction,
+      isSelectedHomeContainer,
     } = this.props;
     switch (event.code) {
       case 'ArrowUp':
-        if (closePopupFunction) closePopupFunction(event);
+        closePopupFunction(event);
         break;
       case 'ArrowLeft':
-        if (selectedItem > 0) {
-          this.setState({
-            selectedItem: selectedItem - 1,
-          });
+        if (isSelectedHomeContainer) {
+          if (selectedItem > 1) {
+            this.setState({
+              selectedItem: selectedItem - 1,
+            });
+          }
         }
         break;
       case 'ArrowRight':
-        if (selectedItem < 2) {
-          this.setState({
-            selectedItem: selectedItem + 1,
-          });
+        if (isSelectedHomeContainer) {
+          if (selectedItem < 2) {
+            this.setState({
+              selectedItem: selectedItem + 1,
+            });
+          }
         }
         break;
       case 'Backspace':
-        if (closePopupFunction) closePopupFunction(event);
+        closePopupFunction(event);
         break;
       case 'Enter':
         if (selectedItem === 1) {
@@ -85,6 +91,7 @@ class episodeSelected extends React.Component {
       description,
       videoUrl,
       seriesId,
+      isSelectedHomeContainer,
     } = this.props;
     const {
       selectedItem,
@@ -92,8 +99,19 @@ class episodeSelected extends React.Component {
     const learnString = `/series/${seriesId}?expandedEpisode=${id}`;
     const imageClassName = classnames(
       'episode-selected__image',
-      { 'episode-selected__image--selected': selectedItem === 0 },
+      { 'episode-selected__image--selected': selectedItem === 1 },
     );
+    const learnMoreButton = isSelectedHomeContainer ? (
+      <Link
+        className={classnames(
+          'episode-buttons__learn',
+          { 'episode-buttons__learn--selected': selectedItem === 2 },
+        )}
+        to={learnString}
+      >
+      Learn More
+    </Link>
+  ): null;
     return (
       <div className="episode-selected">
         <div className="episode-selected__teaser-wrapper">
@@ -112,15 +130,7 @@ class episodeSelected extends React.Component {
             className="episode-description-wrapper"
           />
           <div className="episode-buttons">
-            <Link
-              className={classnames(
-                'episode-buttons__learn',
-                { 'episode-buttons__learn--selected': selectedItem === 2 },
-              )}
-              to={learnString}
-            >
-              Learn More
-            </Link>
+            {learnMoreButton}
           </div>
         </div>
       </div>
