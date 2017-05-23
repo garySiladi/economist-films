@@ -51,6 +51,21 @@ const mockData = [
   },
 ];
 
+const mockDataWithUnwantedEpisodes = [
+  {
+    title: 'Wanted',
+    id: 1,
+  },
+  {
+    title: 'Unwanted 1',
+    id: 11,
+  },
+  {
+    title: 'Unwanted 2',
+    id: 14,
+  },
+];
+
 jest.mock('../side-panel/side-panel', () =>
   jest.fn(() => <div>Side Panel</div>),
 );
@@ -146,4 +161,11 @@ describe('App: ', () => {
     const wrapper = shallow(<App params={{}} />);
     wrapper.unmount();
   });
+});
+
+test('removes Featured and More from the Economist from JSON', () => {
+  const series = App.massageSeries(mockDataWithUnwantedEpisodes);
+  expect(series).toEqual([
+    mockDataWithUnwantedEpisodes[0]
+  ]);
 });
