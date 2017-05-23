@@ -55,6 +55,11 @@ class VideoPlayer extends React.Component {
     const timeProgress = Math.round(player.currentTime());
     saveVideoProgress(id, timeProgress);
   }
+  static createVideoSaver(player, videoId) {
+    return setInterval(() => {
+      VideoPlayer.saveVideoTime(player, videoId);
+    }, 1000);
+  }
   constructor(props: VideoPlayerPropsType) {
     super(props);
     (this: any).moveTime = 10;
@@ -80,6 +85,7 @@ class VideoPlayer extends React.Component {
     (this: any).showFormattedTime = this.showFormattedTime.bind(this);
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
     (this: any).handlePlayPause = this.handlePlayPause.bind(this);
+    (this: any).hideInterface = this.hideInterface.bind(this);
   }
   state: VideoPlayerStateType;
   componentDidMount() {
@@ -89,9 +95,7 @@ class VideoPlayer extends React.Component {
       isMuted,
     } = this.props;
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
-    (this: any).videoSaver = setInterval(() => {
-      VideoPlayer.saveVideoTime((this: any).player, videoID);
-    }, 1000);
+    (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
     document.addEventListener('keydown', this.handleKeyPress);
   }
   componentWillUnmount() {
@@ -147,11 +151,7 @@ class VideoPlayer extends React.Component {
     }
     this.setState({ showInterface: true });
     clearTimeout((this: any).videoShower);
-    if (this.state.isVideoPlaying) {
-      (this: any).videoShower = setTimeout(() => {
-        this.setState({ showInterface: false, selectedPosition: 1 });
-      }, 1500);
-    }
+    this.hideInterface();
   }
   moveLeft() {
     if (this.state.isNavigationSelected) {
@@ -222,6 +222,13 @@ class VideoPlayer extends React.Component {
       time = VideoPlayer.renderTime(roundedTime);
     }
     return time;
+  }
+  hideInterface() {
+    if (this.state.isVideoPlaying) {
+      (this: any).videoShower = setTimeout(() => {
+        this.setState({ showInterface: false, selectedPosition: 1 });
+      }, 1500);
+    }
   }
   render() {
     const {
