@@ -13,7 +13,7 @@ exports[`renders correctly 1`] = `
     <div
       className="slider-title"
     >
-      Slider Title
+      
     </div>
     <div
       className="slider-items"
@@ -40,7 +40,7 @@ exports[`renders correctly without episodeID 1`] = `
     <div
       className="slider-title"
     >
-      Slider Title
+      
     </div>
     <div
       className="slider-items"

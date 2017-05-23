@@ -18,8 +18,8 @@ export type SeriesContainerProps = {
   },
 }
 export type SeriesContainerState = {
+  seriesTitle: string,
   episodes: Array<Object>,
-  series: Object,
   selectedEpisode: number,
   isSliderSelected: boolean,
   isSideBarSelected: boolean,
@@ -30,18 +30,17 @@ export type SeriesContainerState = {
 class SeriesContainer extends React.Component {
   static findEpisode(episodes: Array<Object>, expandedEpisodeID: string) {
     let foundEpisode = 0;
-    episodes.forEach((episode, index) => {
-      if (episode.id === Number(expandedEpisodeID)) {
-        foundEpisode = index;
-      }
-    });
+    if (expandedEpisodeID) {
+      foundEpisode = episodes.findIndex(episode => episode.id === Number(expandedEpisodeID));
+      return foundEpisode;
+    }
     return foundEpisode;
   }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
       episodes: [],
-      series: {},
+      seriesTitle: '',
       selectedEpisode: 0,
       isSliderSelected: true,
       isSideBarSelected: false,
@@ -62,7 +61,7 @@ class SeriesContainer extends React.Component {
           SeriesContainer.findEpisode(
             series.published_episodes,
             this.props.location.query.expandedEpisode),
-        series,
+        seriesTitle: series.title,
       });
     });
   }
@@ -83,7 +82,7 @@ class SeriesContainer extends React.Component {
   handleReturnFromEpisode() {
     this.setState({ goToEpisodeDetail: false });
   }
-  handleKeyPress(event: Object) {
+  handleKeyPress(event: KeyboardEvent) {
     const {
       episodes,
       selectedEpisode,
@@ -95,7 +94,7 @@ class SeriesContainer extends React.Component {
         event.preventDefault();
         if (isSliderSelected && selectedEpisode !== 0) {
           (this: any).setState({
-            selectedEpisode: selectedEpisode -1,
+            selectedEpisode: selectedEpisode - 1,
           });
         } if (selectedEpisode === 0) {
           (this: any).setState({
@@ -107,9 +106,9 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowRight':
         event.preventDefault();
-        if (isSliderSelected && selectedEpisode < episodes.length -1) {
+        if (isSliderSelected && selectedEpisode < episodes.length - 1) {
           (this: any).setState({
-            selectedEpisode: selectedEpisode +1,
+            selectedEpisode: selectedEpisode + 1,
           });
         } if (isSideBarSelected) {
           (this: any).setState({
@@ -132,12 +131,12 @@ class SeriesContainer extends React.Component {
 
   render() {
     const {
-      series,
       episodes,
       selectedEpisode,
       isSliderSelected,
       isSideBarSelected,
       goToEpisodeDetail,
+      seriesTitle,
     } = this.state;
     const selectedEpisodeData = episodes[selectedEpisode];
     const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
@@ -163,8 +162,8 @@ class SeriesContainer extends React.Component {
         <Slider
           data={episodes}
           className="home-slider"
-          sliderTitle={series.title}
-          key={series.title}
+          sliderTitle={seriesTitle}
+          key={seriesTitle}
           isSelected={isSliderSelected}
           selectedEpisode={selectedEpisode}
         />

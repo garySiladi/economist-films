@@ -60,12 +60,12 @@ test('renders correctly without episodeID', () => {
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
   changedEvent.code = type;
-  const app: Object = wrapper.instance();
-  app.handleKeyPress(event);
+  const seriesContainer: Object = wrapper.instance();
+  seriesContainer.handleKeyPress(event);
 }
 
 test('Series detail navigation works', () => {
-  const app = mount(
+  const seriesContainer = mount(
     <SeriesContainer
       params={{ id: 50 }}
       location={{
@@ -75,42 +75,41 @@ test('Series detail navigation works', () => {
       }}
     />);
   const event = new Event('keyDown');
-  app.setState({ episodes: dummySliderItems });
-  expect(app.state().isSliderSelected).toEqual(true);
-  expect(app.state().isSideBarSelected).toEqual(false);
-  expect(app.state().selectedEpisode).toEqual(0);
+  seriesContainer.setState({ episodes: dummySliderItems });
+  expect(seriesContainer.state().isSliderSelected).toEqual(true);
+  expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
   // [0,1]
-  connectEvent(event, 'ArrowRight', app);
-  expect(app.state().selectedEpisode).toEqual(1);
-  connectEvent(event, 'ArrowRight', app);
+  connectEvent(event, 'ArrowRight', seriesContainer);
+  expect(seriesContainer.state().selectedEpisode).toEqual(1);
+  connectEvent(event, 'ArrowRight', seriesContainer);
   // [0,1]
-  expect(app.state().selectedEpisode).toEqual(1);
+  expect(seriesContainer.state().selectedEpisode).toEqual(1);
   // [0,0]
-  connectEvent(event, 'ArrowLeft', app);
-  expect(app.state().selectedEpisode).toEqual(0);
+  connectEvent(event, 'ArrowLeft', seriesContainer);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
   // sidePanel is selected
-  connectEvent(event, 'ArrowLeft', app);
-  expect(app.state().isSliderSelected).toEqual(false);
-  expect(app.state().isSideBarSelected).toEqual(true);
-  expect(app.state().goToEpisodeDetail).toEqual(false);
+  connectEvent(event, 'ArrowLeft', seriesContainer);
+  expect(seriesContainer.state().isSliderSelected).toEqual(false);
+  expect(seriesContainer.state().isSideBarSelected).toEqual(true);
+  expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
   // slider is selected
-  connectEvent(event, 'ArrowRight', app);
-  expect(app.state().isSliderSelected).toEqual(true);
-  expect(app.state().isSideBarSelected).toEqual(false);
+  connectEvent(event, 'ArrowRight', seriesContainer);
+  expect(seriesContainer.state().isSliderSelected).toEqual(true);
+  expect(seriesContainer.state().isSideBarSelected).toEqual(false);
   // show pop up
-  connectEvent(event, 'Enter', app);
-  expect(app.state().goToEpisodeDetail).toEqual(true);
+  connectEvent(event, 'Enter', seriesContainer);
+  expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
   // unselect slider
-  app.setState({ isSliderSelected: false });
+  seriesContainer.setState({ isSliderSelected: false });
   // cant open pop up
-  connectEvent(event, 'Enter', app);
-  connectEvent(event, 'Backspace', app);
+  connectEvent(event, 'Enter', seriesContainer);
+  connectEvent(event, 'Backspace', seriesContainer);
   jest.fn(() => {});
-  connectEvent(event, 'Space', app);
+  connectEvent(event, 'Space', seriesContainer);
   const foundEpisode = SeriesContainer.findEpisode(dummySliderItems, '141');
   expect(foundEpisode).toEqual(1);
-  const seriesContainer: Object = app.instance();
-  seriesContainer.handleReturnFromEpisode();
-  expect(app.state().goToEpisodeDetail).toEqual(false);
-  app.unmount();
+  const seriesContainerInstance: Object = seriesContainer.instance();
+  seriesContainerInstance.handleReturnFromEpisode();
+  seriesContainer.unmount();
 });
