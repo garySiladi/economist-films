@@ -78,7 +78,7 @@
   &__watch:hover,
   &__learn:hover {
     cursor: pointer;
-    background-color: #88120b;
+    background-color: var(--economist-redWine);
   }
 
   &__watch {

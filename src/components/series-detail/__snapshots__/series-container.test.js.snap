@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-<div
-  className="series-container"
->
-   hello all 
-</div>
-`;
+exports[`SeriesContainer renders correctly with data 1`] = `null`;
+
+exports[`SeriesContainer renders correctly without data 1`] = `null`;

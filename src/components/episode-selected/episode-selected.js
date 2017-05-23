@@ -44,9 +44,11 @@ class episodeSelected extends React.Component {
     } = this.props;
     switch (event.code) {
       case 'ArrowUp':
+        event.preventDefault();
         if (closePopupFunction) closePopupFunction(event);
         break;
       case 'ArrowLeft':
+        event.preventDefault();
         if (selectedItem > 0) {
           this.setState({
             selectedItem: selectedItem - 1,
@@ -54,6 +56,7 @@ class episodeSelected extends React.Component {
         }
         break;
       case 'ArrowRight':
+        event.preventDefault();
         if (selectedItem < 2) {
           this.setState({
             selectedItem: selectedItem + 1,
@@ -61,9 +64,11 @@ class episodeSelected extends React.Component {
         }
         break;
       case 'Backspace':
+        event.preventDefault();
         if (closePopupFunction) closePopupFunction(event);
         break;
       case 'Enter':
+        event.preventDefault();
         browserHistory.push(`/watch/${this.props.id}`);
         break;
       default:

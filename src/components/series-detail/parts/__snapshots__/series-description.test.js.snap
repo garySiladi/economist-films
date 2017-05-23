@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesDescription renders with data 1`] = `
+<div
+  style={
+    Object {
+      "backgroundImage": "url(xxx)",
+      "height": "100vh",
+    }
+  }
+>
+  <div
+    className="series-description"
+  >
+    <div
+      className="series-description__series-logo"
+      style={
+        Object {
+          "background": "url(yyy) bottom center no-repeat",
+        }
+      }
+    />
+    <div
+      className="series-description__description"
+    >
+      aaa
+    </div>
+    <div
+      className="series-description__right-wrapper"
+    >
+      <div
+        className="series-description__supporter-logo"
+        style={
+          Object {
+            "background": "url(zzz) center center no-repeat",
+          }
+        }
+      />
+      <div
+        className="series-description__watchnow-btn"
+        role="button"
+        to="/"
+      >
+        Watch now
+      </div>
+    </div>
+  </div>
+  <div
+    className="gradient-cover"
+  />
+</div>
+`;
