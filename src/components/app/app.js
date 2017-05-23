@@ -25,10 +25,9 @@ class App extends React.Component {
       type: 'series',
     };
   }
-  static massageSeries(series: Object) {
-    series.pop();
-    series.pop();
-    return series;
+  static massageSeries(series: Array<Object>) {
+    // remove featured and More from the Economist
+    return series.filter(shelf => shelf.id !== 11 && shelf.id !== 14);
   }
   static setEpisodeByParam(id: ?string, series: Array<SeriesType>) {
     const foundEpisodes = [];
