@@ -9,17 +9,15 @@ export type VideoPlayerContainerPropsType = {
 }
 
 export type VideoPlayerContainerStateType = {
+  episodeTitle: string,
   videoUrl: string,
 }
 
 class VideoPlayerContainer extends React.Component {
-  static getVideoUrl(episode) {
-    return episode.video_url;
-  }
-
   constructor(props: VideoPlayerContainerPropsType) {
     super(props);
     this.state = {
+      episodeTitle: '',
       videoUrl: '',
     };
   }
@@ -29,7 +27,7 @@ class VideoPlayerContainer extends React.Component {
   componentWillMount() {
     getEpisodeByID(this.props.params.id)
     .then((episode) => {
-      this.setState({ videoUrl: VideoPlayerContainer.getVideoUrl(episode) });
+      this.setState({ videoUrl: episode.video_url, episodeTitle: episode.title });
     });
   }
 
@@ -38,6 +36,7 @@ class VideoPlayerContainer extends React.Component {
       <div className="video-player-container">
         {this.state.videoUrl ?
           <VideoPlayer
+            episodeTitle={this.state.episodeTitle}
             videoUrl={this.state.videoUrl}
             videoID={this.props.params.id}
             showUI
