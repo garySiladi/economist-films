@@ -2,40 +2,45 @@
 
 exports[`SeriesDescription renders with data 1`] = `
 <div
+  className="series-description__parent"
   style={
     Object {
       "backgroundImage": "url(xxx)",
-      "height": "100vh",
     }
   }
 >
   <div
+    className="gradient-cover"
+  />
+  <div
     className="series-description"
   >
     <div
-      className="series-description__series-logo"
-      style={
-        Object {
-          "background": "url(yyy) bottom center no-repeat",
-        }
-      }
-    />
+      className="series-description__series-logo series-description__flex-child"
+    >
+      <img
+        alt="sponsor logo"
+        className="series-description__logo-img"
+        src="yyy"
+      />
+    </div>
     <div
-      className="series-description__description"
+      className="series-description__description series-description__flex-child"
     >
       aaa
     </div>
     <div
-      className="series-description__right-wrapper"
+      className="series-description__right-wrapper series-description__flex-child"
     >
       <div
         className="series-description__supporter-logo"
-        style={
-          Object {
-            "background": "url(zzz) center center no-repeat",
-          }
-        }
-      />
+      >
+        <img
+          alt="supporter logo"
+          className="series-description__logo-img"
+          src="zzz"
+        />
+      </div>
       <div
         className="series-description__watchnow-btn"
         role="button"
@@ -45,8 +50,5 @@ exports[`SeriesDescription renders with data 1`] = `
       </div>
     </div>
   </div>
-  <div
-    className="gradient-cover"
-  />
 </div>
 `;

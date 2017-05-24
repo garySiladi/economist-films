@@ -9,36 +9,50 @@ type SeriesContainerObj = {
   sponsorLogoUrl: string
 };
 
-const SeriesDescription =
-  ({ backgroundUrl, description, seriesLogoUrl, sponsorLogoUrl }: SeriesContainerObj) => {
-    const descriptionBackgroundStyle = {
-      backgroundImage: `url(${backgroundUrl})`,
-      height: '100vh',
-    };
-    const seriesLogoStyle = {
-      background: `url(${seriesLogoUrl}) bottom center no-repeat`,
-    };
-    const sponsorLogoStyle = {
-      background: `url(${sponsorLogoUrl}) center center no-repeat`,
-    };
-    return (
-      <div style={descriptionBackgroundStyle}>
-        <div className="series-description">
-          <div className="series-description__series-logo" style={seriesLogoStyle} />
-          <div className="series-description__description">{description}</div>
-          <div className="series-description__right-wrapper">
-            <div className="series-description__supporter-logo" style={sponsorLogoStyle} />
-            <div
-              className="series-description__watchnow-btn"
-              role="button"
-              to="/"
-            >{'Watch now'}
-            </div>
+const SeriesDescription = ({
+    backgroundUrl,
+    description,
+    seriesLogoUrl,
+    sponsorLogoUrl,
+  }: SeriesContainerObj) => {
+  const descriptionBackgroundStyle = {
+    backgroundImage: `url(${backgroundUrl})`,
+  };
+  return (
+    <div className="series-description__parent" style={descriptionBackgroundStyle}>
+      <div className="gradient-cover" />
+      <div className="series-description">
+        <div className="series-description__series-logo series-description__flex-child">
+          <img
+            className="series-description__logo-img"
+            src={seriesLogoUrl}
+            alt={'sponsor logo'}
+          />
+        </div>
+        <div
+          className="series-description__description series-description__flex-child"
+        >
+          {description}
+        </div>
+        <div className="series-description__right-wrapper series-description__flex-child">
+          <div className="series-description__supporter-logo">
+            <img
+              className="series-description__logo-img"
+              src={sponsorLogoUrl}
+              alt={'supporter logo'}
+            />
+          </div>
+          <div
+            className="series-description__watchnow-btn"
+            role="button"
+            to="/"
+          >
+            {'Watch now'}
           </div>
         </div>
-        <div className="gradient-cover" />
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default SeriesDescription;

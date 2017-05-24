@@ -11,7 +11,6 @@
   },
   "rules": {
     "react/jsx-filename-extension": 0,
-    "react/no-unused-prop-types": 0,
     "space-infix-ops": 0,
     "no-duplicate-imports": 0,
     "import/no-duplicates": 1,

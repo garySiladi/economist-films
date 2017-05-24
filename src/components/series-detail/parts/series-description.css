@@ -18,13 +18,20 @@
   height: var(--description-height);
   display: flex;
 
-  & > * {
+  &__parent {
+    height: 100vh;
+  }
+
+  &__flex-child {
     flex: 1;
     z-index: 2;
   }
 
   &__series-logo {
+    display: flex;
+    align-items: flex-end;
     flex-basis: var(--left-col-width);
+    margin-bottom: var(--button-height);
   }
 
   &__description {
@@ -40,13 +47,15 @@
     flex-basis: var(--right-col-width);
   }
 
-  &__series-logo {
-    position: relative;
-    bottom: var(--button-height);
+  &__supporter-logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
   }
 
-  &__supporter-logo {
-    height: 100%;
+  &__logo-img {
+    display: block;
+    margin: 0 auto;
   }
 
   &__watchnow-btn {
