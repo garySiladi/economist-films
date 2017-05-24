@@ -7,49 +7,5 @@ exports[`renders correctly 1`] = `
   <div>
     Side Panel
   </div>
-  <div
-    className="home-slider home-slider--selected"
-  >
-    <div
-      className="slider-title"
-    >
-      
-    </div>
-    <div
-      className="slider-items"
-      style={
-        Object {
-          "transform": "translate(0px, 0px)",
-        }
-      }
-    />
-  </div>
-</div>
-`;
-
-exports[`renders correctly without episodeID 1`] = `
-<div
-  className="series-container"
->
-  <div>
-    Side Panel
-  </div>
-  <div
-    className="home-slider home-slider--selected"
-  >
-    <div
-      className="slider-title"
-    >
-      
-    </div>
-    <div
-      className="slider-items"
-      style={
-        Object {
-          "transform": "translate(0px, 0px)",
-        }
-      }
-    />
-  </div>
 </div>
 `;

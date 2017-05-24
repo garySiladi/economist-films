@@ -2,26 +2,29 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+import * as fetches from '../../api/fetch';
 import SeriesContainer from './series-container';
 
-const dummySliderItems = [
-  {
-    id: 119,
-    title: 'Saving Corals',
-    thumbnail: {
-      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/119/episode_875X480.jpg',
+const dummySliderItems = {
+  published_episodes: [
+    {
+      id: 119,
+      title: 'Saving Corals',
+      thumbnail: {
+        url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/119/episode_875X480.jpg',
+      },
+      type: 'Episode',
     },
-    type: 'Episode',
-  },
-  {
-    id: 141,
-    title: 'The deep ocean is the final frontier on planet Earth',
-    thumbnail: {
-      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg',
+    {
+      id: 141,
+      title: 'The deep ocean is the final frontier on planet Earth',
+      thumbnail: {
+        url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg',
+      },
+      type: 'Episode',
     },
-    type: 'Episode',
-  },
-];
+  ],
+};
 
 jest.mock('../side-panel/side-panel', () =>
   jest.fn(() => <div>Side Panel</div>),
@@ -44,8 +47,8 @@ test('renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('renders correctly without episodeID', () => {
-  const tree : string = renderer.create(
+test('Series detail navigation works', () => {
+  const seriesContainer = mount(
     <SeriesContainer
       params={{ id: 50 }}
       location={{
@@ -53,8 +56,8 @@ test('renders correctly without episodeID', () => {
           expandedEpisode: '',
         },
       }}
-    />).toJSON();
-  expect(tree).toMatchSnapshot();
+    />);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
 });
 
 function connectEvent(event, type, wrapper) {
@@ -75,7 +78,7 @@ test('Series detail navigation works', () => {
       }}
     />);
   const event = new Event('keyDown');
-  seriesContainer.setState({ episodes: dummySliderItems });
+  seriesContainer.setState({ series: dummySliderItems });
   expect(seriesContainer.state().isSliderSelected).toEqual(true);
   expect(seriesContainer.state().isSideBarSelected).toEqual(false);
   expect(seriesContainer.state().selectedEpisode).toEqual(0);
@@ -107,9 +110,37 @@ test('Series detail navigation works', () => {
   connectEvent(event, 'Backspace', seriesContainer);
   jest.fn(() => {});
   connectEvent(event, 'Space', seriesContainer);
-  const foundEpisode = SeriesContainer.findEpisode(dummySliderItems, '141');
-  expect(foundEpisode).toEqual(1);
+  // const foundEpisode = SeriesContainer.findEpisode(dummySliderItems, '141');
+  // expect(foundEpisode).toEqual(1);
   const seriesContainerInstance: Object = seriesContainer.instance();
   seriesContainerInstance.handleReturnFromEpisode();
   seriesContainer.unmount();
+});
+
+test('Series fetch', () => {
+  // $FlowFixMe
+  fetches.getSeriesByID =
+    jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
+  mount(
+    <SeriesContainer
+      params={{ id: 50 }}
+      location={{
+        query: {
+          expandedEpisode: '141',
+        },
+      }}
+    />);
+    // $FlowFixMe
+  expect(fetches.getSeriesByID.mock.calls.length).toEqual(1);
+  mount(
+    <SeriesContainer
+      params={{ id: 50 }}
+      location={{
+        query: {
+          expandedEpisode: '1415',
+        },
+      }}
+    />);
+    // $FlowFixMe
+  expect(fetches.getSeriesByID.mock.calls.length).toEqual(2);
 });

@@ -18,8 +18,7 @@ export type SeriesContainerProps = {
   },
 }
 export type SeriesContainerState = {
-  seriesTitle: string,
-  episodes: Array<Object>,
+  series: Object,
   selectedEpisode: number,
   isSliderSelected: boolean,
   isSideBarSelected: boolean,
@@ -28,19 +27,11 @@ export type SeriesContainerState = {
 }
 
 class SeriesContainer extends React.Component {
-  static findEpisode(episodes: Array<Object>, expandedEpisodeID: string) {
-    let foundEpisode = 0;
-    if (expandedEpisodeID) {
-      foundEpisode = episodes.findIndex(episode => episode.id === Number(expandedEpisodeID));
-      return foundEpisode;
-    }
-    return foundEpisode;
-  }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
-      episodes: [],
-      seriesTitle: '',
+      // $FlowFixMe
+      series: null,
       selectedEpisode: 0,
       isSliderSelected: true,
       isSideBarSelected: false,
@@ -55,15 +46,15 @@ class SeriesContainer extends React.Component {
   componentWillMount() {
     getSeriesByID(this.props.params.id)
     .then((series) => {
+      const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
+      const foundPosition = series.published_episodes.findIndex(
+      episode => episode.id === expandedEpisodeId);
       (this: any).setState({
-        episodes: series.published_episodes,
-        selectedEpisode:
-          SeriesContainer.findEpisode(
-            series.published_episodes,
-            this.props.location.query.expandedEpisode),
-        seriesTitle: series.title,
+        series,
+        selectedEpisode: foundPosition < 0 ? 0 : foundPosition,
       });
-    });
+    })
+    .catch(err => err);
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -84,7 +75,7 @@ class SeriesContainer extends React.Component {
   }
   handleKeyPress(event: KeyboardEvent) {
     const {
-      episodes,
+      series,
       selectedEpisode,
       isSliderSelected,
       isSideBarSelected,
@@ -106,7 +97,7 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowRight':
         event.preventDefault();
-        if (isSliderSelected && selectedEpisode < episodes.length - 1) {
+        if (isSliderSelected && selectedEpisode < series.published_episodes.length - 1) {
           (this: any).setState({
             selectedEpisode: selectedEpisode + 1,
           });
@@ -131,14 +122,13 @@ class SeriesContainer extends React.Component {
 
   render() {
     const {
-      episodes,
+      series,
       selectedEpisode,
       isSliderSelected,
       isSideBarSelected,
       goToEpisodeDetail,
-      seriesTitle,
     } = this.state;
-    const selectedEpisodeData = episodes[selectedEpisode];
+    const selectedEpisodeData = series && series.published_episodes[selectedEpisode];
     const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
       <EpisodeSelected
         id={selectedEpisodeData.id}
@@ -153,20 +143,23 @@ class SeriesContainer extends React.Component {
         isSelectedHomeContainer={false}
       />
     ) : null;
+    const slider = series ? (
+      <Slider
+        data={series.published_episodes}
+        className="home-slider"
+        sliderTitle={series.title}
+        key={series.title}
+        isSelected={isSliderSelected}
+        selectedEpisode={selectedEpisode}
+      />
+    ): null;
     return (
       <div className="series-container">
         <SidePanel
           isSelected={isSideBarSelected}
           user={{ id: 1, name: 'Profile Name', imgUrl: 'x' }}
         />
-        <Slider
-          data={episodes}
-          className="home-slider"
-          sliderTitle={seriesTitle}
-          key={seriesTitle}
-          isSelected={isSliderSelected}
-          selectedEpisode={selectedEpisode}
-        />
+        {slider}
         {episodeDetailsContainer}
       </div>
     );
