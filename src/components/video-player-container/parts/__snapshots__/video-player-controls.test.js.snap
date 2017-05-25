@@ -5,64 +5,86 @@ exports[`Video is not playing  1`] = `
   className="player-interface"
 >
   <div
-    className="player-interface__progress-time"
+    className="player-interface__top"
   >
-    <div
-      className="player-interface__progress-time--current"
+    <button
+      className="player-interface__back-button selected"
     >
-      10:10
-    </div>
-    <div
-      className="player-interface__progress-time--final"
+      <img
+        alt="Back"
+        className="player-interface__navigation-icons player-interface__navigation-icons--back"
+        src="Square-Arrow.svg"
+      />
+    </button>
+    <span
+      className="player-interface__episode-title"
     >
-      20:20
-    </div>
+      Whatever
+    </span>
   </div>
   <div
-    className="player-interface__progress-bar-container"
+    className="player-interface__bottom"
   >
     <div
-      className="player-interface__progress-bar"
-      style={
-        Object {
-          "width": "0%",
+      className="player-interface__progress-time"
+    >
+      <div
+        className="player-interface__progress-time--current"
+      >
+        10:10
+      </div>
+      <div
+        className="player-interface__progress-time--final"
+      >
+        20:20
+      </div>
+    </div>
+    <div
+      className="player-interface__progress-bar-container"
+    >
+      <div
+        className="player-interface__progress-bar"
+        style={
+          Object {
+            "width": "0%",
+          }
         }
-      }
-    />
-  </div>
-  <div
-    className="player-interface__navigation-wrapper"
-  >
-    <button
-      className="player-interface__navigation-control selected"
-    >
-      <img
-        alt="left"
-        className="player-interface__navigation-icons"
-        id="1"
-        src="RW.svg"
       />
-    </button>
-    <button
-      className="player-interface__navigation-control"
+    </div>
+    <div
+      className="player-interface__navigation-wrapper"
     >
-      <img
-        alt="Play/Pause"
-        className="player-interface__navigation-icons"
-        id="2"
-        src="Play.svg"
-      />
-    </button>
-    <button
-      className="player-interface__navigation-control"
-    >
-      <img
-        alt="right"
-        className="player-interface__navigation-icons"
-        id="3"
-        src="FF.svg"
-      />
-    </button>
+      <button
+        className="player-interface__navigation-control selected"
+      >
+        <img
+          alt="left"
+          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+          id="1"
+          src="RW.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="Play/Pause"
+          className="player-interface__navigation-icons player-interface__navigation-icons--play"
+          id="2"
+          src="Play.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="right"
+          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="3"
+          src="FF.svg"
+        />
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -72,64 +94,86 @@ exports[`Video is playing + selected postition is 0 1`] = `
   className="player-interface"
 >
   <div
-    className="player-interface__progress-time"
+    className="player-interface__top"
   >
-    <div
-      className="player-interface__progress-time--current"
+    <button
+      className="player-interface__back-button selected"
     >
-      10:10
-    </div>
-    <div
-      className="player-interface__progress-time--final"
+      <img
+        alt="Back"
+        className="player-interface__navigation-icons player-interface__navigation-icons--back"
+        src="Square-Arrow.svg"
+      />
+    </button>
+    <span
+      className="player-interface__episode-title"
     >
-      20:20
-    </div>
+      Whatever
+    </span>
   </div>
   <div
-    className="player-interface__progress-bar-container"
+    className="player-interface__bottom"
   >
     <div
-      className="player-interface__progress-bar"
-      style={
-        Object {
-          "width": "0%",
+      className="player-interface__progress-time"
+    >
+      <div
+        className="player-interface__progress-time--current"
+      >
+        10:10
+      </div>
+      <div
+        className="player-interface__progress-time--final"
+      >
+        20:20
+      </div>
+    </div>
+    <div
+      className="player-interface__progress-bar-container"
+    >
+      <div
+        className="player-interface__progress-bar"
+        style={
+          Object {
+            "width": "0%",
+          }
         }
-      }
-    />
-  </div>
-  <div
-    className="player-interface__navigation-wrapper"
-  >
-    <button
-      className="player-interface__navigation-control selected"
-    >
-      <img
-        alt="left"
-        className="player-interface__navigation-icons"
-        id="1"
-        src="RW.svg"
       />
-    </button>
-    <button
-      className="player-interface__navigation-control"
+    </div>
+    <div
+      className="player-interface__navigation-wrapper"
     >
-      <img
-        alt="Play/Pause"
-        className="player-interface__navigation-icons"
-        id="2"
-        src="Pause.svg"
-      />
-    </button>
-    <button
-      className="player-interface__navigation-control"
-    >
-      <img
-        alt="right"
-        className="player-interface__navigation-icons"
-        id="3"
-        src="FF.svg"
-      />
-    </button>
+      <button
+        className="player-interface__navigation-control selected"
+      >
+        <img
+          alt="left"
+          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+          id="1"
+          src="RW.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="Play/Pause"
+          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+          id="2"
+          src="Pause.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="right"
+          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="3"
+          src="FF.svg"
+        />
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -139,64 +183,86 @@ exports[`Video is playing + selected postition is 1 1`] = `
   className="player-interface"
 >
   <div
-    className="player-interface__progress-time"
+    className="player-interface__top"
   >
-    <div
-      className="player-interface__progress-time--current"
+    <button
+      className="player-interface__back-button selected"
     >
-      10:10
-    </div>
-    <div
-      className="player-interface__progress-time--final"
+      <img
+        alt="Back"
+        className="player-interface__navigation-icons player-interface__navigation-icons--back"
+        src="Square-Arrow.svg"
+      />
+    </button>
+    <span
+      className="player-interface__episode-title"
     >
-      20:20
-    </div>
+      Whatever
+    </span>
   </div>
   <div
-    className="player-interface__progress-bar-container"
+    className="player-interface__bottom"
   >
     <div
-      className="player-interface__progress-bar"
-      style={
-        Object {
-          "width": "0%",
+      className="player-interface__progress-time"
+    >
+      <div
+        className="player-interface__progress-time--current"
+      >
+        10:10
+      </div>
+      <div
+        className="player-interface__progress-time--final"
+      >
+        20:20
+      </div>
+    </div>
+    <div
+      className="player-interface__progress-bar-container"
+    >
+      <div
+        className="player-interface__progress-bar"
+        style={
+          Object {
+            "width": "0%",
+          }
         }
-      }
-    />
-  </div>
-  <div
-    className="player-interface__navigation-wrapper"
-  >
-    <button
-      className="player-interface__navigation-control"
-    >
-      <img
-        alt="left"
-        className="player-interface__navigation-icons"
-        id="1"
-        src="RW.svg"
       />
-    </button>
-    <button
-      className="player-interface__navigation-control selected"
+    </div>
+    <div
+      className="player-interface__navigation-wrapper"
     >
-      <img
-        alt="Play/Pause"
-        className="player-interface__navigation-icons"
-        id="2"
-        src="Pause.svg"
-      />
-    </button>
-    <button
-      className="player-interface__navigation-control"
-    >
-      <img
-        alt="right"
-        className="player-interface__navigation-icons"
-        id="3"
-        src="FF.svg"
-      />
-    </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="left"
+          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+          id="1"
+          src="RW.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control selected"
+      >
+        <img
+          alt="Play/Pause"
+          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+          id="2"
+          src="Pause.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="right"
+          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="3"
+          src="FF.svg"
+        />
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -206,64 +272,86 @@ exports[`Video is playing + selected postition is 2 1`] = `
   className="player-interface"
 >
   <div
-    className="player-interface__progress-time"
+    className="player-interface__top"
   >
-    <div
-      className="player-interface__progress-time--current"
+    <button
+      className="player-interface__back-button selected"
     >
-      10:10
-    </div>
-    <div
-      className="player-interface__progress-time--final"
+      <img
+        alt="Back"
+        className="player-interface__navigation-icons player-interface__navigation-icons--back"
+        src="Square-Arrow.svg"
+      />
+    </button>
+    <span
+      className="player-interface__episode-title"
     >
-      20:20
-    </div>
+      Whatever
+    </span>
   </div>
   <div
-    className="player-interface__progress-bar-container"
+    className="player-interface__bottom"
   >
     <div
-      className="player-interface__progress-bar"
-      style={
-        Object {
-          "width": "0%",
+      className="player-interface__progress-time"
+    >
+      <div
+        className="player-interface__progress-time--current"
+      >
+        10:10
+      </div>
+      <div
+        className="player-interface__progress-time--final"
+      >
+        20:20
+      </div>
+    </div>
+    <div
+      className="player-interface__progress-bar-container"
+    >
+      <div
+        className="player-interface__progress-bar"
+        style={
+          Object {
+            "width": "0%",
+          }
         }
-      }
-    />
-  </div>
-  <div
-    className="player-interface__navigation-wrapper"
-  >
-    <button
-      className="player-interface__navigation-control"
-    >
-      <img
-        alt="left"
-        className="player-interface__navigation-icons"
-        id="1"
-        src="RW.svg"
       />
-    </button>
-    <button
-      className="player-interface__navigation-control"
+    </div>
+    <div
+      className="player-interface__navigation-wrapper"
     >
-      <img
-        alt="Play/Pause"
-        className="player-interface__navigation-icons"
-        id="2"
-        src="Pause.svg"
-      />
-    </button>
-    <button
-      className="player-interface__navigation-control selected"
-    >
-      <img
-        alt="right"
-        className="player-interface__navigation-icons"
-        id="3"
-        src="FF.svg"
-      />
-    </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="left"
+          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+          id="1"
+          src="RW.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <img
+          alt="Play/Pause"
+          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+          id="2"
+          src="Pause.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control selected"
+      >
+        <img
+          alt="right"
+          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="3"
+          src="FF.svg"
+        />
+      </button>
+    </div>
   </div>
 </div>
 `;

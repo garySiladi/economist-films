@@ -18,9 +18,3 @@
 .video-js:focus {
   outline: 0;
 }
-
-.video-player-back-button {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-}

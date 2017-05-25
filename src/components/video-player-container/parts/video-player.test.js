@@ -92,7 +92,8 @@ test('videoPlayer navigation works', () => {
       posterImage={null}
       isMuted={false}
       videoID={5}
-    />);
+    />
+  );
   expect(app.state().isNavigationSelected).toEqual(true);
   const event = new Event('keyDown');
   connectEvent(event, 'ArrowUp', app);
@@ -141,4 +142,45 @@ test('videoPlayer navigation works', () => {
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
   connectEvent(event, 'Space', app);
+});
+test('Video progress saves properly', () => {
+  // $FlowFixMe
+  storage.saveVideoProgress = jest.fn();
+  const mockedPlayer = {
+    currentTime: jest.fn(() => 5),
+  };
+  VideoPlayer.saveVideoTime(mockedPlayer, 10);
+  expect(mockedPlayer.currentTime.mock.calls.length).toBe(1);
+  // $FlowFixMe
+  expect(storage.saveVideoProgress.mock.calls).toEqual([[10, 5]]);
+});
+test('VideoSaver works properly', () => {
+  jest.useFakeTimers();
+  const dummyPlayer = {
+    currentTime: jest.fn(() => 10),
+  };
+
+  VideoPlayer.createVideoSaver(dummyPlayer, 5);
+  jest.runTimersToTime(1000);
+  expect(setInterval.mock.calls.length).toBe(1);
+  expect(setInterval.mock.calls[0][1]).toBe(1000);
+  jest.clearAllTimers();
+});
+test('Clears interface after 1.5 seconds', () => {
+  jest.useFakeTimers();
+  const app = shallow(
+    <VideoPlayer
+      videoUrl="whatever"
+      showUI
+      posterImage={null}
+      isMuted={false}
+      videoID={5}
+    />
+  );
+  // $FlowFixMe
+  app.instance().hideInterface();
+  jest.runTimersToTime(1500);
+  expect(setTimeout.mock.calls.length).toBe(1);
+  expect(setTimeout.mock.calls[0][1]).toBe(1500);
+  jest.clearAllTimers();
 });
