@@ -4,6 +4,11 @@ exports[`renders correctly 1`] = `
 <div
   className="series-container"
 >
-   hello all 
+  <div>
+    Side Panel
+  </div>
+  <div
+    className="series-content"
+  />
 </div>
 `;

@@ -9,7 +9,7 @@ import './index.css';
 
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path="/series" component={SeriesDetail} />
+    <Route path="/series/:id" component={SeriesDetail} />
     <Route path="/" component={App} />
     <Route path="/:selectedEpisodeId" component={App} />
     <Route path="/watch/:id" component={VideoPlayerContainer} />

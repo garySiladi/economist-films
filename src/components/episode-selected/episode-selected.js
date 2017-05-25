@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import EpisodeDescription from './parts/episode-description';
 import VideoPlayer from '../video-player-container/parts/video-player';
@@ -13,8 +13,10 @@ type EpisodeSelectedType = {
   title: string,
   subtitle: string,
   description: string,
-  closePopupFunction: ?Function,
+  closePopupFunction: Function,
   videoUrl: string,
+  seriesId: number,
+  isSelectedHomeContainer: boolean,
 };
 
 class episodeSelected extends React.Component {
@@ -41,30 +43,42 @@ class episodeSelected extends React.Component {
     } = this.state;
     const {
       closePopupFunction,
+      isSelectedHomeContainer,
+      seriesId,
+      id,
     } = this.props;
     switch (event.code) {
       case 'ArrowUp':
-        if (closePopupFunction) closePopupFunction(event);
+        closePopupFunction(event);
         break;
       case 'ArrowLeft':
-        if (selectedItem > 0) {
-          this.setState({
-            selectedItem: selectedItem - 1,
-          });
+        if (isSelectedHomeContainer) {
+          if (selectedItem > 0) {
+            this.setState({
+              selectedItem: selectedItem - 1,
+            });
+          }
         }
         break;
       case 'ArrowRight':
-        if (selectedItem < 2) {
-          this.setState({
-            selectedItem: selectedItem + 1,
-          });
+        if (isSelectedHomeContainer) {
+          if (selectedItem < 1) {
+            this.setState({
+              selectedItem: selectedItem + 1,
+            });
+          }
         }
         break;
       case 'Backspace':
-        if (closePopupFunction) closePopupFunction(event);
+        closePopupFunction(event);
         break;
       case 'Enter':
-        browserHistory.push(`/watch/${this.props.id}`);
+        if (selectedItem === 0) {
+          browserHistory.push(`/watch/${id}`);
+        }
+        if (selectedItem === 1) {
+          browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
+        }
         break;
       default:
     }
@@ -78,15 +92,24 @@ class episodeSelected extends React.Component {
       title,
       description,
       videoUrl,
+      isSelectedHomeContainer,
     } = this.props;
     const {
       selectedItem,
     } = this.state;
-    const learnString = `/learn?id=${id}`;
-    const imageClassName = classnames(
-      'episode-selected__image',
-      { 'episode-selected__image--selected': selectedItem === 0 },
-    );
+    const playButtonClassName = classnames({
+      'episode-selected__image': true,
+      'episode-selected__image--selected': selectedItem === 0,
+    });
+    const learnMoreButtonClassname = classnames({
+      'episode-buttons__learn': true,
+      'episode-buttons__learn--selected': selectedItem === 1,
+    });
+    const learnMoreButton = isSelectedHomeContainer ? (
+      <div className={learnMoreButtonClassname} >
+      Learn More
+    </div>
+  ): null;
     return (
       <div className="episode-selected">
         <div className="episode-selected__teaser-wrapper">
@@ -97,7 +120,7 @@ class episodeSelected extends React.Component {
             isMuted
             videoID={id}
           />
-          <img className={imageClassName} src={PlayLogo} alt={title} />
+          <img className={playButtonClassName} src={PlayLogo} alt={title} />
         </div>
         <div className="episode-selected__info-container">
           <EpisodeDescription
@@ -105,15 +128,7 @@ class episodeSelected extends React.Component {
             className="episode-description-wrapper"
           />
           <div className="episode-buttons">
-            <Link
-              className={classnames(
-                'episode-buttons__learn',
-                { 'episode-buttons__learn--selected': selectedItem === 2 },
-              )}
-              to={learnString}
-            >
-              Learn More
-            </Link>
+            {learnMoreButton}
           </div>
         </div>
       </div>
