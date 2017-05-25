@@ -1,3 +1,7 @@
 .series-container {
   display: block;
 }
+
+.series-content {
+  margin-left: 100px;
+}

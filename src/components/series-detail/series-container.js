@@ -18,7 +18,7 @@ export type SeriesContainerProps = {
   },
 }
 export type SeriesContainerState = {
-  series: Object,
+  series: ?Object,
   selectedEpisode: number,
   isSliderSelected: boolean,
   isSideBarSelected: boolean,
@@ -30,7 +30,6 @@ class SeriesContainer extends React.Component {
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
-      // $FlowFixMe
       series: null,
       selectedEpisode: 0,
       isSliderSelected: true,
@@ -76,6 +75,7 @@ class SeriesContainer extends React.Component {
   handleKeyPress(event: KeyboardEvent) {
     const {
       series,
+      goToEpisodeDetail,
       selectedEpisode,
       isSliderSelected,
       isSideBarSelected,
@@ -83,7 +83,7 @@ class SeriesContainer extends React.Component {
     switch (event.code) {
       case 'ArrowLeft':
         event.preventDefault();
-        if (isSliderSelected && selectedEpisode !== 0) {
+        if (isSliderSelected && selectedEpisode !== 0 && !goToEpisodeDetail) {
           this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
@@ -97,7 +97,8 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowRight':
         event.preventDefault();
-        if (isSliderSelected && selectedEpisode < series.published_episodes.length - 1) {
+        if (isSliderSelected && series &&
+          selectedEpisode < series.published_episodes.length - 1 && !goToEpisodeDetail) {
           this.setState({
             selectedEpisode: selectedEpisode + 1,
           });
@@ -159,8 +160,10 @@ class SeriesContainer extends React.Component {
           isSelected={isSideBarSelected}
           user={{ id: 1, name: 'Profile Name', imgUrl: 'x' }}
         />
-        {slider}
-        {episodeDetailsContainer}
+        <div className="series-content">
+          {slider}
+          {episodeDetailsContainer}
+        </div>
       </div>
     );
   }

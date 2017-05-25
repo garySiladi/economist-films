@@ -82,12 +82,10 @@ test('Series detail navigation works', () => {
   expect(seriesContainer.state().isSliderSelected).toEqual(true);
   expect(seriesContainer.state().isSideBarSelected).toEqual(false);
   expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  // [0,1]
+  expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+  // [0,0]
   connectEvent(event, 'ArrowRight', seriesContainer);
-  expect(seriesContainer.state().selectedEpisode).toEqual(1);
-  connectEvent(event, 'ArrowRight', seriesContainer);
-  // [0,1]
-  expect(seriesContainer.state().selectedEpisode).toEqual(1);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
   // [0,0]
   connectEvent(event, 'ArrowLeft', seriesContainer);
   expect(seriesContainer.state().selectedEpisode).toEqual(0);
@@ -96,17 +94,23 @@ test('Series detail navigation works', () => {
   expect(seriesContainer.state().isSliderSelected).toEqual(false);
   expect(seriesContainer.state().isSideBarSelected).toEqual(true);
   expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+  connectEvent(event, 'Enter', seriesContainer);
+  seriesContainer.setState({ goToEpisodeDetail: false });
   // slider is selected
   connectEvent(event, 'ArrowRight', seriesContainer);
   expect(seriesContainer.state().isSliderSelected).toEqual(true);
   expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
   // show pop up
   connectEvent(event, 'Enter', seriesContainer);
-  expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
-  // unselect slider
-  seriesContainer.setState({ isSliderSelected: false });
-  // cant open pop up
-  connectEvent(event, 'Enter', seriesContainer);
+  seriesContainer.setState({ goToEpisodeDetail: false });
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
+  expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+  connectEvent(event, 'ArrowRight', seriesContainer);
+  expect(seriesContainer.state().selectedEpisode).toEqual(1);
+  connectEvent(event, 'ArrowRight', seriesContainer);
+  connectEvent(event, 'ArrowLeft', seriesContainer);
+  expect(seriesContainer.state().selectedEpisode).toEqual(0);
   connectEvent(event, 'Backspace', seriesContainer);
   jest.fn(() => {});
   connectEvent(event, 'Space', seriesContainer);
