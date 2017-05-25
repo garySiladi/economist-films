@@ -49,7 +49,7 @@ class SeriesContainer extends React.Component {
       const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
       const foundPosition = series.published_episodes.findIndex(
       episode => episode.id === expandedEpisodeId);
-      (this: any).setState({
+      this.setState({
         series,
         selectedEpisode: foundPosition < 0 ? 0 : foundPosition,
       });
@@ -65,7 +65,7 @@ class SeriesContainer extends React.Component {
   }
   handleExpand() {
     if (this.props.location.query.expandedEpisode) {
-      (this: any).setState({
+      this.setState({
         goToEpisodeDetail: true,
       });
     }
@@ -84,11 +84,11 @@ class SeriesContainer extends React.Component {
       case 'ArrowLeft':
         event.preventDefault();
         if (isSliderSelected && selectedEpisode !== 0) {
-          (this: any).setState({
+          this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
         } if (selectedEpisode === 0) {
-          (this: any).setState({
+          this.setState({
             isSliderSelected: false,
             isSideBarSelected: true,
             goToEpisodeDetail: false,
@@ -98,11 +98,11 @@ class SeriesContainer extends React.Component {
       case 'ArrowRight':
         event.preventDefault();
         if (isSliderSelected && selectedEpisode < series.published_episodes.length - 1) {
-          (this: any).setState({
+          this.setState({
             selectedEpisode: selectedEpisode + 1,
           });
         } if (isSideBarSelected) {
-          (this: any).setState({
+          this.setState({
             isSliderSelected: true,
             isSideBarSelected: false,
           });
@@ -110,7 +110,7 @@ class SeriesContainer extends React.Component {
         break;
       case 'Enter':
         if (isSliderSelected) {
-          (this: any).setState({ goToEpisodeDetail: true });
+          this.setState({ goToEpisodeDetail: true });
         }
         break;
       case 'Backspace':

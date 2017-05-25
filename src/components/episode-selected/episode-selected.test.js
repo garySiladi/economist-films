@@ -48,15 +48,15 @@ describe('HomeContainer ', () => {
     />);
     const event = new Event('keyDown');
     // when home container is selected and there are 2 buttons
-    expect(episodeSelected.state().selectedItem).toEqual(1);
+    expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'Shift', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(2);
+    expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'ArrowRight', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(2);
+    expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowLeft', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(1);
+    expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowUp', episodeSelected);
@@ -65,7 +65,7 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'Backspace', episodeSelected);
     // when home container is unselected and there is just 1 button
     episodeSelected.setState({ isSelectedHomeContainer: false });
-    expect(episodeSelected.state().selectedItem).toEqual(2);
+    expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'Enter', episodeSelected);
@@ -86,7 +86,7 @@ describe('HomeContainer ', () => {
     />);
     const event = new Event('keyDown');
     // when home container is unselected and there is just 1 button
-    expect(episodeSelected.state().selectedItem).toEqual(1);
+    expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'Enter', episodeSelected);
@@ -107,7 +107,7 @@ describe('HomeContainer ', () => {
     />);
     const event = new Event('keyDown');
     // when home container is unselected and there is just 1 button
-    expect(episodeSelected.state().selectedItem).toEqual(1);
+    expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
   });

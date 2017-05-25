@@ -25,13 +25,11 @@ exports[`HomeContainer  renders with data 1`] = `
     <div
       className="episode-buttons"
     >
-      <a
+      <div
         className="episode-buttons__learn"
-        onClick={[Function]}
-        style={Object {}}
       >
         Learn More
-      </a>
+      </div>
     </div>
   </div>
 </div>

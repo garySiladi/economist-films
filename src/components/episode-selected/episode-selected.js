@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import EpisodeDescription from './parts/episode-description';
 import VideoPlayer from '../video-player-container/parts/video-player';
@@ -23,7 +23,7 @@ class episodeSelected extends React.Component {
   constructor() {
     super();
     this.state = {
-      selectedItem: 1,
+      selectedItem: 0,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
   }
@@ -44,6 +44,8 @@ class episodeSelected extends React.Component {
     const {
       closePopupFunction,
       isSelectedHomeContainer,
+      seriesId,
+      id,
     } = this.props;
     switch (event.code) {
       case 'ArrowUp':
@@ -51,7 +53,7 @@ class episodeSelected extends React.Component {
         break;
       case 'ArrowLeft':
         if (isSelectedHomeContainer) {
-          if (selectedItem > 1) {
+          if (selectedItem > 0) {
             this.setState({
               selectedItem: selectedItem - 1,
             });
@@ -60,7 +62,7 @@ class episodeSelected extends React.Component {
         break;
       case 'ArrowRight':
         if (isSelectedHomeContainer) {
-          if (selectedItem < 2) {
+          if (selectedItem < 1) {
             this.setState({
               selectedItem: selectedItem + 1,
             });
@@ -71,11 +73,11 @@ class episodeSelected extends React.Component {
         closePopupFunction(event);
         break;
       case 'Enter':
-        if (selectedItem === 1) {
-          browserHistory.push(`/watch/${this.props.id}`);
+        if (selectedItem === 0) {
+          browserHistory.push(`/watch/${id}`);
         }
-        if (selectedItem === 2) {
-          browserHistory.push(`/series/${this.props.seriesId}?expandedEpisode=${this.props.id}`);
+        if (selectedItem === 1) {
+          browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
         }
         break;
       default:
@@ -90,27 +92,23 @@ class episodeSelected extends React.Component {
       title,
       description,
       videoUrl,
-      seriesId,
       isSelectedHomeContainer,
     } = this.props;
     const {
       selectedItem,
     } = this.state;
-    const learnString = `/series/${seriesId}?expandedEpisode=${id}`;
-    const imageClassName = classnames(
-      'episode-selected__image',
-      { 'episode-selected__image--selected': selectedItem === 1 },
-    );
+    const playButtonClassName = classnames({
+      'episode-selected__image': true,
+      'episode-selected__image--selected': selectedItem === 0,
+    });
+    const learnMoreButtonClassname = classnames({
+      'episode-buttons__learn': true,
+      'episode-buttons__learn--selected': selectedItem === 1,
+    });
     const learnMoreButton = isSelectedHomeContainer ? (
-      <Link
-        className={classnames(
-          'episode-buttons__learn',
-          { 'episode-buttons__learn--selected': selectedItem === 2 },
-        )}
-        to={learnString}
-      >
+      <div className={learnMoreButtonClassname} >
       Learn More
-    </Link>
+    </div>
   ): null;
     return (
       <div className="episode-selected">
@@ -122,7 +120,7 @@ class episodeSelected extends React.Component {
             isMuted
             videoID={id}
           />
-          <img className={imageClassName} src={PlayLogo} alt={title} />
+          <img className={playButtonClassName} src={PlayLogo} alt={title} />
         </div>
         <div className="episode-selected__info-container">
           <EpisodeDescription

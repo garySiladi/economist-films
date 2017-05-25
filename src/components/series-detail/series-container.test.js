@@ -110,8 +110,6 @@ test('Series detail navigation works', () => {
   connectEvent(event, 'Backspace', seriesContainer);
   jest.fn(() => {});
   connectEvent(event, 'Space', seriesContainer);
-  // const foundEpisode = SeriesContainer.findEpisode(dummySliderItems, '141');
-  // expect(foundEpisode).toEqual(1);
   const seriesContainerInstance: Object = seriesContainer.instance();
   seriesContainerInstance.handleReturnFromEpisode();
   seriesContainer.unmount();
@@ -130,7 +128,7 @@ test('Series fetch', () => {
         },
       }}
     />);
-    // $FlowFixMe
+  // $FlowFixMe
   expect(fetches.getSeriesByID.mock.calls.length).toEqual(1);
   mount(
     <SeriesContainer
@@ -141,6 +139,6 @@ test('Series fetch', () => {
         },
       }}
     />);
-    // $FlowFixMe
+  // $FlowFixMe
   expect(fetches.getSeriesByID.mock.calls.length).toEqual(2);
 });
