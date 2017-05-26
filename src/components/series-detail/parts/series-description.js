@@ -1,25 +1,27 @@
 // @flow
 import React from 'react';
+import classnames from 'classnames';
 import './series-description.css';
 
 type SeriesContainerObj = {
-  backgroundUrl: string,
   description: string,
   seriesLogoUrl: string,
-  sponsorLogoUrl: string
+  sponsorLogoUrl: ?string,
+  isWatchnowBtnSelected: boolean,
 };
 
 const SeriesDescription = ({
-    backgroundUrl,
-    description,
-    seriesLogoUrl,
-    sponsorLogoUrl,
-  }: SeriesContainerObj) => {
-  const descriptionBackgroundStyle = {
-    backgroundImage: `url(${backgroundUrl})`,
-  };
+  description,
+  seriesLogoUrl,
+  sponsorLogoUrl,
+  isWatchnowBtnSelected,
+}: SeriesContainerObj) => {
+  const watchnowBtnClass = classnames({
+    'series-description__watchnow-btn': true,
+    'series-description__watchnow-btn--selected': isWatchnowBtnSelected,
+  });
   return (
-    <div className="series-description__parent" style={descriptionBackgroundStyle}>
+    <div className="series-description__parent">
       <div className="gradient-cover" />
       <div className="series-description">
         <div className="series-description__series-logo series-description__flex-child">
@@ -35,15 +37,15 @@ const SeriesDescription = ({
           {description}
         </div>
         <div className="series-description__right-wrapper series-description__flex-child">
-          <div className="series-description__supporter-logo">
+          <div className="series-description__sponsor-logo">
             <img
               className="series-description__logo-img"
               src={sponsorLogoUrl}
-              alt={'supporter logo'}
+              alt={sponsorLogoUrl ? 'sponsor logo' : ''}
             />
           </div>
           <div
-            className="series-description__watchnow-btn"
+            className={watchnowBtnClass}
             role="button"
             to="/"
           >

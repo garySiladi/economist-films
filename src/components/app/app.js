@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { browserHistory } from 'react-router';
 import SidePanel from '../side-panel/side-panel';
 import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
@@ -25,10 +26,9 @@ class App extends React.Component {
       type: 'series',
     };
   }
-  static massageSeries(series: Object) {
-    series.pop();
-    series.pop();
-    return series;
+  static massageSeries(series: Array<Object>) {
+    // remove featured and More from the Economist
+    return series.filter(shelf => shelf.id !== 11 && shelf.id !== 14);
   }
   static setEpisodeByParam(id: ?string, series: Array<SeriesType>) {
     const foundEpisodes = [];
@@ -167,9 +167,14 @@ class App extends React.Component {
       case 'Enter':
         event.preventDefault();
         if (isSelectedHomeContainer) {
-          this.setState({
-            goToEpisode: true,
-          });
+          if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
+            const seriesId = series[selectedSeries].series_id;
+            browserHistory.push(`/series/${seriesId}`);
+          } else {
+            this.setState({
+              goToEpisode: true,
+            });
+          }
         }
         break;
       case 'Backspace':
@@ -208,6 +213,7 @@ class App extends React.Component {
           selectedEpisode={selectedEpisode}
           goToEpisode={goToEpisode}
           closePopupFunction={this.handleReturnFromEpisode}
+          isSelectedHomeContainer={isSelectedHomeContainer}
         />
       </div>
     );

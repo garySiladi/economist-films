@@ -8,6 +8,11 @@ const mockData = [
     title: 'Ocean',
     items: [
       {
+        id: 0,
+        title: 'zzz',
+        type: 'Series',
+      },
+      {
         id: 1,
         title: 'xxx',
         type: 'Episode',
@@ -51,6 +56,21 @@ const mockData = [
   },
 ];
 
+const mockDataWithUnwantedEpisodes = [
+  {
+    title: 'Wanted',
+    id: 1,
+  },
+  {
+    title: 'Unwanted 1',
+    id: 11,
+  },
+  {
+    title: 'Unwanted 2',
+    id: 14,
+  },
+];
+
 jest.mock('../side-panel/side-panel', () =>
   jest.fn(() => <div>Side Panel</div>),
 );
@@ -77,6 +97,8 @@ describe('App: ', () => {
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     const event = new Event('keyDown');
+    // no functionaility, just need to cover all branches, default switch
+    connectEvent(event, 'Shift', app, 'handleKeyPress');
     // we have the first episode of the first series selected [0,0]
     // we select the second episode of the first series [0,1]
     connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
@@ -96,6 +118,7 @@ describe('App: ', () => {
     // we try the upper bounds
     connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(0);
+    connectEvent(event, 'Enter', app, 'handleKeyPress');
     connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
     // the Backspace button resets the selected episode
@@ -116,6 +139,9 @@ describe('App: ', () => {
     expect(app.state().selectedEpisode).toEqual(1);
     connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent(event, 'Enter', app, 'handleKeyPress');
+    expect(app.state().goToEpisode).toEqual(true);
     // no functionaility, just need to cover all branches, default switch
     connectEvent(event, 'Shift', app, 'handleKeyPress');
     connectEvent(event, 'Enter', app, 'handleKeyPress');
@@ -146,4 +172,11 @@ describe('App: ', () => {
     const wrapper = shallow(<App params={{}} />);
     wrapper.unmount();
   });
+});
+
+test('removes Featured and More from the Economist from JSON', () => {
+  const series = App.massageSeries(mockDataWithUnwantedEpisodes);
+  expect(series).toEqual([
+    mockDataWithUnwantedEpisodes[0]
+  ]);
 });

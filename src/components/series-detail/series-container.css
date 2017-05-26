@@ -1,3 +1,8 @@
 .series-container {
+  height: 100vh;
   display: block;
+}
+
+.series-content {
+  margin-left: 100px;
 }

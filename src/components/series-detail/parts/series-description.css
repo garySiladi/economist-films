@@ -5,6 +5,8 @@
   --middle-col-width: 55%;
   --right-col-width: 25%;
   --description-height: 60vh;
+  --slider-space-height: calc(100vh - var(--description-height));
+  --slider-container-height: 320px;
   --description-font-size: 1.5em;
   --offset-size-small: 10px;
   --button-width: 48%;
@@ -12,6 +14,9 @@
   --button-line-height: 2em;
   --button-height: 80px;
   --button-width: 70%;
+  --btn-transition-delay: 0.3s;
+  --btn-opacity-unselected: 0.5;
+  --btn-opacity-selected: 1;
 }
 
 .series-description {
@@ -19,7 +24,7 @@
   display: flex;
 
   &__parent {
-    height: 100vh;
+    margin-bottom: calc(var(--slider-space-height) - var(--slider-container-height));
   }
 
   &__flex-child {
@@ -47,7 +52,7 @@
     flex-basis: var(--right-col-width);
   }
 
-  &__supporter-logo {
+  &__sponsor-logo {
     display: flex;
     align-items: center;
     height: 100%;
@@ -61,6 +66,7 @@
   &__watchnow-btn {
     align-self: center;
     text-align: center;
+    font-weight: bold;
     display: inline-block;
     font-size: var(--button-font-size);
     line-height: var(--button-line-height);
@@ -68,13 +74,12 @@
     padding: var(--offset-size-small);
     background-color: var(--economist-red);
     color: var(--economist-white);
-    transition: background-color 0.3s;
+    transition: background-color var(--btn-transition-delay);
+    opacity: var(--btn-opacity-unselected);
   }
 
-  &__watchnow-btn:hover {
-    cursor: pointer;
-    color: var(--economist-blue);
-    background-color: var(--economist-redWine);
+  &__watchnow-btn--selected {
+    opacity: var(--btn-opacity-selected);
   }
 }
 

@@ -10,6 +10,7 @@ test('SeriesDescription renders with data', () => {
       description="aaa"
       seriesLogoUrl="yyy"
       sponsorLogoUrl="zzz"
+      isWatchnowBtnSelected={false}
     />,
   ).toJSON();
   expect(tree).toMatchSnapshot();

@@ -19,56 +19,95 @@ function connectEvent(event, type, wrapper) {
   episodeSelected.handleKeyPress(event);
 }
 
-describe('HomeContainer: ', () => {
+describe('HomeContainer ', () => {
   test('renders with data', () => {
     const tree : string = renderer.create(<EpisodeSelected
       id={3}
-      url="url xyz"
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
       title="title xyz"
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
-      videoUrl=""
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer
     />).toJSON();
     expect(tree).toMatchSnapshot();
   });
-  test('handles keyboard events', () => {
-    let episodeSelected = mount(<EpisodeSelected
+  test('handles keyboard events when homeContainer is selected', () => {
+    const episodeSelected = mount(<EpisodeSelected
       id={3}
-      url="url xyz"
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
       title="title xyz"
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
-      videoUrl=""
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer
     />);
     const event = new Event('keyDown');
+    // when home container is selected and there are 2 buttons
     expect(episodeSelected.state().selectedItem).toEqual(0);
+    connectEvent(event, 'Shift', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'ArrowRight', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(2);
-    connectEvent(event, 'ArrowRight', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(2);
-    connectEvent(event, 'ArrowLeft', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
-    expect(episodeSelected.state().selectedItem).toEqual(0);
+    connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowUp', episodeSelected);
+    connectEvent(event, 'Enter', episodeSelected);
+    connectEvent(event, 'ArrowRight', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
-    connectEvent(event, 'Shift', episodeSelected);
-    episodeSelected = mount(<EpisodeSelected
+    // when home container is unselected and there is just 1 button
+    episodeSelected.setState({ isSelectedHomeContainer: false });
+    expect(episodeSelected.state().selectedItem).toEqual(1);
+    connectEvent(event, 'Enter', episodeSelected);
+    connectEvent(event, 'ArrowLeft', episodeSelected);
+    connectEvent(event, 'Enter', episodeSelected);
+    connectEvent(event, 'ArrowRight', episodeSelected);
+    connectEvent(event, 'Backspace', episodeSelected);
+  });
+  test('handles keyboard events when homeContainer is unslected', () => {
+    const episodeSelected = mount(<EpisodeSelected
       id={3}
-      url="url xyz"
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
       title="title xyz"
       subtitle="subtitle xyz"
       description="description xyz"
-      closePopupFunction={null}
-      videoUrl=""
+      closePopupFunction={() => {}}
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer={false}
     />);
+    const event = new Event('keyDown');
+    // when home container is unselected and there is just 1 button
+    expect(episodeSelected.state().selectedItem).toEqual(0);
+    connectEvent(event, 'Enter', episodeSelected);
+    connectEvent(event, 'ArrowLeft', episodeSelected);
+    connectEvent(event, 'Enter', episodeSelected);
+    connectEvent(event, 'ArrowRight', episodeSelected);
+    connectEvent(event, 'Backspace', episodeSelected);
+  });
+  test('handles keyboard events without closePopupFunction', () => {
+    const episodeSelected = mount(<EpisodeSelected
+      id={3}
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
+      title="title xyz"
+      subtitle="subtitle xyz"
+      description="description xyz"
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer
+      closePopupFunction={() => {}}
+    />);
+    const event = new Event('keyDown');
+    // when home container is unselected and there is just 1 button
+    expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
   });
@@ -81,6 +120,8 @@ describe('HomeContainer: ', () => {
       description="description xyz"
       closePopupFunction={() => {}}
       videoUrl=""
+      seriesId={7}
+      isSelectedHomeContainer
     />);
     wrapper.unmount();
   });

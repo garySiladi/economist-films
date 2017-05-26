@@ -11,6 +11,8 @@
   --video-teaser-height: 350px;
   --video-teaser-blur: 5px;
   --video-button-width: 100px;
+  --opacityUnselect: 0.5;
+  --opacitySelect: 1;
 }
 
 .episode-selected {
@@ -26,11 +28,11 @@
     left: calc(50% - var(--video-button-width) / 2);
     cursor: pointer;
     transition: opacity 0.3s;
-    opacity: 0.5;
+    opacity: var(--opacityUnselect);
   }
 
   &__image--selected {
-    opacity: 1;
+    opacity: var(--opacitySelect);
   }
 
   &__teaser-wrapper {
@@ -71,6 +73,7 @@
     background-color: var(--economist-red);
     color: var(--economist-white);
     transition: background-color 0.3s;
+    opacity: var(--opacityUnselect);
   }
 
   &__watch--selected,
@@ -78,7 +81,7 @@
   &__watch:hover,
   &__learn:hover {
     cursor: pointer;
-    background-color: var(--economist-redWine);
+    opacity: var(--opacitySelect);
   }
 
   &__watch {

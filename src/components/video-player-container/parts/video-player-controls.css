@@ -1,15 +1,15 @@
 @import '../../../colors.css';
 
 :root {
-  --video-controls-icon-margin: 15px;
-  --progress-bar-height: 15px;
-  --progress-times-size: 4em;
-  --progress-times-padding: 20px;
+  --video-controls-icon-margin: 1%;
+  --progress-bar-height: 1em;
+  --video-text-size: 2em;
   --progress-bar-sides-padding: 100px;
   --progress-bar-bottom-padding: 40px;
-  --navigation-margin-top: 30px;
-  --navigation-margin-bottom: 15px;
-  --navigation-icons-size: 130px;
+  --navigation-margin: 30px;
+  --navigation-icons-size: 8em;
+  --back-button-size: 4em;
+  --svg-icon-offset: 7px;
 }
 
 .player-interface {
@@ -21,30 +21,74 @@
   bottom: 0;
   padding: 0 var(--progress-bar-sides-padding) var(--progress-bar-bottom-padding);
   text-align: center;
+  transition: opacity 0.4s;
 
-  &__progress-bar-container {
-    background: var(--economist-grey);
+  &--hidden {
+    opacity: 0;
+  }
+
+  &__top {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: var(--progress-bar-height);
+    height: 20%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  }
+
+  &__bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 10%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+  }
+
+  &__back-button {
+    position: fixed;
+    top: 4%;
+    left: 40px;
+    width: var(--back-button-size);
+    height: var(--back-button-size);
+
+    &.selected {
+      background: var(--economist-red);
+      border-radius: 100%;
+    }
+  }
+
+  &__episode-title {
+    position: fixed;
+    top: 4.5%;
+    left: 100px;
+    font-size: calc(var(--video-text-size) * 1.5);
   }
 
   &__progress-time {
     display: flex;
     justify-content: space-between;
-    padding: var(--progress-times-padding);
+    padding: 0 4% 15px;
   }
 
   &__progress-time--current {
-    font-size: var(--progress-times-size);
+    font-size: var(--video-text-size);
   }
 
   &__progress-time--final {
-    font-size: var(--progress-times-size);
+    font-size: var(--video-text-size);
   }
 
   &__navigation-wrapper {
     display: block;
-    margin: var(--navigation-margin-top) 0 var(--navigation-margin-bottom);
+    margin: var(--navigation-margin) 0;
+  }
+
+  &__progress-bar-container {
+    background: var(--economist-lightgrey);
+    width: 95%;
+    height: var(--progress-bar-height);
+    margin: 0 2.5%;
   }
 
   &__progress-bar {
@@ -53,21 +97,39 @@
   }
 
   &__navigation-control {
+    width: var(--navigation-icons-size);
+    height: var(--navigation-icons-size);
     margin: 0 var(--video-controls-icon-margin);
     background: var(--economist-grey);
 
     &.selected {
       background: var(--economist-red);
-      width: var(--navigation-icons-size);
-      height: var(--navigation-icons-size);
       border-radius: 100%;
     }
   }
-}
 
-.video-player-back-button.selected {
-  background: var(--economist-red);
-  width: var(--navigation-icons-size);
-  height: var(--navigation-icons-size);
-  border-radius: 100%;
+  &__navigation-icons {
+    width: 60%;
+
+    &--back {
+      margin-right: 5px;
+    }
+
+    &--rewind {
+      margin-right: var(--svg-icon-offset);
+    }
+
+    &--forward {
+      margin-left: var(--svg-icon-offset);
+    }
+
+    &--play {
+      width: 50%;
+      margin-left: var(--svg-icon-offset);
+    }
+
+    &--pause {
+      width: 50%;
+    }
+  }
 }
