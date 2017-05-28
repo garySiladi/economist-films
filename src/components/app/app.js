@@ -5,6 +5,7 @@ import SidePanel from '../side-panel/side-panel';
 import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
+import UserIcon from '../../../public/assets/user-1.gif';
 
 type AppParamsProps = {
   selectedEpisodeId?: string, // eslint-disable-line
@@ -98,13 +99,13 @@ class App extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
   props: AppProps
-  handleReturnFromEpisode(event: Object) {
+  handleReturnFromEpisode(event: KeyboardEvent) {
     event.preventDefault();
     this.setState({
       goToEpisode: false,
     });
   }
-  handleKeyPress(event: Object) { // TODO: maybe export this functionality to another file
+  handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
     const {
       isSelectedSidePanel,
       isSelectedHomeContainer,
@@ -165,7 +166,9 @@ class App extends React.Component {
         }
         break;
       case 'Enter':
-        event.preventDefault();
+        if (!isSelectedSidePanel) {
+          event.preventDefault();
+        }
         if (isSelectedHomeContainer) {
           if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
             const seriesId = series[selectedSeries].series_id;
@@ -204,7 +207,7 @@ class App extends React.Component {
       <div className="app">
         <SidePanel
           isSelected={isSelectedSidePanel}
-          user={{ id: 1, name: 'Profile Name', imgUrl: 'x' }}
+          user={{ id: 1, name: 'Lemoni', imgUrl: UserIcon }}
         />
         <HomeContainer
           series={series}
