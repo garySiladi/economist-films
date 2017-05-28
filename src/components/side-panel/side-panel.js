@@ -15,7 +15,7 @@ export type SidePanelPropsType = {
     name: string,
     imgUrl: string,
   },
-  isSelected: boolean,
+  isSelected?: boolean,
 }
 
 type SidePanelStateType = {
@@ -95,8 +95,8 @@ class SidePanel extends React.Component {
           break;
         }
         case 'ArrowDown': {
-          const newPosition = this.state.selectedCard <= sidePanelOptions.length ?
-            this.state.selectedCard + 1 : sidePanelOptions.length;
+          const newPosition = this.state.selectedCard < this.state.cards.length - 1 ?
+            this.state.selectedCard + 1 : this.state.cards.length - 1;
           this.setState({
             selectedCard: newPosition,
           });
