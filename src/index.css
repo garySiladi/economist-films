@@ -1,4 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Oxygen');
+@import url('http://cdn.static-economist.com/assets/econsans-md--36046bbaa3197fdb03d8d162abc8b6dfbb81e639--.woff2');
+@import url('http://cdn.static-economist.com/assets/milo-md--6a91f04e782d6f6822dc095279ac79edb60c76d8--.woff2');
+
+@font-face {
+  font-family: EconSans;
+  src: url('http://cdn.static-economist.com/assets/econsans-rg--33a508b17708864643ededa7c134d7e08b3487c6--.woff2');
+}
+
+@font-face {
+  font-family: Milo;
+  src: url('http://cdn.static-economist.com/assets/milo-md--6a91f04e782d6f6822dc095279ac79edb60c76d8--.woff2');
+}
 
 html,
 #root {
@@ -10,7 +21,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--economist-grey, black);
-  font-family: sans-serif;
+  font-family: EconSans;
   font-size: 2rem;
 }
 

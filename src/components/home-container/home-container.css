@@ -20,7 +20,7 @@
   }
 
   &-slider {
-    font-family: 'Oxygen', sans-serif;
+    font-family: EconSans;
     font-size: var(--home-container--font-size);
     margin-top: 0;
     padding: var(--home-container--padding);
