@@ -70,6 +70,12 @@ class SidePanel extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
   }
 
+  componentWillReceiveProps(nextProps: SidePanelPropsType) {
+    if (this.props.isSelected && !nextProps.isSelected) {
+      this.setState({ selectedCard: 1 });
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }

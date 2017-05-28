@@ -32,7 +32,7 @@ test('mounts/unmounts', () => {
   sidePanel.unmount();
 });
 
-test('homepage navigation works', () => {
+test('SidePanel navigation works', () => {
   browserHistory.push = jest.fn();
   const sidePanel = mount(<SidePanel user={dummyUser} isSelected />);
   const sidePanelInstance: Object = sidePanel.instance();
@@ -70,12 +70,24 @@ test('homepage navigation works', () => {
 });
 
 test('does not handle events when not selected', () => {
-  browserHistory.push = jest.fn();
   const sidePanel = mount(<SidePanel user={dummyUser} />);
   const sidePanelInstance: Object = sidePanel.instance();
   const fakeEvent = { code: 'ArrowUp' };
   expect(sidePanel.state().selectedCard).toEqual(1);
   sidePanelInstance.handleKeyPress(fakeEvent);
   // does nothing
+  expect(sidePanel.state().selectedCard).toEqual(1);
+});
+
+test('Resets selected position to 1 on unselecting', () => {
+  const sidePanel = mount(<SidePanel user={dummyUser} />);
+  const sidePanelInstance: Object = sidePanel.instance();
+  const fakeEvent = { code: 'ArrowUp' };
+  expect(sidePanel.state().selectedCard).toEqual(1);
+  sidePanel.setProps({ isSelected: true });
+  expect(sidePanel.state().selectedCard).toEqual(1);
+  sidePanelInstance.handleKeyPress(fakeEvent);
+  expect(sidePanel.state().selectedCard).toEqual(0);
+  sidePanel.setProps({ isSelected: false });
   expect(sidePanel.state().selectedCard).toEqual(1);
 });
