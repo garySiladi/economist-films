@@ -42,6 +42,10 @@ const sidePanelOptions = [
 ];
 
 class SidePanel extends React.Component {
+  static defaultProps = {
+    isSelected: false,
+  };
+
   constructor(props: SidePanelPropsType) {
     super(props);
     const {
