@@ -1,5 +1,5 @@
 :root {
-  --icon-size: 60px;
+  --icon-size: 45px;
   --economist-color: #e3120b;
 }
 
@@ -20,20 +20,14 @@
   &__title {
     display: table-cell;
     opacity: 0;
-    width: 230px;
+    width: 180px;
     height: var(--icon-size);
     padding-left: 20px;
     color: white;
-    font-size: 36px;
+    font-size: 28px;
     line-height: var(--icon-size);
     vertical-align: middle;
     white-space: nowrap;
     transition: opacity 0s;
-  }
-
-  &--active {
-    & .side-panel-card__title {
-      color: var(--economist-color);
-    }
   }
 }

@@ -6,6 +6,7 @@ import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
+import UserIcon from '../../../public/assets/user-1.gif';
 
 export type SeriesContainerProps = {
   params: {
@@ -158,7 +159,7 @@ class SeriesContainer extends React.Component {
       <div className="series-container">
         <SidePanel
           isSelected={isSideBarSelected}
-          user={{ id: 1, name: 'Profile Name', imgUrl: 'x' }}
+          user={{ id: 1, name: 'Profile Name', imgUrl: UserIcon }}
         />
         <div className="series-content">
           {slider}
