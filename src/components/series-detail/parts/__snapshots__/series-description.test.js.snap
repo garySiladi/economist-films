@@ -16,7 +16,7 @@ exports[`SeriesDescription renders with data 1`] = `
       <img
         alt="sponsor logo"
         className="series-description__logo-img"
-        src="yyy"
+        src="u1"
       />
     </div>
     <div
@@ -33,7 +33,7 @@ exports[`SeriesDescription renders with data 1`] = `
         <img
           alt="sponsor logo"
           className="series-description__logo-img"
-          src="zzz"
+          src="u2"
         />
       </div>
       <div

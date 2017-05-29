@@ -1,5 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SeriesContainer SeriesContainer renders without data 1`] = `
+<div
+  className="series-container"
+  style={null}
+>
+  <div
+    className="side-panel"
+  >
+    <ul
+      className="side-panel__option-list"
+    >
+      <li
+        className="side-panel__option"
+      >
+        <a
+          className="side-panel-card"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <img
+            alt="Profile Name"
+            className="side-panel-card__icon side-panel-card__icon--Profile Name"
+            src="user-1.gif"
+          />
+          <span
+            className="side-panel-card__title"
+          >
+            Profile Name
+          </span>
+        </a>
+      </li>
+      <li
+        className="side-panel__option side-panel__option--active"
+      >
+        <a
+          className="side-panel-card"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <img
+            alt="Search"
+            className="side-panel-card__icon side-panel-card__icon--Search"
+            src="Search.svg"
+          />
+          <span
+            className="side-panel-card__title"
+          >
+            Search
+          </span>
+        </a>
+      </li>
+      <li
+        className="side-panel__option"
+      >
+        <a
+          className="side-panel-card"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <img
+            alt="Home"
+            className="side-panel-card__icon side-panel-card__icon--Home"
+            src="Home.svg"
+          />
+          <span
+            className="side-panel-card__title"
+          >
+            Home
+          </span>
+        </a>
+      </li>
+      <li
+        className="side-panel__option"
+      >
+        <a
+          className="side-panel-card"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <img
+            alt="Favorites"
+            className="side-panel-card__icon side-panel-card__icon--Favorites"
+            src="Favorites.svg"
+          />
+          <span
+            className="side-panel-card__title"
+          >
+            Favorites
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="series-content"
+  />
+</div>
+`;
+
 exports[`SeriesContainer renders correctly 1`] = `
 <div
   className="series-container"
@@ -19,20 +118,11 @@ exports[`SeriesContainer renders correctly 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--x"
-            height="60"
-            width="60"
-          >
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2"
-            />
-          </svg>
+          <img
+            alt="Profile Name"
+            className="side-panel-card__icon side-panel-card__icon--Profile Name"
+            src="user-1.gif"
+          />
           <span
             className="side-panel-card__title"
           >
@@ -44,24 +134,15 @@ exports[`SeriesContainer renders correctly 1`] = `
         className="side-panel__option side-panel__option--active"
       >
         <a
-          className="side-panel-card side-panel-card--active"
+          className="side-panel-card"
           onClick={[Function]}
           style={Object {}}
         >
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--search-icon"
-            height="60"
-            width="60"
-          >
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2"
-            />
-          </svg>
+          <img
+            alt="Search"
+            className="side-panel-card__icon side-panel-card__icon--Search"
+            src="Search.svg"
+          />
           <span
             className="side-panel-card__title"
           >
@@ -77,20 +158,11 @@ exports[`SeriesContainer renders correctly 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--home-icon"
-            height="60"
-            width="60"
-          >
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2"
-            />
-          </svg>
+          <img
+            alt="Home"
+            className="side-panel-card__icon side-panel-card__icon--Home"
+            src="Home.svg"
+          />
           <span
             className="side-panel-card__title"
           >
@@ -106,20 +178,11 @@ exports[`SeriesContainer renders correctly 1`] = `
           onClick={[Function]}
           style={Object {}}
         >
-          <svg
-            className="side-panel-card__icon side-panel-card__icon--favorites-icon"
-            height="60"
-            width="60"
-          >
-            <circle
-              cx="30"
-              cy="30"
-              fill="white"
-              r="29"
-              stroke="silver"
-              strokeWidth="2"
-            />
-          </svg>
+          <img
+            alt="Favorites"
+            className="side-panel-card__icon side-panel-card__icon--Favorites"
+            src="Favorites.svg"
+          />
           <span
             className="side-panel-card__title"
           >

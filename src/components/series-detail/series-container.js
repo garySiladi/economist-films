@@ -7,6 +7,7 @@ import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
 import SeriesDescription from './parts/series-description';
+import UserIcon from '../../../public/assets/user-1.gif';
 
 export type SeriesContainerProps = {
   params: {
@@ -34,16 +35,19 @@ type SeriesType = {
   description: string,
   additional_assets: [
     {
+      key: string,
       file: {
         url: string,
       },
     },
     {
+      key: string,
       file: {
         url: string,
       },
     },
     {
+      key: string,
       file: {
         url: string,
       },
@@ -185,16 +189,25 @@ class SeriesContainer extends React.Component {
       goToEpisodeDetail,
       isWatchnowBtnSelected,
     } = this.state;
-    const backgroundStyle = series ? {
-      background: `url(${series.additional_assets[0].file.url}) top center no-repeat`,
+    const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
+    const [
+      backgroundAsset,
+      logoAsset,
+      sponsorAsset,
+    ] = assetKeys.map(key => series ? series.additional_assets.find(
+        asset => asset.key === key,
+      ) : null,
+    );
+    const backgroundStyle = backgroundAsset ? {
+      background: `url(${backgroundAsset.file.url}) top center no-repeat`,
     } : null;
     const selectedEpisodeData = series && series.published_episodes[selectedEpisode];
     const seriesDescriptionContainer = series ? (
       <SeriesDescription
         isWatchnowBtnSelected={isWatchnowBtnSelected}
         description={series.description}
-        seriesLogoUrl={series.additional_assets[1].file.url}
-        sponsorLogoUrl={series.additional_assets[2] ? series.additional_assets[2].file.url : null}
+        seriesLogoUrl={logoAsset ? logoAsset.file.url : null}
+        sponsorLogoUrl={sponsorAsset ? sponsorAsset.file.url : null}
       />
     ) : null;
     const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
@@ -225,7 +238,7 @@ class SeriesContainer extends React.Component {
       <div className="series-container" style={backgroundStyle}>
         <SidePanel
           isSelected={isSideBarSelected}
-          user={{ id: 1, name: 'Profile Name', imgUrl: 'x' }}
+          user={{ id: 1, name: 'Profile Name', imgUrl: UserIcon }}
         />
         <div className="series-content">
           {seriesDescriptionContainer}

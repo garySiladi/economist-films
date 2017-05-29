@@ -96,7 +96,7 @@ describe('App: ', () => {
     const app = mount(<App params={{}} />);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
-    const event = new Event('keyDown');
+    const event = new Event('ArrowDown');
     // no functionaility, just need to cover all branches, default switch
     connectEvent(event, 'Shift', app, 'handleKeyPress');
     // we have the first episode of the first series selected [0,0]
@@ -177,6 +177,6 @@ describe('App: ', () => {
 test('removes Featured and More from the Economist from JSON', () => {
   const series = App.massageSeries(mockDataWithUnwantedEpisodes);
   expect(series).toEqual([
-    mockDataWithUnwantedEpisodes[0]
+    mockDataWithUnwantedEpisodes[0],
   ]);
 });

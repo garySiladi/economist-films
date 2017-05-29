@@ -5,7 +5,7 @@ import './series-description.css';
 
 type SeriesContainerObj = {
   description: string,
-  seriesLogoUrl: string,
+  seriesLogoUrl: ?string,
   sponsorLogoUrl: ?string,
   isWatchnowBtnSelected: boolean,
 };

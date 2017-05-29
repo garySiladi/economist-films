@@ -1,8 +1,9 @@
 @import '../../colors.css';
 
 :root {
-  --side-panel-width: 100px;
-  --side-panel-width-expanded: 350px;
+  --side-panel-width: 85px;
+  --side-panel-width-expanded: 300px;
+  --side-panel-option-border: 5px solid var(--economist-red, red);
 }
 
 .side-panel {
@@ -22,26 +23,27 @@
   &__option {
     width: 100%;
     padding: 15px 20px;
-    transition: background-color 0s;
 
     &:first-child {
       margin-bottom: 100px;
-    }
-  }
 
-  & .side-panel-card__icon circle {
-    fill: var(--economist-white, white);
+      & .side-panel-card__icon {
+        border-radius: 100%;
+      }
+    }
   }
 
   &--expanded {
     width: var(--side-panel-width-expanded);
-    transition: width 0.4s;
+    box-shadow: 0 0 35px 10px var(--economist-grey, black);
 
     & .side-panel__option {
-      transition: background-color 0.2s ease-in 0.2s;
+      border-right: var(--side-panel-option-border);
+      transition: box-shadow 0.2s, border 0.2s;
 
       &--active {
-        background-color: var(--economist-white, white);
+        border-right-color: var(--economist-white, white);
+        box-shadow: inset 0 0 10px 4px var(--economist-shadeRed, red);
       }
     }
 
