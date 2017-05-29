@@ -43,7 +43,7 @@
 
       &--active {
         border-right-color: var(--economist-white, white);
-        box-shadow: inset 0 0 15px 6px var(--economist-shadeRed, red);
+        box-shadow: inset 0 0 10px 4px var(--economist-shadeRed, red);
       }
     }
 
