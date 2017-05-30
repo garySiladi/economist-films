@@ -6,6 +6,7 @@ import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
+import SeriesDescription from './parts/series-description';
 import UserIcon from '../../../public/assets/user-1.gif';
 
 export type SeriesContainerProps = {
@@ -15,17 +16,54 @@ export type SeriesContainerProps = {
   location: {
     query: {
       expandedEpisode: string,
-    }
+    },
   },
-}
-export type SeriesContainerState = {
-  series: ?Object,
+};
+type PublishedEpisodeType = {
+  id: number,
+  series_id: number,
+  thumbnail: {
+    url: string,
+  },
+  title: string,
+  subtitle: string,
+  description: string,
+  video_url: string,
+};
+type SeriesType = {
+  title: string,
+  description: string,
+  additional_assets: [
+    {
+      key: string,
+      file: {
+        url: string,
+      },
+    },
+    {
+      key: string,
+      file: {
+        url: string,
+      },
+    },
+    {
+      key: string,
+      file: {
+        url: string,
+      },
+    },
+  ],
+  published_episodes: Array<PublishedEpisodeType>
+};
+type SeriesContainerState = {
+  series: ?SeriesType,
   selectedEpisode: number,
   isSliderSelected: boolean,
   isSideBarSelected: boolean,
   isEpisodeDetailSelected: boolean,
   goToEpisodeDetail: boolean,
-}
+  isWatchnowBtnSelected: boolean,
+};
 
 class SeriesContainer extends React.Component {
   constructor(props: SeriesContainerProps) {
@@ -37,6 +75,7 @@ class SeriesContainer extends React.Component {
       isSideBarSelected: false,
       goToEpisodeDetail: false,
       isEpisodeDetailSelected: false,
+      isWatchnowBtnSelected: false,
     };
     (this: any).handleKeyPress = (this: any).handleKeyPress.bind(this);
     (this: any).handleExpand = (this: any).handleExpand.bind(this);
@@ -80,6 +119,7 @@ class SeriesContainer extends React.Component {
       selectedEpisode,
       isSliderSelected,
       isSideBarSelected,
+      isWatchnowBtnSelected,
     } = this.state;
     switch (event.code) {
       case 'ArrowLeft':
@@ -110,9 +150,28 @@ class SeriesContainer extends React.Component {
           });
         }
         break;
+      case 'ArrowUp':
+        event.preventDefault();
+        if (isSliderSelected) {
+          this.setState({
+            isSliderSelected: false,
+            isWatchnowBtnSelected: true,
+          });
+        }
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        if (isWatchnowBtnSelected) {
+          this.setState({
+            isSliderSelected: true,
+            isWatchnowBtnSelected: false,
+          });
+        }
+        break;
       case 'Enter':
         if (isSliderSelected) {
           this.setState({ goToEpisodeDetail: true });
+          window.scrollTo(0, window.document.body.scrollHeight);
         }
         break;
       case 'Backspace':
@@ -121,7 +180,6 @@ class SeriesContainer extends React.Component {
       default:
     }
   }
-
   render() {
     const {
       series,
@@ -129,8 +187,29 @@ class SeriesContainer extends React.Component {
       isSliderSelected,
       isSideBarSelected,
       goToEpisodeDetail,
+      isWatchnowBtnSelected,
     } = this.state;
+    const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
+    const [
+      backgroundAsset,
+      logoAsset,
+      sponsorAsset,
+    ] = assetKeys.map(key => series ? series.additional_assets.find(
+        asset => asset.key === key,
+      ) : null,
+    );
+    const backgroundStyle = backgroundAsset ? {
+      background: `url(${backgroundAsset.file.url}) top center no-repeat`,
+    } : null;
     const selectedEpisodeData = series && series.published_episodes[selectedEpisode];
+    const seriesDescriptionContainer = series ? (
+      <SeriesDescription
+        isWatchnowBtnSelected={isWatchnowBtnSelected}
+        description={series.description}
+        seriesLogoUrl={logoAsset ? logoAsset.file.url : null}
+        sponsorLogoUrl={sponsorAsset ? sponsorAsset.file.url : null}
+      />
+    ) : null;
     const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
       <EpisodeSelected
         id={selectedEpisodeData.id}
@@ -156,12 +235,13 @@ class SeriesContainer extends React.Component {
       />
     ): null;
     return (
-      <div className="series-container">
+      <div className="series-container" style={backgroundStyle}>
         <SidePanel
           isSelected={isSideBarSelected}
           user={{ id: 1, name: 'Profile Name', imgUrl: UserIcon }}
         />
         <div className="series-content">
+          {seriesDescriptionContainer}
           {slider}
           {episodeDetailsContainer}
         </div>
@@ -169,4 +249,5 @@ class SeriesContainer extends React.Component {
     );
   }
 }
+
 export default SeriesContainer;
