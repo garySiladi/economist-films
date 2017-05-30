@@ -5,7 +5,26 @@ import { mount } from 'enzyme';
 import * as fetches from '../../api/fetch';
 import SeriesContainer from './series-container';
 
-const dummySliderItems = {
+const dummySliderItemsWithoutKeys = {
+  title: 't1',
+  description: 'aaa',
+  additional_assets: [
+    {
+      file: {
+        url: 'xxx',
+      },
+    },
+    {
+      file: {
+        url: 'yyy',
+      },
+    },
+    {
+      file: {
+        url: 'zzz',
+      },
+    },
+  ],
   published_episodes: [
     {
       id: 119,
@@ -26,40 +45,6 @@ const dummySliderItems = {
   ],
 };
 
-jest.mock('../side-panel/side-panel', () =>
-  jest.fn(() => <div>Side Panel</div>),
-);
-
-jest.mock('../episode-selected/episode-selected', () =>
-  jest.fn(() => <div>Episode selected</div>),
-);
-
-test('renders correctly', () => {
-  const tree : string = renderer.create(
-    <SeriesContainer
-      params={{ id: 50 }}
-      location={{
-        query: {
-          expandedEpisode: '100',
-        },
-      }}
-    />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-test('Series detail navigation works', () => {
-  const seriesContainer = mount(
-    <SeriesContainer
-      params={{ id: 50 }}
-      location={{
-        query: {
-          expandedEpisode: '',
-        },
-      }}
-    />);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-});
-
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
   changedEvent.code = type;
@@ -67,84 +52,156 @@ function connectEvent(event, type, wrapper) {
   seriesContainer.handleKeyPress(event);
 }
 
-test('Series detail navigation works', () => {
-  const seriesContainer = mount(
-    <SeriesContainer
-      params={{ id: 50 }}
-      location={{
-        query: {
-          expandedEpisode: '119',
-        },
-      }}
-    />);
-  const event = new Event('keyDown');
-  seriesContainer.setState({ series: dummySliderItems });
-  expect(seriesContainer.state().isSliderSelected).toEqual(true);
-  expect(seriesContainer.state().isSideBarSelected).toEqual(false);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
-  // [0,0]
-  connectEvent(event, 'ArrowRight', seriesContainer);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  // [0,0]
-  connectEvent(event, 'ArrowLeft', seriesContainer);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  // sidePanel is selected
-  connectEvent(event, 'ArrowLeft', seriesContainer);
-  expect(seriesContainer.state().isSliderSelected).toEqual(false);
-  expect(seriesContainer.state().isSideBarSelected).toEqual(true);
-  expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
-  connectEvent(event, 'Enter', seriesContainer);
-  seriesContainer.setState({ goToEpisodeDetail: false });
-  // slider is selected
-  connectEvent(event, 'ArrowRight', seriesContainer);
-  expect(seriesContainer.state().isSliderSelected).toEqual(true);
-  expect(seriesContainer.state().isSideBarSelected).toEqual(false);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  // show pop up
-  connectEvent(event, 'Enter', seriesContainer);
-  seriesContainer.setState({ goToEpisodeDetail: false });
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
-  connectEvent(event, 'ArrowRight', seriesContainer);
-  expect(seriesContainer.state().selectedEpisode).toEqual(1);
-  connectEvent(event, 'ArrowRight', seriesContainer);
-  connectEvent(event, 'ArrowLeft', seriesContainer);
-  expect(seriesContainer.state().selectedEpisode).toEqual(0);
-  connectEvent(event, 'Backspace', seriesContainer);
-  jest.fn(() => {});
-  connectEvent(event, 'Space', seriesContainer);
-  const seriesContainerInstance: Object = seriesContainer.instance();
-  seriesContainerInstance.handleReturnFromEpisode();
-  seriesContainerInstance.handleHideSidebar(true);
-  expect(seriesContainer.state().isSidePanelHidden).toEqual(true);
-  seriesContainer.unmount();
-});
-
-test('Series fetch', () => {
-  // $FlowFixMe
-  fetches.getSeriesByID =
-    jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
-  mount(
-    <SeriesContainer
-      params={{ id: 50 }}
-      location={{
-        query: {
-          expandedEpisode: '141',
-        },
-      }}
-    />);
-  // $FlowFixMe
-  expect(fetches.getSeriesByID.mock.calls.length).toEqual(1);
-  mount(
-    <SeriesContainer
-      params={{ id: 50 }}
-      location={{
-        query: {
-          expandedEpisode: '1415',
-        },
-      }}
-    />);
-  // $FlowFixMe
-  expect(fetches.getSeriesByID.mock.calls.length).toEqual(2);
+describe('SeriesContainer', () => {
+  jest.mock('../side-panel/side-panel', () =>
+    jest.fn(() => <div>Side Panel</div>),
+  );
+  jest.mock('../episode-selected/episode-selected', () =>
+    jest.fn(() => <div>Episode selected</div>),
+  );
+  test('renders correctly', () => {
+    const tree : string = renderer.create(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '100',
+          },
+        }}
+      />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  test('Series detail navigation works', () => {
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '',
+          },
+        }}
+      />);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+  });
+  test('SeriesContainer renders without data', () => {
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '119',
+          },
+        }}
+      />,
+    );
+    seriesContainer.setState({ series: dummySliderItemsWithoutKeys });
+    const tree : string = renderer.create(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '119',
+          },
+        }}
+      />,
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  test('Series detail navigation works', () => {
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '119',
+          },
+        }}
+      />,
+    );
+    const event = new Event('keyDown');
+    seriesContainer.setState({ series: dummySliderItemsWithoutKeys });
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+    // [0,0]
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    // [0,0]
+    connectEvent(event, 'ArrowLeft', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'ArrowDown', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    // sidePanel is selected
+    connectEvent(event, 'ArrowLeft', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(false);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(true);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    connectEvent(event, 'Enter', seriesContainer);
+    seriesContainer.setState({ goToEpisodeDetail: false });
+    // slider is selected
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    // watchnow button is selected
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(false);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(true);
+    // slider is selected
+    connectEvent(event, 'ArrowDown', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(false);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(false);
+    // show pop up
+    connectEvent(event, 'Enter', seriesContainer);
+    seriesContainer.setState({ goToEpisodeDetail: false });
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(1);
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    connectEvent(event, 'ArrowLeft', seriesContainer);
+    expect(seriesContainer.state().selectedEpisode).toEqual(0);
+    connectEvent(event, 'Backspace', seriesContainer);
+    jest.fn(() => {});
+    connectEvent(event, 'Space', seriesContainer);
+    const seriesContainerInstance: Object = seriesContainer.instance();
+    seriesContainerInstance.handleReturnFromEpisode();
+    seriesContainerInstance.handleHideSidebar(true);
+    expect(seriesContainer.state().isSidePanelHidden).toEqual(true);
+    seriesContainer.unmount();
+  });
+  test('Series fetch', () => {
+    // $FlowFixMe
+    fetches.getSeriesByID =
+      jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItemsWithoutKeys)));
+    mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '141',
+          },
+        }}
+      />);
+    // $FlowFixMe
+    expect(fetches.getSeriesByID.mock.calls.length).toEqual(1);
+    mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '1415',
+          },
+        }}
+      />);
+    // $FlowFixMe
+    expect(fetches.getSeriesByID.mock.calls.length).toEqual(2);
+  });
 });

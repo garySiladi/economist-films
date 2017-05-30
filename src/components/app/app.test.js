@@ -180,6 +180,6 @@ describe('App: ', () => {
 test('removes Featured and More from the Economist from JSON', () => {
   const series = App.massageSeries(mockDataWithUnwantedEpisodes);
   expect(series).toEqual([
-    mockDataWithUnwantedEpisodes[0]
+    mockDataWithUnwantedEpisodes[0],
   ]);
 });
