@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { browserHistory } from 'react-router';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
@@ -16,9 +15,10 @@ export type VideoPlayerPropsType = {
   episodeTitle: string,
   videoUrl: string,
   videoID: number,
-  showUI: boolean,
+  isVideoExpanded: boolean,
   isMuted: boolean,
   posterImage: ?string,
+  handleVideoExpansion: Function,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
@@ -86,6 +86,7 @@ class VideoPlayer extends React.Component {
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
     (this: any).handlePlayPause = this.handlePlayPause.bind(this);
     (this: any).hideInterface = this.hideInterface.bind(this);
+    (this: any).handleEventSource = this.handleEventSource.bind(this);
   }
   state: VideoPlayerStateType;
   componentDidMount() {
@@ -100,41 +101,57 @@ class VideoPlayer extends React.Component {
   }
   componentWillUnmount() {
     clearInterval((this: any).videoSaver);
+    clearTimeout((this: any).videoShower);
     document.removeEventListener('keydown', this.handleKeyPress);
   }
+  handleEventSource(event: KeyboardEvent) {
+    const {
+      isVideoExpanded,
+      handleVideoExpansion,
+    } = this.props;
+    // $FlowFixMe
+    event.comingFromVideo = true; // eslint-disable-line
+    handleVideoExpansion(!isVideoExpanded);
+  }
   handleKeyPress(event: KeyboardEvent) {
+    const {
+      isVideoExpanded,
+    } = this.props;
+    if (!isVideoExpanded) return;
     switch (event.code) {
       case 'ArrowUp':
-        (this: any).setState({
+        event.preventDefault();
+        this.setState({
           isBackButtonSelected: true,
           isNavigationSelected: false,
-          selectedPosition: null,
+          selectedPosition: 4,
         });
         break;
       case 'ArrowDown':
-        (this: any).setState({
+        event.preventDefault();
+        this.setState({
           isNavigationSelected: true,
           isBackButtonSelected: false,
           selectedPosition: 1,
         });
         break;
       case 'ArrowLeft':
+        event.preventDefault();
         this.moveLeft();
         break;
       case 'ArrowRight':
+        event.preventDefault();
         this.moveRight();
         break;
       case 'Enter':
+        event.preventDefault();
         if (this.state.isBackButtonSelected) {
-          (this: any).setState({
-            isBackButtonSelected: false,
-          });
-          browserHistory.goBack();
+          this.handleEventSource(event);
         } else {
           if (this.state.selectedPosition === 0) {
             this.handleRewind();
           }
-          if ((this: any).state.selectedPosition === 1) {
+          if (this.state.selectedPosition === 1) {
             this.handlePlayPause();
           }
           if (this.state.selectedPosition === 2) {
@@ -143,9 +160,8 @@ class VideoPlayer extends React.Component {
         }
         break;
       case 'Backspace':
-        if (this.props.showUI) {
-          browserHistory.goBack();
-        }
+        event.preventDefault();
+        this.handleEventSource(event);
         break;
       default:
     }
@@ -226,16 +242,21 @@ class VideoPlayer extends React.Component {
   hideInterface() {
     if (this.state.isVideoPlaying) {
       (this: any).videoShower = setTimeout(() => {
-        this.setState({ showInterface: false, selectedPosition: 1 });
+        this.setState({
+          showInterface: false,
+          selectedPosition: 1,
+          isBackButtonSelected: false,
+          isNavigationSelected: true,
+        });
       }, 1500);
     }
   }
   render() {
     const {
-      showUI,
+      isVideoExpanded,
       posterImage,
     } = this.props;
-    const videoPlayerInterface = showUI ? (
+    const videoPlayerInterface = isVideoExpanded ? (
       <VideoPlayerInterface
         episodeTitle={this.props.episodeTitle}
         isVideoPlaying={this.state.isVideoPlaying}

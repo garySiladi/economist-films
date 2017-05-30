@@ -8,10 +8,12 @@ test('renders correctly', () => {
   const videoPlayer = mount(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
-      showUI
       posterImage={null}
       isMuted={false}
       videoID={5}
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      handleVideoExpansion={() => {}}
     />);
   videoPlayer.unmount();
 });
@@ -19,10 +21,12 @@ test('does not break on unmount', () => {
   const videoPlayer = mount(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
-      showUI={false}
       posterImage={null}
       isMuted={false}
       videoID={5}
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      handleVideoExpansion={() => {}}
     />);
   const vP: Object = videoPlayer.instance();
   vP.player = null;
@@ -34,10 +38,12 @@ test('Test functions', () => {
   const videoPlayer = shallow(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
-      showUI
       posterImage={null}
       isMuted={false}
       videoID={5}
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      handleVideoExpansion={() => {}}
     />);
   expect(videoPlayer.state().isVideoPlaying).toEqual(true);
   const vP: Object = videoPlayer.instance();
@@ -84,15 +90,34 @@ function connectEvent(event, type, wrapper) {
 test('renderTime renders time correctly if minutes and seconds > 10', () => {
   expect(VideoPlayer.renderTime(999)).toEqual('16:39');
 });
+test('videoPlayer not expanded works', () => {
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      posterImage={null}
+      isMuted={false}
+      videoID={5}
+      handleVideoExpansion={() => {}}
+    />,
+  );
+  const event = new Event('keyDown');
+  const prevState = app.state();
+  connectEvent(event, 'ArrowUp', app);
+  expect(app.state()).toEqual(prevState);
+});
 test('videoPlayer navigation works', () => {
   const app = mount(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
-      showUI
+      isVideoExpanded
+      episodeTitle="hello"
       posterImage={null}
       isMuted={false}
       videoID={5}
-    />
+      handleVideoExpansion={() => {}}
+    />,
   );
   expect(app.state().isNavigationSelected).toEqual(true);
   const event = new Event('keyDown');
@@ -171,11 +196,13 @@ test('Clears interface after 1.5 seconds', () => {
   const app = shallow(
     <VideoPlayer
       videoUrl="whatever"
-      showUI
       posterImage={null}
       isMuted={false}
       videoID={5}
-    />
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      handleVideoExpansion={() => {}}
+    />,
   );
   // $FlowFixMe
   app.instance().hideInterface();

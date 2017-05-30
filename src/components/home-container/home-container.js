@@ -13,6 +13,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
     goToEpisode: boolean,
     closePopupFunction: Function,
     isSelectedHomeContainer: boolean,
+    hideSidebarFunction: Function,
   };
   render() {
     const {
@@ -23,6 +24,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
       goToEpisode,
       closePopupFunction,
       isSelectedHomeContainer,
+      hideSidebarFunction,
     } = this.props;
     if (!series[0]) return null;
     const selectedEpisodeData = series[selectedSeries].items[selectedEpisode];
@@ -38,6 +40,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
         videoUrl={selectedEpisodeData.video_url}
         seriesId={selectedEpisodeData.series_id}
         isSelectedHomeContainer={isSelectedHomeContainer}
+        hideSidebarFunction={hideSidebarFunction}
       />
     ) : null;
     const homePageContent = series.map((data, index) =>

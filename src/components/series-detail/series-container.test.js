@@ -116,6 +116,8 @@ test('Series detail navigation works', () => {
   connectEvent(event, 'Space', seriesContainer);
   const seriesContainerInstance: Object = seriesContainer.instance();
   seriesContainerInstance.handleReturnFromEpisode();
+  seriesContainerInstance.handleHideSidebar(true);
+  expect(seriesContainer.state().isSidePanelHidden).toEqual(true);
   seriesContainer.unmount();
 });
 

@@ -7,8 +7,12 @@ exports[`HomeContainer  renders with data 1`] = `
   <div
     className="episode-selected__teaser-wrapper"
   >
-    <div>
-      VideoPlayer
+    <div
+      className="video-container"
+    >
+      <div>
+        VideoPlayer
+      </div>
     </div>
     <img
       alt="title xyz"

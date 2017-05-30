@@ -12,7 +12,7 @@
   width: var(--side-panel-width);
   height: 100%;
   background-color: var(--economist-red, red);
-  transition: width 0.2s ease-out;
+  transition: width 0.2s ease-out, transform 0.3s;
 
   &__option-list {
     margin: 100px 0 0;
@@ -56,5 +56,9 @@
       fill: var(--economist-red, red);
       transition: fill 0.2s ease-in 0.2s;
     }
+  }
+
+  &--hidden {
+    transform: translateX(-85px);
   }
 }

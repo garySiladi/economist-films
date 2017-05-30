@@ -16,6 +16,7 @@ export type SidePanelPropsType = {
     imgUrl: string,
   },
   isSelected?: boolean,
+  isSidePanelHidden?: boolean,
 }
 
 type SidePanelStateType = {
@@ -44,6 +45,7 @@ const sidePanelOptions = [
 class SidePanel extends React.Component {
   static defaultProps = {
     isSelected: false,
+    isSidePanelHidden: false,
   };
 
   constructor(props: SidePanelPropsType) {
@@ -131,6 +133,7 @@ class SidePanel extends React.Component {
         className={classnames({
           'side-panel': true,
           'side-panel--expanded': this.props.isSelected,
+          'side-panel--hidden': this.props.isSidePanelHidden,
         })}
       >
         <ul className="side-panel__option-list">

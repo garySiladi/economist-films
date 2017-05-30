@@ -9,7 +9,6 @@
   --button-line-height: 2em;
   --button-margin-width: 2%;
   --video-teaser-height: 350px;
-  --video-teaser-blur: 5px;
   --video-button-width: 100px;
   --opacityUnselect: 0.5;
   --opacitySelect: 1;
@@ -17,7 +16,7 @@
 
 .episode-selected {
   margin: var(--offset-size);
-  border: 2px solid var(--economist-white);
+  box-shadow: inset 0 0 0 4px var(--economist-white);
   background-color: var(--economist-grey);
   position: relative;
 
@@ -37,16 +36,11 @@
 
   &__teaser-wrapper {
     width: 50%;
-    height: var(--video-teaser-height);
     position: relative;
     margin: var(--offset-size);
     background-color: var(--economist-grey);
     display: inline-block;
     vertical-align: top;
-
-    & .video-player {
-      filter: blur(var(--video-teaser-blur));
-    }
   }
 
   &__info-container {
@@ -87,4 +81,19 @@
   &__watch {
     margin-right: var(--button-margin-width);
   }
+}
+
+.video-container {
+  height: var(--video-teaser-height);
+  width: 100%;
+  transition: width 0.4s 0.1s, height 0.4s 0.1s, transform 0.5s;
+}
+
+.video-container--expanded {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(-380px);
+  left: -85px;
+  z-index: 5;
 }

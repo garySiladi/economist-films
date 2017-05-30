@@ -25,6 +25,7 @@ export type SeriesContainerState = {
   isSideBarSelected: boolean,
   isEpisodeDetailSelected: boolean,
   goToEpisodeDetail: boolean,
+  isSidePanelHidden: boolean,
 }
 
 class SeriesContainer extends React.Component {
@@ -33,6 +34,7 @@ class SeriesContainer extends React.Component {
     this.state = {
       series: null,
       selectedEpisode: 0,
+      isSidePanelHidden: false,
       isSliderSelected: true,
       isSideBarSelected: false,
       goToEpisodeDetail: false,
@@ -41,6 +43,7 @@ class SeriesContainer extends React.Component {
     (this: any).handleKeyPress = (this: any).handleKeyPress.bind(this);
     (this: any).handleExpand = (this: any).handleExpand.bind(this);
     (this: any).handleReturnFromEpisode = (this: any).handleReturnFromEpisode.bind(this);
+    (this: any).handleHideSidebar = (this: any).handleHideSidebar.bind(this);
   }
   state: SeriesContainerState
   componentWillMount() {
@@ -72,6 +75,11 @@ class SeriesContainer extends React.Component {
   }
   handleReturnFromEpisode() {
     this.setState({ goToEpisodeDetail: false });
+  }
+  handleHideSidebar(position: boolean) {
+    this.setState({
+      isSidePanelHidden: position,
+    });
   }
   handleKeyPress(event: KeyboardEvent) {
     const {
@@ -129,6 +137,7 @@ class SeriesContainer extends React.Component {
       isSliderSelected,
       isSideBarSelected,
       goToEpisodeDetail,
+      isSidePanelHidden,
     } = this.state;
     const selectedEpisodeData = series && series.published_episodes[selectedEpisode];
     const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
@@ -143,6 +152,7 @@ class SeriesContainer extends React.Component {
         videoUrl={selectedEpisodeData.video_url}
         seriesId={selectedEpisodeData.series_id}
         isSelectedHomeContainer={false}
+        hideSidebarFunction={this.handleHideSidebar}
       />
     ) : null;
     const slider = series ? (
@@ -160,6 +170,7 @@ class SeriesContainer extends React.Component {
         <SidePanel
           isSelected={isSideBarSelected}
           user={{ id: 1, name: 'Profile Name', imgUrl: UserIcon }}
+          isSidePanelHidden={isSidePanelHidden}
         />
         <div className="series-content">
           {slider}
