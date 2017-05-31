@@ -102,6 +102,11 @@ class SeriesContainer extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
     this.handleExpand();
   }
+  componentDidUpdate() {
+    if (this.state.goToEpisodeDetail) {
+      window.scrollTo(0, window.document.body.scrollHeight);
+    }
+  }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
@@ -128,6 +133,7 @@ class SeriesContainer extends React.Component {
       isSliderSelected,
       isSideBarSelected,
       isWatchnowBtnSelected,
+      isSidePanelHidden,
     } = this.state;
     switch (event.code) {
       case 'ArrowLeft':
@@ -136,7 +142,8 @@ class SeriesContainer extends React.Component {
           this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
-        } if (selectedEpisode === 0 || isWatchnowBtnSelected) {
+        }
+        if (selectedEpisode === 0 || isWatchnowBtnSelected) {
           this.setState({
             isSliderSelected: false,
             isSideBarSelected: true,
@@ -152,7 +159,8 @@ class SeriesContainer extends React.Component {
           this.setState({
             selectedEpisode: selectedEpisode + 1,
           });
-        } if (isSideBarSelected) {
+        }
+        if (isSideBarSelected) {
           this.setState({
             isSliderSelected: true,
             isSideBarSelected: false,
@@ -161,10 +169,15 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowUp':
         event.preventDefault();
-        if (isSliderSelected && !isSideBarSelected) {
+        if (!goToEpisodeDetail && !isSideBarSelected) {
           this.setState({
             isSliderSelected: false,
             isWatchnowBtnSelected: true,
+          });
+        } else if (goToEpisodeDetail && !isSidePanelHidden) {
+          this.setState({
+            goToEpisodeDetail: false,
+            isSliderSelected: true,
           });
         }
         break;
@@ -175,16 +188,19 @@ class SeriesContainer extends React.Component {
             isSliderSelected: true,
             isWatchnowBtnSelected: false,
           });
+        } else if (isSliderSelected) {
+          this.setState({ goToEpisodeDetail: true });
         }
         break;
       case 'Enter':
         if (isSliderSelected) {
           this.setState({ goToEpisodeDetail: true });
-          window.scrollTo(0, window.document.body.scrollHeight);
         }
         break;
       case 'Backspace':
-        browserHistory.goBack();
+        if (!goToEpisodeDetail) {
+          browserHistory.goBack();
+        }
         break;
       default:
     }

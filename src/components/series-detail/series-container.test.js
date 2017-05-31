@@ -161,6 +161,7 @@ describe('SeriesContainer', () => {
     expect(seriesContainer.state().isSideBarSelected).toEqual(false);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+    connectEvent(event, 'ArrowLeft', seriesContainer);
     // [0,0]
     connectEvent(event, 'ArrowRight', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
@@ -189,6 +190,23 @@ describe('SeriesContainer', () => {
     expect(seriesContainer.state().isSideBarSelected).toEqual(false);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
     expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(true);
+    connectEvent(event, 'ArrowLeft', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(false);
+    expect(seriesContainer.state().isSideBarSelected).toEqual(true);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(false);
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    connectEvent(event, 'ArrowDown', seriesContainer);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+    jest.fn(() => {});
+    connectEvent(event, 'Backspace', seriesContainer);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    connectEvent(event, 'ArrowLeft', seriesContainer);
+    connectEvent(event, 'ArrowRight', seriesContainer);
+    connectEvent(event, 'ArrowUp', seriesContainer);
     // slider is selected
     connectEvent(event, 'ArrowDown', seriesContainer);
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
@@ -198,6 +216,7 @@ describe('SeriesContainer', () => {
     // show pop up
     connectEvent(event, 'Enter', seriesContainer);
     seriesContainer.setState({ goToEpisodeDetail: false });
+    connectEvent(event, 'ArrowLeft', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
     connectEvent(event, 'ArrowRight', seriesContainer);
