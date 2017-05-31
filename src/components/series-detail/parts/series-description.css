@@ -17,6 +17,7 @@
   --btn-transition-delay: 0.3s;
   --btn-opacity-unselected: 0.5;
   --btn-opacity-selected: 1;
+  --logos-width: 75%;
 }
 
 .series-description {
@@ -36,7 +37,6 @@
     display: flex;
     align-items: flex-end;
     flex-basis: var(--left-col-width);
-    margin-bottom: var(--button-height);
   }
 
   &__description {
@@ -44,6 +44,7 @@
     align-self: flex-end;
     font-size: var(--description-font-size);
     color: var(--economist-white);
+    font-weight: lighter;
   }
 
   &__right-wrapper {
@@ -61,6 +62,7 @@
   &__logo-img {
     display: block;
     margin: 0 auto;
+    width: var(--logos-width);
   }
 
   &__watchnow-btn {
