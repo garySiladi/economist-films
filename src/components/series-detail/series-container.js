@@ -128,11 +128,12 @@ class SeriesContainer extends React.Component {
           this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
-        } if (selectedEpisode === 0) {
+        } if (selectedEpisode === 0 || isWatchnowBtnSelected) {
           this.setState({
             isSliderSelected: false,
             isSideBarSelected: true,
             goToEpisodeDetail: false,
+            isWatchnowBtnSelected: false,
           });
         }
         break;
@@ -152,7 +153,7 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowUp':
         event.preventDefault();
-        if (isSliderSelected) {
+        if (isSliderSelected && !isSideBarSelected) {
           this.setState({
             isSliderSelected: false,
             isWatchnowBtnSelected: true,
@@ -161,7 +162,7 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowDown':
         event.preventDefault();
-        if (isWatchnowBtnSelected) {
+        if (isWatchnowBtnSelected && !isSideBarSelected) {
           this.setState({
             isSliderSelected: true,
             isWatchnowBtnSelected: false,
