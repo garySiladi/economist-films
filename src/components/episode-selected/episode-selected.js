@@ -143,7 +143,6 @@ class episodeSelected extends React.Component {
               episodeTitle={title}
               isVideoExpanded={isVideoExpanded}
               posterImage={url}
-              isMuted
               videoID={id}
               handleVideoExpansion={this.handleVideoExpansion}
             />

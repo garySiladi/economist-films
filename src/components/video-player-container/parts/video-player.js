@@ -16,7 +16,6 @@ export type VideoPlayerPropsType = {
   videoUrl: string,
   videoID: number,
   isVideoExpanded: boolean,
-  isMuted: boolean,
   posterImage: ?string,
   handleVideoExpansion: Function,
 };
@@ -29,10 +28,9 @@ export type VideoPlayerStateType = {
   showInterface: boolean,
 }
 
-const videoJsOptions = (videoUrl: string, isMuted: boolean) => ({
+const videoJsOptions = (videoUrl: string) => ({
   preload: 'auto',
   autoplay: true,
-  muted: isMuted,
   controls: false,
   sources: [{
     src: videoUrl,
@@ -93,11 +91,17 @@ class VideoPlayer extends React.Component {
     const {
       videoID,
       videoUrl,
-      isMuted,
+      isVideoExpanded,
     } = this.props;
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl, isMuted) });
+    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl) });
+    (this: any).player.muted(!isVideoExpanded);
     (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
     document.addEventListener('keydown', this.handleKeyPress);
+  }
+  componentDidUpdate() {
+    if ((this: any).player) {
+      (this: any).player.muted(!this.props.isVideoExpanded);
+    }
   }
   componentWillUnmount() {
     clearInterval((this: any).videoSaver);

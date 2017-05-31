@@ -5,6 +5,43 @@ import { mount } from 'enzyme';
 import * as fetches from '../../api/fetch';
 import SeriesContainer from './series-container';
 
+const dummySliderItems = {
+  title: 't1',
+  description: 'aaa',
+  additional_assets: [{
+    key: 'eco_background',
+    file: {
+      url: 'xxx',
+    },
+  }, {
+    key: 'eco_detail_logo',
+    file: {
+      url: 'yyy',
+    },
+  }, {
+    key: 'eco_sponsor_logo',
+    file: {
+      url: 'zzz',
+    },
+  }],
+  published_episodes: [{
+    id: 119,
+    title: 'Saving Corals',
+    thumbnail: {
+      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/119/episode_875X480.jpg',
+    },
+    type: 'Episode',
+  }, {
+    id: 141,
+    title: 'The deep ocean is the final frontier on planet Earth',
+    thumbnail: {
+      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg',
+    },
+    type: 'Episode',
+  }],
+};
+
+
 const dummySliderItemsWithoutKeys = {
   title: 't1',
   description: 'aaa',
@@ -119,7 +156,7 @@ describe('SeriesContainer', () => {
       />,
     );
     const event = new Event('keyDown');
-    seriesContainer.setState({ series: dummySliderItemsWithoutKeys });
+    seriesContainer.setState({ series: dummySliderItems });
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
     expect(seriesContainer.state().isSideBarSelected).toEqual(false);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
@@ -180,7 +217,7 @@ describe('SeriesContainer', () => {
   test('Series fetch', () => {
     // $FlowFixMe
     fetches.getSeriesByID =
-      jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItemsWithoutKeys)));
+      jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
     mount(
       <SeriesContainer
         params={{ id: 50 }}

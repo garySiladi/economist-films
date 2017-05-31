@@ -9,7 +9,6 @@ test('renders correctly', () => {
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       isVideoExpanded={false}
       episodeTitle="hello"
@@ -22,7 +21,6 @@ test('does not break on unmount', () => {
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       isVideoExpanded={false}
       episodeTitle="hello"
@@ -39,7 +37,6 @@ test('Test functions', () => {
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       isVideoExpanded={false}
       episodeTitle="hello"
@@ -50,6 +47,7 @@ test('Test functions', () => {
   vP.player = {
     play: jest.fn(),
     pause: jest.fn(),
+    muted: jest.fn(),
     dispose: jest.fn(),
     remainingTime: jest.fn().mockReturnValueOnce(100).mockReturnValue(5),
     currentTime: jest.fn(() => 20),
@@ -97,7 +95,6 @@ test('videoPlayer not expanded works', () => {
       isVideoExpanded={false}
       episodeTitle="hello"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       handleVideoExpansion={() => {}}
     />,
@@ -114,7 +111,6 @@ test('videoPlayer navigation works', () => {
       isVideoExpanded
       episodeTitle="hello"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       handleVideoExpansion={() => {}}
     />,
@@ -197,7 +193,6 @@ test('Clears interface after 1.5 seconds', () => {
     <VideoPlayer
       videoUrl="whatever"
       posterImage={null}
-      isMuted={false}
       videoID={5}
       isVideoExpanded={false}
       episodeTitle="hello"
