@@ -1,5 +1,5 @@
 :root {
-  --expanded-video-offsetY: -977px;
+  --expanded-video-offsetY: 380px;
 }
 
 .series-container {
@@ -11,8 +11,7 @@
   margin-left: 115px;
 
   & .video-container--expanded {
-    transform: translateY(var(--expanded-video-offsetY));
+    top: var(--expanded-video-offsetY);
     left: 0;
-    transition: width 0.3s 0.2s, height 0.3s 0.2s, transform 0.5s;
   }
 }
