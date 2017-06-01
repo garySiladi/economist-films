@@ -36,6 +36,7 @@ describe('HomeContainer ', () => {
     expect(tree).toMatchSnapshot();
   });
   test('handles keyboard events when homeContainer is selected', () => {
+    const mockhideSidebarFunction = jest.fn();
     const episodeSelected = mount(<EpisodeSelected
       id={3}
       url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
@@ -46,7 +47,7 @@ describe('HomeContainer ', () => {
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
       isSelectedHomeContainer
-      hideSidebarFunction={() => {}}
+      hideSidebarFunction={mockhideSidebarFunction}
     />);
     const event = new Event('keyDown');
     // when home container is selected and there are 2 buttons
@@ -58,10 +59,12 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'ArrowRight', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(1);
     connectEvent(event, 'Enter', episodeSelected);
+    expect(mockhideSidebarFunction.mock.calls.length).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'Enter', episodeSelected);
+    expect(mockhideSidebarFunction.mock.calls.length).toEqual(1);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'Enter', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
@@ -75,7 +78,7 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'ArrowRight', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
   });
-  test('handles keyboard events when homeContainer is unslected', () => {
+  test('handles keyboard events when homeContainer is unselected', () => {
     const episodeSelected = mount(<EpisodeSelected
       id={3}
       url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
