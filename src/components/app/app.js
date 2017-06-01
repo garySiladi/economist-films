@@ -61,13 +61,16 @@ class App extends React.Component {
       selectedSeries: 0,
       selectedEpisode: 0,
       goToEpisode: false,
+      isSidePanelHidden: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
     (this: any).handleReturnFromEpisode = this.handleReturnFromEpisode.bind(this);
+    (this: any).handleHideSidebar = this.handleHideSidebar.bind(this);
   }
   state: {
     isSelectedSidePanel: boolean,
     isSelectedHomeContainer: boolean,
+    isSidePanelHidden: boolean,
     series: Array<Object>,
     selectedSeries: number,
     selectedEpisode: number,
@@ -106,6 +109,11 @@ class App extends React.Component {
     event.preventDefault();
     this.setState({
       goToEpisode: false,
+    });
+  }
+  handleHideSidebar(position: boolean) {
+    this.setState({
+      isSidePanelHidden: position,
     });
   }
   handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
@@ -205,11 +213,13 @@ class App extends React.Component {
       selectedSeries,
       selectedEpisode,
       goToEpisode,
+      isSidePanelHidden,
     } = this.state;
     return (
       <div className="app">
         <SidePanel
           isSelected={isSelectedSidePanel}
+          isSidePanelHidden={isSidePanelHidden}
           user={{ id: 1, name: 'Lemoni', imgUrl: UserIcon }}
         />
         <HomeContainer
@@ -219,6 +229,7 @@ class App extends React.Component {
           selectedEpisode={selectedEpisode}
           goToEpisode={goToEpisode}
           closePopupFunction={this.handleReturnFromEpisode}
+          hideSidebarFunction={this.handleHideSidebar}
           isSelectedHomeContainer={isSelectedHomeContainer}
         />
       </div>

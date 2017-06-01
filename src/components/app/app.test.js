@@ -147,6 +147,9 @@ describe('App: ', () => {
     connectEvent(event, 'Enter', app, 'handleKeyPress');
     connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
     connectEvent(event, 'ArrowRight', app, 'handleReturnFromEpisode');
+    const appInstance: Object = app.instance();
+    appInstance.handleHideSidebar(true);
+    expect(app.state().isSidePanelHidden).toEqual(true);
   });
   test('function setEpisodeByParam() works', () => {
     const urlParams = {

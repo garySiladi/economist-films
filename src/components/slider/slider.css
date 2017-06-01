@@ -10,6 +10,7 @@
     color: var(--economist-white, white);
     font-size: 0.75em;
     margin-bottom: 0.5em;
+    position: relative;
   }
 
   &-items {

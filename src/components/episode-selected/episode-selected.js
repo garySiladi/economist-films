@@ -14,6 +14,7 @@ type EpisodeSelectedType = {
   subtitle: string,
   description: string,
   closePopupFunction: Function,
+  hideSidebarFunction: Function,
   videoUrl: string,
   seriesId: number,
   isSelectedHomeContainer: boolean,
@@ -24,11 +25,14 @@ class episodeSelected extends React.Component {
     super();
     this.state = {
       selectedItem: 0,
+      isVideoExpanded: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+    (this: any).handleVideoExpansion = this.handleVideoExpansion.bind(this);
   }
   state: {
     selectedItem: number,
+    isVideoExpanded: boolean,
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -36,10 +40,16 @@ class episodeSelected extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
+  handleVideoExpansion(position: boolean) {
+    this.setState({
+      isVideoExpanded: position,
+    });
+    this.props.hideSidebarFunction(position);
+  }
   handleKeyPress(event: KeyboardEvent) {
-    event.preventDefault();
     const {
       selectedItem,
+      isVideoExpanded,
     } = this.state;
     const {
       closePopupFunction,
@@ -47,11 +57,17 @@ class episodeSelected extends React.Component {
       seriesId,
       id,
     } = this.props;
+    if (isVideoExpanded) return;
     switch (event.code) {
       case 'ArrowUp':
+        event.preventDefault();
         closePopupFunction(event);
         break;
+      case 'ArrowDown':
+        event.preventDefault();
+        break;
       case 'ArrowLeft':
+        event.preventDefault();
         if (isSelectedHomeContainer) {
           if (selectedItem > 0) {
             this.setState({
@@ -61,6 +77,7 @@ class episodeSelected extends React.Component {
         }
         break;
       case 'ArrowRight':
+        event.preventDefault();
         if (isSelectedHomeContainer) {
           if (selectedItem < 1) {
             this.setState({
@@ -70,11 +87,13 @@ class episodeSelected extends React.Component {
         }
         break;
       case 'Backspace':
-        closePopupFunction(event);
+        event.preventDefault();
+        if (!event.comingFromVideo) closePopupFunction(event);
         break;
       case 'Enter':
-        if (selectedItem === 0) {
-          browserHistory.push(`/watch/${id}`);
+        event.preventDefault();
+        if (selectedItem === 0 && !event.comingFromVideo) {
+          this.handleVideoExpansion(true);
         }
         if (selectedItem === 1) {
           browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
@@ -96,7 +115,12 @@ class episodeSelected extends React.Component {
     } = this.props;
     const {
       selectedItem,
+      isVideoExpanded,
     } = this.state;
+    const videoContainerClassName = classnames({
+      'video-container': true,
+      'video-container--expanded': isVideoExpanded,
+    });
     const playButtonClassName = classnames({
       'episode-selected__image': true,
       'episode-selected__image--selected': selectedItem === 0,
@@ -113,13 +137,16 @@ class episodeSelected extends React.Component {
     return (
       <div className="episode-selected">
         <div className="episode-selected__teaser-wrapper">
-          <VideoPlayer
-            videoUrl={videoUrl}
-            showUI={false}
-            posterImage={url}
-            isMuted
-            videoID={id}
-          />
+          <div className={videoContainerClassName}>
+            <VideoPlayer
+              videoUrl={videoUrl}
+              episodeTitle={title}
+              isVideoExpanded={isVideoExpanded}
+              posterImage={url}
+              videoID={id}
+              handleVideoExpansion={this.handleVideoExpansion}
+            />
+          </div>
           <img className={playButtonClassName} src={PlayLogo} alt={title} />
         </div>
         <div className="episode-selected__info-container">

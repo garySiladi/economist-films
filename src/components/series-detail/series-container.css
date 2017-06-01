@@ -1,3 +1,7 @@
+:root {
+  --expanded-video-offsetY: -977px;
+}
+
 .series-container {
   height: 100vh;
   display: block;
@@ -5,4 +9,10 @@
 
 .series-content {
   margin-left: 100px;
+
+  & .video-container--expanded {
+    transform: translateY(var(--expanded-video-offsetY));
+    left: 0;
+    transition: width 0.3s 0.2s, height 0.3s 0.2s, transform 0.5s;
+  }
 }

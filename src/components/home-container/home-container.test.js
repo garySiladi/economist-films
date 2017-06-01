@@ -73,6 +73,7 @@ describe('HomeContainer: ', () => {
         goToEpisode={false}
         closePopupFunction={() => {}}
         isSelectedHomeContainer={false}
+        hideSidebarFunction={() => {}}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
@@ -87,6 +88,7 @@ describe('HomeContainer: ', () => {
         goToEpisode
         closePopupFunction={() => {}}
         isSelectedHomeContainer
+        hideSidebarFunction={() => {}}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
@@ -101,6 +103,7 @@ describe('HomeContainer: ', () => {
         goToEpisode={false}
         closePopupFunction={() => {}}
         isSelectedHomeContainer
+        hideSidebarFunction={() => {}}
       />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
