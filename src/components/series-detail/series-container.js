@@ -199,7 +199,7 @@ class SeriesContainer extends React.Component {
         break;
       case 'Backspace':
         if (!goToEpisodeDetail) {
-          browserHistory.goBack();
+          browserHistory.push('/');
         }
         break;
       default:
