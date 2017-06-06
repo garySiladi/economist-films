@@ -6,6 +6,8 @@ import videojs from 'video.js';
 import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
+// import { getEpisodeByID } from '../../../api/fetch';
+// import { saveLastWatched } from '../../../api/local-storage';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -42,6 +44,13 @@ class VideoPlayer extends React.Component {
   static getProgress(player) {
     return (100 / player.duration()) * player.currentTime();
   }
+  // static isVideoOver(player) {
+  //   const duration = Math.round(player.duration());
+  //   const currentTime = Math.round(player.currentTime());
+  //   const diff = duration - currentTime;
+  //   const currentTimePerc = 100 - Math.round((diff / duration) * 100);
+  //   return (currentTimePerc) >= 95;
+  // }
   static renderTime(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time - (minutes * 60);
@@ -104,9 +113,16 @@ class VideoPlayer extends React.Component {
     }
   }
   componentWillUnmount() {
+    // const { videoID } = this.props;
     clearInterval((this: any).videoSaver);
     clearTimeout((this: any).videoShower);
     document.removeEventListener('keydown', this.handleKeyPress);
+    // if ((this: any).player) {
+    //   getEpisodeByID(videoID)
+    //     .then(series =>
+    //       saveLastWatched(
+    // series.series_id, videoID, VideoPlayer.isVideoOver((this: any).player)));
+    // }
   }
   handleEventSource(event: KeyboardEvent) {
     const {

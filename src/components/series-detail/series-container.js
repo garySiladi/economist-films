@@ -6,6 +6,8 @@ import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
+// import { getLastWatched, findIfOver } from '../../api/local-storage';
+import { getLastEpisodeID } from '../../api/local-storage';
 import SeriesDescription from './parts/series-description';
 import UserIcon from '../../../public/assets/user-1.gif';
 
@@ -67,6 +69,17 @@ type SeriesContainerState = {
 };
 
 class SeriesContainer extends React.Component {
+  static getEpisodesIDs(allSeries) {
+    if (allSeries) {
+      const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
+      const lastEpisodeID: number = getLastEpisodeID(episodeIDs);
+      if (lastEpisodeID !== 0) {
+        console.log(lastEpisodeID);
+      } else {
+        console.log(episodeIDs[0]);
+      }
+    }
+  }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
@@ -86,7 +99,8 @@ class SeriesContainer extends React.Component {
   }
   state: SeriesContainerState
   componentWillMount() {
-    getSeriesByID(this.props.params.id)
+    const { id: serieID } = this.props.params;
+    getSeriesByID(serieID)
     .then((series) => {
       const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
       const foundPosition = series.published_episodes.findIndex(
@@ -97,6 +111,9 @@ class SeriesContainer extends React.Component {
       });
     })
     .catch(err => err);
+    // console.log(serieID);
+    // console.log(getLastWatched(Number(serieID)));
+    // console.log(findIfOver(Number(serieID)));
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
