@@ -11,5 +11,6 @@ ReactDOM.render((
     <Route path="/series/:id" component={SeriesDetail} />
     <Route path="/" component={App} />
     <Route path="/:selectedEpisodeId" component={App} />
+    <Route path="/expandedEpisode/:id" component={App} />
   </Router>
 ), document.getElementById('root'));
