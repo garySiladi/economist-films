@@ -35,51 +35,16 @@ export function getProgressTimeById(id: number) {
   return 0;
 }
 
-// export function saveLastWatched(sID: number, eID: number, isOver: boolean) {
-//   if (typeof (localStorage) !== 'undefined') {
-//     const currentHistory: ?string = localStorage.getItem(HISTORY_WATCH);
-//     const parsedCurrentHistory = JSON.parse(currentHistory || 'null') || [];
-//     const indexOfVideo = parsedCurrentHistory.findIndex(element => element.serieID === sID);
-//     if (indexOfVideo === -1) {
-//       parsedCurrentHistory.push({
-//         serieID: sID,
-//         episodeID: eID,
-//         isVideoOver: isOver,
-//       });
-//     } else {
-//       parsedCurrentHistory[indexOfVideo].episodeID = eID;
-//       parsedCurrentHistory[indexOfVideo].isVideoOver = isOver;
-//     }
-//     localStorage.setItem(HISTORY_WATCH, JSON.stringify(parsedCurrentHistory));
-//   }
-// }
-//
-// export function getLastWatched(sID: number) {
-//   const data: ?string = localStorage.getItem(HISTORY_WATCH);
-//   const parsedData = JSON.parse(data || 'null');
-//   if (parsedData) {
-//     const requiredEpisode = parsedData.find(serie => serie.serieID === sID);
-//     return requiredEpisode ? requiredEpisode.episodeID : 0;
-//   }
-//   return 0;
-// }
-//
-// export function findIfOver(sID: number) {
-//   const data: ?string = localStorage.getItem(HISTORY_WATCH);
-//   const parsedData = JSON.parse(data || 'null');
-//   if (parsedData) {
-//     const requiredEpisode = parsedData.find(serie => serie.serieID === sID);
-//     return requiredEpisode ? requiredEpisode.isVideoOver : false;
-//   }
-//   return false;
-// }
-
 export function getLastEpisodeID(eIDs: Array<number>) {
   const data: ?string = localStorage.getItem(HISTORY_LIST);
   const parsedData = JSON.parse(data || 'null');
   if (parsedData) {
-    const lastEpisode = parsedData.find(histEntry => eIDs.find(id => histEntry.episodeId === id));
-    return lastEpisode ? lastEpisode.episodeId : 0;
+    const lastEpisode =
+      parsedData.reverse().find(histEntry => eIDs.find(id => histEntry.episodeId === id));
+    if (lastEpisode) {
+      return (lastEpisode.progressTime <= 95) ? lastEpisode.episodeId : `finished-${lastEpisode.episodeId}`;
+    }
+    return 0;
   }
   return 0;
 }

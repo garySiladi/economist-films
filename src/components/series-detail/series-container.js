@@ -8,6 +8,7 @@ import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
 // import { getLastWatched, findIfOver } from '../../api/local-storage';
 import { getLastEpisodeID } from '../../api/local-storage';
+// import { getLastEpisodeID } from '../../api/local-storage';
 import SeriesDescription from './parts/series-description';
 import UserIcon from '../../../public/assets/user-1.gif';
 
@@ -72,13 +73,18 @@ class SeriesContainer extends React.Component {
   static getEpisodesIDs(allSeries) {
     if (allSeries) {
       const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
-      const lastEpisodeID: number = getLastEpisodeID(episodeIDs);
-      if (lastEpisodeID !== 0) {
-        console.log(lastEpisodeID);
-      } else {
-        console.log(episodeIDs[0]);
+      const lastEpisodeID = getLastEpisodeID(episodeIDs);
+      if (typeof lastEpisodeID === 'string') {
+        const episodeId: number = Number(lastEpisodeID.split('-')[1]);
+        const episodeIndex: number =
+          allSeries.published_episodes.findIndex(episode => episode.id === episodeId);
+        const nextEpisodeIndex: number = episodeIndex + 1;
+        const maxIndex: number = episodeIDs.length - 1;
+        return (nextEpisodeIndex > maxIndex) ? episodeIDs[0] : nextEpisodeIndex;
       }
+      return episodeIDs[0];
     }
+    return null;
   }
   constructor(props: SeriesContainerProps) {
     super(props);
@@ -232,6 +238,7 @@ class SeriesContainer extends React.Component {
       isSidePanelHidden,
       isWatchnowBtnSelected,
     } = this.state;
+    SeriesContainer.getEpisodesIDs(series);
     const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
     const [
       backgroundAsset,
