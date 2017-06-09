@@ -8,7 +8,7 @@ import './app.css';
 import UserIcon from '../../../public/assets/user-1.gif';
 
 type AppParamsProps = {
-  selectedEpisodeId: string, // eslint-disable-line
+  selectedEpisodeId?: string, // eslint-disable-line
 }
 
 type AppProps = {
