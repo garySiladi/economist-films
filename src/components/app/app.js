@@ -8,7 +8,7 @@ import './app.css';
 import UserIcon from '../../../public/assets/user-1.gif';
 
 type AppParamsProps = {
-  selectedEpisodeId?: string, // eslint-disable-line
+  selectedEpisodeId: string, // eslint-disable-line
 }
 
 type AppProps = {
@@ -186,7 +186,7 @@ class App extends React.Component {
             browserHistory.push(`/series/${seriesId}`);
           } else {
             const episodeId = series[selectedSeries].items[selectedEpisode].id;
-            browserHistory.replace(`/expandedEpisode=${episodeId}`);
+            browserHistory.replace(`/${episodeId}`);
             this.setState({
               goToEpisode: true,
             });

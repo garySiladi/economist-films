@@ -10,6 +10,6 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/series/:id" component={SeriesDetail} />
     <Route path="/" component={App} />
-    <Route path="/expandedEpisode/:id" component={App} />
+    <Route path="/:selectedEpisodeId" component={App} />
   </Router>
 ), document.getElementById('root'));
