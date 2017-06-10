@@ -95,6 +95,7 @@ describe('HomeContainer ', () => {
     // when home container is unselected and there is just 1 button
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
+    connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
     (event: Object).comingFromVideo = true;

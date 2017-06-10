@@ -185,6 +185,8 @@ class App extends React.Component {
             const seriesId = series[selectedSeries].series_id;
             browserHistory.push(`/series/${seriesId}`);
           } else {
+            const episodeId = series[selectedSeries].items[selectedEpisode].id;
+            browserHistory.replace(`/${episodeId}`);
             this.setState({
               goToEpisode: true,
             });

@@ -62,6 +62,9 @@ class episodeSelected extends React.Component {
       case 'ArrowUp':
         event.preventDefault();
         closePopupFunction(event);
+        if (isSelectedHomeContainer) {
+          browserHistory.replace('/');
+        }
         break;
       case 'ArrowDown':
         event.preventDefault();
@@ -88,7 +91,12 @@ class episodeSelected extends React.Component {
         break;
       case 'Backspace':
         event.preventDefault();
-        if (!event.comingFromVideo) closePopupFunction(event);
+        if (!event.comingFromVideo) {
+          closePopupFunction(event);
+        }
+        if (isSelectedHomeContainer) {
+          browserHistory.replace('/');
+        }
         break;
       case 'Enter':
         event.preventDefault();
