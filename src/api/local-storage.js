@@ -1,4 +1,5 @@
 // @flow
+import _ from 'lodash';
 
 export type VideoProgressType = {
   episodeId: number,
@@ -6,7 +7,6 @@ export type VideoProgressType = {
 };
 
 export const HISTORY_LIST = 'history';
-export const HISTORY_WATCH = 'history_watch';
 
 export function saveVideoProgress(id: number, progress: number) {
   if (typeof (localStorage) !== 'undefined') {
@@ -25,6 +25,8 @@ export function saveVideoProgress(id: number, progress: number) {
   }
 }
 
+let counter = 0;
+
 export function getProgressTimeById(id: number) {
   const data: ?string = localStorage.getItem(HISTORY_LIST);
   const parsedData = JSON.parse(data || 'null');
@@ -35,16 +37,30 @@ export function getProgressTimeById(id: number) {
   return 0;
 }
 
-export function getLastEpisodeID(eIDs: Array<number>) {
+export function getLastWatchedEpisodeID(episodeIDs: Array<number>) {
+  const endBoundary = 95;
   const data: ?string = localStorage.getItem(HISTORY_LIST);
   const parsedData = JSON.parse(data || 'null');
   if (parsedData) {
-    const lastEpisode =
-      parsedData.reverse().find(histEntry => eIDs.find(id => histEntry.episodeId === id));
-    if (lastEpisode) {
-      return (lastEpisode.progressTime <= 95) ? lastEpisode.episodeId : `finished-${lastEpisode.episodeId}`;
+    const episodesCount = episodeIDs.length;
+    const commonEpisodes =
+      parsedData.filter(episode => episodeIDs.find(ids => (ids === episode.episodeId)));
+    const mappedParsedData = commonEpisodes.filter(video => video.progressTime >= 95);
+    if (mappedParsedData.length === episodesCount) {
+      const differentEpisodes = _.differenceBy(parsedData, commonEpisodes, 'episodeId');
+      localStorage.setItem(HISTORY_LIST, JSON.stringify(differentEpisodes));
     }
-    return 0;
   }
-  return 0;
+  const firstEpisode = episodeIDs[0];
+  const lastFinishedId = episodeIDs[counter];
+  const lastEpisode =
+    parsedData.find(histEntry => histEntry.episodeId === lastFinishedId);
+  if (lastEpisode) {
+    if (lastEpisode.progressTime < endBoundary) {
+      return lastFinishedId || firstEpisode;
+    }
+    counter += 1;
+    return episodeIDs[counter] || firstEpisode;
+  }
+  return lastFinishedId || firstEpisode;
 }

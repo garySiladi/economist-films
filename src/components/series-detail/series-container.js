@@ -6,9 +6,7 @@ import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
-// import { getLastWatched, findIfOver } from '../../api/local-storage';
-import { getLastEpisodeID } from '../../api/local-storage';
-// import { getLastEpisodeID } from '../../api/local-storage';
+import { getLastWatchedEpisodeID } from '../../api/local-storage';
 import SeriesDescription from './parts/series-description';
 import UserIcon from '../../../public/assets/user-1.gif';
 
@@ -71,21 +69,29 @@ type SeriesContainerState = {
 
 class SeriesContainer extends React.Component {
   static getEpisodesIDs(allSeries) {
-    if (allSeries) {
-      const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
-      const lastEpisodeID = getLastEpisodeID(episodeIDs);
-      if (typeof lastEpisodeID === 'string') {
-        const episodeId: number = Number(lastEpisodeID.split('-')[1]);
-        const episodeIndex: number =
-          allSeries.published_episodes.findIndex(episode => episode.id === episodeId);
-        const nextEpisodeIndex: number = episodeIndex + 1;
-        const maxIndex: number = episodeIDs.length - 1;
-        return (nextEpisodeIndex > maxIndex) ? episodeIDs[0] : nextEpisodeIndex;
-      }
-      return episodeIDs[0];
+    if (!allSeries) {
+      return 'loading';
     }
-    return null;
+    const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
+    return getLastWatchedEpisodeID(episodeIDs)
+      ? getLastWatchedEpisodeID(episodeIDs) : episodeIDs[0];
   }
+  // static getEpisodesIDs(allSeries) {
+  //   if (allSeries) {
+  //     const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
+  //     const lastEpisodeID = getLastWatchedEpisodeID(episodeIDs);
+  //     if (typeof lastEpisodeID === 'string') {
+  //       const episodeId: number = Number(lastEpisodeID.split('-')[1]);
+  //       const episodeIndex: number =
+  //         allSeries.published_episodes.findIndex(episode => episode.id === episodeId);
+  //       const nextEpisodeIndex: number = episodeIndex + 1;
+  //       const maxIndex: number = episodeIDs.length - 1;
+  //       return (nextEpisodeIndex > maxIndex) ? episodeIDs[0] : nextEpisodeIndex;
+  //     }
+  //     return episodeIDs[0];
+  //   }
+  //   return null;
+  // }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
@@ -117,9 +123,6 @@ class SeriesContainer extends React.Component {
       });
     })
     .catch(err => err);
-    // console.log(serieID);
-    // console.log(getLastWatched(Number(serieID)));
-    // console.log(findIfOver(Number(serieID)));
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
@@ -238,7 +241,6 @@ class SeriesContainer extends React.Component {
       isSidePanelHidden,
       isWatchnowBtnSelected,
     } = this.state;
-    SeriesContainer.getEpisodesIDs(series);
     const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
     const [
       backgroundAsset,

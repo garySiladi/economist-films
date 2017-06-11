@@ -54,7 +54,6 @@ const VideoPlayerInterface = ({
             )}
           />
         </button>
-        <div>{progress}</div>
         <span className="player-interface__episode-title">
           {episodeTitle}
         </span>
