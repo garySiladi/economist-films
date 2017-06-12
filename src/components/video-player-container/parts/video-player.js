@@ -5,7 +5,7 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
-import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
+import * as LS from '../../../api/local-storage';
 
 window.videojs = videojs;
 // eslint-disable-next-line
@@ -54,12 +54,20 @@ class VideoPlayer extends React.Component {
     const duration = Math.round(player.duration());
     const diff = duration - currentTime;
     const currentTimePerc = 100 - Math.round((diff / duration) * 100);
-    saveVideoProgress(id, currentTimePerc);
+    LS.saveVideoProgress(id, currentTimePerc);
   }
   static createVideoSaver(player, videoId) {
     return setInterval(() => {
       VideoPlayer.saveVideoTime(player, videoId);
     }, 1000);
+  }
+  static getEpisodesIDs(allSeries) {
+    if (!allSeries) {
+      return 'loading';
+    }
+    const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
+    return LS.getLastWatchedEpisodeID(episodeIDs)
+      ? LS.getLastWatchedEpisodeID(episodeIDs) : episodeIDs[0];
   }
   constructor(props: VideoPlayerPropsType) {
     super(props);
@@ -224,7 +232,7 @@ class VideoPlayer extends React.Component {
   handleVideoLoad() {
     const { videoID: id } = this.props;
     const lagTime = 5;
-    const lastTimeProgress: number = getProgressTimeById(id);
+    const lastTimeProgress: number = LS.getProgressTimeById(id);
     const videoLengthSecs = Math.round((this: any).player.duration());
     const timeProgressSecs = Math.round((videoLengthSecs * (lastTimeProgress / 100)) - lagTime);
     (this: any).player.currentTime(timeProgressSecs);

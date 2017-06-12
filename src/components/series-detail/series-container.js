@@ -68,30 +68,13 @@ type SeriesContainerState = {
 };
 
 class SeriesContainer extends React.Component {
-  static getEpisodesIDs(allSeries) {
-    if (!allSeries) {
+  static getEpisodesIDs(oneSeries) {
+    if (!oneSeries) {
       return 'loading';
     }
-    const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
-    return getLastWatchedEpisodeID(episodeIDs)
-      ? getLastWatchedEpisodeID(episodeIDs) : episodeIDs[0];
+    const episodeIDs: Array<number> = oneSeries.published_episodes.map(episode => episode.id);
+    return getLastWatchedEpisodeID(episodeIDs);
   }
-  // static getEpisodesIDs(allSeries) {
-  //   if (allSeries) {
-  //     const episodeIDs: Array<number> = allSeries.published_episodes.map(episode => episode.id);
-  //     const lastEpisodeID = getLastWatchedEpisodeID(episodeIDs);
-  //     if (typeof lastEpisodeID === 'string') {
-  //       const episodeId: number = Number(lastEpisodeID.split('-')[1]);
-  //       const episodeIndex: number =
-  //         allSeries.published_episodes.findIndex(episode => episode.id === episodeId);
-  //       const nextEpisodeIndex: number = episodeIndex + 1;
-  //       const maxIndex: number = episodeIDs.length - 1;
-  //       return (nextEpisodeIndex > maxIndex) ? episodeIDs[0] : nextEpisodeIndex;
-  //     }
-  //     return episodeIDs[0];
-  //   }
-  //   return null;
-  // }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
