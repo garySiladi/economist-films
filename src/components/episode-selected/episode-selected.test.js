@@ -135,4 +135,20 @@ describe('HomeContainer ', () => {
     />);
     wrapper.unmount();
   });
+  test('hides buttons', () => {
+    const tree : string = renderer.create(<EpisodeSelected
+      id={3}
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
+      title="title xyz"
+      subtitle="subtitle xyz"
+      description="description xyz"
+      closePopupFunction={() => {}}
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer
+      hideSidebarFunction={() => {}}
+      hideButtons={false}
+    />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

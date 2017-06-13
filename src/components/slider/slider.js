@@ -10,6 +10,7 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
     data: [],
     className: 'slider',
     sliderTitle: 'Slider Title',
+    isFullWidth: false,
   };
   props: SliderStructure
   render() {
@@ -39,6 +40,7 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
               className="slider-item"
               isSelectedSeries={isSelected}
               isSelected={isSelected && index === selectedEpisode}
+              isFullWidth={this.props.isFullWidth}
             />,
           )}
         </div>

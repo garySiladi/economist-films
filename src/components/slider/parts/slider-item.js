@@ -1,21 +1,36 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
-import SliderItemType from '../../../structures/sliderItem';
 import './slider-item.css';
 
-class SliderItem extends React.Component { // eslint-disable-line react/prefer-stateless-function
+type SliderItemType = {
+  title: string,
+  subtitle?: string,
+  thumbnail?: ?Object,
+  type: string,
+  episode_count?: number,
+  className: string,
+  isSelected: boolean,
+  isFullWidth?: boolean,
+};
+
+class SliderItem extends React.Component {
   static isItemSeries(type) {
     return type === 'Series';
   }
-  static setTeaserImage(thumbnail) {
+  static setTeaserImage(thumbnail, isFullWidth) {
+    if (isFullWidth) {
+      return thumbnail && thumbnail.full_width ? thumbnail.full_width.url : '';
+    }
     return thumbnail && thumbnail.thumb ? thumbnail.thumb.url : '';
   }
-  defaultProps = {
+  static defaultProps = {
     subtitle: '',
     thumbnail: null,
     episode_count: 0,
+    isFullWidth: false,
   };
+  props: SliderItemType;
   render() {
     const {
       title,
@@ -25,31 +40,32 @@ class SliderItem extends React.Component { // eslint-disable-line react/prefer-s
       episode_count: episodeCount,
       className,
       isSelected,
+      isFullWidth,
     } = this.props;
-    const sliderItemClassName = classnames(
-      { [`${className}`]: true },
-      { [`${className}--selected`]: isSelected },
-    );
     return (
       <div
-        className={sliderItemClassName}
+        className={classnames({
+          [`${className}`]: true,
+          [`${className}--selected`]: isSelected,
+          [`${className}--full-width`]: isFullWidth,
+        })}
       >
         <img
-          src={SliderItem.setTeaserImage(thumbnail)}
+          src={SliderItem.setTeaserImage(thumbnail, isFullWidth)}
           alt={title}
           className="slider-item__image"
         />
-        <div className="slider-item__container">
-          <div className="slider-item__title">{title}</div>
-          <div className="slider-item__subtitle">
-            {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
+        {isFullWidth ? null : (
+          <div className="slider-item__container">
+            <div className="slider-item__title">{title}</div>
+            <div className="slider-item__subtitle">
+              {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
-
-SliderItem.propTypes = SliderItemType;
 
 export default SliderItem;

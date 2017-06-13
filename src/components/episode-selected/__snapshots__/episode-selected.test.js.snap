@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomeContainer  renders with data 1`] = `
+exports[`HomeContainer  hides buttons 1`] = `
 <div
   className="episode-selected"
 >
@@ -34,6 +34,36 @@ exports[`HomeContainer  renders with data 1`] = `
       >
         Learn More
       </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HomeContainer  renders with data 1`] = `
+<div
+  className="episode-selected"
+>
+  <div
+    className="episode-selected__teaser-wrapper"
+  >
+    <div
+      className="video-container"
+    >
+      <div>
+        VideoPlayer
+      </div>
+    </div>
+    <img
+      alt="title xyz"
+      className="episode-selected__image episode-selected__image--selected"
+      src="play-logo.svg"
+    />
+  </div>
+  <div
+    className="episode-selected__info-container"
+  >
+    <div>
+      EpisodeDescription
     </div>
   </div>
 </div>
