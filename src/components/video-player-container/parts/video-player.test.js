@@ -3,6 +3,13 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import VideoPlayer from './video-player';
 import * as storage from '../../../api/local-storage';
+//
+// const testPlayer = {
+//   currentTime: 20,
+//   duration: 100,
+// };
+//
+// const testId = 1;
 
 test('renders correctly', () => {
   const videoPlayer = mount(
@@ -169,6 +176,7 @@ test('Video progress saves properly', () => {
   storage.saveVideoProgress = jest.fn();
   const mockedPlayer = {
     currentTime: jest.fn(() => 5),
+    duration: jest.fn(() => 100),
   };
   VideoPlayer.saveVideoTime(mockedPlayer, 10);
   expect(mockedPlayer.currentTime.mock.calls.length).toBe(1);
@@ -179,8 +187,8 @@ test('VideoSaver works properly', () => {
   jest.useFakeTimers();
   const dummyPlayer = {
     currentTime: jest.fn(() => 10),
+    duration: jest.fn(() => 100),
   };
-
   VideoPlayer.createVideoSaver(dummyPlayer, 5);
   jest.runTimersToTime(1000);
   expect(setInterval.mock.calls.length).toBe(1);

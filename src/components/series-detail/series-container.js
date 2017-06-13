@@ -6,7 +6,6 @@ import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import { getSeriesByID } from '../../api/fetch';
 import './series-container.css';
-import { getLastWatchedEpisodeID } from '../../api/local-storage';
 import SeriesDescription from './parts/series-description';
 import UserIcon from '../../../public/assets/user-1.gif';
 
@@ -68,13 +67,6 @@ type SeriesContainerState = {
 };
 
 class SeriesContainer extends React.Component {
-  static getEpisodesIDs(oneSeries) {
-    if (!oneSeries) {
-      return 'loading';
-    }
-    const episodeIDs: Array<number> = oneSeries.published_episodes.map(episode => episode.id);
-    return getLastWatchedEpisodeID(episodeIDs);
-  }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
@@ -94,8 +86,7 @@ class SeriesContainer extends React.Component {
   }
   state: SeriesContainerState
   componentWillMount() {
-    const { id: serieID } = this.props.params;
-    getSeriesByID(serieID)
+    getSeriesByID(this.props.params.id)
     .then((series) => {
       const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
       const foundPosition = series.published_episodes.findIndex(
