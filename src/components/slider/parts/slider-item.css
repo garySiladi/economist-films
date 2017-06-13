@@ -5,6 +5,7 @@
   --slider-item-margin-right: 10px;
   --slider-item-image-height: 165px;
   --container-padding: 10px;
+  --banner-max-height: 250px;
 }
 
 .slider-item {
@@ -51,7 +52,7 @@
 
   &--full-width {
     & .slider-item__image {
-      max-height: 250px;
+      max-height: var(--banner-max-height);
     }
   }
 }
