@@ -5,7 +5,7 @@ exports[`HomeContainer:  renders correctly with data and goToEpisode prop enable
   className="home-container"
   style={
     Object {
-      "transform": "translate(0px, -320px)",
+      "transform": "translate(0px, -350px)",
     }
   }
 >
@@ -29,7 +29,7 @@ exports[`HomeContainer:  renders correctly with data but without goToEpisode ena
   className="home-container"
   style={
     Object {
-      "transform": "translate(0px, -320px)",
+      "transform": "translate(0px, -350px)",
     }
   }
 >

@@ -6,7 +6,7 @@
   --right-col-width: 25%;
   --description-height: 60vh;
   --slider-space-height: calc(100vh - var(--description-height));
-  --slider-container-height: 320px;
+  --slider-container-height: 350px;
   --description-font-size: 1.5em;
   --offset-size-small: 10px;
   --button-width: 48%;

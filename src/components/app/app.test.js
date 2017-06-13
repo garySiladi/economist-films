@@ -63,11 +63,7 @@ const mockDataWithUnwantedEpisodes = [
   },
   {
     title: 'Unwanted 1',
-    id: 11,
-  },
-  {
-    title: 'Unwanted 2',
-    id: 14,
+    id: 10,
   },
 ];
 

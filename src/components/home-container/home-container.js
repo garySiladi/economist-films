@@ -4,7 +4,10 @@ import Slider from '../slider/slider';
 import EpisodeSelected from '../episode-selected/episode-selected';
 import './home-container.css';
 
-class HomeContainer extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class HomeContainer extends React.Component {
+  static isFullWidthSeries(seriesData) {
+    return seriesData.thumbnail_size === 'full_width';
+  }
   props: {
     series: Array<Object>,
     isSelected: boolean,
@@ -40,6 +43,9 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
         videoUrl={selectedEpisodeData.video_url}
         seriesId={selectedEpisodeData.series_id}
         isSelectedHomeContainer={isSelectedHomeContainer}
+        hideButtons={
+          !isSelectedHomeContainer || HomeContainer.isFullWidthSeries(series[selectedSeries])
+        }
         hideSidebarFunction={hideSidebarFunction}
         isShown={goToEpisode}
       />
@@ -55,11 +61,12 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
           isAfterSelected={index > selectedSeries}
           selectedEpisode={selectedEpisode}
           isEpisodeExpanded={goToEpisode}
+          isFullWidth={HomeContainer.isFullWidthSeries(data)}
         />
       ),
     );
     homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
-    const verticalOffset = -320;
+    const verticalOffset = -350;
     return (
       <div
         className="home-container"

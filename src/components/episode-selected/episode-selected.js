@@ -19,9 +19,13 @@ type EpisodeSelectedType = {
   seriesId: number,
   isSelectedHomeContainer: boolean,
   isShown: boolean,
+  hideButtons?: boolean,
 };
 
 class episodeSelected extends React.Component {
+  static defaultProps = {
+    hideButtons: true,
+  };
   constructor() {
     super();
     this.state = {
@@ -119,8 +123,8 @@ class episodeSelected extends React.Component {
       title,
       description,
       videoUrl,
-      isSelectedHomeContainer,
       isShown,
+      hideButtons,
     } = this.props;
     const {
       selectedItem,
@@ -138,15 +142,6 @@ class episodeSelected extends React.Component {
       'episode-selected__image': true,
       'episode-selected__image--selected': selectedItem === 0 && isShown,
     });
-    const learnMoreButtonClassname = classnames({
-      'episode-buttons__learn': true,
-      'episode-buttons__learn--selected': selectedItem === 1,
-    });
-    const learnMoreButton = isSelectedHomeContainer ? (
-      <div className={learnMoreButtonClassname} >
-      Learn More
-    </div>
-  ): null;
     return (
       <div className={episodesSelectedClassName}>
         <div className="episode-selected__teaser-wrapper">
@@ -172,9 +167,18 @@ class episodeSelected extends React.Component {
             title={title} description={description} subtitle={subtitle}
             className="episode-description-wrapper"
           />
-          <div className="episode-buttons">
-            {learnMoreButton}
-          </div>
+          {hideButtons ? null : (
+            <div className="episode-buttons">
+              <div
+                className={classnames({
+                  'episode-buttons__learn': true,
+                  'episode-buttons__learn--selected': selectedItem === 1,
+                })}
+              >
+                Learn More
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

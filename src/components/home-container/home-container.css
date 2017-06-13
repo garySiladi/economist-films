@@ -2,7 +2,7 @@
 :root {
   --home-container--margin-left: 115px;
   --home-container--padding: 20px;
-  --slider-height: 320px;
+  --slider-height: 350px;
   --home-container--transition-duration: 0.4s;
   --home-container--font-size: 2em;
   --expanded-offset: 430px;

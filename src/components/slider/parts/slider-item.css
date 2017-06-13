@@ -8,6 +8,7 @@
   --container-padding: 10px;
   --offset-width: 4px;
   --transition-duration: 0.5s;
+  --banner-max-height: 250px;
 }
 
 .slider-item {
@@ -27,7 +28,6 @@
   &__image {
     min-height: var(--slider-item-image-height);
     height: auto;
-    max-width: var(--slider-item-width);
   }
 
   &__container {
@@ -48,5 +48,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 0.75em;
+  }
+
+  &--full-width {
+    & .slider-item__image {
+      max-height: var(--banner-max-height);
+    }
   }
 }
