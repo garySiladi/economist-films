@@ -52,11 +52,12 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
           key={data.title}
           isSelected={isSelected && index === selectedSeries}
           selectedEpisode={selectedEpisode}
+          isFullWidth={data.thumbnail_size === 'full_width'}
         />
       ),
     );
     if (goToEpisode) homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
-    const verticalOffset = -320;
+    const verticalOffset = -350;
     return (
       <div
         className="home-container"

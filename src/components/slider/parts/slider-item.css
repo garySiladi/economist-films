@@ -27,7 +27,6 @@
   &__image {
     min-height: var(--slider-item-image-height);
     height: auto;
-    max-width: var(--slider-item-width);
   }
 
   &__container {
@@ -48,5 +47,11 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 0.75em;
+  }
+
+  &--full-width {
+    & .slider-item__image {
+      max-height: 250px;
+    }
   }
 }
