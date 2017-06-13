@@ -173,10 +173,13 @@ describe('SeriesContainer', () => {
     connectEvent(event, 'ArrowDown', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     // sidePanel is selected
+    connectEvent(event, 'ArrowUp', seriesContainer);
     connectEvent(event, 'ArrowLeft', seriesContainer);
     expect(seriesContainer.state().isSliderSelected).toEqual(false);
     expect(seriesContainer.state().isSideBarSelected).toEqual(true);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    connectEvent(event, 'ArrowDown', seriesContainer);
     connectEvent(event, 'Enter', seriesContainer);
     seriesContainer.setState({ goToEpisodeDetail: false });
     // slider is selected
@@ -215,7 +218,16 @@ describe('SeriesContainer', () => {
     expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(false);
     // show pop up
     connectEvent(event, 'Enter', seriesContainer);
-    seriesContainer.setState({ goToEpisodeDetail: false });
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    connectEvent(event, 'ArrowDown', seriesContainer);
+    expect(seriesContainer.state().isSliderSelected).toEqual(true);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
     connectEvent(event, 'ArrowLeft', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);

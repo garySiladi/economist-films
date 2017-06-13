@@ -28,7 +28,7 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
     } = this.props;
     if (!series[0]) return null;
     const selectedEpisodeData = series[selectedSeries].items[selectedEpisode];
-    const episodeDetailsContainer = goToEpisode ? (
+    const episodeDetailsContainer = (
       <EpisodeSelected
         id={selectedEpisodeData.id}
         key={selectedEpisodeData.id}
@@ -41,8 +41,9 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
         seriesId={selectedEpisodeData.series_id}
         isSelectedHomeContainer={isSelectedHomeContainer}
         hideSidebarFunction={hideSidebarFunction}
+        isShown={goToEpisode}
       />
-    ) : null;
+    );
     const homePageContent = series.map((data, index) =>
       (
         <Slider
@@ -51,11 +52,13 @@ class HomeContainer extends React.Component { // eslint-disable-line react/prefe
           sliderTitle={data.title}
           key={data.title}
           isSelected={isSelected && index === selectedSeries}
+          isAfterSelected={index > selectedSeries}
           selectedEpisode={selectedEpisode}
+          isEpisodeExpanded={goToEpisode}
         />
       ),
     );
-    if (goToEpisode) homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
+    homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
     const verticalOffset = -320;
     return (
       <div

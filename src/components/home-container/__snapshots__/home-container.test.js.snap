@@ -40,6 +40,9 @@ exports[`HomeContainer:  renders correctly with data but without goToEpisode ena
     Slider
   </div>
   <div>
+    EpisodeSelected
+  </div>
+  <div>
     Slider
   </div>
 </div>

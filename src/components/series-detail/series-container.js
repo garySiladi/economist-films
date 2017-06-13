@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { browserHistory } from 'react-router';
+import classnames from 'classnames';
 import Slider from '../slider/slider';
 import SidePanel from '../side-panel/side-panel';
 import EpisodeSelected from '../episode-selected/episode-selected';
@@ -102,11 +103,6 @@ class SeriesContainer extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
     this.handleExpand();
   }
-  componentDidUpdate() {
-    if (this.state.goToEpisodeDetail) {
-      window.scrollTo(0, window.document.body.scrollHeight);
-    }
-  }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
@@ -133,12 +129,12 @@ class SeriesContainer extends React.Component {
       isSliderSelected,
       isSideBarSelected,
       isWatchnowBtnSelected,
-      isSidePanelHidden,
     } = this.state;
     switch (event.code) {
       case 'ArrowLeft':
         event.preventDefault();
-        if (isSliderSelected && selectedEpisode !== 0 && !goToEpisodeDetail) {
+        if (goToEpisodeDetail) return;
+        if (isSliderSelected && selectedEpisode !== 0) {
           this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
@@ -169,31 +165,35 @@ class SeriesContainer extends React.Component {
         break;
       case 'ArrowUp':
         event.preventDefault();
-        if (!goToEpisodeDetail && !isSideBarSelected) {
-          this.setState({
-            isSliderSelected: false,
-            isWatchnowBtnSelected: true,
-          });
-        } else if (goToEpisodeDetail && !isSidePanelHidden) {
-          this.setState({
-            goToEpisodeDetail: false,
-            isSliderSelected: true,
-          });
+        if (!isSideBarSelected) {
+          if (!goToEpisodeDetail) {
+            this.setState({
+              isSliderSelected: false,
+              isWatchnowBtnSelected: true,
+            });
+          } else {
+            this.setState({
+              goToEpisodeDetail: false,
+              isSliderSelected: true,
+            });
+          }
         }
         break;
       case 'ArrowDown':
         event.preventDefault();
-        if (isWatchnowBtnSelected && !isSideBarSelected) {
+        if (isSideBarSelected) return;
+        if (isWatchnowBtnSelected) {
           this.setState({
             isSliderSelected: true,
             isWatchnowBtnSelected: false,
           });
-        } else if (isSliderSelected) {
+        } else {
           this.setState({ goToEpisodeDetail: true });
         }
         break;
       case 'Enter':
-        if (isSliderSelected) {
+        if (isSliderSelected && !goToEpisodeDetail) {
+          event.stopImmediatePropagation();
           this.setState({ goToEpisodeDetail: true });
         }
         break;
@@ -225,7 +225,7 @@ class SeriesContainer extends React.Component {
       ) : null,
     );
     const backgroundStyle = backgroundAsset ? {
-      background: `url(${backgroundAsset.file.url}) top center no-repeat`,
+      backgroundImage: `url(${backgroundAsset.file.url})`,
     } : null;
     const selectedEpisodeData = series && series.published_episodes[selectedEpisode];
     const seriesDescriptionContainer = series ? (
@@ -236,7 +236,7 @@ class SeriesContainer extends React.Component {
         sponsorLogoUrl={sponsorAsset ? sponsorAsset.file.url : null}
       />
     ) : null;
-    const episodeDetailsContainer = goToEpisodeDetail && selectedEpisodeData ? (
+    const episodeDetailsContainer = selectedEpisodeData ? (
       <EpisodeSelected
         id={selectedEpisodeData.id}
         key={selectedEpisodeData.id}
@@ -249,6 +249,7 @@ class SeriesContainer extends React.Component {
         seriesId={selectedEpisodeData.series_id}
         isSelectedHomeContainer={false}
         hideSidebarFunction={this.handleHideSidebar}
+        isShown={goToEpisodeDetail}
       />
     ) : null;
     const slider = series ? (
@@ -261,6 +262,10 @@ class SeriesContainer extends React.Component {
         selectedEpisode={selectedEpisode}
       />
     ): null;
+    const seriesContentClassname = classnames({
+      'series-content': true,
+      'series-content--expanded': goToEpisodeDetail,
+    });
     return (
       <div className="series-container" style={backgroundStyle}>
         <SidePanel
@@ -268,7 +273,8 @@ class SeriesContainer extends React.Component {
           user={{ id: 1, name: 'Profile Name', imgUrl: UserIcon }}
           isSidePanelHidden={isSidePanelHidden}
         />
-        <div className="series-content">
+        <div className="gradient-cover" />
+        <div className={seriesContentClassname}>
           {seriesDescriptionContainer}
           {slider}
           {episodeDetailsContainer}

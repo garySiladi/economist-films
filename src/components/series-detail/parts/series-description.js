@@ -22,7 +22,6 @@ const SeriesDescription = ({
   });
   return (
     <div className="series-description__parent">
-      <div className="gradient-cover" />
       <div className="series-description">
         <div className="series-description__series-logo series-description__flex-child">
           <img

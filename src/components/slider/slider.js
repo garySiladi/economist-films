@@ -15,6 +15,8 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
   render() {
     const {
       isSelected,
+      isAfterSelected,
+      isEpisodeExpanded,
       className,
       sliderTitle,
       selectedEpisode,
@@ -22,8 +24,9 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
     const sliderClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
+      { [`${className}--after-expanded`]: isAfterSelected && isEpisodeExpanded },
     );
-    const horizontalOffset = -310;
+    const horizontalOffset = -320;
     const calcOffset = isSelected ? selectedEpisode * horizontalOffset : 0;
     return (
       <div className={sliderClassName} >

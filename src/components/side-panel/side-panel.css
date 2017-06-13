@@ -13,6 +13,7 @@
   height: 100%;
   background-color: var(--economist-red, red);
   transition: width 0.2s ease-out, transform 0.3s;
+  box-shadow: 0 0 35px 10px var(--economist-grey, black);
 
   &__option-list {
     margin: 100px 0 0;
@@ -35,7 +36,6 @@
 
   &--expanded {
     width: var(--side-panel-width-expanded);
-    box-shadow: 0 0 35px 10px var(--economist-grey, black);
 
     & .side-panel__option {
       border-right: var(--side-panel-option-border);
