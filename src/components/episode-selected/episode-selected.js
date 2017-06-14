@@ -146,7 +146,7 @@ class episodeSelected extends React.Component {
       <div className={episodesSelectedClassName}>
         <div className="episode-selected__teaser-wrapper">
           <div className={videoContainerClassName}>
-            {isShown ?
+            {isShown ? (
               <VideoPlayer
                 videoUrl={videoUrl}
                 episodeTitle={title}
@@ -155,7 +155,7 @@ class episodeSelected extends React.Component {
                 videoID={id}
                 handleVideoExpansion={this.handleVideoExpansion}
               />
-            : null}
+            ) : null}
           </div>
           <div className={expandButtonClassName}>
             <img className="first-arrow" src={SquareArrow} alt={title} />

@@ -51,6 +51,8 @@
   }
 
   &--full-width {
+    overflow: hidden;
+
     & .slider-item__image {
       max-height: var(--banner-max-height);
     }

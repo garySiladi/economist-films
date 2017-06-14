@@ -153,10 +153,7 @@ class App extends React.Component {
   }
   handleWheel(event: WheelEvent) {
     event.preventDefault();
-    const {
-      didScroll,
-    } = this.state;
-    if (!didScroll) {
+    if (!this.state.didScroll) {
       this.setState({
         didScroll: true,
       });
