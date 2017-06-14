@@ -3,13 +3,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import VideoPlayer from './video-player';
 import * as storage from '../../../api/local-storage';
-//
-// const testPlayer = {
-//   currentTime: 20,
-//   duration: 100,
-// };
-//
-// const testId = 1;
 
 test('renders correctly', () => {
   const videoPlayer = mount(
