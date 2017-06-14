@@ -1,6 +1,7 @@
 import {
   saveVideoProgress,
   getProgressTimeById,
+  getLastWatchedEpisodeID,
 } from './local-storage';
 
 const localStorageData = {
@@ -11,6 +12,52 @@ const localStorageData = {
     },
   ],
 };
+
+const historyData = {
+  history: [
+    {
+      episodeId: 1,
+      progressTime: 55,
+    },
+    {
+      episodeId: 2,
+      progressTime: 97,
+    },
+    {
+      episodeId: 3,
+      progressTime: 40,
+    },
+  ],
+};
+
+const historyData95 = {
+  history: [
+    {
+      episodeId: 1,
+      progressTime: 96,
+    },
+    {
+      episodeId: 5,
+      progressTime: 97,
+    },
+    {
+      episodeId: 9,
+      progressTime: 98,
+    },
+    {
+      episodeId: 2,
+      progressTime: 98,
+    },
+    {
+      episodeId: 8,
+      progressTime: 98,
+    },
+  ],
+};
+
+const nullHistory = {};
+
+const episodeIDs = [1, 5, 9, 2, 8];
 
 describe('localStorage with data', () => {
   beforeEach(() => {
@@ -63,3 +110,54 @@ describe('undefined localStorage', () => {
   });
 });
 
+describe('history with data', () => {
+  beforeEach(() => {
+    window.localStorage = {
+      getItem: jest.fn(key => historyData[key] || 0),
+    };
+    global.JSON.parse = jest.fn(() => historyData.history);
+  });
+  test('getLastWatchedEpisodeID', () => {
+    const lastWatched = getLastWatchedEpisodeID(episodeIDs);
+    expect(lastWatched).toBe(5);
+  });
+});
+
+describe('history without data', () => {
+  beforeEach(() => {
+    window.localStorage = {
+      getItem: jest.fn(() => 0),
+    };
+  });
+  test('getLastWatchedEpisodeID', () => {
+    const lastWatched = getLastWatchedEpisodeID(episodeIDs);
+    expect(lastWatched).toBe(5);
+  });
+});
+
+describe('history with all episodes above 95 percent', () => {
+  beforeEach(() => {
+    window.localStorage = {
+      getItem: jest.fn(key => historyData95[key] || 0),
+      // setItem: jest.fn(),
+    };
+    global.JSON.parse = jest.fn(() => historyData95.history);
+  });
+  test('getLastWatchedEpisodeID', () => {
+    const lastWatched = getLastWatchedEpisodeID(episodeIDs);
+    expect(lastWatched).toBe(1);
+  });
+});
+
+describe('history as empty object', () => {
+  beforeEach(() => {
+    window.localStorage = {
+      getItem: jest.fn(key => nullHistory[key] || 0),
+    };
+    global.JSON.parse = jest.fn(() => nullHistory.history);
+  });
+  test('getLastWatchedEpisodeID', () => {
+    const lastWatched = getLastWatchedEpisodeID(episodeIDs);
+    expect(lastWatched).toBe(1);
+  });
+});

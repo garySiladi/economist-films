@@ -50,8 +50,10 @@ class VideoPlayer extends React.Component {
     return `${minutes}:${seconds}`;
   }
   static saveVideoTime(player, id) {
-    const timeProgress = Math.round(player.currentTime());
-    saveVideoProgress(id, timeProgress);
+    const currentTime = Math.round(player.currentTime());
+    const duration = Math.round(player.duration());
+    const percentage = Math.round(currentTime / Math.round(duration / 100));
+    saveVideoProgress(id, percentage);
   }
   static createVideoSaver(player, videoId) {
     return setInterval(() => {
@@ -221,7 +223,9 @@ class VideoPlayer extends React.Component {
     const { videoID: id } = this.props;
     const lagTime = 5;
     const lastTimeProgress: number = getProgressTimeById(id);
-    (this: any).player.currentTime(lastTimeProgress - lagTime);
+    const videoLengthSecs = Math.round((this: any).player.duration());
+    const timeProgressSecs = Math.round((videoLengthSecs * (lastTimeProgress / 100)) - lagTime);
+    (this: any).player.currentTime(timeProgressSecs);
   }
   handleEndReached() {
     this.setState({
