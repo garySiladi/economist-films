@@ -5,6 +5,7 @@
   --slider-height: 350px;
   --home-container--transition-duration: 0.4s;
   --home-container--font-size: 2em;
+  --expanded-offset: 430px;
 }
 
 .home {
@@ -26,5 +27,10 @@
     padding: var(--home-container--padding);
     height: var(--slider-height);
     padding-bottom: 0;
+    transition: transform var(--home-container--transition-duration);
+
+    &--after-expanded {
+      transform: translateY(var(--expanded-offset));
+    }
   }
 }

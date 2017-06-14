@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import EpisodeDescription from './parts/episode-description';
 import VideoPlayer from '../video-player-container/parts/video-player';
-import PlayLogo from '../../../public/assets/play-logo.svg';
+import SquareArrow from '../../../public/assets/Square-Arrow.svg';
 import './episode-selected.css';
 
 type EpisodeSelectedType = {
@@ -18,6 +18,7 @@ type EpisodeSelectedType = {
   videoUrl: string,
   seriesId: number,
   isSelectedHomeContainer: boolean,
+  isShown: boolean,
   hideButtons?: boolean,
 };
 
@@ -95,16 +96,15 @@ class episodeSelected extends React.Component {
         break;
       case 'Backspace':
         event.preventDefault();
-        if (!event.comingFromVideo) {
-          closePopupFunction(event);
-        }
+        closePopupFunction(event);
         if (isSelectedHomeContainer) {
           browserHistory.replace('/');
         }
         break;
       case 'Enter':
         event.preventDefault();
-        if (selectedItem === 0 && !event.comingFromVideo) {
+        if (selectedItem === 0) {
+          event.stopImmediatePropagation();
           this.handleVideoExpansion(true);
         }
         if (selectedItem === 1) {
@@ -123,34 +123,44 @@ class episodeSelected extends React.Component {
       title,
       description,
       videoUrl,
+      isShown,
       hideButtons,
     } = this.props;
     const {
       selectedItem,
       isVideoExpanded,
     } = this.state;
+    const episodesSelectedClassName = classnames({
+      'episode-selected': true,
+      'episode-selected--expanded': isShown,
+    });
     const videoContainerClassName = classnames({
       'video-container': true,
       'video-container--expanded': isVideoExpanded,
     });
-    const playButtonClassName = classnames({
+    const expandButtonClassName = classnames({
       'episode-selected__image': true,
-      'episode-selected__image--selected': selectedItem === 0,
+      'episode-selected__image--selected': selectedItem === 0 && isShown,
     });
     return (
-      <div className="episode-selected">
+      <div className={episodesSelectedClassName}>
         <div className="episode-selected__teaser-wrapper">
           <div className={videoContainerClassName}>
-            <VideoPlayer
-              videoUrl={videoUrl}
-              episodeTitle={title}
-              isVideoExpanded={isVideoExpanded}
-              posterImage={url}
-              videoID={id}
-              handleVideoExpansion={this.handleVideoExpansion}
-            />
+            {isShown ? (
+              <VideoPlayer
+                videoUrl={videoUrl}
+                episodeTitle={title}
+                isVideoExpanded={isVideoExpanded}
+                posterImage={url}
+                videoID={id}
+                handleVideoExpansion={this.handleVideoExpansion}
+              />
+            ) : null}
           </div>
-          <img className={playButtonClassName} src={PlayLogo} alt={title} />
+          <div className={expandButtonClassName}>
+            <img className="first-arrow" src={SquareArrow} alt={title} />
+            <img className="second-arrow" src={SquareArrow} alt={title} />
+          </div>
         </div>
         <div className="episode-selected__info-container">
           <EpisodeDescription

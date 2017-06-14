@@ -2,7 +2,7 @@
 
 exports[`HomeContainer  hides buttons 1`] = `
 <div
-  className="episode-selected"
+  className="episode-selected episode-selected--expanded"
 >
   <div
     className="episode-selected__teaser-wrapper"
@@ -14,11 +14,20 @@ exports[`HomeContainer  hides buttons 1`] = `
         VideoPlayer
       </div>
     </div>
-    <img
-      alt="title xyz"
+    <div
       className="episode-selected__image episode-selected__image--selected"
-      src="play-logo.svg"
-    />
+    >
+      <img
+        alt="title xyz"
+        className="first-arrow"
+        src="Square-Arrow.svg"
+      />
+      <img
+        alt="title xyz"
+        className="second-arrow"
+        src="Square-Arrow.svg"
+      />
+    </div>
   </div>
   <div
     className="episode-selected__info-container"
@@ -41,7 +50,7 @@ exports[`HomeContainer  hides buttons 1`] = `
 
 exports[`HomeContainer  renders with data 1`] = `
 <div
-  className="episode-selected"
+  className="episode-selected episode-selected--expanded"
 >
   <div
     className="episode-selected__teaser-wrapper"
@@ -53,11 +62,20 @@ exports[`HomeContainer  renders with data 1`] = `
         VideoPlayer
       </div>
     </div>
-    <img
-      alt="title xyz"
+    <div
       className="episode-selected__image episode-selected__image--selected"
-      src="play-logo.svg"
-    />
+    >
+      <img
+        alt="title xyz"
+        className="first-arrow"
+        src="Square-Arrow.svg"
+      />
+      <img
+        alt="title xyz"
+        className="second-arrow"
+        src="Square-Arrow.svg"
+      />
+    </div>
   </div>
   <div
     className="episode-selected__info-container"

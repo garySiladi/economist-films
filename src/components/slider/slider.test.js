@@ -53,6 +53,16 @@ const sliderDummyProps = [
     isHidden: false,
     selectedEpisode: 9,
   },
+  {
+    ...additionalProps,
+    data: dummySliderItems,
+    isSelected: false,
+    isBeforeSelected: false,
+    isHidden: false,
+    selectedEpisode: 122,
+    isEpisodeExpanded: true,
+    isAfterSelected: true,
+  },
 ];
 
 jest.mock('./parts/slider-item', () =>

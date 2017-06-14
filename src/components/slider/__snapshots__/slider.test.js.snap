@@ -13,7 +13,7 @@ exports[`Slider renders correctly 1`] = `
     className="slider-items"
     style={
       Object {
-        "transform": "translate(-1240px, 0px)",
+        "transform": "translate(-1280px, 0px)",
       }
     }
   >
@@ -63,6 +63,36 @@ exports[`Slider renders correctly 2`] = `
 exports[`Slider renders correctly 3`] = `
 <div
   className="home-slider"
+>
+  <div
+    className="slider-title"
+  >
+    Slider title
+  </div>
+  <div
+    className="slider-items"
+    style={
+      Object {
+        "transform": "translate(0px, 0px)",
+      }
+    }
+  >
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+    <div>
+      SliderItem
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider renders correctly 4`] = `
+<div
+  className="home-slider home-slider--after-expanded"
 >
   <div
     className="slider-title"

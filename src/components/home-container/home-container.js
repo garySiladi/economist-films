@@ -31,7 +31,7 @@ class HomeContainer extends React.Component {
     } = this.props;
     if (!series[0]) return null;
     const selectedEpisodeData = series[selectedSeries].items[selectedEpisode];
-    const episodeDetailsContainer = goToEpisode ? (
+    const episodeDetailsContainer = (
       <EpisodeSelected
         id={selectedEpisodeData.id}
         key={selectedEpisodeData.id}
@@ -47,8 +47,9 @@ class HomeContainer extends React.Component {
           !isSelectedHomeContainer || HomeContainer.isFullWidthSeries(series[selectedSeries])
         }
         hideSidebarFunction={hideSidebarFunction}
+        isShown={goToEpisode}
       />
-    ) : null;
+    );
     const homePageContent = series.map((data, index) =>
       (
         <Slider
@@ -57,12 +58,14 @@ class HomeContainer extends React.Component {
           sliderTitle={data.title}
           key={data.title}
           isSelected={isSelected && index === selectedSeries}
+          isAfterSelected={index > selectedSeries}
           selectedEpisode={selectedEpisode}
+          isEpisodeExpanded={goToEpisode}
           isFullWidth={HomeContainer.isFullWidthSeries(data)}
         />
       ),
     );
-    if (goToEpisode) homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
+    homePageContent.splice(selectedSeries + 1, 0, episodeDetailsContainer);
     const verticalOffset = -350;
     return (
       <div

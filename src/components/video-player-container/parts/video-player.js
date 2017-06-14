@@ -113,8 +113,7 @@ class VideoPlayer extends React.Component {
       isVideoExpanded,
       handleVideoExpansion,
     } = this.props;
-    // $FlowFixMe
-    event.comingFromVideo = true; // eslint-disable-line
+    event.stopImmediatePropagation();
     handleVideoExpansion(!isVideoExpanded);
   }
   handleKeyPress(event: KeyboardEvent) {

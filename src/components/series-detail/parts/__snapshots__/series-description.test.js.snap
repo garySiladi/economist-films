@@ -5,9 +5,6 @@ exports[`SeriesDescription renders with data 1`] = `
   className="series-description__parent"
 >
   <div
-    className="gradient-cover"
-  />
-  <div
     className="series-description"
   >
     <div

@@ -59,8 +59,11 @@ class App extends React.Component {
       selectedEpisode: 0,
       goToEpisode: false,
       isSidePanelHidden: false,
+      didScroll: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
+    (this: any).handleWheel = this.handleWheel.bind(this);
+    (this: any).scrollSeries = this.scrollSeries.bind(this);
     (this: any).handleReturnFromEpisode = this.handleReturnFromEpisode.bind(this);
     (this: any).handleHideSidebar = this.handleHideSidebar.bind(this);
   }
@@ -72,9 +75,11 @@ class App extends React.Component {
     selectedSeries: number,
     selectedEpisode: number,
     goToEpisode: boolean,
+    didScroll: boolean,
   }
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    document.addEventListener('wheel', this.handleWheel);
     const {
       params,
     } = this.props;
@@ -98,10 +103,43 @@ class App extends React.Component {
       });
     });
   }
+  componentDidUpdate() {
+    setTimeout(() => {
+      if (this.state.didScroll) {
+        this.setState({
+          didScroll: false,
+        });
+      }
+    }, 300);
+  }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
+    document.removeEventListener('wheel', this.handleWheel);
   }
   props: AppProps
+  scrollSeries(event: KeyboardEvent | WheelEvent) {
+    const {
+      isSelectedHomeContainer,
+      selectedSeries,
+      series,
+      goToEpisode,
+    } = this.state;
+    event.preventDefault();
+    if (goToEpisode) return;
+    const isTargetUp = event instanceof KeyboardEvent ? event.code === 'ArrowUp' : event.deltaY < 0;
+    this.resetSelectedEpisode();
+    if (isSelectedHomeContainer) {
+      if (selectedSeries !== 0 && isTargetUp) {
+        this.setState({
+          selectedSeries: selectedSeries - 1,
+        });
+      } else if (selectedSeries !== series.length - 1 && !isTargetUp) {
+        this.setState({
+          selectedSeries: selectedSeries + 1,
+        });
+      }
+    }
+  }
   handleReturnFromEpisode(event: KeyboardEvent) {
     event.preventDefault();
     this.setState({
@@ -112,6 +150,15 @@ class App extends React.Component {
     this.setState({
       isSidePanelHidden: position,
     });
+  }
+  handleWheel(event: WheelEvent) {
+    event.preventDefault();
+    if (!this.state.didScroll) {
+      this.setState({
+        didScroll: true,
+      });
+    }
+    this.scrollSeries(event);
   }
   handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
     const {
@@ -156,22 +203,8 @@ class App extends React.Component {
         }
         break;
       case 'ArrowUp':
-        event.preventDefault();
-        this.resetSelectedEpisode();
-        if (isSelectedHomeContainer && selectedSeries !== 0) {
-          this.setState({
-            selectedSeries: selectedSeries - 1,
-          });
-        }
-        break;
       case 'ArrowDown':
-        event.preventDefault();
-        this.resetSelectedEpisode();
-        if (isSelectedHomeContainer && selectedSeries !== series.length - 1) {
-          this.setState({
-            selectedSeries: selectedSeries + 1,
-          });
-        }
+        this.scrollSeries(event);
         break;
       case 'Enter':
         if (!isSelectedSidePanel) {
@@ -182,6 +215,7 @@ class App extends React.Component {
             const seriesId = series[selectedSeries].series_id;
             browserHistory.push(`/series/${seriesId}`);
           } else {
+            event.stopImmediatePropagation();
             const episodeId = series[selectedSeries].items[selectedEpisode].id;
             browserHistory.replace(`/${episodeId}`);
             this.setState({

@@ -94,7 +94,10 @@ exports[`SeriesContainer SeriesContainer renders without data 1`] = `
     </ul>
   </div>
   <div
-    className="series-content"
+    className="gradient-cover"
+  />
+  <div
+    className="series-content series-content--expanded"
   />
 </div>
 `;
@@ -193,7 +196,10 @@ exports[`SeriesContainer renders correctly 1`] = `
     </ul>
   </div>
   <div
-    className="series-content"
+    className="gradient-cover"
+  />
+  <div
+    className="series-content series-content--expanded"
   />
 </div>
 `;

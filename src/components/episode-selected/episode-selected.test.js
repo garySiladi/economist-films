@@ -32,6 +32,7 @@ describe('HomeContainer ', () => {
       seriesId={7}
       isSelectedHomeContainer
       hideSidebarFunction={() => {}}
+      isShown
     />).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -48,6 +49,7 @@ describe('HomeContainer ', () => {
       seriesId={7}
       isSelectedHomeContainer
       hideSidebarFunction={mockhideSidebarFunction}
+      isShown
     />);
     const event = new Event('keyDown');
     // when home container is selected and there are 2 buttons
@@ -90,6 +92,7 @@ describe('HomeContainer ', () => {
       seriesId={7}
       isSelectedHomeContainer={false}
       hideSidebarFunction={() => {}}
+      isShown
     />);
     const event = new Event('keyDown');
     // when home container is unselected and there is just 1 button
@@ -98,7 +101,6 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
-    (event: Object).comingFromVideo = true;
     connectEvent(event, 'Backspace', episodeSelected);
   });
   test('handles keyboard events without closePopupFunction', () => {
@@ -113,6 +115,7 @@ describe('HomeContainer ', () => {
       isSelectedHomeContainer
       closePopupFunction={() => {}}
       hideSidebarFunction={() => {}}
+      isShown
     />);
     const event = new Event('keyDown');
     // when home container is unselected and there is just 1 button
@@ -132,6 +135,7 @@ describe('HomeContainer ', () => {
       seriesId={7}
       isSelectedHomeContainer
       hideSidebarFunction={() => {}}
+      isShown
     />);
     wrapper.unmount();
   });
@@ -148,6 +152,7 @@ describe('HomeContainer ', () => {
       isSelectedHomeContainer
       hideSidebarFunction={() => {}}
       hideButtons={false}
+      isShown
     />).toJSON();
     expect(tree).toMatchSnapshot();
   });

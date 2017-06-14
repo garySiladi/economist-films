@@ -75,10 +75,9 @@ jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
 
-function connectEvent(event, type, wrapper, handleFunction) {
-  const changedEvent: Object = event;
-  changedEvent.code = type;
+function connectEvent(type, wrapper, handleFunction) {
   const app: Object = wrapper.instance();
+  const event = new KeyboardEvent('', { code: type });
   if (handleFunction === 'handleKeyPress') {
     app.handleKeyPress(event);
   } else if (handleFunction === 'handleReturnFromEpisode') {
@@ -90,60 +89,63 @@ function connectEvent(event, type, wrapper, handleFunction) {
 describe('App: ', () => {
   test('homepage navigation works', () => {
     const app = mount(<App params={{}} />);
+    const appInstance: Object = app.instance();
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
-    const event = new Event('ArrowDown');
     // no functionaility, just need to cover all branches, default switch
-    connectEvent(event, 'Shift', app, 'handleKeyPress');
+    connectEvent('Shift', app, 'handleKeyPress');
     // we have the first episode of the first series selected [0,0]
     // we select the second episode of the first series [0,1]
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
     // we start navigating down 2 positions
-    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
+    connectEvent('ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(1);
-    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
+    connectEvent('ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
     // we push the ArrowDown button, but there is no place at the bottom to navigate
-    connectEvent(event, 'ArrowDown', app, 'handleKeyPress');
+    connectEvent('ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
     // we navigate up 2 positions to [1,0]
-    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
-    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
+    connectEvent('ArrowUp', app, 'handleKeyPress');
+    connectEvent('ArrowUp', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(0);
     // we try the upper bounds
-    connectEvent(event, 'ArrowUp', app, 'handleKeyPress');
+    connectEvent('ArrowUp', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(0);
-    connectEvent(event, 'Enter', app, 'handleKeyPress');
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent('Enter', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
+    appInstance.handleWheel({ deltaY: -5, preventDefault: () => {} });
+    appInstance.handleWheel({ deltaY: 5, preventDefault: () => {} });
     // the Backspace button resets the selected episode
-    connectEvent(event, 'Backspace', app, 'handleKeyPress');
+    connectEvent('Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
     // if we navigate left from the first episode, we end up on the sidebar
-    connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
+    connectEvent('ArrowLeft', app, 'handleKeyPress');
     expect(app.state().isSelectedSidePanel).toEqual(true);
+    appInstance.handleWheel({ deltaY: 5, preventDefault: () => {} });
     // the backspace here does nothing
-    connectEvent(event, 'Backspace', app, 'handleKeyPress');
+    connectEvent('Backspace', app, 'handleKeyPress');
     // for now it 'selects' the focused element
-    connectEvent(event, 'Enter', app, 'handleKeyPress');
+    connectEvent('Enter', app, 'handleKeyPress');
     // we navigate back to the homecontainer
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().isSelectedSidePanel).toEqual(false);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
-    connectEvent(event, 'ArrowLeft', app, 'handleKeyPress');
+    connectEvent('ArrowLeft', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
-    connectEvent(event, 'Enter', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
+    connectEvent('Enter', app, 'handleKeyPress');
     expect(app.state().goToEpisode).toEqual(true);
+    appInstance.handleWheel({ deltaY: 5, preventDefault: () => {} });
     // no functionaility, just need to cover all branches, default switch
-    connectEvent(event, 'Shift', app, 'handleKeyPress');
-    connectEvent(event, 'Enter', app, 'handleKeyPress');
-    connectEvent(event, 'ArrowRight', app, 'handleKeyPress');
-    connectEvent(event, 'ArrowRight', app, 'handleReturnFromEpisode');
-    const appInstance: Object = app.instance();
+    connectEvent('Shift', app, 'handleKeyPress');
+    connectEvent('Enter', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleKeyPress');
+    connectEvent('ArrowRight', app, 'handleReturnFromEpisode');
     appInstance.handleHideSidebar(true);
     expect(app.state().isSidePanelHidden).toEqual(true);
   });
