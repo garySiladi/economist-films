@@ -63,7 +63,8 @@ class episodeSelected extends React.Component {
       id,
     } = this.props;
     if (isVideoExpanded) return;
-    switch (event.code) {
+    switch (event.code || event.which) {
+      case 38:
       case 'ArrowUp':
         event.preventDefault();
         closePopupFunction(event);

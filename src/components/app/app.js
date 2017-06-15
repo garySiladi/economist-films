@@ -126,7 +126,7 @@ class App extends React.Component {
     } = this.state;
     event.preventDefault();
     if (goToEpisode) return;
-    const isTargetUp = event instanceof KeyboardEvent ? event.code === 'ArrowUp' : event.deltaY < 0;
+    const isTargetUp = event instanceof KeyboardEvent ? event.code === 'ArrowUp' || event.which === 38 : event.deltaY < 0;
     this.resetSelectedEpisode();
     if (isSelectedHomeContainer) {
       if (selectedSeries !== 0 && isTargetUp) {
@@ -160,6 +160,7 @@ class App extends React.Component {
     }
     this.scrollSeries(event);
   }
+
   handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
     const {
       isSelectedSidePanel,
@@ -170,7 +171,10 @@ class App extends React.Component {
       goToEpisode,
     } = this.state;
     if (goToEpisode) return;
-    switch (event.code) {
+    console.log(event.which);
+    console.log(event.code);
+    switch (event.code || event.which) {
+      case 37:
       case 'ArrowLeft':
         event.preventDefault();
         if (isSelectedHomeContainer && selectedEpisode === 0) {
@@ -185,6 +189,7 @@ class App extends React.Component {
           });
         }
         break;
+      case 39:
       case 'ArrowRight':
         event.preventDefault();
         if (isSelectedSidePanel) {
@@ -202,10 +207,13 @@ class App extends React.Component {
           });
         }
         break;
+      case 38:
       case 'ArrowUp':
+      case 40:
       case 'ArrowDown':
         this.scrollSeries(event);
         break;
+      case 13:
       case 'Enter':
         if (!isSelectedSidePanel) {
           event.preventDefault();
