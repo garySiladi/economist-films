@@ -18,6 +18,12 @@ function connectEvent(event, type, wrapper) {
   const episodeSelected: Object = wrapper.instance();
   episodeSelected.handleKeyPress(event);
 }
+function connectEvent2(event, type, wrapper) {
+  const changedEvent: Object = event;
+  changedEvent.which = type;
+  const episodeSelected: Object = wrapper.instance();
+  episodeSelected.handleKeyPress(event);
+}
 
 describe('HomeContainer ', () => {
   test('renders with data', () => {
@@ -52,7 +58,7 @@ describe('HomeContainer ', () => {
       isShown
     />);
     const event = new Event('keyDown');
-    // when home container is selected and there are 2 buttons
+    // when home container is selected there are 2 buttons
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'Shift', episodeSelected);
     connectEvent(event, 'ArrowDown', episodeSelected);
@@ -80,6 +86,30 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'ArrowRight', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
   });
+  test('handles keyboard events when homeContainer is selected for WEBOS TV', () => {
+    const mockhideSidebarFunction = jest.fn();
+    const episodeSelected = mount(<EpisodeSelected
+      id={3}
+      url="https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg"
+      title="title xyz"
+      subtitle="subtitle xyz"
+      description="description xyz"
+      closePopupFunction={() => {}}
+      videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
+      seriesId={7}
+      isSelectedHomeContainer
+      hideSidebarFunction={mockhideSidebarFunction}
+      isShown
+    />);
+    const event = new Event('keyDown');
+    // when home container is selected there are 2 buttons
+    connectEvent2(event, 6, episodeSelected);
+    connectEvent2(event, 40, episodeSelected);
+    connectEvent2(event, 39, episodeSelected);
+    connectEvent2(event, 37, episodeSelected);
+    connectEvent2(event, 38, episodeSelected);
+    connectEvent2(event, 13, episodeSelected);
+  });
   test('handles keyboard events when homeContainer is unselected', () => {
     const episodeSelected = mount(<EpisodeSelected
       id={3}
@@ -95,7 +125,7 @@ describe('HomeContainer ', () => {
       isShown
     />);
     const event = new Event('keyDown');
-    // when home container is unselected and there is just 1 button
+    // when home container is unselected there is just 1 button
     expect(episodeSelected.state().selectedItem).toEqual(0);
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'ArrowUp', episodeSelected);

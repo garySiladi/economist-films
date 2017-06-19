@@ -171,8 +171,6 @@ class App extends React.Component {
       goToEpisode,
     } = this.state;
     if (goToEpisode) return;
-    console.log(event.which);
-    console.log(event.code);
     switch (event.code || event.which) {
       case 37:
       case 'ArrowLeft':

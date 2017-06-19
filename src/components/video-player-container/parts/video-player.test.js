@@ -164,6 +164,38 @@ test('videoPlayer navigation works', () => {
   expect(app.state().isBackButtonSelected).toEqual(false);
   connectEvent(event, 'Space', app);
 });
+function connectEvent2(event, type, wrapper) {
+  const changedEvent: Object = event;
+  changedEvent.which = type;
+  const app: Object = wrapper.instance();
+  app.handleKeyPress(event);
+}
+test('videoPlayer navigation works for WEBOS TV', () => {
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      isVideoExpanded
+      episodeTitle="hello"
+      posterImage={null}
+      videoID={5}
+      handleVideoExpansion={() => {}}
+    />,
+  );
+  expect(app.state().isNavigationSelected).toEqual(true);
+  const event = new Event('keyDown');
+  connectEvent2(event, 39, app);
+  expect(app.state().selectedPosition).toEqual(2);
+  connectEvent2(event, 37, app);
+  expect(app.state().selectedPosition).toEqual(1);
+  connectEvent2(event, 40, app);
+  expect(app.state().isNavigationSelected).toEqual(true);
+  connectEvent2(event, 38, app);
+  expect(app.state().isBackButtonSelected).toEqual(true);
+  connectEvent2(event, 13, app);
+  jest.fn(() => {});
+  connectEvent2(event, 8, app);
+  connectEvent2(event, 'Space', app);
+});
 test('Video progress saves properly', () => {
   // $FlowFixMe
   storage.saveVideoProgress = jest.fn();

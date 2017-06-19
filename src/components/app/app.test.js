@@ -74,7 +74,7 @@ jest.mock('../side-panel/side-panel', () =>
 jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
-
+// when code is string
 function connectEvent(type, wrapper, handleFunction) {
   const app: Object = wrapper.instance();
   const event = new KeyboardEvent('', { code: type });
@@ -85,7 +85,16 @@ function connectEvent(type, wrapper, handleFunction) {
   }
 }
 
-
+// when code is number
+function connectEvent2(type, wrapper, handleFunction) {
+  const app: Object = wrapper.instance();
+  const event = new KeyboardEvent('', { which: type });
+  if (handleFunction === 'handleKeyPress') {
+    app.handleKeyPress(event);
+  } else if (handleFunction === 'handleReturnFromEpisode') {
+    app.handleReturnFromEpisode(event);
+  }
+}
 describe('App: ', () => {
   test('homepage navigation works', () => {
     const app = mount(<App params={{}} />);
@@ -148,6 +157,33 @@ describe('App: ', () => {
     connectEvent('ArrowRight', app, 'handleReturnFromEpisode');
     appInstance.handleHideSidebar(true);
     expect(app.state().isSidePanelHidden).toEqual(true);
+  });
+  test('homepage navigation works for WEBOS', () => {
+    const app = mount(<App params={{}} />);
+    expect(app.state().isSelectedHomeContainer).toEqual(true);
+    app.setState({ series: mockData });
+    connectEvent('Backspace', app, 'handleKeyPress');
+    expect(app.state().selectedEpisode).toEqual(0);
+    // we have the first episode of the first series selected [0,0]
+    // we select the second episode of the first series [0,1]
+    // Right
+    connectEvent2(39, app, 'handleKeyPress');
+    expect(app.state().selectedEpisode).toEqual(1);
+    // Left
+    connectEvent2(37, app, 'handleKeyPress');
+    expect(app.state().selectedEpisode).toEqual(0);
+    // Down
+    connectEvent2(40, app, 'handleKeyPress');
+    expect(app.state().selectedSeries).toEqual(1);
+    // Up
+    connectEvent2(38, app, 'handleKeyPress');
+    expect(app.state().selectedSeries).toEqual(0);
+    // w
+    connectEvent2(38, app, 'handleKeyPress');
+    expect(app.state().selectedSeries).toEqual(0);
+    connectEvent2(13, app, 'handleKeyPress');
+    connectEvent2(39, app, 'handleKeyPress');
+    expect(app.state().selectedEpisode).toEqual(1);
   });
   test('function setEpisodeByParam() works', () => {
     const urlParams = {

@@ -72,9 +72,11 @@ class episodeSelected extends React.Component {
           browserHistory.replace('/');
         }
         break;
+      case 40:
       case 'ArrowDown':
         event.preventDefault();
         break;
+      case 37:
       case 'ArrowLeft':
         event.preventDefault();
         if (isSelectedHomeContainer) {
@@ -85,6 +87,7 @@ class episodeSelected extends React.Component {
           }
         }
         break;
+      case 39:
       case 'ArrowRight':
         event.preventDefault();
         if (isSelectedHomeContainer) {
@@ -95,6 +98,7 @@ class episodeSelected extends React.Component {
           }
         }
         break;
+      case 6:
       case 'Backspace':
         event.preventDefault();
         closePopupFunction(event);
@@ -102,6 +106,7 @@ class episodeSelected extends React.Component {
           browserHistory.replace('/');
         }
         break;
+      case 13:
       case 'Enter':
         event.preventDefault();
         if (selectedItem === 0) {
