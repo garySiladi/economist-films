@@ -66,36 +66,3 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
 }
 
 export default Slider;
-
-
-// static getSelectorStyle(isSelected, selectedEpisode, data) {
-//   const horizontalOffset = -320;
-//   const calcOffset = isSelected ? selectedEpisode * horizontalOffset : 0;
-//   const sliderMarginWidth = 115;
-//   const sliderItemWidth = 320;
-//   const leftOffsetWithMargins = Math.abs(calcOffset);
-//   const homePageWidth = window.innerWidth - sliderMarginWidth;
-//   const itemCount = data.length;
-//   const sliderItemsWidth = (itemCount * sliderItemWidth);
-//   const homePageWithOffset = homePageWidth + leftOffsetWithMargins;
-//   const restOfPage = homePageWithOffset - sliderItemsWidth;
-//   let sliderStyle = { transform: `translate(${calcOffset}px, 0px)` };
-//   if (calcOffset < 0) {
-//     if (restOfPage < sliderItemWidth) {
-//       sliderStyle = { transform: `translate(${calcOffset}px, 0px)` };
-//       return sliderStyle;
-//     }
-//     if (restOfPage > sliderItemWidth) {
-//       let addition = 0;
-//       const homeItemWidth = homePageWidth + sliderItemWidth;
-//       const sliderWidth = sliderItemWidth * itemCount;
-//       if ((homeItemWidth - sliderWidth) < 0) {
-//         addition = Math.ceil(((sliderWidth - homeItemWidth) / sliderItemWidth));
-//       }
-//       sliderStyle = { transform: `translate(${calcOffset +
-// (((selectedEpisode) - 1 - addition) * sliderItemWidth)}px, 0px)` };
-//       return sliderStyle;
-//     }
-//   }
-//   return sliderStyle;
-// }
