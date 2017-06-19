@@ -9,7 +9,6 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
   static getHorizontalOffset(selectedEpisode, data) {
     const sliderMarginWidth = 115;
     const sliderItemWidth = 320;
-    const offsetX = 0 - sliderItemWidth;
     const homePageWidth = window.innerWidth - sliderMarginWidth;
     const viewportHorizontalSlotNumber = Math.trunc(homePageWidth / sliderItemWidth);
     const itemsToTheRightFromSelected = data.length - selectedEpisode;
@@ -17,7 +16,7 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
     const itemsBeforeSelectedEpisode =
       areMoreEpisodesThanSlots ? data.length - viewportHorizontalSlotNumber : 0;
     return (viewportHorizontalSlotNumber > itemsToTheRightFromSelected ?
-      itemsBeforeSelectedEpisode : selectedEpisode) * offsetX;
+      itemsBeforeSelectedEpisode : selectedEpisode) * (sliderItemWidth * -1);
   }
   static defaultProps = {
     data: [],
@@ -34,14 +33,14 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
       className,
       sliderTitle,
       selectedEpisode,
-      data,
+      data: episodes,
     } = this.props;
     const sliderClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
       { [`${className}--after-expanded`]: isAfterSelected && isEpisodeExpanded },
     );
-    const calcOffset = isSelected ? Slider.getHorizontalOffset(selectedEpisode, data) : 0;
+    const calcOffset = isSelected ? Slider.getHorizontalOffset(selectedEpisode, episodes) : 0;
     return (
       <div className={sliderClassName} >
         <div className="slider-title">{sliderTitle}</div>
