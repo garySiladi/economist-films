@@ -148,7 +148,6 @@ class App extends React.Component {
       } else if (selectedSeries !== series.length - 1 && !isTargetUp) {
         this.setState({
           selectedSeries: selectedSeries + 1,
-          selectedEpisode: 0,
         });
       }
     }
@@ -179,8 +178,8 @@ class App extends React.Component {
     }
     this.scrollSeries(event);
   }
-  handleArrowDown(currentSeries: number, series: Array<SeriesType>) {
-    if (currentSeries !== series.length - 1) {
+  handleArrowDown(currentSeries: number, seriesLength: number) {
+    if (currentSeries !== seriesLength - 1) {
       this.resetSelectedEpisode();
       this.setState({
         selectedSeries: currentSeries + 1,

@@ -224,12 +224,12 @@ describe('App: ', () => {
     connectEvent('ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
     // we navigate down when episode selected popup is showed
-    appInstance.handleArrowDown(1, mockData);
+    appInstance.handleArrowDown(1, mockData.length);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     expect(app.state().goToEpisode).toEqual(false);
     expect(app.state().selectedEpisode).toBe(0);
     expect(app.state().selectedSeries).toBe(2);
-    appInstance.handleArrowDown(2, mockData);
+    appInstance.handleArrowDown(2, mockData.length);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     expect(app.state().goToEpisode).toEqual(false);
     expect(app.state().selectedEpisode).toBe(0);

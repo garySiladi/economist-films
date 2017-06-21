@@ -81,7 +81,7 @@ class episodeSelected extends React.Component {
       case 'ArrowDown':
         event.preventDefault();
         closePopupFunction(event);
-        selectLowerSeries(selectedSeries, series);
+        selectLowerSeries(selectedSeries, series.length);
         if (isSelectedHomeContainer) {
           browserHistory.replace('/');
         }
