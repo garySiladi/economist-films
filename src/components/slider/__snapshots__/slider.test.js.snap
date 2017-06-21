@@ -13,7 +13,7 @@ exports[`Slider renders correctly 1`] = `
     className="slider-items"
     style={
       Object {
-        "transform": "translate(-1280px, 0px)",
+        "transform": "translate(-320px, 0px)",
       }
     }
   >

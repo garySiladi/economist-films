@@ -6,6 +6,18 @@ import SliderStructure from '../../structures/root';
 import './slider.css';
 
 class Slider extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static getHorizontalOffset(selectedEpisode, data) {
+    const sliderMarginWidth = 115;
+    const sliderItemWidth = 320;
+    const homePageWidth = window.innerWidth - sliderMarginWidth;
+    const viewportHorizontalSlotNumber = Math.trunc(homePageWidth / sliderItemWidth);
+    const itemsToTheRightFromSelected = data.length - selectedEpisode;
+    const areMoreEpisodesThanSlots = data.length > viewportHorizontalSlotNumber;
+    const itemsBeforeSelectedEpisode =
+      areMoreEpisodesThanSlots ? data.length - viewportHorizontalSlotNumber : 0;
+    return (viewportHorizontalSlotNumber > itemsToTheRightFromSelected ?
+      itemsBeforeSelectedEpisode : selectedEpisode) * (sliderItemWidth * -1);
+  }
   static defaultProps = {
     data: [],
     className: 'slider',
@@ -21,14 +33,14 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
       className,
       sliderTitle,
       selectedEpisode,
+      data: episodes,
     } = this.props;
     const sliderClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
       { [`${className}--after-expanded`]: isAfterSelected && isEpisodeExpanded },
     );
-    const horizontalOffset = -320;
-    const calcOffset = isSelected ? selectedEpisode * horizontalOffset : 0;
+    const calcOffset = isSelected ? Slider.getHorizontalOffset(selectedEpisode, episodes) : 0;
     return (
       <div className={sliderClassName} >
         <div className="slider-title">{sliderTitle}</div>
