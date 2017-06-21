@@ -3,6 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount, shallow } from 'enzyme';
 import EpisodeSelected from './episode-selected';
+import { mockData } from '../home-container/home-container.test';
 
 jest.mock('./parts/episode-description', () =>
   jest.fn(() => <div>EpisodeDescription</div>),
@@ -28,6 +29,10 @@ describe('HomeContainer ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
       isSelectedHomeContainer
@@ -45,6 +50,10 @@ describe('HomeContainer ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
       isSelectedHomeContainer
@@ -88,6 +97,10 @@ describe('HomeContainer ', () => {
       subtitle="subtitle xyz"
       description="description xyz"
       closePopupFunction={() => {}}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
       isSelectedHomeContainer={false}
@@ -100,6 +113,7 @@ describe('HomeContainer ', () => {
     connectEvent(event, 'ArrowLeft', episodeSelected);
     connectEvent(event, 'ArrowUp', episodeSelected);
     connectEvent(event, 'ArrowRight', episodeSelected);
+    connectEvent(event, 'ArrowDown', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
     connectEvent(event, 'Backspace', episodeSelected);
   });
@@ -114,6 +128,10 @@ describe('HomeContainer ', () => {
       seriesId={7}
       isSelectedHomeContainer
       closePopupFunction={() => {}}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       hideSidebarFunction={() => {}}
       isShown
     />);
@@ -133,6 +151,10 @@ describe('HomeContainer ', () => {
       closePopupFunction={() => {}}
       videoUrl=""
       seriesId={7}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       isSelectedHomeContainer
       hideSidebarFunction={() => {}}
       isShown
@@ -149,6 +171,10 @@ describe('HomeContainer ', () => {
       closePopupFunction={() => {}}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
+      selectedSeries={3}
+      selectedEpisode={4}
+      selectLowerSeries={() => {}}
+      series={mockData}
       isSelectedHomeContainer
       hideSidebarFunction={() => {}}
       hideButtons={false}

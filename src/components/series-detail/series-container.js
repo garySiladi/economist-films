@@ -20,7 +20,7 @@ export type SeriesContainerProps = {
     },
   },
 };
-type PublishedEpisodeType = {
+export type PublishedEpisodeType = {
   id: number,
   series_id: number,
   thumbnail: {
@@ -31,7 +31,7 @@ type PublishedEpisodeType = {
   description: string,
   video_url: string,
 };
-type SeriesType = {
+export type SeriesType = {
   title: string,
   description: string,
   additional_assets: [
@@ -250,6 +250,9 @@ class SeriesContainer extends React.Component {
         isSelectedHomeContainer={false}
         hideSidebarFunction={this.handleHideSidebar}
         isShown={goToEpisodeDetail}
+        selectedSeries={0}
+        series={[]}
+        selectLowerSeries
       />
     ) : null;
     const slider = series ? (
