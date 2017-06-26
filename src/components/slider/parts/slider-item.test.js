@@ -19,6 +19,7 @@ const dummyData = [
     isSelected: false,
     isBeforeSelected: false,
     isSelectedSeries: false,
+    isEpisodeExpanded: false,
   },
   {
     title: 'Series 1 Title',
@@ -35,6 +36,7 @@ const dummyData = [
     isSelected: false,
     isBeforeSelected: true,
     isSelectedSeries: true,
+    isEpisodeExpanded: false,
   },
   {
     title: 'Episode 19 Title',
@@ -47,6 +49,20 @@ const dummyData = [
     isSelected: true,
     isBeforeSelected: false,
     isSelectedSeries: true,
+    isEpisodeExpanded: false,
+  },
+  {
+    title: 'Episode 19 Title',
+    type: 'Episode',
+    id: 19,
+    subtitle: 'subtitle',
+    // $FlowFixMe
+    thumbnail: {},
+    className: 'slider-item',
+    isSelected: true,
+    isBeforeSelected: false,
+    isSelectedSeries: false,
+    isEpisodeExpanded: true,
   },
 ];
 
@@ -66,6 +82,7 @@ const fullWidthDummyData = [
     isSelected: false,
     isBeforeSelected: false,
     isSelectedSeries: false,
+    isEpisodeExpanded: false,
   },
   {
     title: 'Episode 2 Title',
@@ -78,6 +95,7 @@ const fullWidthDummyData = [
     isSelected: false,
     isBeforeSelected: false,
     isSelectedSeries: false,
+    isEpisodeExpanded: false,
   },
 ];
 
@@ -90,7 +108,7 @@ test('SliderItem renders correctly', () => {
 
 test('SliderItem renders correctly when full-width', () => {
   fullWidthDummyData.forEach((data) => {
-    const tree: string = renderer.create(<SliderItem {...data} isFullWidth={true} />).toJSON();
+    const tree: string = renderer.create(<SliderItem {...data} isFullWidth />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

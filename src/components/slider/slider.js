@@ -56,6 +56,7 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
               isSelectedSeries={isSelected}
               isSelected={isSelected && index === selectedEpisode}
               isFullWidth={this.props.isFullWidth}
+              isEpisodeExpanded={isEpisodeExpanded}
             />,
           )}
         </div>

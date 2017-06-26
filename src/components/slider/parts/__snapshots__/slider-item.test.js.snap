@@ -78,6 +78,35 @@ exports[`SliderItem renders correctly 3`] = `
 </div>
 `;
 
+exports[`SliderItem renders correctly 4`] = `
+<div
+  className="slider-item"
+>
+  <img
+    alt="Episode 19 Title"
+    className="slider-item__image"
+    src=""
+  />
+  <div
+    className="slider-item__container"
+  >
+    <div
+      className="slider-item__title"
+    >
+      Episode 19 Title
+    </div>
+    <div
+      className="slider-item__subtitle"
+    >
+      subtitle
+    </div>
+    <div
+      className="slider-item__chevron"
+    />
+  </div>
+</div>
+`;
+
 exports[`SliderItem renders correctly when full-width 1`] = `
 <div
   className="slider-item slider-item--full-width"

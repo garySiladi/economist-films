@@ -12,6 +12,7 @@ type SliderItemType = {
   className: string,
   isSelected: boolean,
   isFullWidth?: boolean,
+  isEpisodeExpanded: boolean,
 };
 
 class SliderItem extends React.Component {
@@ -23,6 +24,9 @@ class SliderItem extends React.Component {
       return thumbnail && thumbnail.full_width ? thumbnail.full_width.url : '';
     }
     return thumbnail && thumbnail.thumb ? thumbnail.thumb.url : '';
+  }
+  static renderChevron(isSelected, isEpisodeExpanded) {
+    return (isSelected && isEpisodeExpanded) ? <div className="slider-item__chevron" /> : null;
   }
   static defaultProps = {
     subtitle: '',
@@ -41,12 +45,13 @@ class SliderItem extends React.Component {
       className,
       isSelected,
       isFullWidth,
+      isEpisodeExpanded,
     } = this.props;
     return (
       <div
         className={classnames({
           [`${className}`]: true,
-          [`${className}--selected`]: isSelected,
+          [`${className}--selected`]: isSelected && !isEpisodeExpanded,
           [`${className}--full-width`]: isFullWidth,
         })}
       >
@@ -61,6 +66,7 @@ class SliderItem extends React.Component {
             <div className="slider-item__subtitle">
               {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
             </div>
+            {SliderItem.renderChevron(isSelected, isEpisodeExpanded)}
           </div>
         )}
       </div>

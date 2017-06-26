@@ -9,9 +9,12 @@
   --offset-width: 4px;
   --transition-duration: 0.5s;
   --banner-max-height: 250px;
+  --chevron-size: 30px;
+  --chevron-bottom-offset: 60px;
 }
 
 .slider-item {
+  position: relative;
   font-size: 0.5em;
   display: inline-block;
   min-width: var(--slider-item-width);
@@ -48,6 +51,17 @@
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 0.75em;
+  }
+
+  &__chevron {
+    position: absolute;
+    bottom: -var(--chevron-bottom-offset);
+    left: calc(var(--slider-item-width) / 2 - var(--chevron-size));
+    width: 0;
+    height: 0;
+    border-left: var(--chevron-size) solid transparent;
+    border-right: var(--chevron-size) solid transparent;
+    border-bottom: var(--chevron-size) solid var(--economist-mediumgrey);
   }
 
   &--full-width {
