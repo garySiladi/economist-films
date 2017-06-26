@@ -25,9 +25,6 @@ class SliderItem extends React.Component {
     }
     return thumbnail && thumbnail.thumb ? thumbnail.thumb.url : '';
   }
-  static renderChevron(isSelected, isEpisodeExpanded) {
-    return (isSelected && isEpisodeExpanded) ? <div className="slider-item__chevron" /> : null;
-  }
   static defaultProps = {
     subtitle: '',
     thumbnail: null,
@@ -66,7 +63,12 @@ class SliderItem extends React.Component {
             <div className="slider-item__subtitle">
               {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
             </div>
-            {SliderItem.renderChevron(isSelected, isEpisodeExpanded)}
+            <div
+              className={classnames({
+                [`${className}__chevron`]: true,
+                [`${className}__chevron--visible`]: isSelected && isEpisodeExpanded,
+              })}
+            />
           </div>
         )}
       </div>

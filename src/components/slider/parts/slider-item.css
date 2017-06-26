@@ -10,7 +10,7 @@
   --transition-duration: 0.5s;
   --banner-max-height: 250px;
   --chevron-size: 30px;
-  --chevron-bottom-offset: 60px;
+  --chevron-bottom-offset: -60px;
 }
 
 .slider-item {
@@ -55,13 +55,19 @@
 
   &__chevron {
     position: absolute;
-    bottom: -var(--chevron-bottom-offset);
+    bottom: var(--chevron-bottom-offset);
     left: calc(var(--slider-item-width) / 2 - var(--chevron-size));
+    opacity: 0;
     width: 0;
     height: 0;
     border-left: var(--chevron-size) solid transparent;
     border-right: var(--chevron-size) solid transparent;
     border-bottom: var(--chevron-size) solid var(--economist-mediumgrey);
+
+    &--visible {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
   }
 
   &--full-width {

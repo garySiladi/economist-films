@@ -22,6 +22,9 @@ exports[`SliderItem renders correctly 1`] = `
     >
       subtitle
     </div>
+    <div
+      className="slider-item__chevron"
+    />
   </div>
 </div>
 `;
@@ -48,6 +51,9 @@ exports[`SliderItem renders correctly 2`] = `
     >
       10 episodes
     </div>
+    <div
+      className="slider-item__chevron"
+    />
   </div>
 </div>
 `;
@@ -74,6 +80,9 @@ exports[`SliderItem renders correctly 3`] = `
     >
       subtitle
     </div>
+    <div
+      className="slider-item__chevron"
+    />
   </div>
 </div>
 `;
@@ -101,7 +110,7 @@ exports[`SliderItem renders correctly 4`] = `
       subtitle
     </div>
     <div
-      className="slider-item__chevron"
+      className="slider-item__chevron slider-item__chevron--visible"
     />
   </div>
 </div>
