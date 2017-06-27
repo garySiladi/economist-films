@@ -98,7 +98,8 @@ class SidePanel extends React.Component {
 
   handleKeyPress(event: KeyboardEvent) {
     if (this.props.isSelected) {
-      switch (event.code) {
+      switch (event.code || event.which) {
+        case 38:
         case 'ArrowUp': {
           const newPosition = this.state.selectedCard > 0 ? this.state.selectedCard - 1 : 0;
           this.setState({
@@ -106,6 +107,7 @@ class SidePanel extends React.Component {
           });
           break;
         }
+        case 40:
         case 'ArrowDown': {
           const newPosition = this.state.selectedCard < this.state.cards.length - 1 ?
             this.state.selectedCard + 1 : this.state.cards.length - 1;
@@ -114,6 +116,7 @@ class SidePanel extends React.Component {
           });
           break;
         }
+        case 13:
         case 'Enter': {
           browserHistory.push(this.state.cards[this.state.selectedCard].href);
           break;

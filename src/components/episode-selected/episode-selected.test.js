@@ -14,13 +14,11 @@ jest.mock('../video-player-container/parts/video-player', () =>
 
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
-  changedEvent.code = type;
-  const episodeSelected: Object = wrapper.instance();
-  episodeSelected.handleKeyPress(event);
-}
-function connectEvent2(event, type, wrapper) {
-  const changedEvent: Object = event;
-  changedEvent.which = type;
+  if (typeof type === 'number') {
+    changedEvent.which = type;
+  } else if (typeof type === 'string') {
+    changedEvent.code = type;
+  }
   const episodeSelected: Object = wrapper.instance();
   episodeSelected.handleKeyPress(event);
 }
@@ -103,12 +101,12 @@ describe('HomeContainer ', () => {
     />);
     const event = new Event('keyDown');
     // when home container is selected there are 2 buttons
-    connectEvent2(event, 6, episodeSelected);
-    connectEvent2(event, 40, episodeSelected);
-    connectEvent2(event, 39, episodeSelected);
-    connectEvent2(event, 37, episodeSelected);
-    connectEvent2(event, 38, episodeSelected);
-    connectEvent2(event, 13, episodeSelected);
+    connectEvent(event, 8, episodeSelected);
+    connectEvent(event, 40, episodeSelected);
+    connectEvent(event, 39, episodeSelected);
+    connectEvent(event, 37, episodeSelected);
+    connectEvent(event, 38, episodeSelected);
+    connectEvent(event, 13, episodeSelected);
   });
   test('handles keyboard events when homeContainer is unselected', () => {
     const episodeSelected = mount(<EpisodeSelected
