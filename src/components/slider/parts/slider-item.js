@@ -63,14 +63,15 @@ class SliderItem extends React.Component {
             <div className="slider-item__subtitle">
               {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
             </div>
-            <div
-              className={classnames({
-                [`${className}__chevron`]: true,
-                [`${className}__chevron--visible`]: isSelected && isEpisodeExpanded,
-              })}
-            />
           </div>
         )}
+        <div
+          className={classnames({
+            [`${className}__chevron`]: true,
+            [`${className}__chevron--visible`]: isSelected && isEpisodeExpanded,
+            [`${className}__chevron--small`]: isFullWidth,
+          })}
+        />
       </div>
     );
   }

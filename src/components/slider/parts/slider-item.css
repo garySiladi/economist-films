@@ -11,6 +11,7 @@
   --banner-max-height: 250px;
   --chevron-size: 30px;
   --chevron-bottom-offset: -60px;
+  --chevron-bottom-offset-small: -42.5px;
 }
 
 .slider-item {
@@ -64,6 +65,10 @@
     border-right: var(--chevron-size) solid transparent;
     border-bottom: var(--chevron-size) solid var(--economist-mediumgrey);
 
+    &--small {
+      bottom: var(--chevron-bottom-offset-small);
+    }
+
     &--visible {
       opacity: 1;
       transition: opacity 0.3s;
@@ -71,7 +76,7 @@
   }
 
   &--full-width {
-    overflow: hidden;
+    /* overflow: hidden; */
 
     & .slider-item__image {
       max-height: var(--banner-max-height);
