@@ -6,6 +6,7 @@ import EpisodeDescription from './parts/episode-description';
 import VideoPlayer from '../video-player-container/parts/video-player';
 import SquareArrow from '../../../public/assets/Square-Arrow.svg';
 import './episode-selected.css';
+import type { SeriesType } from '../app/app';
 
 type EpisodeSelectedType = {
   id: number,
@@ -13,10 +14,13 @@ type EpisodeSelectedType = {
   title: string,
   subtitle: string,
   description: string,
+  selectedSeries: number,
   closePopupFunction: Function,
+  selectLowerSeries: Function,
   hideSidebarFunction: Function,
   videoUrl: string,
-  seriesId: number,
+  series: Array<SeriesType>,
+  seriesId: ?number,
   isSelectedHomeContainer: boolean,
   isShown: boolean,
   hideButtons?: boolean,
@@ -58,7 +62,10 @@ class episodeSelected extends React.Component {
     } = this.state;
     const {
       closePopupFunction,
+      selectLowerSeries,
+      selectedSeries,
       isSelectedHomeContainer,
+      series,
       seriesId,
       id,
     } = this.props;
@@ -75,6 +82,11 @@ class episodeSelected extends React.Component {
       case 40:
       case 'ArrowDown':
         event.preventDefault();
+        if (isSelectedHomeContainer) {
+          closePopupFunction(event);
+          selectLowerSeries(selectedSeries, series.length);
+          browserHistory.replace('/');
+        }
         break;
       case 37:
       case 'ArrowLeft':
@@ -113,7 +125,7 @@ class episodeSelected extends React.Component {
           event.stopImmediatePropagation();
           this.handleVideoExpansion(true);
         }
-        if (selectedItem === 1) {
+        if (selectedItem === 1 && seriesId) {
           browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
         }
         break;

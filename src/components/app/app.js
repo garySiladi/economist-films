@@ -9,25 +9,45 @@ import UserIcon from '../../../public/assets/user-1.gif';
 
 type AppParamsProps = {
   selectedEpisodeId?: string, // eslint-disable-line
-}
+};
 
 type AppProps = {
   params: AppParamsProps,
-}
+};
 
-type SeriesType = {
-  items: Array<Object>
+export type SeriesItemType = {
+  id: number,
+  series_id: ?number,
+  type: string,
+  title: string,
+  subtitle: string,
+  description: string,
+  video_url: string,
+  thumbnail: {
+    url: string,
+  },
+};
+
+export type SeriesType = {
+  id: number,
+  series_id: ?number,
+  items: Array<SeriesItemType>,
+  title: string,
+  thumbnail_size: string,
 }
 
 class App extends React.Component {
   static createRecommendedSlider(dataRecommended) {
     return {
+      id: -1, // we are setting a custom ID because recommended is not in JSON
+      series_id: -1,
       title: 'Recommended',
       items: dataRecommended.recommended_videos,
       type: 'series',
+      thumbnail_size: '',
     };
   }
-  static massageSeries(series: Array<Object>) {
+  static massageSeries(series: Array<SeriesType>) {
     // remove All Series
     return series.filter(shelf => shelf.id !== 10);
   }
@@ -66,12 +86,13 @@ class App extends React.Component {
     (this: any).scrollSeries = this.scrollSeries.bind(this);
     (this: any).handleReturnFromEpisode = this.handleReturnFromEpisode.bind(this);
     (this: any).handleHideSidebar = this.handleHideSidebar.bind(this);
+    (this: any).handleArrowDown = this.handleArrowDown.bind(this);
   }
   state: {
     isSelectedSidePanel: boolean,
     isSelectedHomeContainer: boolean,
     isSidePanelHidden: boolean,
-    series: Array<Object>,
+    series: Array<SeriesType>,
     selectedSeries: number,
     selectedEpisode: number,
     goToEpisode: boolean,
@@ -102,15 +123,6 @@ class App extends React.Component {
         ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
     });
-  }
-  componentDidUpdate() {
-    setTimeout(() => {
-      if (this.state.didScroll) {
-        this.setState({
-          didScroll: false,
-        });
-      }
-    }, 300);
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
@@ -156,11 +168,24 @@ class App extends React.Component {
     if (!this.state.didScroll) {
       this.setState({
         didScroll: true,
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            didScroll: false,
+          });
+        }, 300);
       });
     }
     this.scrollSeries(event);
   }
-
+  handleArrowDown(currentSeries: number, seriesLength: number) {
+    if (currentSeries !== seriesLength - 1) {
+      this.resetSelectedEpisode();
+      this.setState({
+        selectedSeries: currentSeries + 1,
+      });
+    }
+  }
   handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
     const {
       isSelectedSidePanel,
@@ -218,7 +243,7 @@ class App extends React.Component {
         }
         if (isSelectedHomeContainer) {
           if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
-            const seriesId = series[selectedSeries].series_id;
+            const seriesId = series[selectedSeries].series_id || '';
             browserHistory.push(`/series/${seriesId}`);
           } else {
             event.stopImmediatePropagation();
@@ -269,6 +294,7 @@ class App extends React.Component {
           selectedEpisode={selectedEpisode}
           goToEpisode={goToEpisode}
           closePopupFunction={this.handleReturnFromEpisode}
+          selectLowerSeries={this.handleArrowDown}
           hideSidebarFunction={this.handleHideSidebar}
           isSelectedHomeContainer={isSelectedHomeContainer}
         />

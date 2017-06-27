@@ -6,51 +6,109 @@ import App from './app';
 const mockData = [
   {
     title: 'Ocean',
+    id: 1,
+    series_id: null,
+    thumbnail_size: 'string',
     items: [
       {
         id: 0,
+        series_id: 1,
         title: 'zzz',
         type: 'Series',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
       {
         id: 1,
+        series_id: null,
         title: 'xxx',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
       {
         id: 2,
+        series_id: 1,
         title: 'aaa',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
     ],
   },
   {
     title: 'Some series',
+    id: 2,
+    series_id: null,
+    thumbnail_size: 'string',
     items: [
       {
         id: 32,
+        series_id: 2,
         title: 'asd',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
       {
         id: 54,
+        series_id: 2,
         title: 'aza',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
     ],
   },
   {
     title: 'Recommended',
+    id: 3,
+    series_id: null,
+    thumbnail_size: 'string',
     items: [
       {
         id: 3,
+        series_id: 3,
         title: 'xxx',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
       {
         id: 4,
+        series_id: 3,
         title: 'aaa',
         type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
       },
     ],
   },
@@ -60,10 +118,68 @@ const mockDataWithUnwantedEpisodes = [
   {
     title: 'Wanted',
     id: 1,
+    series_id: 3,
+    type: 'Episode',
+    thumbnail_size: 'string',
+    items: [
+      {
+        id: 5,
+        series_id: 5,
+        title: 'xxx',
+        type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
+      },
+      {
+        id: 6,
+        series_id: 6,
+        title: 'aaa',
+        type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
+      },
+    ],
   },
   {
     title: 'Unwanted 1',
     id: 10,
+    series_id: 3,
+    type: 'Episode',
+    thumbnail_size: 'string',
+    items: [
+      {
+        id: 7,
+        series_id: 7,
+        title: 'xxx',
+        type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
+      },
+      {
+        id: 8,
+        series_id: 8,
+        title: 'aaa',
+        type: 'Episode',
+        subtitle: 'string',
+        description: 'string',
+        video_url: 'string',
+        thumbnail: {
+          url: 'url',
+        },
+      },
+    ],
   },
 ];
 
@@ -74,7 +190,7 @@ jest.mock('../side-panel/side-panel', () =>
 jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
-// when code is string
+
 function connectEvent(type, wrapper, handleFunction) {
   const app: Object = wrapper.instance();
   if (handleFunction === 'handleKeyPress') {
@@ -98,7 +214,9 @@ function connectEvent(type, wrapper, handleFunction) {
 describe('App: ', () => {
   test('homepage navigation works', () => {
     const app = mount(<App params={{}} />);
+    jest.useFakeTimers();
     const appInstance: Object = app.instance();
+    expect(app.state().didScroll).toEqual(false);
     expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     // no functionaility, just need to cover all branches, default switch
@@ -115,6 +233,17 @@ describe('App: ', () => {
     // we push the ArrowDown button, but there is no place at the bottom to navigate
     connectEvent('ArrowDown', app, 'handleKeyPress');
     expect(app.state().selectedSeries).toEqual(2);
+    // we navigate down when episode selected popup is showed
+    appInstance.handleArrowDown(1, mockData.length);
+    expect(app.state().isSelectedHomeContainer).toEqual(true);
+    expect(app.state().goToEpisode).toEqual(false);
+    expect(app.state().selectedEpisode).toBe(0);
+    expect(app.state().selectedSeries).toBe(2);
+    appInstance.handleArrowDown(2, mockData.length);
+    expect(app.state().isSelectedHomeContainer).toEqual(true);
+    expect(app.state().goToEpisode).toEqual(false);
+    expect(app.state().selectedEpisode).toBe(0);
+    expect(app.state().selectedSeries).toBe(2);
     // we navigate up 2 positions to [1,0]
     connectEvent('ArrowUp', app, 'handleKeyPress');
     connectEvent('ArrowUp', app, 'handleKeyPress');
@@ -126,7 +255,10 @@ describe('App: ', () => {
     connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
     appInstance.handleWheel({ deltaY: -5, preventDefault: () => {} });
+    jest.runTimersToTime(400);
+    expect(setTimeout.mock.calls[0][1]).toBe(300);
     appInstance.handleWheel({ deltaY: 5, preventDefault: () => {} });
+    jest.clearAllTimers();
     // the Backspace button resets the selected episode
     connectEvent('Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
