@@ -22,10 +22,10 @@ exports[`SliderItem renders correctly 1`] = `
     >
       subtitle
     </div>
-    <div
-      className="slider-item__chevron"
-    />
   </div>
+  <div
+    className="slider-item__chevron"
+  />
 </div>
 `;
 
@@ -51,10 +51,10 @@ exports[`SliderItem renders correctly 2`] = `
     >
       10 episodes
     </div>
-    <div
-      className="slider-item__chevron"
-    />
   </div>
+  <div
+    className="slider-item__chevron"
+  />
 </div>
 `;
 
@@ -80,10 +80,10 @@ exports[`SliderItem renders correctly 3`] = `
     >
       subtitle
     </div>
-    <div
-      className="slider-item__chevron"
-    />
   </div>
+  <div
+    className="slider-item__chevron"
+  />
 </div>
 `;
 
@@ -109,10 +109,10 @@ exports[`SliderItem renders correctly 4`] = `
     >
       subtitle
     </div>
-    <div
-      className="slider-item__chevron slider-item__chevron--visible"
-    />
   </div>
+  <div
+    className="slider-item__chevron slider-item__chevron--visible"
+  />
 </div>
 `;
 
@@ -125,6 +125,9 @@ exports[`SliderItem renders correctly when full-width 1`] = `
     className="slider-item__image"
     src="url"
   />
+  <div
+    className="slider-item__chevron slider-item__chevron--small"
+  />
 </div>
 `;
 
@@ -136,6 +139,9 @@ exports[`SliderItem renders correctly when full-width 2`] = `
     alt="Episode 2 Title"
     className="slider-item__image"
     src=""
+  />
+  <div
+    className="slider-item__chevron slider-item__chevron--small"
   />
 </div>
 `;

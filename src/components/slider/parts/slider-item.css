@@ -66,6 +66,7 @@
     border-bottom: var(--chevron-size) solid var(--economist-mediumgrey);
 
     &--small {
+      position: fixed;
       bottom: var(--chevron-bottom-offset-small);
     }
 
@@ -76,7 +77,11 @@
   }
 
   &--full-width {
-    /* overflow: hidden; */
+    overflow: hidden;
+
+    &::after {
+      overflow: visible;
+    }
 
     & .slider-item__image {
       max-height: var(--banner-max-height);
