@@ -123,7 +123,8 @@ class VideoPlayer extends React.Component {
       isVideoExpanded,
     } = this.props;
     if (!isVideoExpanded) return;
-    switch (event.code) {
+    switch (event.code || event.which) {
+      case 38:
       case 'ArrowUp':
         event.preventDefault();
         this.setState({
@@ -132,6 +133,7 @@ class VideoPlayer extends React.Component {
           selectedPosition: 4,
         });
         break;
+      case 40:
       case 'ArrowDown':
         event.preventDefault();
         this.setState({
@@ -140,14 +142,17 @@ class VideoPlayer extends React.Component {
           selectedPosition: 1,
         });
         break;
+      case 37:
       case 'ArrowLeft':
         event.preventDefault();
         this.moveLeft();
         break;
+      case 39:
       case 'ArrowRight':
         event.preventDefault();
         this.moveRight();
         break;
+      case 13:
       case 'Enter':
         event.preventDefault();
         if (this.state.isBackButtonSelected) {
@@ -164,6 +169,7 @@ class VideoPlayer extends React.Component {
           }
         }
         break;
+      case 8:
       case 'Backspace':
         event.preventDefault();
         this.handleEventSource(event);

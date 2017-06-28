@@ -81,7 +81,11 @@ test('Test functions', () => {
 });
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
-  changedEvent.code = type;
+  if (typeof type === 'number') {
+    changedEvent.which = type;
+  } else if (typeof type === 'string') {
+    changedEvent.code = type;
+  }
   const app: Object = wrapper.instance();
   app.handleKeyPress(event);
 }
@@ -162,6 +166,32 @@ test('videoPlayer navigation works', () => {
   expect(app.props().showUI).toEqual(false);
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
+  connectEvent(event, 'Space', app);
+});
+test('videoPlayer navigation works for WEBOS TV', () => {
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      isVideoExpanded
+      episodeTitle="hello"
+      posterImage={null}
+      videoID={5}
+      handleVideoExpansion={() => {}}
+    />,
+  );
+  expect(app.state().isNavigationSelected).toEqual(true);
+  const event = new Event('keyDown');
+  connectEvent(event, 39, app);
+  expect(app.state().selectedPosition).toEqual(2);
+  connectEvent(event, 37, app);
+  expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 40, app);
+  expect(app.state().isNavigationSelected).toEqual(true);
+  connectEvent(event, 38, app);
+  expect(app.state().isBackButtonSelected).toEqual(true);
+  connectEvent(event, 13, app);
+  jest.fn(() => {});
+  connectEvent(event, 8, app);
   connectEvent(event, 'Space', app);
 });
 test('Video progress saves properly', () => {

@@ -91,3 +91,16 @@ test('Resets selected position to 1 on unselecting', () => {
   sidePanel.setProps({ isSelected: false });
   expect(sidePanel.state().selectedCard).toEqual(1);
 });
+
+test('Test webOS navigation', () => {
+  const sidePanel = mount(<SidePanel user={dummyUser} />);
+  const sidePanelInstance: Object = sidePanel.instance();
+  const fakeEvent = { code: 38 };
+  expect(sidePanel.state().selectedCard).toEqual(1);
+  sidePanel.setProps({ isSelected: true });
+  sidePanelInstance.handleKeyPress(fakeEvent);
+  const fakeEvent1 = { which: 40 };
+  sidePanelInstance.handleKeyPress(fakeEvent1);
+  const fakeEvent2 = { which: 13 };
+  sidePanelInstance.handleKeyPress(fakeEvent2);
+});
