@@ -193,22 +193,14 @@ jest.mock('../home-container/home-container', () =>
 
 function connectEvent(type, wrapper, handleFunction) {
   const app: Object = wrapper.instance();
+  let event = new KeyboardEvent('', { code: type });
+  if (typeof type === 'number') {
+    event = new KeyboardEvent('', { which: type });
+  }
   if (handleFunction === 'handleKeyPress') {
-    if (typeof type === 'number') {
-      const event = new KeyboardEvent('', { which: type });
-      app.handleKeyPress(event);
-    } else if (typeof type === 'string') {
-      const event = new KeyboardEvent('', { code: type });
-      app.handleKeyPress(event);
-    }
+    app.handleKeyPress(event);
   } else if (handleFunction === 'handleReturnFromEpisode') {
-    if (typeof type === 'number') {
-      const event = new KeyboardEvent('', { which: type });
-      app.handleReturnFromEpisode(event);
-    } else if (typeof type === 'string') {
-      const event = new KeyboardEvent('', { code: type });
-      app.handleReturnFromEpisode(event);
-    }
+    app.handleReturnFromEpisode(event);
   }
 }
 describe('App: ', () => {
