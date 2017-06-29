@@ -12,6 +12,7 @@ type SliderItemType = {
   className: string,
   isSelected: boolean,
   isFullWidth?: boolean,
+  isEpisodeExpanded: boolean,
 };
 
 class SliderItem extends React.Component {
@@ -41,12 +42,13 @@ class SliderItem extends React.Component {
       className,
       isSelected,
       isFullWidth,
+      isEpisodeExpanded,
     } = this.props;
     return (
       <div
         className={classnames({
           [`${className}`]: true,
-          [`${className}--selected`]: isSelected,
+          [`${className}--selected`]: isSelected && !isEpisodeExpanded,
           [`${className}--full-width`]: isFullWidth,
         })}
       >
@@ -63,6 +65,13 @@ class SliderItem extends React.Component {
             </div>
           </div>
         )}
+        <div
+          className={classnames({
+            [`${className}__chevron`]: true,
+            [`${className}__chevron--visible`]: isSelected && isEpisodeExpanded,
+            [`${className}__chevron--small`]: isFullWidth,
+          })}
+        />
       </div>
     );
   }

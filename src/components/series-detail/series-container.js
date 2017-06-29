@@ -263,6 +263,7 @@ class SeriesContainer extends React.Component {
         key={series.title}
         isSelected={isSliderSelected}
         selectedEpisode={selectedEpisode}
+        isEpisodeExpanded={goToEpisodeDetail}
       />
     ): null;
     const seriesContentClassname = classnames({
