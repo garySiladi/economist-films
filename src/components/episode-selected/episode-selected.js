@@ -26,10 +26,15 @@ type EpisodeSelectedType = {
   hideButtons?: boolean,
 };
 
-class episodeSelected extends React.Component {
+class EpisodeSelected extends React.Component {
   static defaultProps = {
     hideButtons: true,
   };
+  static handleLearnMore(seriesId, id) {
+    if (seriesId) {
+      browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
+    }
+  }
   constructor() {
     super();
     this.state = {
@@ -125,8 +130,8 @@ class episodeSelected extends React.Component {
           event.stopImmediatePropagation();
           this.handleVideoExpansion(true);
         }
-        if (selectedItem === 1 && seriesId) {
-          browserHistory.push(`/series/${seriesId}?expandedEpisode=${id}`);
+        if (selectedItem === 1) {
+          EpisodeSelected.handleLearnMore(seriesId, id);
         }
         break;
       default:
@@ -136,6 +141,7 @@ class episodeSelected extends React.Component {
   render() {
     const {
       id,
+      seriesId,
       url,
       subtitle,
       title,
@@ -163,7 +169,10 @@ class episodeSelected extends React.Component {
     return (
       <div className={episodesSelectedClassName}>
         <div className="episode-selected__teaser-wrapper">
-          <div className={videoContainerClassName}>
+          <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+            className={videoContainerClassName}
+            onClick={this.handleVideoExpansion}
+          >
             {isShown ? (
               <VideoPlayer
                 videoUrl={videoUrl}
@@ -187,7 +196,8 @@ class episodeSelected extends React.Component {
           />
           {hideButtons ? null : (
             <div className="episode-buttons">
-              <div
+              <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+                onClick={() => EpisodeSelected.handleLearnMore(seriesId, id)}
                 className={classnames({
                   'episode-buttons__learn': true,
                   'episode-buttons__learn--selected': selectedItem === 1,
@@ -203,4 +213,4 @@ class episodeSelected extends React.Component {
   }
 }
 
-export default episodeSelected;
+export default EpisodeSelected;
