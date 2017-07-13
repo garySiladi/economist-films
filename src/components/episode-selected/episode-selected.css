@@ -97,10 +97,6 @@
     transition: outline var(--transition-duration);
     outline: var(--outline-width) solid transparent;
     outline-offset: var(--slider-item-outline-offset);
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   &__watch--selected,
