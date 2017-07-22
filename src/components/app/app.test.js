@@ -183,10 +183,6 @@ const mockDataWithUnwantedEpisodes = [
   },
 ];
 
-jest.mock('../side-panel/side-panel', () =>
-  jest.fn(() => <div>Side Panel</div>),
-);
-
 jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
@@ -209,7 +205,6 @@ describe('App: ', () => {
     jest.useFakeTimers();
     const appInstance: Object = app.instance();
     expect(app.state().didScroll).toEqual(false);
-    expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     // no functionaility, just need to cover all branches, default switch
     connectEvent('Shift', app, 'handleKeyPress');
@@ -227,12 +222,10 @@ describe('App: ', () => {
     expect(app.state().selectedSeries).toEqual(2);
     // we navigate down when episode selected popup is showed
     appInstance.handleArrowDown(1, mockData.length);
-    expect(app.state().isSelectedHomeContainer).toEqual(true);
     expect(app.state().goToEpisode).toEqual(false);
     expect(app.state().selectedEpisode).toBe(0);
     expect(app.state().selectedSeries).toBe(2);
     appInstance.handleArrowDown(2, mockData.length);
-    expect(app.state().isSelectedHomeContainer).toEqual(true);
     expect(app.state().goToEpisode).toEqual(false);
     expect(app.state().selectedEpisode).toBe(0);
     expect(app.state().selectedSeries).toBe(2);
@@ -254,22 +247,13 @@ describe('App: ', () => {
     // the Backspace button resets the selected episode
     connectEvent('Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
-    // if we navigate left from the first episode, we end up on the sidebar
-    connectEvent('ArrowLeft', app, 'handleKeyPress');
-    expect(app.state().isSelectedSidePanel).toEqual(true);
-    appInstance.handleWheel({ deltaY: 5, preventDefault: () => {} });
-    // the backspace here does nothing
-    connectEvent('Backspace', app, 'handleKeyPress');
-    // for now it 'selects' the focused element
-    connectEvent('Enter', app, 'handleKeyPress');
-    // we navigate back to the homecontainer
-    connectEvent('ArrowRight', app, 'handleKeyPress');
-    expect(app.state().isSelectedSidePanel).toEqual(false);
-    expect(app.state().isSelectedHomeContainer).toEqual(true);
     connectEvent('ArrowRight', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(1);
+    connectEvent('ArrowRight', app, 'handleKeyPress');
+    connectEvent('ArrowLeft', app, 'handleKeyPress');
     connectEvent('ArrowLeft', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
+    connectEvent('ArrowLeft', app, 'handleKeyPress');
     connectEvent('ArrowRight', app, 'handleKeyPress');
     connectEvent('Enter', app, 'handleKeyPress');
     expect(app.state().goToEpisode).toEqual(true);
@@ -279,12 +263,9 @@ describe('App: ', () => {
     connectEvent('Enter', app, 'handleKeyPress');
     connectEvent('ArrowRight', app, 'handleKeyPress');
     connectEvent('ArrowRight', app, 'handleReturnFromEpisode');
-    appInstance.handleHideSidebar(true);
-    expect(app.state().isSidePanelHidden).toEqual(true);
   });
   test('homepage navigation works for WEBOS', () => {
     const app = mount(<App params={{}} />);
-    expect(app.state().isSelectedHomeContainer).toEqual(true);
     app.setState({ series: mockData });
     connectEvent('Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);

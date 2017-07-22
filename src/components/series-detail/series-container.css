@@ -1,24 +1,22 @@
 :root {
-  --expanded-video-offsetY: 810px;
+  --expanded-video-offsetY: -610px;
   --episode-popup-offsetY: -430px;
   --transition-duration: 0.3s;
-  --left-offset: 85px;
 }
 
 .series-container {
   height: 100vh;
   display: block;
-  background-position-x: var(--left-offset);
   background-size: 100vw 100vh;
   background-repeat: no-repeat;
 }
 
 .series-content {
-  margin-left: 115px;
+  margin-left: 50px;
   transition: transform var(--transition-duration);
 
   & .video-container--expanded {
-    top: var(--expanded-video-offsetY);
+    transform: translateY(var(--expanded-video-offsetY));
   }
 
   &.series-content--expanded {

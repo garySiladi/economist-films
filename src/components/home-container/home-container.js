@@ -11,26 +11,20 @@ class HomeContainer extends React.Component {
   }
   props: {
     series: Array<SeriesType>,
-    isSelected: boolean,
     selectedSeries: number,
     selectedEpisode: number,
     goToEpisode: boolean,
     closePopupFunction: Function,
     selectLowerSeries: Function,
-    isSelectedHomeContainer: boolean,
-    hideSidebarFunction: Function,
   };
   render() {
     const {
       series,
-      isSelected,
       selectedSeries,
       selectedEpisode,
       goToEpisode,
       closePopupFunction,
       selectLowerSeries,
-      isSelectedHomeContainer,
-      hideSidebarFunction,
     } = this.props;
     if (!series[0]) return null;
     const selectedEpisodeData = series[selectedSeries].items[selectedEpisode];
@@ -47,13 +41,10 @@ class HomeContainer extends React.Component {
         videoUrl={selectedEpisodeData.video_url}
         series={series}
         seriesId={selectedEpisodeData.series_id}
+        isSelectedHomeContainer
         selectedSeries={selectedSeries}
         selectedEpisode={selectedEpisode}
-        isSelectedHomeContainer={isSelectedHomeContainer}
-        hideButtons={
-          !isSelectedHomeContainer || HomeContainer.isFullWidthSeries(series[selectedSeries])
-        }
-        hideSidebarFunction={hideSidebarFunction}
+        hideButtons={HomeContainer.isFullWidthSeries(series[selectedSeries])}
         isShown={goToEpisode}
       />
     );
@@ -64,7 +55,7 @@ class HomeContainer extends React.Component {
           className="home-slider"
           sliderTitle={data.title}
           key={data.title}
-          isSelected={isSelected && index === selectedSeries}
+          isSelected={index === selectedSeries}
           isAfterSelected={index > selectedSeries}
           selectedEpisode={selectedEpisode}
           isEpisodeExpanded={goToEpisode}

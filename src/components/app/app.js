@@ -1,11 +1,9 @@
 // @flow
 import React from 'react';
 import { browserHistory } from 'react-router';
-import SidePanel from '../side-panel/side-panel';
-import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
+import { getRoot } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
-import UserIcon from '../../../public/assets/user-1.gif';
 
 type AppParamsProps = {
   selectedEpisodeId?: string, // eslint-disable-line
@@ -37,16 +35,16 @@ export type SeriesType = {
 }
 
 class App extends React.Component {
-  static createRecommendedSlider(dataRecommended) {
-    return {
-      id: -1, // we are setting a custom ID because recommended is not in JSON
-      series_id: -1,
-      title: 'Recommended',
-      items: dataRecommended.recommended_videos,
-      type: 'series',
-      thumbnail_size: '',
-    };
-  }
+  // static createRecommendedSlider(dataRecommended) {
+  //   return {
+  //     id: -1, // we are setting a custom ID because recommended is not in JSON
+  //     series_id: -1,
+  //     title: 'Recommended',
+  //     items: dataRecommended.items,
+  //     type: 'series',
+  //     thumbnail_size: '',
+  //   };
+  // }
   static massageSeries(series: Array<SeriesType>) {
     // remove All Series
     return series.filter(shelf => shelf.id !== 10);
@@ -54,13 +52,11 @@ class App extends React.Component {
   static setEpisodeByParam(id: ?string, series: Array<SeriesType>) {
     const foundEpisodes = [];
     series.forEach((shelf, shelfIndex) => {
-      if (shelf.items) {
-        shelf.items.forEach((episode, episodeIndex) => {
-          if (episode.id === Number(id) && episode.type === 'Episode') {
-            foundEpisodes.push([shelfIndex, episodeIndex]);
-          }
-        });
-      }
+      shelf.items.forEach((episode, episodeIndex) => {
+        if (episode.id === Number(id) && episode.type === 'Episode') {
+          foundEpisodes.push([shelfIndex, episodeIndex]);
+        }
+      });
     });
     const firstResult = foundEpisodes[0];
     return {
@@ -72,26 +68,19 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      isSelectedSidePanel: false,
-      isSelectedHomeContainer: true,
       series: [],
       selectedSeries: 0,
       selectedEpisode: 0,
       goToEpisode: false,
-      isSidePanelHidden: false,
       didScroll: false,
     };
     (this: any).handleKeyPress = this.handleKeyPress.bind(this);
     (this: any).handleWheel = this.handleWheel.bind(this);
     (this: any).scrollSeries = this.scrollSeries.bind(this);
     (this: any).handleReturnFromEpisode = this.handleReturnFromEpisode.bind(this);
-    (this: any).handleHideSidebar = this.handleHideSidebar.bind(this);
     (this: any).handleArrowDown = this.handleArrowDown.bind(this);
   }
   state: {
-    isSelectedSidePanel: boolean,
-    isSelectedHomeContainer: boolean,
-    isSidePanelHidden: boolean,
     series: Array<SeriesType>,
     selectedSeries: number,
     selectedEpisode: number,
@@ -114,7 +103,7 @@ class App extends React.Component {
         ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
     });
-    getRecommendedEpisodes(1)
+    /* getRecommendedEpisodes(103)
     .then((dataRecommended) => {
       const modifiedSeries =
         [App.createRecommendedSlider(dataRecommended)].concat(this.state.series);
@@ -122,7 +111,7 @@ class App extends React.Component {
         series: modifiedSeries,
         ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
-    });
+    }); */
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
@@ -131,7 +120,6 @@ class App extends React.Component {
   props: AppProps
   scrollSeries(event: KeyboardEvent | WheelEvent) {
     const {
-      isSelectedHomeContainer,
       selectedSeries,
       series,
       goToEpisode,
@@ -140,27 +128,20 @@ class App extends React.Component {
     if (goToEpisode) return;
     const isTargetUp = event instanceof KeyboardEvent ? event.code === 'ArrowUp' || event.which === 38 : event.deltaY < 0;
     this.resetSelectedEpisode();
-    if (isSelectedHomeContainer) {
-      if (selectedSeries !== 0 && isTargetUp) {
-        this.setState({
-          selectedSeries: selectedSeries - 1,
-        });
-      } else if (selectedSeries !== series.length - 1 && !isTargetUp) {
-        this.setState({
-          selectedSeries: selectedSeries + 1,
-        });
-      }
+    if (selectedSeries !== 0 && isTargetUp) {
+      this.setState({
+        selectedSeries: selectedSeries - 1,
+      });
+    } else if (selectedSeries !== series.length - 1 && !isTargetUp) {
+      this.setState({
+        selectedSeries: selectedSeries + 1,
+      });
     }
   }
   handleReturnFromEpisode(event: KeyboardEvent) {
     event.preventDefault();
     this.setState({
       goToEpisode: false,
-    });
-  }
-  handleHideSidebar(position: boolean) {
-    this.setState({
-      isSidePanelHidden: position,
     });
   }
   handleWheel(event: WheelEvent) {
@@ -188,8 +169,6 @@ class App extends React.Component {
   }
   handleKeyPress(event: KeyboardEvent) { // TODO: maybe export this functionality to another file
     const {
-      isSelectedSidePanel,
-      isSelectedHomeContainer,
       selectedSeries,
       series,
       selectedEpisode,
@@ -200,13 +179,7 @@ class App extends React.Component {
       case 37:
       case 'ArrowLeft':
         event.preventDefault();
-        if (isSelectedHomeContainer && selectedEpisode === 0) {
-          this.setState({
-            isSelectedHomeContainer: false,
-            isSelectedSidePanel: true,
-          });
-        }
-        if (isSelectedHomeContainer && selectedEpisode !== 0) {
+        if (selectedEpisode !== 0) {
           this.setState({
             selectedEpisode: selectedEpisode - 1,
           });
@@ -215,16 +188,7 @@ class App extends React.Component {
       case 39:
       case 'ArrowRight':
         event.preventDefault();
-        if (isSelectedSidePanel) {
-          this.setState({
-            isSelectedHomeContainer: true,
-            isSelectedSidePanel: false,
-          });
-        }
-        if (
-          isSelectedHomeContainer
-          && selectedEpisode !== series[selectedSeries].items.length - 1
-        ) {
+        if (selectedEpisode !== series[selectedSeries].items.length - 1) {
           this.setState({
             selectedEpisode: selectedEpisode + 1,
           });
@@ -238,29 +202,22 @@ class App extends React.Component {
         break;
       case 13:
       case 'Enter':
-        if (!isSelectedSidePanel) {
-          event.preventDefault();
-        }
-        if (isSelectedHomeContainer) {
-          if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
-            const seriesId = series[selectedSeries].series_id || '';
-            browserHistory.push(`/series/${seriesId}`);
-          } else {
-            event.stopImmediatePropagation();
-            const episodeId = series[selectedSeries].items[selectedEpisode].id;
-            browserHistory.replace(`/${episodeId}`);
-            this.setState({
-              goToEpisode: true,
-            });
-          }
+        if (series[selectedSeries].items[selectedEpisode].type === 'Series') {
+          const seriesId = series[selectedSeries].series_id || '';
+          browserHistory.push(`/series/${seriesId}`);
+        } else {
+          event.stopImmediatePropagation();
+          const episodeId = series[selectedSeries].items[selectedEpisode].id;
+          browserHistory.replace(`/${episodeId}`);
+          this.setState({
+            goToEpisode: true,
+          });
         }
         break;
       case 8:
       case 'Backspace':
         event.preventDefault();
-        if (isSelectedHomeContainer) {
-          this.resetSelectedEpisode();
-        }
+        this.resetSelectedEpisode();
         break;
       default:
     }
@@ -272,31 +229,20 @@ class App extends React.Component {
   }
   render() {
     const {
-      isSelectedSidePanel,
-      isSelectedHomeContainer,
       series,
       selectedSeries,
       selectedEpisode,
       goToEpisode,
-      isSidePanelHidden,
     } = this.state;
     return (
       <div className="app">
-        <SidePanel
-          isSelected={isSelectedSidePanel}
-          isSidePanelHidden={isSidePanelHidden}
-          user={{ id: 1, name: 'Lemoni', imgUrl: UserIcon }}
-        />
         <HomeContainer
           series={series}
-          isSelected={isSelectedHomeContainer}
           selectedSeries={selectedSeries}
           selectedEpisode={selectedEpisode}
           goToEpisode={goToEpisode}
           closePopupFunction={this.handleReturnFromEpisode}
           selectLowerSeries={this.handleArrowDown}
-          hideSidebarFunction={this.handleHideSidebar}
-          isSelectedHomeContainer={isSelectedHomeContainer}
         />
       </div>
     );

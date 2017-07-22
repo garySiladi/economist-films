@@ -119,9 +119,9 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
-  transform: translateY(-380px);
-  left: -115px;
-  z-index: 5;
+  transform: translateY(-410px);
+  left: -50px;
+  z-index: 999;
 
   & .video-js {
     background-color: black;

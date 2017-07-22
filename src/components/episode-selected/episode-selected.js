@@ -17,7 +17,6 @@ type EpisodeSelectedType = {
   selectedSeries: number,
   closePopupFunction: Function,
   selectLowerSeries: Function,
-  hideSidebarFunction: Function,
   videoUrl: string,
   series: Array<SeriesType>,
   seriesId: ?number,
@@ -53,7 +52,6 @@ class episodeSelected extends React.Component {
     this.setState({
       isVideoExpanded: position,
     });
-    this.props.hideSidebarFunction(position);
   }
   handleKeyPress(event: KeyboardEvent) {
     const {
