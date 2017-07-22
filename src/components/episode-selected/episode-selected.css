@@ -21,7 +21,6 @@
 
 .episode-selected {
   margin: var(--offset-size);
-  margin-left: calc(var(--offset-size) / 2);
   width: var(--popup-width);
   background-color: var(--economist-mediumgrey);
   position: absolute;

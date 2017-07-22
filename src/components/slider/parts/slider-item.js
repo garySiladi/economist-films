@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
+import Image from '../../image/image';
 import './slider-item.css';
 
 type SliderItemType = {
@@ -44,24 +45,28 @@ class SliderItem extends React.Component {
       isFullWidth,
       isEpisodeExpanded,
     } = this.props;
+    const isItemSeries = SliderItem.isItemSeries(type);
     return (
       <div
         className={classnames({
           [`${className}`]: true,
           [`${className}--selected`]: isSelected && !isEpisodeExpanded,
           [`${className}--full-width`]: isFullWidth,
+          [`${className}--series-item`]: isItemSeries,
         })}
       >
-        <img
-          src={SliderItem.setTeaserImage(thumbnail, isFullWidth)}
-          alt={title}
-          className="slider-item__image"
+        <Image
+          imageProps={{
+            src: SliderItem.setTeaserImage(thumbnail, isFullWidth),
+            alt: title,
+            className: 'slider-item__image',
+          }}
         />
         {isFullWidth ? null : (
           <div className="slider-item__container">
             <div className="slider-item__title">{title}</div>
             <div className="slider-item__subtitle">
-              {SliderItem.isItemSeries(type) ? `${String(episodeCount)} episodes` : subtitle}
+              {isItemSeries ? `${String(episodeCount)} episodes` : subtitle}
             </div>
           </div>
         )}

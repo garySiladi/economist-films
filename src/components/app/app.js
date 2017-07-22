@@ -65,8 +65,8 @@ class App extends React.Component {
       goToEpisode: firstResult instanceof Array,
     };
   }
-  constructor() {
-    super();
+  constructor(props: AppProps) {
+    super(props);
     this.state = {
       series: [],
       selectedSeries: 0,

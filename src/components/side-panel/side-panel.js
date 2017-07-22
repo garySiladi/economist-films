@@ -4,9 +4,6 @@ import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import SidePanelCard from './parts/side-panel-card';
 import './side-panel.css';
-import SearchIcon from '../../../public/assets/Search.svg';
-import HomeIcon from '../../../public/assets/Home.svg';
-import FavoritesIcon from '../../../public/assets/Favorites.svg';
 import type { SidePanelCardType } from './parts/side-panel-card';
 
 export type SidePanelPropsType = {
@@ -27,17 +24,17 @@ type SidePanelStateType = {
 const sidePanelOptions = [
   {
     href: '/search',
-    icon: SearchIcon,
+    icon: 'play',
     title: 'Search',
   },
   {
     href: '/',
-    icon: HomeIcon,
+    icon: 'play',
     title: 'Home',
   },
   {
     href: '/favorites',
-    icon: FavoritesIcon,
+    icon: 'play',
     title: 'Favorites',
   },
 ];

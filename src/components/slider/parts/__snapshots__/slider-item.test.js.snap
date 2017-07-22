@@ -4,11 +4,20 @@ exports[`SliderItem renders correctly 1`] = `
 <div
   className="slider-item"
 >
-  <img
-    alt="Episode 6 Title"
-    className="slider-item__image"
-    src="url"
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Episode 6 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src="url"
+      />
+    </div>
+  </div>
   <div
     className="slider-item__container"
   >
@@ -31,13 +40,22 @@ exports[`SliderItem renders correctly 1`] = `
 
 exports[`SliderItem renders correctly 2`] = `
 <div
-  className="slider-item"
+  className="slider-item slider-item--series-item"
 >
-  <img
-    alt="Series 1 Title"
-    className="slider-item__image"
-    src="url"
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Series 1 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src="url"
+      />
+    </div>
+  </div>
   <div
     className="slider-item__container"
   >
@@ -62,11 +80,20 @@ exports[`SliderItem renders correctly 3`] = `
 <div
   className="slider-item slider-item--selected"
 >
-  <img
-    alt="Episode 19 Title"
-    className="slider-item__image"
-    src=""
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Episode 19 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src=""
+      />
+    </div>
+  </div>
   <div
     className="slider-item__container"
   >
@@ -91,11 +118,20 @@ exports[`SliderItem renders correctly 4`] = `
 <div
   className="slider-item"
 >
-  <img
-    alt="Episode 19 Title"
-    className="slider-item__image"
-    src=""
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Episode 19 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src=""
+      />
+    </div>
+  </div>
   <div
     className="slider-item__container"
   >
@@ -120,11 +156,20 @@ exports[`SliderItem renders correctly when full-width 1`] = `
 <div
   className="slider-item slider-item--full-width"
 >
-  <img
-    alt="Episode 1 Title"
-    className="slider-item__image"
-    src="url"
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Episode 1 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src="url"
+      />
+    </div>
+  </div>
   <div
     className="slider-item__chevron slider-item__chevron--small"
   />
@@ -135,11 +180,20 @@ exports[`SliderItem renders correctly when full-width 2`] = `
 <div
   className="slider-item slider-item--full-width"
 >
-  <img
-    alt="Episode 2 Title"
-    className="slider-item__image"
-    src=""
-  />
+  <div
+    className="image image--placeholder"
+  >
+    <div
+      className="image__holder"
+    >
+      <img
+        alt="Episode 2 Title"
+        className="slider-item__image"
+        onLoad={[Function]}
+        src=""
+      />
+    </div>
+  </div>
   <div
     className="slider-item__chevron slider-item__chevron--small"
   />
