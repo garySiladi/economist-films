@@ -1,12 +1,8 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 import './video-player-controls.css';
-import Back from '../../../../public/assets/Square-Arrow.svg';
-import Rewind from '../../../../public/assets/RW.svg';
-import Forward from '../../../../public/assets/FF.svg';
-import Play from '../../../../public/assets/Play.svg';
-import Pause from '../../../../public/assets/Pause.svg';
 
 export type VideoPlayerInterfaceProps = {
   episodeTitle: string,
@@ -45,9 +41,8 @@ const VideoPlayerInterface = ({
             { selected: isBackButtonSelected },
           )}
         >
-          <img
-            src={Back}
-            alt="Back"
+          <FontAwesome
+            name="chevron-left"
             className={classnames(
               'player-interface__navigation-icons',
               'player-interface__navigation-icons--back',
@@ -70,12 +65,11 @@ const VideoPlayerInterface = ({
           <button
             className={createNavigationControlClassname(0)}
           >
-            <img
-              src={Rewind}
-              alt="left"
+            <FontAwesome
+              name="step-backward"
               className={classnames(
                 'player-interface__navigation-icons',
-                'player-interface__navigation-icons--rewind',
+                'player-interface__navigation-icons--step-backward',
               )}
               id="1"
             />
@@ -83,15 +77,11 @@ const VideoPlayerInterface = ({
           <button
             className={createNavigationControlClassname(1)}
           >
-            <img
-              src={isVideoPlaying ? Pause : Play}
-              alt="Play/Pause"
+            <FontAwesome
+              name="backward"
               className={classnames(
                 'player-interface__navigation-icons',
-                {
-                  'player-interface__navigation-icons--play': !isVideoPlaying,
-                  'player-interface__navigation-icons--pause': isVideoPlaying,
-                },
+                'player-interface__navigation-icons--rewind',
               )}
               id="2"
             />
@@ -99,14 +89,40 @@ const VideoPlayerInterface = ({
           <button
             className={createNavigationControlClassname(2)}
           >
-            <img
-              src={Forward}
-              alt="right"
+            <FontAwesome
+              name={isVideoPlaying ? 'pause' : 'play'}
+              className={classnames(
+                'player-interface__navigation-icons',
+                {
+                  'player-interface__navigation-icons--play': !isVideoPlaying,
+                  'player-interface__navigation-icons--pause': isVideoPlaying,
+                },
+              )}
+              id="3"
+            />
+          </button>
+          <button
+            className={createNavigationControlClassname(3)}
+          >
+            <FontAwesome
+              name="forward"
               className={classnames(
                 'player-interface__navigation-icons',
                 'player-interface__navigation-icons--forward',
               )}
-              id="3"
+              id="4"
+            />
+          </button>
+          <button
+            className={createNavigationControlClassname(4)}
+          >
+            <FontAwesome
+              name="step-forward"
+              className={classnames(
+                'player-interface__navigation-icons',
+                'player-interface__navigation-icons--step-forward',
+              )}
+              id="5"
             />
           </button>
         </div>

@@ -6,7 +6,7 @@
   --video-text-size: 2em;
   --navigation-margin: 30px;
   --navigation-icons-size: 8em;
-  --back-button-size: 4em;
+  --back-button-size: 5.5em;
   --svg-icon-offset: 7px;
 }
 
@@ -53,8 +53,8 @@
 
   &__episode-title {
     position: fixed;
-    top: 4.5%;
-    left: 100px;
+    top: 5.5%;
+    left: 120px;
     font-size: calc(var(--video-text-size) * 1.5);
   }
 
@@ -74,7 +74,7 @@
 
   &__navigation-wrapper {
     display: block;
-    margin: var(--navigation-margin) 0;
+    margin: var(--navigation-margin) 0 calc(var(--navigation-margin) * 2);
   }
 
   &__progress-bar-container {
@@ -102,7 +102,7 @@
   }
 
   &__navigation-icons {
-    width: 60%;
+    font-size: 35px;
 
     &--back {
       margin-right: 5px;
@@ -117,12 +117,12 @@
     }
 
     &--play {
-      width: 50%;
+      font-size: 50px;
       margin-left: var(--svg-icon-offset);
     }
 
     &--pause {
-      width: 50%;
+      font-size: 50px;
     }
   }
 }

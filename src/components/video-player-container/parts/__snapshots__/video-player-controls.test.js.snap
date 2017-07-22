@@ -10,10 +10,9 @@ exports[`Video is not playing  1`] = `
     <button
       className="player-interface__back-button selected"
     >
-      <img
-        alt="Back"
-        className="player-interface__navigation-icons player-interface__navigation-icons--back"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left player-interface__navigation-icons player-interface__navigation-icons--back"
       />
     </button>
     <span
@@ -57,31 +56,46 @@ exports[`Video is not playing  1`] = `
       <button
         className="player-interface__navigation-control selected"
       >
-        <img
-          alt="left"
-          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+        <span
+          aria-hidden={true}
+          className="fa fa-step-backward player-interface__navigation-icons player-interface__navigation-icons--step-backward"
           id="1"
-          src="RW.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="Play/Pause"
-          className="player-interface__navigation-icons player-interface__navigation-icons--play"
+        <span
+          aria-hidden={true}
+          className="fa fa-backward player-interface__navigation-icons player-interface__navigation-icons--rewind"
           id="2"
-          src="Play.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="right"
-          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+        <span
+          aria-hidden={true}
+          className="fa fa-play player-interface__navigation-icons player-interface__navigation-icons--play"
           id="3"
-          src="FF.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-forward player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="4"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-step-forward player-interface__navigation-icons player-interface__navigation-icons--step-forward"
+          id="5"
         />
       </button>
     </div>
@@ -99,10 +113,9 @@ exports[`Video is playing + selected postition is 0 1`] = `
     <button
       className="player-interface__back-button selected"
     >
-      <img
-        alt="Back"
-        className="player-interface__navigation-icons player-interface__navigation-icons--back"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left player-interface__navigation-icons player-interface__navigation-icons--back"
       />
     </button>
     <span
@@ -146,31 +159,46 @@ exports[`Video is playing + selected postition is 0 1`] = `
       <button
         className="player-interface__navigation-control selected"
       >
-        <img
-          alt="left"
-          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+        <span
+          aria-hidden={true}
+          className="fa fa-step-backward player-interface__navigation-icons player-interface__navigation-icons--step-backward"
           id="1"
-          src="RW.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="Play/Pause"
-          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+        <span
+          aria-hidden={true}
+          className="fa fa-backward player-interface__navigation-icons player-interface__navigation-icons--rewind"
           id="2"
-          src="Pause.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="right"
-          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+        <span
+          aria-hidden={true}
+          className="fa fa-pause player-interface__navigation-icons player-interface__navigation-icons--pause"
           id="3"
-          src="FF.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-forward player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="4"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-step-forward player-interface__navigation-icons player-interface__navigation-icons--step-forward"
+          id="5"
         />
       </button>
     </div>
@@ -188,10 +216,9 @@ exports[`Video is playing + selected postition is 1 1`] = `
     <button
       className="player-interface__back-button selected"
     >
-      <img
-        alt="Back"
-        className="player-interface__navigation-icons player-interface__navigation-icons--back"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left player-interface__navigation-icons player-interface__navigation-icons--back"
       />
     </button>
     <span
@@ -235,31 +262,46 @@ exports[`Video is playing + selected postition is 1 1`] = `
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="left"
-          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+        <span
+          aria-hidden={true}
+          className="fa fa-step-backward player-interface__navigation-icons player-interface__navigation-icons--step-backward"
           id="1"
-          src="RW.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control selected"
       >
-        <img
-          alt="Play/Pause"
-          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+        <span
+          aria-hidden={true}
+          className="fa fa-backward player-interface__navigation-icons player-interface__navigation-icons--rewind"
           id="2"
-          src="Pause.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="right"
-          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+        <span
+          aria-hidden={true}
+          className="fa fa-pause player-interface__navigation-icons player-interface__navigation-icons--pause"
           id="3"
-          src="FF.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-forward player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="4"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-step-forward player-interface__navigation-icons player-interface__navigation-icons--step-forward"
+          id="5"
         />
       </button>
     </div>
@@ -277,10 +319,9 @@ exports[`Video is playing + selected postition is 2 1`] = `
     <button
       className="player-interface__back-button selected"
     >
-      <img
-        alt="Back"
-        className="player-interface__navigation-icons player-interface__navigation-icons--back"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left player-interface__navigation-icons player-interface__navigation-icons--back"
       />
     </button>
     <span
@@ -324,31 +365,46 @@ exports[`Video is playing + selected postition is 2 1`] = `
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="left"
-          className="player-interface__navigation-icons player-interface__navigation-icons--rewind"
+        <span
+          aria-hidden={true}
+          className="fa fa-step-backward player-interface__navigation-icons player-interface__navigation-icons--step-backward"
           id="1"
-          src="RW.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control"
       >
-        <img
-          alt="Play/Pause"
-          className="player-interface__navigation-icons player-interface__navigation-icons--pause"
+        <span
+          aria-hidden={true}
+          className="fa fa-backward player-interface__navigation-icons player-interface__navigation-icons--rewind"
           id="2"
-          src="Pause.svg"
         />
       </button>
       <button
         className="player-interface__navigation-control selected"
       >
-        <img
-          alt="right"
-          className="player-interface__navigation-icons player-interface__navigation-icons--forward"
+        <span
+          aria-hidden={true}
+          className="fa fa-pause player-interface__navigation-icons player-interface__navigation-icons--pause"
           id="3"
-          src="FF.svg"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-forward player-interface__navigation-icons player-interface__navigation-icons--forward"
+          id="4"
+        />
+      </button>
+      <button
+        className="player-interface__navigation-control"
+      >
+        <span
+          aria-hidden={true}
+          className="fa fa-step-forward player-interface__navigation-icons player-interface__navigation-icons--step-forward"
+          id="5"
         />
       </button>
     </div>

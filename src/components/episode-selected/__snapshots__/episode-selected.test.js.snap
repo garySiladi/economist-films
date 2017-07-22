@@ -17,15 +17,13 @@ exports[`HomeContainer  hides buttons 1`] = `
     <div
       className="episode-selected__image episode-selected__image--selected"
     >
-      <img
-        alt="title xyz"
-        className="first-arrow"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left expand-button__arrow expand-button__arrow--first"
       />
-      <img
-        alt="title xyz"
-        className="second-arrow"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left expand-button__arrow expand-button__arrow--second"
       />
     </div>
   </div>
@@ -65,15 +63,13 @@ exports[`HomeContainer  renders with data 1`] = `
     <div
       className="episode-selected__image episode-selected__image--selected"
     >
-      <img
-        alt="title xyz"
-        className="first-arrow"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left expand-button__arrow expand-button__arrow--first"
       />
-      <img
-        alt="title xyz"
-        className="second-arrow"
-        src="Square-Arrow.svg"
+      <span
+        aria-hidden={true}
+        className="fa fa-chevron-left expand-button__arrow expand-button__arrow--second"
       />
     </div>
   </div>
