@@ -23,6 +23,8 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
     className: 'slider',
     sliderTitle: 'Slider Title',
     isFullWidth: false,
+    selectedEpisode: 1,
+    resetOnUnselect: true,
   };
   props: SliderStructure
   render() {
@@ -34,13 +36,15 @@ class Slider extends React.Component { // eslint-disable-line react/prefer-state
       sliderTitle,
       selectedEpisode,
       data: episodes,
+      resetOnUnselect,
     } = this.props;
     const sliderClassName = classnames(
       { [`${className}`]: true },
       { [`${className}--selected`]: isSelected },
       { [`${className}--after-expanded`]: isAfterSelected && isEpisodeExpanded },
     );
-    const calcOffset = isSelected ? Slider.getHorizontalOffset(selectedEpisode, episodes) : 0;
+    const calcOffset = isSelected || !resetOnUnselect ?
+      Slider.getHorizontalOffset(selectedEpisode, episodes) : 0;
     return (
       <div className={sliderClassName} >
         <div className="slider-title">{sliderTitle}</div>
