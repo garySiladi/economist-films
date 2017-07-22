@@ -70,7 +70,7 @@ class VideoPlayer extends React.Component {
     this.state = {
       isVideoPlaying: true,
       timeProgress: 0,
-      selectedPosition: 1,
+      selectedPosition: 2,
       isBackButtonSelected: false,
       isNavigationSelected: true,
       showInterface: false,
@@ -130,7 +130,7 @@ class VideoPlayer extends React.Component {
         this.setState({
           isBackButtonSelected: true,
           isNavigationSelected: false,
-          selectedPosition: 4,
+          selectedPosition: -1,
         });
         break;
       case 40:
@@ -139,7 +139,7 @@ class VideoPlayer extends React.Component {
         this.setState({
           isNavigationSelected: true,
           isBackButtonSelected: false,
-          selectedPosition: 1,
+          selectedPosition: 2,
         });
         break;
       case 37:
@@ -158,14 +158,30 @@ class VideoPlayer extends React.Component {
         if (this.state.isBackButtonSelected) {
           this.handleEventSource(event);
         } else {
-          if (this.state.selectedPosition === 0) {
-            this.handleRewind();
-          }
-          if (this.state.selectedPosition === 1) {
-            this.handlePlayPause();
-          }
-          if (this.state.selectedPosition === 2) {
-            this.handleFastForward();
+          switch (this.state.selectedPosition) {
+            case 0: {
+              // handle previous episode
+              break;
+            }
+            case 1: {
+              this.handleRewind();
+              break;
+            }
+            case 2: {
+              this.handlePlayPause();
+              break;
+            }
+            case 3: {
+              this.handleFastForward();
+              break;
+            }
+            case 4: {
+              // handle next episode
+              break;
+            }
+            default: {
+              throw new Error('Tried to handle Enter on unrecognised position.');
+            }
           }
         }
         break;
@@ -191,7 +207,7 @@ class VideoPlayer extends React.Component {
   }
   moveRight() {
     if (this.state.isNavigationSelected) {
-      if (this.state.selectedPosition < 2) {
+      if (this.state.selectedPosition < 4) {
         this.setState({
           selectedPosition: this.state.selectedPosition +1,
         });
@@ -257,7 +273,7 @@ class VideoPlayer extends React.Component {
       (this: any).videoShower = setTimeout(() => {
         this.setState({
           showInterface: false,
-          selectedPosition: 1,
+          selectedPosition: 2,
           isBackButtonSelected: false,
           isNavigationSelected: true,
         });

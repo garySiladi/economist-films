@@ -65,7 +65,7 @@ test('Test functions', () => {
   vP.handleFastForward();
   expect(videoPlayer.state().isNavigationSelected).toEqual(true);
   vP.moveLeft();
-  expect(videoPlayer.state().selectedPosition).toEqual(0);
+  expect(videoPlayer.state().selectedPosition).toEqual(1);
   expect(vP.player.currentTime()).toEqual(20);
   vP.handleFastForward();
   expect(vP.player.currentTime()).toEqual(20);
@@ -129,13 +129,21 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'ArrowDown', app);
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
-  expect(app.state().selectedPosition).toEqual(1);
-  connectEvent(event, 'ArrowRight', app);
   expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(3);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(4);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(4);
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(3);
+  connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(0);
   connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedPosition).toEqual(0);
   connectEvent(event, 'ArrowRight', app);
@@ -148,6 +156,15 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'ArrowDown', app);
   expect(app.state().isNavigationSelected).toEqual(true);
   connectEvent(event, 'ArrowRight', app);
+  connectEvent(event, 'ArrowRight', app);
+  expect(app.state().selectedPosition).toEqual(4);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(3);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
@@ -158,6 +175,9 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'ArrowLeft', app);
   expect(app.state().selectedPosition).toEqual(0);
   connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  app.setState({ selectedPosition: 10 }); // invalid navigation position
+  expect(() => { app.instance().handleKeyPress({ preventDefault: () => {}, code: 'Enter' }) }).toThrow();
   jest.fn(() => {});
   connectEvent(event, 'Backspace', app);
   app.setProps({ showUI: false });
@@ -182,9 +202,9 @@ test('videoPlayer navigation works for WEBOS TV', () => {
   expect(app.state().isNavigationSelected).toEqual(true);
   const event = new Event('keyDown');
   connectEvent(event, 39, app);
-  expect(app.state().selectedPosition).toEqual(2);
+  expect(app.state().selectedPosition).toEqual(3);
   connectEvent(event, 37, app);
-  expect(app.state().selectedPosition).toEqual(1);
+  expect(app.state().selectedPosition).toEqual(2);
   connectEvent(event, 40, app);
   expect(app.state().isNavigationSelected).toEqual(true);
   connectEvent(event, 38, app);
@@ -230,7 +250,6 @@ test('Clears interface after 1.5 seconds', () => {
       handleVideoExpansion={() => {}}
     />,
   );
-  // $FlowFixMe
   app.instance().hideInterface();
   jest.runTimersToTime(1500);
   expect(setTimeout.mock.calls.length).toBe(1);

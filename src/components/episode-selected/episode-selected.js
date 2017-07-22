@@ -2,9 +2,9 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import classnames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 import EpisodeDescription from './parts/episode-description';
 import VideoPlayer from '../video-player-container/parts/video-player';
-import SquareArrow from '../../../public/assets/Square-Arrow.svg';
 import './episode-selected.css';
 import type { SeriesType } from '../app/app';
 
@@ -176,8 +176,14 @@ class episodeSelected extends React.Component {
             ) : null}
           </div>
           <div className={expandButtonClassName}>
-            <img className="first-arrow" src={SquareArrow} alt={title} />
-            <img className="second-arrow" src={SquareArrow} alt={title} />
+            <FontAwesome
+              name="chevron-left"
+              className="expand-button__arrow expand-button__arrow--first"
+            />
+            <FontAwesome
+              name="chevron-left"
+              className="expand-button__arrow expand-button__arrow--second"
+            />
           </div>
         </div>
         <div className="episode-selected__info-container">
