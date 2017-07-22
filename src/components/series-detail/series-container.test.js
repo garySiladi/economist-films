@@ -221,6 +221,26 @@ describe('SeriesContainer', () => {
     seriesContainerInstance.handleReturnFromEpisode();
     seriesContainer.unmount();
   });
+  test('series detail navigation works for WEBOS TV', () => {
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '119',
+          },
+        }}
+      />,
+    );
+    const event = new Event('keyDown');
+    connectEvent(event, 39, seriesContainer);
+    connectEvent(event, 37, seriesContainer);
+    connectEvent(event, 40, seriesContainer);
+    connectEvent(event, 38, seriesContainer);
+    connectEvent(event, 13, seriesContainer);
+    jest.fn(() => {});
+    connectEvent(event, 8, seriesContainer);
+  });
   test('Series fetch', () => {
     // $FlowFixMe
     fetches.getSeriesByID =

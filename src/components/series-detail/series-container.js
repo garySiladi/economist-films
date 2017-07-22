@@ -118,6 +118,7 @@ class SeriesContainer extends React.Component {
       isWatchnowBtnSelected,
     } = this.state;
     switch (event.code) {
+      case 37:
       case 'ArrowLeft':
         event.preventDefault();
         if (goToEpisodeDetail) return;
@@ -127,6 +128,7 @@ class SeriesContainer extends React.Component {
           });
         }
         break;
+      case 39:
       case 'ArrowRight':
         event.preventDefault();
         if (isSliderSelected && series &&
@@ -136,6 +138,7 @@ class SeriesContainer extends React.Component {
           });
         }
         break;
+      case 38:
       case 'ArrowUp':
         event.preventDefault();
         if (!goToEpisodeDetail) {
@@ -150,6 +153,7 @@ class SeriesContainer extends React.Component {
           });
         }
         break;
+      case 40:
       case 'ArrowDown':
         event.preventDefault();
         if (isWatchnowBtnSelected) {
@@ -161,12 +165,14 @@ class SeriesContainer extends React.Component {
           this.setState({ goToEpisodeDetail: true });
         }
         break;
+      case 13:
       case 'Enter':
         if (isSliderSelected && !goToEpisodeDetail) {
           event.stopImmediatePropagation();
           this.setState({ goToEpisodeDetail: true });
         }
         break;
+      case 8:
       case 'Backspace':
         if (!goToEpisodeDetail) {
           browserHistory.push('/');
@@ -231,6 +237,7 @@ class SeriesContainer extends React.Component {
         isSelected={isSliderSelected}
         selectedEpisode={selectedEpisode}
         isEpisodeExpanded={goToEpisodeDetail}
+        resetOnUnselect={false}
       />
     ): null;
     const seriesContentClassname = classnames({
