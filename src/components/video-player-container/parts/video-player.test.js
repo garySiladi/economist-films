@@ -177,7 +177,8 @@ test('videoPlayer navigation works', () => {
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
   app.setState({ selectedPosition: 10 }); // invalid navigation position
-  expect(() => { app.instance().handleKeyPress({ preventDefault: () => {}, code: 'Enter' }) }).toThrow();
+  const appInstance: Object = app.instance();
+  expect(() => { appInstance.handleKeyPress({ preventDefault: () => {}, code: 'Enter' }) }).toThrow();
   jest.fn(() => {});
   connectEvent(event, 'Backspace', app);
   app.setProps({ showUI: false });
@@ -250,7 +251,8 @@ test('Clears interface after 1.5 seconds', () => {
       handleVideoExpansion={() => {}}
     />,
   );
-  app.instance().hideInterface();
+  const appInstance: Object = app.instance();
+  appInstance.hideInterface();
   jest.runTimersToTime(1500);
   expect(setTimeout.mock.calls.length).toBe(1);
   expect(setTimeout.mock.calls[0][1]).toBe(1500);
