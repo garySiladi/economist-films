@@ -29,8 +29,8 @@ class episodeSelected extends React.Component {
   static defaultProps = {
     hideButtons: true,
   };
-  constructor() {
-    super();
+  constructor(props: EpisodeSelectedType) {
+    super(props);
     this.state = {
       selectedItem: 0,
       isVideoExpanded: false,

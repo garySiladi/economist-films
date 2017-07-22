@@ -29,6 +29,10 @@
     outline-offset: var(--slider-item-outline-offset);
   }
 
+  &--series-item .slider-item__container {
+    background-color: var(--economist-averagegrey, gray);
+  }
+
   &__image {
     min-height: var(--slider-item-image-height);
     height: auto;

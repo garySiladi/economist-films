@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import classnames from 'classnames';
+import Image from '../../image/image';
 import './series-description.css';
 
 type SeriesContainerObj = {
@@ -24,11 +25,16 @@ const SeriesDescription = ({
     <div className="series-description__parent">
       <div className="series-description">
         <div className="series-description__series-logo series-description__flex-child">
-          <img
-            className="series-description__logo-img"
-            src={seriesLogoUrl}
-            alt={'sponsor logo'}
-          />
+          { seriesLogoUrl ? (
+            <Image
+              imageProps={{
+                src: seriesLogoUrl,
+                alt: 'series logo',
+                className: 'series-description__logo-img',
+              }}
+              showPlaceholder={false}
+            />
+          ) : null }
         </div>
         <div
           className="series-description__description series-description__flex-child"
@@ -37,11 +43,16 @@ const SeriesDescription = ({
         </div>
         <div className="series-description__right-wrapper series-description__flex-child">
           <div className="series-description__sponsor-logo">
-            <img
-              className="series-description__logo-img"
-              src={sponsorLogoUrl}
-              alt={sponsorLogoUrl ? 'sponsor logo' : ''}
-            />
+            { sponsorLogoUrl ? (
+              <Image
+                imageProps={{
+                  src: sponsorLogoUrl,
+                  alt: 'series logo',
+                  className: 'series-description__logo-img',
+                }}
+                showPlaceholder={false}
+              />
+            ) : null }
           </div>
           <div
             className={watchnowBtnClass}

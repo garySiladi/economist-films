@@ -245,7 +245,8 @@ class SeriesContainer extends React.Component {
       'series-content--expanded': goToEpisodeDetail,
     });
     return (
-      <div className="series-container" style={backgroundStyle}>
+      <div className="series-container">
+        <div className="series-container__background" style={backgroundStyle} />
         <div className="gradient-cover" />
         <div className={seriesContentClassname}>
           {seriesDescriptionContainer}

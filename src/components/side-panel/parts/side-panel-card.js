@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 import './side-panel-card.css';
 
 export type SidePanelCardType = {
@@ -15,9 +16,8 @@ const SidePanelCard = ({ href, icon, title }: SidePanelCardType) => (
     to={href}
     className="side-panel-card"
   >
-    <img
-      src={icon}
-      alt={title}
+    <FontAwesome
+      name={icon}
       className={classnames({
         'side-panel-card__icon': true,
         [`side-panel-card__icon--${title}`]: true,

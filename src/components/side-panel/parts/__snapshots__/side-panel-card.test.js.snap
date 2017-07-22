@@ -6,10 +6,9 @@ exports[`SidePanelCard renders with isActive and onClick 1`] = `
   onClick={[Function]}
   style={Object {}}
 >
-  <img
-    alt="zzz"
-    className="side-panel-card__icon side-panel-card__icon--zzz"
-    src="yyy"
+  <span
+    aria-hidden={true}
+    className="fa fa-yyy side-panel-card__icon side-panel-card__icon--zzz"
   />
   <span
     className="side-panel-card__title"
@@ -25,10 +24,9 @@ exports[`SidePanelCard renders with minimum props 1`] = `
   onClick={[Function]}
   style={Object {}}
 >
-  <img
-    alt="zzz"
-    className="side-panel-card__icon side-panel-card__icon--zzz"
-    src="yyy"
+  <span
+    aria-hidden={true}
+    className="fa fa-yyy side-panel-card__icon side-panel-card__icon--zzz"
   />
   <span
     className="side-panel-card__title"
