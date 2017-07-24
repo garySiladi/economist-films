@@ -2,6 +2,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import App from './app';
+import * as API from '../../api/fetch';
 
 const mockData = [
   {
@@ -183,6 +184,10 @@ const mockDataWithUnwantedEpisodes = [
   },
 ];
 
+const mockedLocationData = {
+  query: {},
+};
+
 jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
@@ -201,7 +206,7 @@ function connectEvent(type, wrapper, handleFunction) {
 }
 describe('App: ', () => {
   test('homepage navigation works', () => {
-    const app = mount(<App params={{}} />);
+    const app = mount(<App params={{}} location={mockedLocationData} />);
     jest.useFakeTimers();
     const appInstance: Object = app.instance();
     expect(app.state().didScroll).toEqual(false);
@@ -265,7 +270,7 @@ describe('App: ', () => {
     connectEvent('ArrowRight', app, 'handleReturnFromEpisode');
   });
   test('homepage navigation works for WEBOS', () => {
-    const app = mount(<App params={{}} />);
+    const app = mount(<App params={{}} location={mockedLocationData} />);
     app.setState({ series: mockData });
     connectEvent('Backspace', app, 'handleKeyPress');
     expect(app.state().selectedEpisode).toEqual(0);
@@ -312,7 +317,7 @@ describe('App: ', () => {
     }
   });
   test('mounts/unmounts', () => {
-    const wrapper = shallow(<App params={{}} />);
+    const wrapper = shallow(<App params={{}} location={mockedLocationData} />);
     wrapper.unmount();
   });
 });
@@ -322,4 +327,25 @@ test('removes Featured and More from the Economist from JSON', () => {
   expect(series).toEqual([
     mockDataWithUnwantedEpisodes[0],
   ]);
+});
+
+test('adds Recommended series when recommended query param is set', () => {
+  // $FlowFixMe
+  API.getRecommendedEpisodes = jest.fn()
+  .mockReturnValue(
+    new Promise((resolve) => {
+      resolve(mockData[2]);
+    }),
+  );
+
+  const app = mount(
+    <App
+      params={{}}
+      location={{
+        query: {
+          recommended: "103",
+        },
+      }}
+    />
+  );
 });

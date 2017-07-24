@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { getRoot } from '../../api/fetch';
+import { getRoot, getRecommendedEpisodes } from '../../api/fetch';
 import HomeContainer from '../home-container/home-container';
 import './app.css';
 
@@ -11,6 +11,11 @@ type AppParamsProps = {
 
 type AppProps = {
   params: AppParamsProps,
+  location: {
+    query: {
+      recommended?: ?string,
+    }
+  }
 };
 
 export type SeriesItemType = {
@@ -35,16 +40,16 @@ export type SeriesType = {
 }
 
 class App extends React.Component {
-  // static createRecommendedSlider(dataRecommended) {
-  //   return {
-  //     id: -1, // we are setting a custom ID because recommended is not in JSON
-  //     series_id: -1,
-  //     title: 'Recommended',
-  //     items: dataRecommended.items,
-  //     type: 'series',
-  //     thumbnail_size: '',
-  //   };
-  // }
+  static createRecommendedSlider(dataRecommended) {
+    return {
+      id: -1, // we are setting a custom ID because recommended is not in JSON
+      series_id: -1,
+      title: 'Recommended',
+      items: dataRecommended.items,
+      type: 'series',
+      thumbnail_size: '',
+    };
+  }
   static massageSeries(series: Array<SeriesType>) {
     // remove All Series
     return series.filter(shelf => shelf.id !== 10);
@@ -92,6 +97,11 @@ class App extends React.Component {
     document.addEventListener('wheel', this.handleWheel);
     const {
       params,
+      location: {
+        query: {
+          recommended: recommendedUserID,
+        },
+      },
     } = this.props;
     getRoot()
     .then((dataSeries) => {
@@ -103,21 +113,23 @@ class App extends React.Component {
         ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
       });
     });
-    /* getRecommendedEpisodes(103)
-    .then((dataRecommended) => {
-      const modifiedSeries =
-        [App.createRecommendedSlider(dataRecommended)].concat(this.state.series);
-      this.setState({
-        series: modifiedSeries,
-        ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
+    if (recommendedUserID) {
+      getRecommendedEpisodes(recommendedUserID)
+      .then((dataRecommended) => {
+        const modifiedSeries =
+          [App.createRecommendedSlider(dataRecommended)].concat(this.state.series);
+        this.setState({
+          series: modifiedSeries,
+          ...App.setEpisodeByParam(params.selectedEpisodeId, modifiedSeries),
+        });
       });
-    }); */
+    }
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
     document.removeEventListener('wheel', this.handleWheel);
   }
-  props: AppProps
+  props: AppProps;
   scrollSeries(event: KeyboardEvent | WheelEvent) {
     const {
       selectedSeries,

@@ -12,6 +12,10 @@ jest.mock('../home-container/home-container', () =>
   jest.fn(() => <div>Home Container</div>),
 );
 
+const mockedLocationData = {
+  query: {},
+};
+
 // $FlowFixMe
 API.getRoot = jest.fn()
 .mockReturnValue(
@@ -22,7 +26,7 @@ API.getRoot = jest.fn()
 
 describe('App: ', () => {
   test('renders correctly', () => {
-    const tree : string = renderer.create(<App params={{}} />).toJSON();
+    const tree : string = renderer.create(<App params={{}} location={mockedLocationData} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
