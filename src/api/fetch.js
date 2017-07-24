@@ -8,14 +8,13 @@ function constructFetch(type: string, id: ?number) {
   .catch(err => err);
 }
 
-// export function getRecommendedEpisodes(userId: number) {
-//   return fetch(`http://172.17.4.94/recommendations/${userId}`,
-//     {
-//       method: 'GET',
-//     })
-//   .then(response => response.json())
-//   .catch(err => err);
-// }
+export function getRecommendedEpisodes(userId: string) {
+  return fetch(`http://172.17.4.94/recommendations/${userId}`,
+    {
+      method: 'GET',
+    })
+  .then(response => response.json());
+}
 
 export function getRoot() {
   return constructFetch('root');
