@@ -3,6 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import * as fetches from '../../api/fetch';
+import * as localStorage from '../../api/local-storage';
 import SeriesContainer from './series-container';
 
 const dummySliderItems = {
@@ -92,6 +93,9 @@ function connectEvent(event, type, wrapper) {
 describe('SeriesContainer', () => {
   jest.mock('../episode-selected/episode-selected', () =>
     jest.fn(() => <div>Episode selected</div>),
+  );
+  jest.mock('../video-player-container/parts/video-player', () =>
+    jest.fn(() => <div>Video Player</div>),
   );
   test('renders correctly', () => {
     const tree : string = renderer.create(
@@ -193,7 +197,6 @@ describe('SeriesContainer', () => {
     connectEvent(event, 'ArrowDown', seriesContainer);
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
-    expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(false);
     // show pop up
     connectEvent(event, 'Enter', seriesContainer);
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
@@ -205,7 +208,6 @@ describe('SeriesContainer', () => {
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
     connectEvent(event, 'ArrowUp', seriesContainer);
-    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
     connectEvent(event, 'ArrowLeft', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
@@ -215,10 +217,16 @@ describe('SeriesContainer', () => {
     connectEvent(event, 'ArrowLeft', seriesContainer);
     expect(seriesContainer.state().selectedEpisode).toEqual(0);
     connectEvent(event, 'Backspace', seriesContainer);
+    seriesContainer.setState({ isWatchnowBtnClicked: false });
+    expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
+    expect(seriesContainer.state().isWatchnowBtnClicked).toEqual(false);
+    connectEvent(event, 'Backspace', seriesContainer);
     jest.fn(() => {});
     connectEvent(event, 'Space', seriesContainer);
     const seriesContainerInstance: Object = seriesContainer.instance();
     seriesContainerInstance.handleReturnFromEpisode();
+    seriesContainerInstance.handleVideoExpansion(true);
+    expect(seriesContainer.state().isWatchnowBtnClicked).toEqual(true);
     seriesContainer.unmount();
   });
   test('series detail navigation works for WEBOS TV', () => {
@@ -267,5 +275,26 @@ describe('SeriesContainer', () => {
       />);
     // $FlowFixMe
     expect(fetches.getSeriesByID.mock.calls.length).toEqual(2);
+  });
+  test('Last watched episode', () => {
+    // $FlowFixMe
+    fetches.getSeriesByID =
+      jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
+    // $FlowFixMe
+    localStorage.getLastWatchedEpisodeID =
+      jest.fn(() => 119);
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '',
+          },
+        }}
+      />);
+    seriesContainer.setState({
+      isWatchnowBtnClicked: true,
+      lastWatchedEpisode: dummySliderItems.published_episodes[0],
+    });
   });
 });

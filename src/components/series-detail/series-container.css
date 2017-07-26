@@ -1,5 +1,5 @@
 :root {
-  --expanded-video-offsetY: -610px;
+  --expanded-video-offsetY: -485px;
   --episode-popup-offsetY: -430px;
   --transition-duration: 0.3s;
 }
@@ -7,6 +7,11 @@
 .series-container {
   height: 100vh;
   display: block;
+
+  & > .video-player {
+    position: absolute;
+    z-index: 5;
+  }
 
   &__background {
     position: absolute;

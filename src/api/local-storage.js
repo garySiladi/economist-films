@@ -40,7 +40,7 @@ export function getLastWatchedEpisodeID(episodeIDs: Array<number>) {
   if (historyData) {
     return episodeIDs.find(episodeID =>
       historyData.every(
-        histItem => histItem.episodeId !== episodeID || histItem.progress < 95,
+        histItem => histItem.episodeId !== episodeID || histItem.progressTime < 95,
       ),
     ) || episodeIDs[0];
   }

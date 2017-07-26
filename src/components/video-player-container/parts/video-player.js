@@ -157,31 +157,31 @@ class VideoPlayer extends React.Component {
         event.preventDefault();
         if (this.state.isBackButtonSelected) {
           this.handleEventSource(event);
-        } else {
-          switch (this.state.selectedPosition) {
-            case 0: {
-              // handle previous episode
-              break;
-            }
-            case 1: {
-              this.handleRewind();
-              break;
-            }
-            case 2: {
-              this.handlePlayPause();
-              break;
-            }
-            case 3: {
-              this.handleFastForward();
-              break;
-            }
-            case 4: {
-              // handle next episode
-              break;
-            }
-            default: {
-              throw new Error('Tried to handle Enter on unrecognised position.');
-            }
+          return;
+        }
+        switch (this.state.selectedPosition) {
+          case 0: {
+            // handle previous episode
+            break;
+          }
+          case 1: {
+            this.handleRewind();
+            break;
+          }
+          case 2: {
+            this.handlePlayPause();
+            break;
+          }
+          case 3: {
+            this.handleFastForward();
+            break;
+          }
+          case 4: {
+            // handle next episode
+            break;
+          }
+          default: {
+            throw new Error('Tried to handle Enter on unrecognised position.');
           }
         }
         break;
@@ -189,7 +189,7 @@ class VideoPlayer extends React.Component {
       case 'Backspace':
         event.preventDefault();
         this.handleEventSource(event);
-        break;
+        return;
       default:
     }
     this.setState({ showInterface: true });

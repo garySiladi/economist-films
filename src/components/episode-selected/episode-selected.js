@@ -66,6 +66,7 @@ class episodeSelected extends React.Component {
       series,
       seriesId,
       id,
+      isShown,
     } = this.props;
     if (isVideoExpanded) return;
     switch (event.code || event.which) {
@@ -119,7 +120,7 @@ class episodeSelected extends React.Component {
       case 13:
       case 'Enter':
         event.preventDefault();
-        if (selectedItem === 0) {
+        if (selectedItem === 0 && isShown) {
           event.stopImmediatePropagation();
           this.handleVideoExpansion(true);
         }

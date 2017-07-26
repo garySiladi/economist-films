@@ -119,7 +119,7 @@ describe('history with data', () => {
   });
   test('getLastWatchedEpisodeID', () => {
     const lastWatched = getLastWatchedEpisodeID(episodeIDs);
-    expect(lastWatched).toBe(5);
+    expect(lastWatched).toBe(1);
   });
 });
 
@@ -131,7 +131,7 @@ describe('history without data', () => {
   });
   test('getLastWatchedEpisodeID', () => {
     const lastWatched = getLastWatchedEpisodeID(episodeIDs);
-    expect(lastWatched).toBe(5);
+    expect(lastWatched).toBe(1);
   });
 });
 
