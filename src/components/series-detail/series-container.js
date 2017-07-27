@@ -4,7 +4,9 @@ import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 import Slider from '../slider/slider';
 import EpisodeSelected from '../episode-selected/episode-selected';
+import VideoPlayer from '../video-player-container/parts/video-player';
 import { getSeriesByID } from '../../api/fetch';
+import { getLastWatchedEpisodeID } from '../../api/local-storage';
 import './series-container.css';
 import SeriesDescription from './parts/series-description';
 
@@ -56,11 +58,13 @@ export type SeriesType = {
 };
 type SeriesContainerState = {
   series: ?SeriesType,
+  lastWatchedEpisode: ?PublishedEpisodeType,
   selectedEpisode: number,
   isSliderSelected: boolean,
   isEpisodeDetailSelected: boolean,
   goToEpisodeDetail: boolean,
   isWatchnowBtnSelected: boolean,
+  isWatchnowBtnClicked: boolean,
 };
 
 class SeriesContainer extends React.Component {
@@ -68,15 +72,18 @@ class SeriesContainer extends React.Component {
     super(props);
     this.state = {
       series: null,
+      lastWatchedEpisode: null,
       selectedEpisode: 0,
       isSliderSelected: true,
       goToEpisodeDetail: false,
       isEpisodeDetailSelected: false,
       isWatchnowBtnSelected: false,
+      isWatchnowBtnClicked: false,
     };
     (this: any).handleKeyPress = (this: any).handleKeyPress.bind(this);
     (this: any).handleExpand = (this: any).handleExpand.bind(this);
     (this: any).handleReturnFromEpisode = (this: any).handleReturnFromEpisode.bind(this);
+    (this: any).handleVideoExpansion = (this: any).handleVideoExpansion.bind(this);
   }
   state: SeriesContainerState
   componentWillMount() {
@@ -85,8 +92,13 @@ class SeriesContainer extends React.Component {
       const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
       const foundPosition = series.published_episodes.findIndex(
       episode => episode.id === expandedEpisodeId);
+      const episodeIDs = series.published_episodes.map(episode => episode.id);
+      const lastWatchedEpisodeID = getLastWatchedEpisodeID(episodeIDs);
+      const lastWatchedEpisode =
+        series.published_episodes.find(episode => episode.id === lastWatchedEpisodeID);
       this.setState({
         series,
+        lastWatchedEpisode,
         selectedEpisode: foundPosition < 0 ? 0 : foundPosition,
       });
     })
@@ -106,6 +118,11 @@ class SeriesContainer extends React.Component {
       });
     }
   }
+  handleVideoExpansion(isExpanded: boolean) {
+    this.setState({
+      isWatchnowBtnClicked: isExpanded,
+    });
+  }
   handleReturnFromEpisode() {
     this.setState({ goToEpisodeDetail: false });
   }
@@ -116,6 +133,7 @@ class SeriesContainer extends React.Component {
       selectedEpisode,
       isSliderSelected,
       isWatchnowBtnSelected,
+      isWatchnowBtnClicked,
     } = this.state;
     switch (event.code) {
       case 37:
@@ -171,10 +189,15 @@ class SeriesContainer extends React.Component {
           event.stopImmediatePropagation();
           this.setState({ goToEpisodeDetail: true });
         }
+        if (isWatchnowBtnSelected) {
+          this.setState({
+            isWatchnowBtnClicked: true,
+          });
+        }
         break;
       case 8:
       case 'Backspace':
-        if (!goToEpisodeDetail) {
+        if (!goToEpisodeDetail && !isWatchnowBtnClicked) {
           browserHistory.push('/');
         }
         break;
@@ -184,10 +207,12 @@ class SeriesContainer extends React.Component {
   render() {
     const {
       series,
+      lastWatchedEpisode,
       selectedEpisode,
       isSliderSelected,
       goToEpisodeDetail,
       isWatchnowBtnSelected,
+      isWatchnowBtnClicked,
     } = this.state;
     const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
     const [
@@ -240,12 +265,23 @@ class SeriesContainer extends React.Component {
         resetOnUnselect={false}
       />
     ): null;
+    const lastWatchedVideo = isWatchnowBtnClicked && lastWatchedEpisode ? (
+      <VideoPlayer
+        videoUrl={lastWatchedEpisode.video_url}
+        episodeTitle={lastWatchedEpisode.title}
+        isVideoExpanded
+        posterImage={lastWatchedEpisode.thumbnail.url}
+        videoID={lastWatchedEpisode.id}
+        handleVideoExpansion={this.handleVideoExpansion}
+      />
+    ): null;
     const seriesContentClassname = classnames({
       'series-content': true,
       'series-content--expanded': goToEpisodeDetail,
     });
     return (
       <div className="series-container">
+        {lastWatchedVideo}
         <div className="series-container__background" style={backgroundStyle} />
         <div className="gradient-cover" />
         <div className={seriesContentClassname}>
