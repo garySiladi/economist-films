@@ -118,9 +118,9 @@ class SeriesContainer extends React.Component {
       });
     }
   }
-  handleVideoExpansion(position: boolean) {
+  handleVideoExpansion(isExpanded: boolean) {
     this.setState({
-      isWatchnowBtnClicked: position,
+      isWatchnowBtnClicked: isExpanded,
     });
   }
   handleReturnFromEpisode() {
