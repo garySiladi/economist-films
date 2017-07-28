@@ -215,6 +215,22 @@ test('videoPlayer navigation works for WEBOS TV', () => {
   connectEvent(event, 8, app);
   connectEvent(event, 'Space', app);
 });
+test('videoPlayer expanding works', () => {
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      posterImage={null}
+      videoID={5}
+      handleVideoExpansion={() => {}}
+    />,
+  );
+  expect(app.props().isVideoExpanded).toEqual(false);
+  app.setProps({ isVideoExpanded: true });
+  expect(app.props().isVideoExpanded).toEqual(true);
+  expect(app.state().timeProgress).toEqual(0);
+});
 test('Video progress saves properly', () => {
   // $FlowFixMe
   storage.saveVideoProgress = jest.fn();
