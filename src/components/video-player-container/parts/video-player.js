@@ -97,12 +97,18 @@ class VideoPlayer extends React.Component {
     } = this.props;
     (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl) });
     (this: any).player.muted(!isVideoExpanded);
-    (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
+    if (isVideoExpanded) {
+      (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
+    }
     document.addEventListener('keydown', this.handleKeyPress);
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: VideoPlayerPropsType) {
     if ((this: any).player) {
       (this: any).player.muted(!this.props.isVideoExpanded);
+    }
+    if (!prevProps.isVideoExpanded && this.props.isVideoExpanded) {
+      this.handleVideoLoad();
+      (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, this.props.videoID);
     }
   }
   componentWillUnmount() {
@@ -242,11 +248,17 @@ class VideoPlayer extends React.Component {
     }
   }
   handleVideoLoad() {
-    const { videoID: id } = this.props;
+    const {
+      videoID: id,
+      isVideoExpanded,
+    } = this.props;
     const lagTime = 5;
     const lastTimeProgress: number = getProgressTimeById(id);
     const videoLengthSecs = Math.round((this: any).player.duration());
-    const timeProgressSecs = Math.round((videoLengthSecs * (lastTimeProgress / 100)) - lagTime);
+    const defaultTimeStamp = Math.round(videoLengthSecs / 3);
+    const timeProgressSecs = isVideoExpanded ?
+      Math.round((videoLengthSecs * (lastTimeProgress / 100)) - lagTime):
+      defaultTimeStamp;
     (this: any).player.currentTime(timeProgressSecs);
   }
   handleEndReached() {
