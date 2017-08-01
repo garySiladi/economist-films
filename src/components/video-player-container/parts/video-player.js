@@ -8,6 +8,8 @@ import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
 
+import type { SeriesType } from '../../series-detail/series-container';
+
 window.videojs = videojs;
 // eslint-disable-next-line
 require('videojs-contrib-hls/dist/videojs-contrib-hls.js');
@@ -19,7 +21,7 @@ export type VideoPlayerPropsType = {
   isVideoExpanded: boolean,
   posterImage: ?string,
   handleVideoExpansion: Function,
-  playlist?: ?Object,
+  playlist?: ?SeriesType,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
@@ -33,6 +35,7 @@ export type VideoPlayerStateType = {
 
 const videoJsOptions = (videoUrl: string, poster?: ?string) => ({
   preload: 'auto',
+  autoplay: true,
   controls: false,
   poster,
   sources: [{
@@ -71,7 +74,7 @@ class VideoPlayer extends React.Component {
     (this: any).videoSaver = null;
     (this: any).videoShower = null;
     this.state = {
-      isVideoPlaying: false,
+      isVideoPlaying: true,
       timeProgress: 0,
       selectedPosition: 2,
       isBackButtonSelected: false,
@@ -98,13 +101,18 @@ class VideoPlayer extends React.Component {
       videoID,
       videoUrl,
       isVideoExpanded,
-      playlist,
       posterImage,
+      playlist,
     } = this.props;
+    (this: any).player = videojs((this: any).videoNode, videoJsOptions(videoUrl, posterImage));
+    (this: any).player.muted(!isVideoExpanded);
+    if (isVideoExpanded) {
+      (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
+    }
+    document.addEventListener('keydown', this.handleKeyPress);
     if (playlist) {
       const episodes = playlist.published_episodes;
       const currentEpisodeIndex = episodes.findIndex(episode => videoID === episode.id);
-      (this: any).player = videojs((this: any).videoNode);
       (this: any).player.playlist(
         episodes.map(episode => videoJsOptions(episode.video_url, episode.thumbnail.url)),
         currentEpisodeIndex,
@@ -114,17 +122,8 @@ class VideoPlayer extends React.Component {
       (this: any).player.on('playlistitem', () => {
         this.updateVideoTitle(episodes[(this: any).player.playlist.currentItem()].title);
       });
-    } else {
-      (this: any).player = videojs((this: any).videoNode, {
-        ...videoJsOptions(videoUrl, posterImage),
-      });
+      this.handleVideoLoad();
     }
-    (this: any).player.muted(!isVideoExpanded);
-    if (isVideoExpanded) {
-      (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
-    }
-    document.addEventListener('keydown', this.handleKeyPress);
-    this.handlePlay();
   }
   componentDidUpdate(prevProps: VideoPlayerPropsType) {
     if ((this: any).player) {
