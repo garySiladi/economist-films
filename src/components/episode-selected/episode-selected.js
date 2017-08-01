@@ -17,6 +17,7 @@ type EpisodeSelectedType = {
   selectedSeries: number,
   closePopupFunction: Function,
   selectLowerSeries: Function,
+  handleVideo: ?Function,
   videoUrl: string,
   series: Array<SeriesType>,
   seriesId: ?number,
@@ -49,6 +50,9 @@ class episodeSelected extends React.Component {
     document.removeEventListener('keydown', this.handleKeyPress);
   }
   handleVideoExpansion(position: boolean) {
+    if (this.props.handleVideo) {
+      this.props.handleVideo(position);
+    }
     this.setState({
       isVideoExpanded: position,
     });

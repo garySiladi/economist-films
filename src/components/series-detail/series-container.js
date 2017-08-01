@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { browserHistory } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 import classnames from 'classnames';
 import Slider from '../slider/slider';
 import EpisodeSelected from '../episode-selected/episode-selected';
@@ -65,6 +66,8 @@ type SeriesContainerState = {
   goToEpisodeDetail: boolean,
   isWatchnowBtnSelected: boolean,
   isWatchnowBtnClicked: boolean,
+  isBackButtonSelected: boolean,
+  isVideoPlaying: boolean,
 };
 
 class SeriesContainer extends React.Component {
@@ -84,11 +87,14 @@ class SeriesContainer extends React.Component {
       isEpisodeDetailSelected: false,
       isWatchnowBtnSelected: false,
       isWatchnowBtnClicked: false,
+      isBackButtonSelected: false,
+      isVideoPlaying: false,
     };
     (this: any).handleKeyPress = (this: any).handleKeyPress.bind(this);
     (this: any).handleExpand = (this: any).handleExpand.bind(this);
     (this: any).handleReturnFromEpisode = (this: any).handleReturnFromEpisode.bind(this);
     (this: any).handleVideoExpansion = (this: any).handleVideoExpansion.bind(this);
+    (this: any).handleVideoPlaying = (this: any).handleVideoPlaying.bind(this);
   }
   state: SeriesContainerState
   componentWillMount() {
@@ -131,6 +137,9 @@ class SeriesContainer extends React.Component {
       lastWatchedEpisode,
     });
   }
+  handleVideoPlaying(isVideoPlaying: boolean) {
+    this.setState({ isVideoPlaying });
+  }
   handleReturnFromEpisode() {
     this.setState({ goToEpisodeDetail: false });
   }
@@ -142,7 +151,12 @@ class SeriesContainer extends React.Component {
       isSliderSelected,
       isWatchnowBtnSelected,
       isWatchnowBtnClicked,
+      isBackButtonSelected,
+      isVideoPlaying,
     } = this.state;
+    if (isVideoPlaying || isWatchnowBtnClicked) {
+      return;
+    }
     switch (event.code) {
       case 37:
       case 'ArrowLeft':
@@ -167,15 +181,21 @@ class SeriesContainer extends React.Component {
       case 38:
       case 'ArrowUp':
         event.preventDefault();
-        if (!goToEpisodeDetail) {
+        if (isWatchnowBtnSelected) {
+          this.setState({
+            isWatchnowBtnSelected: false,
+            isBackButtonSelected: true,
+          });
+        }
+        if (isSliderSelected && !goToEpisodeDetail) {
           this.setState({
             isSliderSelected: false,
             isWatchnowBtnSelected: true,
           });
-        } else {
+        }
+        if (isSliderSelected && goToEpisodeDetail) {
           this.setState({
             goToEpisodeDetail: false,
-            isSliderSelected: true,
           });
         }
         break;
@@ -186,6 +206,11 @@ class SeriesContainer extends React.Component {
           this.setState({
             isSliderSelected: true,
             isWatchnowBtnSelected: false,
+          });
+        } else if (isBackButtonSelected) {
+          this.setState({
+            isBackButtonSelected: false,
+            isWatchnowBtnSelected: true,
           });
         } else {
           this.setState({ goToEpisodeDetail: true });
@@ -201,6 +226,9 @@ class SeriesContainer extends React.Component {
           this.setState({
             isWatchnowBtnClicked: true,
           });
+        }
+        if (isBackButtonSelected) {
+          browserHistory.push('/');
         }
         break;
       case 8:
@@ -221,6 +249,7 @@ class SeriesContainer extends React.Component {
       goToEpisodeDetail,
       isWatchnowBtnSelected,
       isWatchnowBtnClicked,
+      isBackButtonSelected,
     } = this.state;
     const assetKeys = ['eco_background', 'eco_detail_logo', 'eco_sponsor_logo'];
     const [
@@ -259,6 +288,7 @@ class SeriesContainer extends React.Component {
         selectedSeries={0}
         series={[]}
         selectLowerSeries
+        handleVideo={this.handleVideoPlaying}
       />
     ) : null;
     const slider = series ? (
@@ -284,6 +314,11 @@ class SeriesContainer extends React.Component {
         playlist={series}
       />
     ): null;
+    const backButtonClassname = classnames({
+      'series-container__back-button': true,
+      'series-container__back-button--selected': isBackButtonSelected,
+      'series-container__back-button--hidden': goToEpisodeDetail,
+    });
     const seriesContentClassname = classnames({
       'series-content': true,
       'series-content--expanded': goToEpisodeDetail,
@@ -291,6 +326,11 @@ class SeriesContainer extends React.Component {
     return (
       <div className="series-container">
         {lastWatchedVideo}
+        <div className={backButtonClassname}>
+          <FontAwesome
+            name="chevron-left"
+          />
+        </div>
         <div className="series-container__background" style={backgroundStyle} />
         <div className="gradient-cover" />
         <div className={seriesContentClassname}>
