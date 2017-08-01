@@ -4,6 +4,49 @@ import { mount, shallow } from 'enzyme';
 import VideoPlayer from './video-player';
 import * as storage from '../../../api/local-storage';
 
+const dummySeries = {
+  title: 't1',
+  description: 'aaa',
+  additional_assets: [{
+    key: 'eco_background',
+    file: {
+      url: 'xxx',
+    },
+  }, {
+    key: 'eco_detail_logo',
+    file: {
+      url: 'yyy',
+    },
+  }, {
+    key: 'eco_sponsor_logo',
+    file: {
+      url: 'zzz',
+    },
+  }],
+  published_episodes: [{
+    id: 119,
+    title: 'Saving Corals',
+    thumbnail: {
+      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/119/episode_875X480.jpg',
+    },
+    type: 'Episode',
+  }, {
+    id: 141,
+    title: 'The deep ocean is the final frontier on planet Earth',
+    thumbnail: {
+      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg',
+    },
+    type: 'Episode',
+  }, {
+    id: 5,
+    title: 'Bogus',
+    thumbnail: {
+      url: 'https://cdn.twivel.io/uploads/economist/episode/thumbnail/141/episode_875X480.jpg',
+    },
+    type: 'Episode',
+  }],
+};
+
 test('renders correctly', () => {
   const videoPlayer = mount(
     <VideoPlayer
@@ -13,6 +56,21 @@ test('renders correctly', () => {
       isVideoExpanded={false}
       episodeTitle="hello"
       handleVideoExpansion={() => {}}
+    />);
+  videoPlayer.unmount();
+});
+test('renders correctly with playlist', () => {
+  // $FlowFixMe
+  storage.getProgressTimeById = jest.fn(() => 10);
+  const videoPlayer = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      posterImage={null}
+      videoID={141}
+      isVideoExpanded={false}
+      episodeTitle="hello"
+      handleVideoExpansion={() => {}}
+      playlist={dummySeries}
     />);
   videoPlayer.unmount();
 });
@@ -188,6 +246,47 @@ test('videoPlayer navigation works', () => {
   expect(app.state().isNavigationSelected).toEqual(true);
   expect(app.state().isBackButtonSelected).toEqual(false);
   connectEvent(event, 'Space', app);
+});
+test('videoPlayer navigation works with playlist', () => {
+  const app = mount(
+    <VideoPlayer
+      videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
+      isVideoExpanded
+      episodeTitle="hello"
+      posterImage={null}
+      videoID={141}
+      handleVideoExpansion={() => {}}
+      playlist={dummySeries}
+    />,
+  );
+  expect(app.state().isNavigationSelected).toEqual(true);
+  const event = new Event('keyDown');
+  connectEvent(event, 'ArrowRight', app);
+  connectEvent(event, 'ArrowRight', app);
+  // $FlowFixMe
+  app.instance().player.playlist.currentItem = jest.fn(() => 1);
+  // mock item changed event since we already mocked function which does it
+  // $FlowFixMe
+  app.instance().player.trigger('playlistitem');
+  expect(app.state().selectedPosition).toEqual(4);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(3);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(2);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(1);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
+  connectEvent(event, 'ArrowLeft', app);
+  expect(app.state().selectedPosition).toEqual(0);
+  connectEvent(event, 'Enter', app);
+  jest.fn(() => {});
 });
 test('videoPlayer navigation works for WEBOS TV', () => {
   const app = mount(

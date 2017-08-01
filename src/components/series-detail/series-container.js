@@ -71,6 +71,11 @@ type SeriesContainerState = {
 };
 
 class SeriesContainer extends React.Component {
+  static getLastWatchedEpisode(series: SeriesType) {
+    const episodeIDs = series.published_episodes.map(episode => episode.id);
+    const lastWatchedEpisodeID = getLastWatchedEpisodeID(episodeIDs);
+    return series.published_episodes.find(episode => episode.id === lastWatchedEpisodeID);
+  }
   constructor(props: SeriesContainerProps) {
     super(props);
     this.state = {
@@ -97,11 +102,9 @@ class SeriesContainer extends React.Component {
     .then((series) => {
       const expandedEpisodeId = Number(this.props.location.query.expandedEpisode);
       const foundPosition = series.published_episodes.findIndex(
-      episode => episode.id === expandedEpisodeId);
-      const episodeIDs = series.published_episodes.map(episode => episode.id);
-      const lastWatchedEpisodeID = getLastWatchedEpisodeID(episodeIDs);
-      const lastWatchedEpisode =
-        series.published_episodes.find(episode => episode.id === lastWatchedEpisodeID);
+        episode => episode.id === expandedEpisodeId,
+      );
+      const lastWatchedEpisode = SeriesContainer.getLastWatchedEpisode(series);
       this.setState({
         series,
         lastWatchedEpisode,
@@ -125,8 +128,13 @@ class SeriesContainer extends React.Component {
     }
   }
   handleVideoExpansion(isExpanded: boolean) {
+    let lastWatchedEpisode = null;
+    if (this.state.series) {
+      lastWatchedEpisode = SeriesContainer.getLastWatchedEpisode(this.state.series);
+    }
     this.setState({
       isWatchnowBtnClicked: isExpanded,
+      lastWatchedEpisode,
     });
   }
   handleVideoPlaying(isVideoPlaying: boolean) {
@@ -303,6 +311,7 @@ class SeriesContainer extends React.Component {
         posterImage={lastWatchedEpisode.thumbnail.url}
         videoID={lastWatchedEpisode.id}
         handleVideoExpansion={this.handleVideoExpansion}
+        playlist={series}
       />
     ): null;
     const backButtonClassname = classnames({

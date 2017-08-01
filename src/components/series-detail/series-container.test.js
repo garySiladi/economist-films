@@ -97,6 +97,10 @@ describe('SeriesContainer', () => {
   jest.mock('../video-player-container/parts/video-player', () =>
     jest.fn(() => <div>Video Player</div>),
   );
+  // $FlowFixMe
+  localStorage.getLastWatchedEpisodeID = jest.fn(() => 119);
+  // $FlowFixMe
+  localStorage.getProgressTimeById = jest.fn(() => 55);
   test('renders correctly', () => {
     const tree : string = renderer.create(
       <SeriesContainer
@@ -293,9 +297,6 @@ describe('SeriesContainer', () => {
     // $FlowFixMe
     fetches.getSeriesByID =
       jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
-    // $FlowFixMe
-    localStorage.getLastWatchedEpisodeID =
-      jest.fn(() => 119);
     const seriesContainer = mount(
       <SeriesContainer
         params={{ id: 50 }}
@@ -309,5 +310,24 @@ describe('SeriesContainer', () => {
       isWatchnowBtnClicked: true,
       lastWatchedEpisode: dummySliderItems.published_episodes[0],
     });
+  });
+  test('Last watched episode does not exist with null series', () => {
+    // $FlowFixMe
+    fetches.getSeriesByID =
+      jest.fn().mockImplementation(() => new Promise(resolve => resolve(dummySliderItems)));
+    const seriesContainer = mount(
+      <SeriesContainer
+        params={{ id: 50 }}
+        location={{
+          query: {
+            expandedEpisode: '',
+          },
+        }}
+      />);
+    expect(seriesContainer.state().lastWatchedEpisode).toBeNull();
+    seriesContainer.setState({ series: null });
+    // $FlowFixMe
+    seriesContainer.instance().handleVideoExpansion(true);
+    expect(seriesContainer.state().lastWatchedEpisode).toBeNull();
   });
 });
