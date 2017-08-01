@@ -36,6 +36,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
@@ -55,6 +56,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={null}
       series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
@@ -99,6 +101,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
@@ -125,6 +128,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       videoUrl="https://cdn-films.economist.com/OCEANS/OCEANDEEP.m3u8"
       seriesId={7}
@@ -155,6 +159,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       isShown
     />);
@@ -177,6 +182,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       isSelectedHomeContainer
       isShown
@@ -196,6 +202,7 @@ describe('HomeContainer ', () => {
       selectedSeries={3}
       selectedEpisode={4}
       selectLowerSeries={() => {}}
+      handleVideo={() => {}}
       series={mockData}
       isSelectedHomeContainer
       hideButtons={false}

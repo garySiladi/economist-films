@@ -2,6 +2,7 @@
   --expanded-video-offsetY: -485px;
   --episode-popup-offsetY: -430px;
   --transition-duration: 0.3s;
+  --back-button-size: 2em;
 }
 
 .series-container {
@@ -21,6 +22,29 @@
     background-repeat: no-repeat;
     animation: fadein 5s;
     z-index: -1;
+  }
+
+  &__back-button {
+    position: fixed;
+    font-size: 35px;
+    border-radius: 100%;
+    top: 4%;
+    left: 40px;
+    color: var(--economist-white, white);
+    padding-right: 5px;
+    text-align: center;
+    line-height: var(--back-button-size);
+    width: var(--back-button-size);
+    height: var(--back-button-size);
+    transition: 0.2s background-color, 0.3s opacity;
+
+    &--selected {
+      background-color: var(--economist-red, red);
+    }
+
+    &--hidden {
+      opacity: 0;
+    }
   }
 }
 

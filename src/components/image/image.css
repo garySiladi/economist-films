@@ -3,7 +3,7 @@
 
 .image {
   &--placeholder {
-    background-color: transparent;
+    background-color: var(--economist-blackOpacity);
     background-image: var(--economist-placeholder);
     background-position: center;
     background-repeat: no-repeat;
