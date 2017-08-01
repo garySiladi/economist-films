@@ -5,6 +5,14 @@ exports[`SeriesContainer SeriesContainer renders without data 1`] = `
   className="series-container"
 >
   <div
+    className="series-container__back-button series-container__back-button--hidden"
+  >
+    <span
+      aria-hidden={true}
+      className="fa fa-chevron-left"
+    />
+  </div>
+  <div
     className="series-container__background"
     style={null}
   />
@@ -21,6 +29,14 @@ exports[`SeriesContainer renders correctly 1`] = `
 <div
   className="series-container"
 >
+  <div
+    className="series-container__back-button series-container__back-button--hidden"
+  >
+    <span
+      aria-hidden={true}
+      className="fa fa-chevron-left"
+    />
+  </div>
   <div
     className="series-container__background"
     style={null}

@@ -180,7 +180,16 @@ describe('SeriesContainer', () => {
     expect(seriesContainer.state().isSliderSelected).toEqual(false);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
     expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(true);
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    expect(seriesContainer.state().isWatchnowBtnSelected).toEqual(false);
+    expect(seriesContainer.state().isBackButtonSelected).toEqual(true);
     connectEvent(event, 'Enter', seriesContainer);
+    jest.fn(() => {});
+    seriesContainer.setState({ isWatchnowBtnClicked: false });
+    connectEvent(event, 'ArrowUp', seriesContainer);
+    connectEvent(event, 'ArrowDown', seriesContainer);
+    connectEvent(event, 'Enter', seriesContainer);
+    seriesContainer.setState({ isWatchnowBtnClicked: false });
     connectEvent(event, 'ArrowDown', seriesContainer);
     connectEvent(event, 'ArrowDown', seriesContainer);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(true);
@@ -194,6 +203,7 @@ describe('SeriesContainer', () => {
     connectEvent(event, 'ArrowRight', seriesContainer);
     connectEvent(event, 'ArrowUp', seriesContainer);
     // slider is selected
+    connectEvent(event, 'ArrowDown', seriesContainer);
     connectEvent(event, 'ArrowDown', seriesContainer);
     expect(seriesContainer.state().isSliderSelected).toEqual(true);
     expect(seriesContainer.state().goToEpisodeDetail).toEqual(false);
@@ -227,6 +237,9 @@ describe('SeriesContainer', () => {
     seriesContainerInstance.handleReturnFromEpisode();
     seriesContainerInstance.handleVideoExpansion(true);
     expect(seriesContainer.state().isWatchnowBtnClicked).toEqual(true);
+    seriesContainerInstance.handleVideoPlaying(true);
+    connectEvent(event, 'Space', seriesContainer);
+    expect(seriesContainer.state().isVideoPlaying).toEqual(true);
     seriesContainer.unmount();
   });
   test('series detail navigation works for WEBOS TV', () => {

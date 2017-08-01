@@ -46,6 +46,7 @@ class HomeContainer extends React.Component {
         selectedEpisode={selectedEpisode}
         hideButtons={HomeContainer.isFullWidthSeries(series[selectedSeries])}
         isShown={goToEpisode}
+        handleVideo={null}
       />
     );
     const homePageContent = series.map((data, index) =>
