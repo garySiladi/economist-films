@@ -3,6 +3,7 @@ import React from 'react';
 // $FlowFixMe
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
+import 'videojs-playlist';
 import VideoPlayerInterface from './video-player-controls';
 import './video-player.css';
 import { saveVideoProgress, getProgressTimeById } from '../../../api/local-storage';
@@ -18,6 +19,7 @@ export type VideoPlayerPropsType = {
   isVideoExpanded: boolean,
   posterImage: ?string,
   handleVideoExpansion: Function,
+  playlist?: ?Object,
 };
 export type VideoPlayerStateType = {
   isVideoPlaying: boolean,
@@ -26,12 +28,13 @@ export type VideoPlayerStateType = {
   isBackButtonSelected: boolean,
   selectedPosition: number,
   showInterface: boolean,
+  videoTitle: string,
 }
 
-const videoJsOptions = (videoUrl: string) => ({
+const videoJsOptions = (videoUrl: string, poster?: ?string) => ({
   preload: 'auto',
-  autoplay: true,
   controls: false,
+  poster,
   sources: [{
     src: videoUrl,
     type: 'application/x-mpegURL',
@@ -68,12 +71,13 @@ class VideoPlayer extends React.Component {
     (this: any).videoSaver = null;
     (this: any).videoShower = null;
     this.state = {
-      isVideoPlaying: true,
+      isVideoPlaying: false,
       timeProgress: 0,
       selectedPosition: 2,
       isBackButtonSelected: false,
       isNavigationSelected: true,
       showInterface: false,
+      videoTitle: props.episodeTitle,
     };
     (this: any).handleFastForward = this.handleFastForward.bind(this);
     (this: any).handlePlay = this.handlePlay.bind(this);
@@ -94,13 +98,33 @@ class VideoPlayer extends React.Component {
       videoID,
       videoUrl,
       isVideoExpanded,
+      playlist,
+      posterImage,
     } = this.props;
-    (this: any).player = videojs((this: any).videoNode, { ...videoJsOptions(videoUrl) });
+    if (playlist) {
+      const episodes = playlist.published_episodes;
+      const currentEpisodeIndex = episodes.findIndex(episode => videoID === episode.id);
+      (this: any).player = videojs((this: any).videoNode);
+      (this: any).player.playlist(
+        episodes.map(episode => videoJsOptions(episode.video_url, episode.thumbnail.url)),
+        currentEpisodeIndex,
+      );
+      this.updateVideoTitle(episodes[currentEpisodeIndex].title);
+      (this: any).player.playlist.autoadvance(0);
+      (this: any).player.on('playlistitem', () => {
+        this.updateVideoTitle(episodes[(this: any).player.playlist.currentItem()].title);
+      });
+    } else {
+      (this: any).player = videojs((this: any).videoNode, {
+        ...videoJsOptions(videoUrl, posterImage),
+      });
+    }
     (this: any).player.muted(!isVideoExpanded);
     if (isVideoExpanded) {
       (this: any).videoSaver = VideoPlayer.createVideoSaver((this: any).player, videoID);
     }
     document.addEventListener('keydown', this.handleKeyPress);
+    this.handlePlay();
   }
   componentDidUpdate(prevProps: VideoPlayerPropsType) {
     if ((this: any).player) {
@@ -115,6 +139,9 @@ class VideoPlayer extends React.Component {
     clearInterval((this: any).videoSaver);
     clearTimeout((this: any).videoShower);
     document.removeEventListener('keydown', this.handleKeyPress);
+  }
+  updateVideoTitle(title: string) {
+    this.setState({ videoTitle: title });
   }
   handleEventSource(event: KeyboardEvent) {
     const {
@@ -167,7 +194,11 @@ class VideoPlayer extends React.Component {
         }
         switch (this.state.selectedPosition) {
           case 0: {
-            // handle previous episode
+            if (this.props.playlist) {
+              (this: any).player.playlist.previous();
+            } else {
+              (this: any).player.currentTime(0);
+            }
             break;
           }
           case 1: {
@@ -183,7 +214,11 @@ class VideoPlayer extends React.Component {
             break;
           }
           case 4: {
-            // handle next episode
+            if (this.props.playlist) {
+              (this: any).player.playlist.next();
+            } else {
+              (this: any).player.currentTime((this: any).player.duration() - 5);
+            }
             break;
           }
           default: {
@@ -293,13 +328,9 @@ class VideoPlayer extends React.Component {
     }
   }
   render() {
-    const {
-      isVideoExpanded,
-      posterImage,
-    } = this.props;
-    const videoPlayerInterface = isVideoExpanded ? (
+    const videoPlayerInterface = this.props.isVideoExpanded ? (
       <VideoPlayerInterface
-        episodeTitle={this.props.episodeTitle}
+        episodeTitle={this.state.videoTitle}
         isVideoPlaying={this.state.isVideoPlaying}
         progress={this.state.timeProgress}
         currentTime={this.showFormattedTime(player => player.currentTime())}
@@ -318,7 +349,6 @@ class VideoPlayer extends React.Component {
             onEnded={this.handleEndReached}
             onTimeUpdate={this.handleTimeUpdate}
             className="video-js vjs-big-play-centered"
-            poster={posterImage}
           />
           {videoPlayerInterface}
         </div>

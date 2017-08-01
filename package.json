@@ -64,7 +64,8 @@
     "react-fontawesome": "^1.6.1",
     "react-router": "^3.0.2",
     "video.js": "^5.19.2",
-    "videojs-contrib-hls": "^5.5.0"
+    "videojs-contrib-hls": "^5.5.0",
+    "videojs-playlist": "^4.0.0"
   },
   "scripts": {
     "postinstall": "flow-typed update",

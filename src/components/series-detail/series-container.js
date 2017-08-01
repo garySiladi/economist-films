@@ -281,6 +281,7 @@ class SeriesContainer extends React.Component {
         posterImage={lastWatchedEpisode.thumbnail.url}
         videoID={lastWatchedEpisode.id}
         handleVideoExpansion={this.handleVideoExpansion}
+        playlist={series}
       />
     ): null;
     const seriesContentClassname = classnames({
