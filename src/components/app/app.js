@@ -227,6 +227,7 @@ class App extends React.Component {
         }
         break;
       case 8:
+      case 461:
       case 'Backspace':
         event.preventDefault();
         this.resetSelectedEpisode();

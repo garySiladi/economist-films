@@ -85,9 +85,13 @@ const dummySliderItemsWithoutKeys = {
 
 function connectEvent(event, type, wrapper) {
   const changedEvent: Object = event;
-  changedEvent.code = type;
+  if (typeof type === 'number') {
+    changedEvent.which = type;
+  } else {
+    changedEvent.code = type;
+  }
   const seriesContainer: Object = wrapper.instance();
-  seriesContainer.handleKeyPress(event);
+  seriesContainer.handleKeyPress(changedEvent);
 }
 
 describe('SeriesContainer', () => {

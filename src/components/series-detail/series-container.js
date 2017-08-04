@@ -157,7 +157,7 @@ class SeriesContainer extends React.Component {
     if (isVideoPlaying || isWatchnowBtnClicked) {
       return;
     }
-    switch (event.code) {
+    switch (event.code || event.which) {
       case 37:
       case 'ArrowLeft':
         event.preventDefault();
@@ -232,6 +232,7 @@ class SeriesContainer extends React.Component {
         }
         break;
       case 8:
+      case 461:
       case 'Backspace':
         if (!goToEpisodeDetail && !isWatchnowBtnClicked) {
           browserHistory.push('/');

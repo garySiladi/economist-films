@@ -226,10 +226,22 @@ class VideoPlayer extends React.Component {
         }
         break;
       case 8:
+      case 461:
+      case 413:
       case 'Backspace':
         event.preventDefault();
         this.handleEventSource(event);
         return;
+      case 415:
+      case 19:
+        this.handlePlayPause();
+        break;
+      case 412:
+        this.handleRewind();
+        break;
+      case 417:
+        this.handleFastForward();
+        break;
       default:
     }
     this.setState({ showInterface: true });

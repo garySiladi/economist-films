@@ -114,6 +114,7 @@ class episodeSelected extends React.Component {
         }
         break;
       case 8:
+      case 461:
       case 'Backspace':
         event.preventDefault();
         closePopupFunction(event);

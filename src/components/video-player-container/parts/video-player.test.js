@@ -288,7 +288,7 @@ test('videoPlayer navigation works with playlist', () => {
   connectEvent(event, 'Enter', app);
   jest.fn(() => {});
 });
-test('videoPlayer navigation works for WEBOS TV', () => {
+test('videoPlayer navigation works for WEBOS TV and Opera', () => {
   const app = mount(
     <VideoPlayer
       videoUrl="https://cdn-films.economist.com/DW/MAY01_REV/MTMYSCivil.m3u8"
@@ -312,6 +312,9 @@ test('videoPlayer navigation works for WEBOS TV', () => {
   connectEvent(event, 13, app);
   jest.fn(() => {});
   connectEvent(event, 8, app);
+  connectEvent(event, 415, app);
+  connectEvent(event, 412, app);
+  connectEvent(event, 417, app);
   connectEvent(event, 'Space', app);
 });
 test('videoPlayer expanding works', () => {
